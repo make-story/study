@@ -1,6 +1,16 @@
 var module1 = require('./module1');
 console.log(module1);
 
+// 함수형 프로그래밍
+// 일급함수 : 함수를 값(파라미터의 값으로 전달)으로 변수(함수표현식)에 담을 수 있음. 또한 함수를 리턴(클로저)할 수 있음.
+// 순수함수 : 외부 스코프 참조(체이닝)이 발생하면 안됨. 하나의 역할만 해야 함.
+// 합성함수 : 함수와 다른 함수를 결합(함께) 실행하여 결과를 얻는 것
+// 람다함수 : 부분 실행(커링), 익명함수(화살표 함수)
+
+const func = () => (...args) => /*arguments.length 화살표함수는 arguments 객체가 없음*/args.length;
+console.log(func()(1));
+
+
 
 // bind
 if (!Function.prototype.bind) {
