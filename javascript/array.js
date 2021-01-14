@@ -58,6 +58,23 @@ var shallowCopy = fruits.slice(); // 사본을 만드는 방법
 // 현재 배열의 값이 3개 있을 때, length 값을 임의로 2개로 감소시키면 넘치는 요소(element)를 지웁니다.
 // (배열의 length 속성을 그에 맞춰 업데이트)
 
+// 배열 크기 설정
+new Array(10/*크기*/);
+
+
+
+// 자료구조
+// 스택 (후입선출)
+var stack = [];
+stack.push(1);
+stack.push(2);
+stack.pop();
+// 큐 (선입선출)
+var queue = [];
+queue.push(1); // enqueue
+queue.push(2); // enqueue
+queue.shift(); // dequeue
+
 
 
 // 펼침연산자
