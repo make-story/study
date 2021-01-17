@@ -54,6 +54,14 @@ var shallowCopy = fruits.slice(); // 사본을 만드는 방법
 
 
 
+// 배열 합치기
+var list1 = [1, 2, 3];
+var list2 = [4, 5, 6];
+var list3 = list1.concat(list2, [7, 8, 9]);
+// [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+
 // 배경 length 값 설정/주입
 // 현재 배열의 값이 3개 있을 때, length 값을 임의로 2개로 감소시키면 넘치는 요소(element)를 지웁니다.
 // (배열의 length 속성을 그에 맞춰 업데이트)
@@ -77,7 +85,34 @@ queue.shift(); // dequeue
 
 
 
-// 펼침연산자
+// 반복기
+let data = [1, 2, 3, 4];
+let dataObject = data.map((currnet, index, list) => {
+	return {
+		data: currnet,
+		index,
+	};
+});
+/*
+[
+	{ data: 1, index: 0 },
+	{ data: 2, index: 1 },
+	{ data: 3, index: 2 },
+	{ data: 4, index: 3 },
+]
+*/
+let dataFilter = data.filter((current, index, list) => {
+	return current % 2 === 0; // 짝수 분류
+});
+// [2, 4]
+let dataReduce = data.reduce((acc, current, index, list) => {
+	return acc + current;
+}, 0);
+// 1 + 2 + 3 + 4 = 10;
+
+
+
+// 펼침연산자 활용
 // 기존
 function removeItem(items, removable) {
 	const index = items.indexOf(removable);
@@ -93,6 +128,7 @@ function formatBook(title, author, price) {
 	return `${title} by ${author} $${price}`;
 }
 formatBook(...book);
+
 
 
 // 펼침연산자 정렬
