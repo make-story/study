@@ -1,3 +1,6 @@
+/**
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object
+ */
 
 // 객체 펼침연산자로 값 갱신
 const book = {

@@ -1,3 +1,13 @@
+/**
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes
+ * 
+ * Private class (ES2019, #)
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Private_class_fields
+ * 
+ * Public
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Class_fields
+ */
+
 function Student(name) {
 	this.name = name;
 }
@@ -142,3 +152,20 @@ var obj = new C(1, 2, 3);
 obj.printAll();
 
 C.sayHello(); // 안녕하세요. 
+
+
+
+// Private (프라이빗)
+class ClassWithPrivateField {
+	#privateField
+}
+  
+class ClassWithPrivateMethod {
+	#privateMethod() {
+		return 'hello world'
+	}
+}
+  
+class ClassWithPrivateStaticField {
+	static #PRIVATE_STATIC_FIELD
+}

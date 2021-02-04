@@ -1,3 +1,6 @@
+/**
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String
+ */
 
 // match()
 var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
