@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>즉시실행함수 (Immediately-invoked function expression) TEST</title>
+<!-- css //-->
+<style type="text/css">
+
+</style>
+
+<!-- js //-->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+/*
+참조에 의한 함수 호출방식 
+*/
+var a = 100;
+var b = { 
+	value: 100 
+};
+function setChangeValue(num, obj) {
+	num = 200;
+	obj.value = 200;
+
+	console.log(num); // 200
+	console.log(obj); // { value: 200 }
+}
+setChangeValue(a, b); // 값복사, 주소복사 
+console.log(a); // 100
+console.log(b); // { value: 200 } 
+
+
+/*
+프로토타입 
+__proto__ = [[Prototype]] 
+
+참고: Object.prototype.valueOf() 는 원시값 반환 
+*/
+var ysm = { 
+	name: '유성민' 
+};
+ysm.valueOf(); // ysm.__proto__ = Object.prototype 객체와 연결됨 
+
+
+/*
+생성자 함수  
+__proto__ 
+*/
+function YSM() {
+	this.name = '유성민';
+}
+YSM.prototype = {
+	getName: function() {
+		return this.name;
+	}
+};
+var ysm = new YSM();
+ysm.getName();
+console.dir(YSM); // 생성자 함수가 가지고 있는 내부 프로퍼티 
+console.dir(ysm); // 생성자 함수를 통해 생성한 객체가 가지고있는 프로퍼티 
+
+
+/*
+this 값 동적할당 
+*/
+var value = 100;
+var deep = {
+    value: 0,
+    func: function() {
+        console.log('deep');
+        console.log(this.value);
+        console.log(this.func);
+    },
+    deep1: {
+        value: 1,
+        func: function() {
+            console.log('deep1');
+            console.log(this.value);
+            console.log(this.func);
+        },
+        deep2: {
+            value: 2,
+            func: function() {
+                console.log('deep2');
+                console.log(this.value);
+                console.log(this.func);
+            }
+        }
+    }
+};
+var func = function() {
+	console.log('전역위치 func 함수');
+	console.log(this.value);	
+};
+func(); // window.func(); 와 동일한 의미로 this 바인딩 대상은 func를 호출한 window
+deep.func(); // this 바인딩 대상은 func를 호출한 deep
+deep.deep1.func();
+deep.deep1.deep2.func(); // deep.deep1. 까지는 네임스패이스이며, this 바인딩 대상은 func를 호출한 deep2 (이 경우 this.value에 값이 없으므로 undefined 출력)
+
+var d = deep.deep1.deep2; // 네임스패이스 줄임
+d.func(); // this 바인딩 대상은 func를 호출한 d
+d.func.call(deep);
+
+
+/*
+내부함수 this
+*/
+var innerTest = {
+	'deep': {
+		func: function() {
+			var that = this;
+			console.log('innerTest.deep1.deep2.func 실행');
+			// 내부함수 this는 글로벌
+			var setInnerThis = function() {
+				console.log('내부함수 this');
+				console.log(this);
+				console.log(that);
+				// 여기에 내부함수를 선언해도 그 함수 내부 this는 글로벌 ...
+
+			};
+			setInnerThis();
+		}
+	}
+};
+innerTest.deep.func();
+
+var setInnerTest = function() {
+	var that = this;
+	// 내부함수 this는 글로벌
+	var setInnerThis = function() {
+		console.log('내부함수 this');
+		console.log(this);
+		console.log(that);
+		// 여기에 내부함수를 선언해도 그 함수 내부 this는 글로벌 ...
+
+	};
+	setInnerThis();
+};
+setInnerTest();
+
+// ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+/*
+스코프 체이닝 
+*/
+var var1 = 1;
+var var2 = 2;
+var ysm = '유성민';
+var func1 = function() {
+	var var1 = 10;
+	var var2 = 20;
+	var func2 = function() {
+		// func2 실행 컨텍스트 생성시 
+		// func1의 스코프 연결리스트를 참조하여 
+		// func2 스코프 정보를 설정한다.
+		console.log('스코프 체인');
+		console.log(ysm); // 스코프 체이닝 발생
+   };
+   func2();
+};
+func1(); 
+
+// ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+/*
+즉시실행 함수는 
+단순히 함수를 괄호"()"로 랩핑한 게 전부
+*/
+(function() {
+	console.log('즉시실행!');
+})();
+
+
+/*
+재귀호출 
+*/
+(function loop(i) {
+	if(10 <= i) {
+		return i;
+	}else {
+		console.log(i);
+		loop(i+1);
+	}
+})(1);
+console.log('value: ', value); // undefined
+
+
+/*
+동일한 변수를 사용하는 라이브러리, window/globl등 분기처리 등 
+jQuery나 Prototype 라이브러리는 동일한 $라는 글로벌 변수를 사용합니다. 
+만약, 이 두개의 라이브러리를 같이 사용한다면 $ 변수에 대한 충돌이 생길 것입니다. 
+하지만, 즉시실행함수의 코드 블럭에서 jQuery를 위한 $ 변수를 사용하고자 한다면 아래와 같이 파라미터를 전달하는 방법으로 
+Prototype의 $ 변수에 대한 overwritting을 예방할 수 있습니다.
+*/
+(function($) {
+	// 함수 스코프 내에서 $는 jQuery Object 지정
+	
+})(jQuery);
+
+
+/*
+공개/비공개 
+캡슐화(정보은닉)
+*/
+var test = (function() {
+	// 비공개 속성/메소드 
+	var a = 'a';
+	var b = 'b';
+
+	// 공개 속성/메소드 
+	return {
+		a: function() {
+			console.log('정보은닉');
+			console.log(a);
+		},
+		b: function() {
+			console.log('정보은닉');
+			console.log(b);
+		}
+	}
+})();
+test.a();
+test.b();
+
+
+/*
+라이브러리 패턴 
+샌드박스
+*/
+(function(factory, global, undefined) {
+	// if() { 분기 factory 실행여부 결정 
+})(function() {}, this);
+
+
+/*
+조건문에서 실행 
+*/
+var f = window || (function() {
+	// ...
+	//console.log('뭐가 없다!');
+})();
+
+
+/*
+초기화 시점의 분기 
+(크로스브라우징 대응에 자주 활용)
+*/
+var utils = {};
+// 1. 과거 if 문 등 분기를 통해 매번 실행 형태 (매번 if 조건문 실행)
+utils = { 
+	addListener: function(element, type, listener) {
+		if(typeof window.addEventListener === 'function') {
+			element.addEventListener(type, listener, false);
+		}else if(typeof document.attachEvent === 'function') {
+			element.attachEvent('on' + type, listener);
+		}else {
+			element['on' + type] = listener;
+		}
+	},
+	removeListener: function(element, type, listener) {
+		// ...
+	}
+};
+// 2. 즉시실행함수에서 분기처리 (매번 if 문을 통한 분기처리 불필요)
+utils = { 
+	addListener: function() {},
+	removeListener: function() {}
+};
+(function() {
+	if(typeof window.addEventListener === 'function') {
+		utils.addListener = function(element, type, listener) {
+			element.addEventListener(type, listener, false);
+		};
+	}else if(typeof document.attachEvent === 'function') {
+		utils.addListener = function(element, type, listener) {
+			element.attachEvent('on' + type, listener);
+		};
+	}
+})();
+// 3. 즉시실행함수를 통한 바로 적용 
+utils = { 
+	addListener: (function() {
+		var result;
+		
+		if(typeof window.addEventListener === 'function') {
+			result = function(element, type, listener) {
+				element.addEventListener(type, listener, false);
+			};
+		}else if(typeof document.attachEvent === 'function') {
+			result = function(element, type, listener) {
+				element.attachEvent('on' + type, listener);
+			};
+		}
+
+		return result;
+	})(),
+	removeListener: (function() {
+
+	})()
+};
+
+// ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+/*
+클로저 
+*/
+var getClosure = function() {
+	var text = 'test';
+	return function() {
+		console.log('클로저');
+		console.log(text);
+	};
+}
+var closure = getClosure();
+closure();
+
+
+/*
+커링 (bind() 크로스브라우저 구현에 대표적으로 사용되었음)
+*/
+var setCurry = function(i, j) {
+	if(typeof j === 'undefined') {
+		console.log('부분 파라미터 - 커링');
+		return function(j) {
+			return i + j;
+		}
+	}else {
+		return i + j;
+	}
+}
+console.log(setCurry(1)(2));
+</script>
+</head>
+<body>
+TEST
+
+<pre>
+<code>
+// this 값 동적할당 
+var value = 100;
+var deep = {
+    value: 0,
+    func: function() {
+        console.log('deep');
+        console.log(this.value);
+        console.log(this.func);
+    },
+    deep1: {
+        value: 1,
+        func: function() {
+            console.log('deep1');
+            console.log(this.value);
+            console.log(this.func);
+        },
+        deep2: {
+            value: 2,
+            func: function() {
+                console.log('deep2');
+                console.log(this.value);
+                console.log(this.func);
+            }
+        }
+    }
+};
+var func = function() {
+	console.log('전역위치 func 함수');
+	console.log(this.value);	
+};
+func(); // window.func(); 와 동일한 의미로 this 바인딩 대상은 func를 호출한 window
+deep.func(); // this 바인딩 대상은 func를 호출한 deep
+deep.deep1.func();
+deep.deep1.deep2.func(); // deep.deep1. 까지는 네임스패이스이며, this 바인딩 대상은 func를 호출한 deep2 (이 경우 this.value에 값이 없으므로 undefined 출력)
+
+var d = deep.deep1.deep2; // 네임스패이스 줄임
+d.func(); // this 바인딩 대상은 func를 호출한 d
+d.func.call(deep);
+
+
+/*
+내부함수 this
+*/
+var setTestThis = function() {
+	var that = this;
+	// 내부함수 this는 글로벌
+	var setInnerThis = function() {
+		console.log('내부함수 this');
+		console.log(this);
+		console.log(that);
+		// 여기에 내부함수를 선언해도 그 함수 내부 this는 글로벌 ...
+
+	};
+	setInnerThis();
+};
+setTestThis();
+
+
+/*
+스코프 체이닝 
+*/
+var var1 = 1;
+var var2 = 2;
+var ysm = '유성민';
+var func1 = function() {
+	var var1 = 10;
+	var var2 = 20;
+	var func2 = function() {
+		// func2 실행 컨텍스트 생성시 
+		// func1의 스코프 연결리스트를 참조하여 
+		// func2 스코프 정보를 설정한다.
+		console.log('스코프 체인');
+		console.log(ysm); // 스코프 체이닝 발생
+	};
+	func2();
+};
+func1(); 
+
+
+/*
+즉시실행 함수는 
+단순히 함수를 괄호"()"로 랩핑한 게 전부
+*/
+(function() {
+	console.log('즉시실행!');
+})();
+
+
+/*
+재귀호출 
+*/
+(function loop(i) {
+	if(10 <= i) {
+		return i;
+	}else {
+		console.log(i);
+		loop(i+1);
+	}
+})(1);
+console.log('value: ', value); // undefined
+
+
+/*
+동일한 변수를 사용하는 라이브러리, window/globl등 분기처리 등 
+jQuery나 Prototype 라이브러리는 동일한 $라는 글로벌 변수를 사용합니다. 
+만약, 이 두개의 라이브러리를 같이 사용한다면 $ 변수에 대한 충돌이 생길 것입니다. 
+하지만, 즉시실행함수의 코드 블럭에서 jQuery를 위한 $ 변수를 사용하고자 한다면 아래와 같이 파라미터를 전달하는 방법으로 
+Prototype의 $ 변수에 대한 overwritting을 예방할 수 있습니다.
+*/
+(function($) {
+	// 함수 스코프 내에서 $는 jQuery Object 지정
+	
+})(jQuery);
+
+
+/*
+공개/비공개 
+캡슐화(정보은닉)
+*/
+var test = (function() {
+	// 비공개 속성/메소드 
+	var a = 'a';
+	var b = 'b';
+
+	// 공개 속성/메소드 
+	return {
+		a: function() {
+			console.log('정보은닉');
+			console.log(a);
+		},
+		b: function() {
+			console.log('정보은닉');
+			console.log(b);
+		}
+	}
+})();
+test.a();
+test.b();
+
+
+/*
+라이브러리 패턴 
+샌드박스
+*/
+(function(factory, global, undefined) {
+	// if() { 분기 factory 실행여부 결정 
+})(function() {}, this);
+
+
+/*
+조건문에서 실행 
+*/
+var f = window || (function() {
+	// ...
+	//console.log('뭐가 없다!');
+})();
+
+
+/*
+초기화 시점의 분기 
+(크로스브라우징 대응에 자주 활용)
+*/
+var utils = {};
+// 1. 과거 if 문 등 분기를 통해 매번 실행 형태 (매번 if 조건문 실행)
+utils = { 
+	addListener: function(element, type, listener) {
+		if(typeof window.addEventListener === 'function') {
+			element.addEventListener(type, listener, false);
+		}else if(typeof document.attachEvent === 'function') {
+			element.attachEvent('on' + type, listener);
+		}else {
+			element['on' + type] = listener;
+		}
+	},
+	removeListener: function(element, type, listener) {
+		// ...
+	}
+};
+// 2. 즉시실행함수에서 분기처리 (매번 if 문을 통한 분기처리 불필요)
+utils = { 
+	addListener: function() {},
+	removeListener: function() {}
+};
+(function() {
+	if(typeof window.addEventListener === 'function') {
+		utils.addListener = function(element, type, listener) {
+			element.addEventListener(type, listener, false);
+		};
+	}else if(typeof document.attachEvent === 'function') {
+		utils.addListener = function(element, type, listener) {
+			element.attachEvent('on' + type, listener);
+		};
+	}
+})();
+// 3. 즉시실행함수를 통한 바로 적용 
+utils = { 
+	addListener: (function() {
+		var result;
+		
+		if(typeof window.addEventListener === 'function') {
+			result = function(element, type, listener) {
+				element.addEventListener(type, listener, false);
+			};
+		}else if(typeof document.attachEvent === 'function') {
+			result = function(element, type, listener) {
+				element.attachEvent('on' + type, listener);
+			};
+		}
+
+		return result;
+	})(),
+	removeListener: (function() {
+
+	})()
+};
+
+
+/*
+클로저 
+*/
+var getClosure = function() {
+	var text = 'test';
+	return function() {
+		console.log('클로저');
+		console.log(text);
+	};
+}
+var closure = getClosure();
+closure();
+
+
+/*
+커링 (bind() 크로스브라우저 구현에 대표적으로 사용되었음)
+*/
+var setCurry = function(i, j) {
+	if(typeof j === 'undefined') {
+		console.log('부분 파라미터 - 커링');
+		return function(j) {
+			return i + j;
+		}
+	}else {
+		return i + j;
+	}
+}
+console.log(setCurry(1)(2));
+
+
+/*
+이벤트 흐름 
+캡쳐/타겟/버블 
+*/
+var divs = document.querySelectorAll('div');
+divs.forEach(function(div) {
+	// 캡쳐링 : true - IE, jQuery 미지원
+	div.addEventListener(
+		'click', 
+		function() {
+			console.log('이벤트 캡쳐링');
+			console.log(event.currentTarget.id);
+			//event.stopPropagation();
+		}, 
+		true
+	);
+
+	// 버블링 : false - 기본값 
+	div.addEventListener(
+		'click', 
+		function() {
+			console.log('이벤트 버블링');
+			console.log(event.currentTarget.id);
+			//event.stopPropagation(); 
+		}, 
+		false
+	);
+});
+</code>
+</pre>
+
+<!-- 이벤트 흐름 //-->
+<div id="deep1" style="width: 300px; height: 300px; border: 1px solid #000;">
+	<div id="deep2" style="width: 200px; height: 200px; border: 1px solid #000;">
+		<div id="deep3" style="width: 100px; height: 100px; border: 1px solid #000;">
+			<!-- 클릭이벤트 발생 //-->
+		</div>
+	</div>
+</div>
+<script>
+var setEvent = function(element, is) {
+	element.addEventListener(
+		'click', 
+		function(event) {
+			if(is === true) {
+				console.log('이벤트 캡쳐링');
+			}else if(is === false) {
+				console.log('이벤트 버블링');
+			}
+			console.log(event.currentTarget.id);
+			//event.stopPropagation();
+		}, 
+		is
+	);
+};
+setEvent(document.getElementById('deep1'), true);
+setEvent(document.getElementById('deep2'), true);
+setEvent(document.getElementById('deep3'), true);
+setEvent(document.getElementById('deep1'), false);
+setEvent(document.getElementById('deep2'), false);
+setEvent(document.getElementById('deep3'), false);
+
+/*var divs = document.querySelectorAll('div');
+divs.forEach(function(div) {
+	// 버블링/캡쳐링 관계없이 먼저 등록된 이벤트가 먼저 실행되는지 테스트 
+	// 그 결과 target 단계에서는 먼저 등록한 이벤트가 실행될 수 있음 확인 
+
+	// 캡쳐링 : true - IE, jQuery 미지원
+	div.addEventListener(
+		'click', 
+		function(event) {
+			console.log('이벤트 캡쳐링');
+			console.log(event.currentTarget.id);
+			//event.stopPropagation();
+		}, 
+		true
+	);
+
+	// 버블링 : false - 기본값 
+	div.addEventListener(
+		'click', 
+		function(event) {
+			console.log('이벤트 버블링');
+			console.log(event.currentTarget.id);
+			//event.stopPropagation(); 
+		}, 
+		false
+	);
+});*/
+</script>
+</body>
+</html>

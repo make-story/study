@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>TEST</title>
+</head>
+<body>
+
+<script>
+// 버블정렬
+/*
+https://acmicpc.net/problem/1874
+*/
+
+document.querySelector
+
+function swap(arr, index1, index2) {
+	let temp = arr[index1];
+	arr[index1] = arr[index2];
+	arr[index2] = temp;
+}
+
+function b(arr=[1, 4, 6, 2, 7, 8]) {
+	console.log(`length: ${arr.length}`);
+	for(let i=arr.length; i>=2; --i) {
+		console.log(`i: ${i}`);
+		for(let j=0; j<=i-1; ++j) {
+			console.log(`j: ${j}`);
+			if(arr[j+1] < arr[j]) {
+				swap(arr, j, j+1);
+			}
+		}
+	}
+	return arr;
+}
+console.log(b());
+
+
+
+function test1(arr=[5, 6, 7, 8, 9]) {
+	let min = 5;
+	let max = 21;
+	let i = 0;
+	while(true) {
+		if(arr.length-3 <= i) {
+			break;
+		}
+		if(min < arr[i]) {
+			if(arr[i] + arr[i+1] + arr[i+2] <= max) {
+				console.log(`${i} / ${i+1} / ${i+2}`);
+				break;
+			}
+		}
+		i++;
+	}
+}
+test1();
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, minimal-ui" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title></title>
+<!-- CSS //-->
+<link rel="stylesheet" type="text/css" href=""/>
+<style>
+
+</style>
+</head>
+<body>
+
+<!-- JS //-->
+<script>
+// 리스트
+/*
+-
+TDD
+배열
+
+*/
+function List() {
+
+}
+
+// 스택
+/*
+-
+TDD
+후입선출
+
+*/
+
+
+
+// 큐
+/*
+-
+TDD
+선입선출
+
+*/
+
+
+// 연결리스트
+/*
+다른 노드를 참고: 링크
+첫번째 노드: head
+마지막 노드: null
+
+*/
+
+
+
+// 딕셔너리
+/*
+-
+TDD큐
+JS Object 는 딕셔너리 형식으로 동작하게 설계 (JS 배열역시 객체)
+*/
+
+
+
+// 해싱
+/*
+-
+TDD
+
+*/
+
+
+
+// 집합
+/*
+-
+TDD
+
+*/
+
+
+
+// 이진트리검색
+/*
+-
+TDD
+
+*/
+
+// ---------- ---------- ---------- ---------- ---------- ---------- 
+
+// http://hsp1116.tistory.com/33
+// index2 에 있는 데이터는 index1 으로 data 배열에서 index2가 앞으로 이동
+function swap(data, index1, index2) {
+	var tmp = data[index1];
+	data[index1] = data[index2];
+	data[index2] = tmp;
+}
+
+
+// 버블정렬
+/*
+-
+설명
+
+*/
+function bubbleSort(data) {
+	var numElement = data.length;
+	var temp;
+
+	// 큰값을 뒤로 보낸다.
+	// 배열의 끝에서 부터 정렬을 완성해 간다.
+	for(var outer=numElement; outer>=2; --outer) { // 전체 배열 크기에서 작아지며 검사 - 하나하나 정렬이 되어가는 index
+		for(var inner=0; inner<=outer-1; ++inner) { // 첫번째 배열부터 비교해 간다. - 비교대상 반복문 
+			console.log(outer);
+			console.log(inner);
+			console.log(inner+1);
+			console.log('----------');
+			// 비교 index 순서: 0 <-> 1 비교, 1 <-> 2 비교, 2 <-> 3 비교, 3 <-> 4 비교 ...
+			if(data[inner] > data[inner+1]) {
+				swap(data, inner, inner+1);
+			}
+		}
+	}
+}
+//bubbleSort([1,4,4,2,3,5,3]);
+
+
+
+// 선택정렬
+// https://ko.wikipedia.org/wiki/%EC%84%A0%ED%83%9D_%EC%A0%95%EB%A0%AC
+/*
+-
+설명
+
+*/
+function selectionSort(data) {
+	var min; // 비교해 가며 최소값에 해당하는 index
+	var temp;
+
+	// 작은값을 앞으로 보낸다.
+	// 배열의 앞부터 정렬해가며 완성한다.
+	for(var outer=0; outer<=data.length-2; ++outer) { // 하나하나 정렬이 되어가는 index
+		min = outer;
+		console.log('min: ' + min);
+		for(var inner=outer+1; inner<=data.length-1; ++inner) { // 첫번째 인덱스 다음부터 비교해간다. - 비교대상 반복문
+			console.log('inner: ' + inner);
+
+			if(data[inner] < data[min]) {
+				min = inner;
+			}
+		}
+		swap(data, outer, min);
+	}
+}
+//selectionSort([1,4,4,2,3,5,3]);
+
+
+
+
+// 삽입 정렬
+/*
+-
+설명
+
+*/
+function insertionSort(data) {
+	var temp;
+	var inner;
+
+	// 배열의 두번째 인덱스 부터
+	// 자신의 앞에 있는 값들과 비교하여, 자신이 들어가야 할 곳에 삽입된다.
+	for(var outer=1; outer<=data.length-1; ++outer) {
+		temp = data[outer]; // 값을 임시로 가지고 있다.
+		inner = outer;
+
+		console.log('outer: ' + outer);
+		console.log('inner: ' + inner);
+
+		// 현재 위치에서 앞으로가며 값을 비교한다.
+		// 자신보다 큰값이 없을 때 까지 검사
+		while(inner > 0 && (data[inner-1] >= temp)) {
+			// 자신의 앞에 있는 값이 자신보다 크면, 그 값을 현재 자신의 위치와 바꾼다.
+			data[inner] = data[inner-1];
+			--inner;
+		}
+
+		// 내가 들어가야 할 위치에 삽입된다.
+		data[inner] = temp; 
+	}
+}
+//insertionSort([1,4,4,2,3,5,3]);
+
+
+
+// 퀵정렬
+/*
+-
+설명
+
+*/
+function qSort(arr) {
+	if(arr.length == 0) {
+		return [];
+	}
+	var left = [];
+	var right = [];
+	var pivot = arr[0]; // 왼쪽 배열 오른쪽 배열으로 분류할 비교값(기준)
+
+	// 특정 기분값(pivot) 을 정하고, 그 값보다 작은 값은 왼쪽, 큰값을 오른쪽으로 보내며 정렬한다.
+	// 특정 값을 0번째 index 로 잡고 1번째 인덱스와 비교해가며 검사한다.
+	for(var i=1; i<arr.length; i++) {
+		if(arr[i] < pivot) {
+			left.push(arr[i]);
+		}else {
+			right.push(arr[i]);
+		}
+	}
+	return qSort(left).concat(pivot, qSort(right)); // 재귀호출 / 배열합치기
+}
+
+</script>
+</body>
+</html>

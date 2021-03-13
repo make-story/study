@@ -1,0 +1,146 @@
+* {
+	/*
+	-webkit-transition: background 150ms ease-in-out;
+	-moz-transition: background 150ms ease-in-out;
+	-o-transition: background 150ms ease-in-out;
+	-ms-transition: background 150ms ease-in-out;
+	transition: background 150ms ease-in-out;
+	*/
+	
+	/*아래 4가지는 트랜지션 축약형 표기법 순서라고 생각하면 된다.*/
+	transition-property: background; /*트랜지션할 속성*/
+	transition-duration: 0.3s; /*트랜지션 지속 시간*/
+	transition-timing-function: ease; /*지정한 시간 동안 트랜지션 속도*/
+	transition-delay: 0.5s; /*트랜지션할 지연*/
+
+	/*트랜지션 다중 속성 지원*/
+	transition: background .3s ease, color 0.2s linear;
+	
+	/*트랜지션 모든 속성 사용*/
+	transition: all .3s ease;
+	
+	/*텍스트 그림자 추가하기*/
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+	
+	/*모서리 둥글게하기*/
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	/*트랜스폼 2배확대*/
+	-webkit-transform: scale(1.5);
+	-moz-transform: scale(1.5);
+	-o-transform: scale(1.5);
+	-ms-transform: scale(1.5);
+	transform: scale(1.5);
+
+	/*트랜스폼 확대위치 지정하기(왼쪽 아래 부분에서부터 확대)*/
+	-webkit-transform-origin: bottom left;
+	-moz-transform-origin: bottom left;
+	-o-transform-origin: bottom left;
+	-ms-transform-origin: bottom left;
+	transform-origin: bottom left;
+
+	/*그림자넣기(오페라, IE 접두어 필요없음)*/
+	-webkit-box-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+	-moz-box-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+	box-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+
+	/*트랜지션을 이용하여, 트랜스폼 부드럽게 확대하기*/
+	-webkit-transition: -webkit-transform 150ms ease-in-out;
+	-moz-transition: -moz-transform 150ms ease-in-out;
+	-o-transition: -o-transform 150ms ease-in-out;
+	-ms-transition: -ms-transform 150ms ease-in-out;
+	transition: transform 150ms ease-in-out;
+
+	/*트랜스폼 회전(rotate), 비틀기(skew), 이동(translate)*/
+	-webkit-transform: scale(1.5) rotate(-10deg); /*scale(1.5), rotate(-10deg) 중 한가지 또는 다중으로 설정할 수 있음*/
+	-moz-transform: scale(1.5) rotate(-10deg);
+	-o-transform: scale(1.5) rotate(-10deg);
+	-ms-transform: scale(1.5) rotate(-10deg);
+	transform: scale(1.5) rotate(-10deg);
+
+	-webkit-transform: scale(1.5) skew(-5deg, 30deg);
+	-moz-transform: scale(1.5) skew(-5deg, 30deg);
+	-o-transform: scale(1.5) skew(-5deg, 30deg);
+	-ms-transform: scale(1.5) skew(-5deg, 30deg);
+	transform: scale(1.5) skew(-5deg, 30deg);
+
+	-webkit-transform: scale(1.5) translate(20px, 40px); /*X, Y 좌표*/
+	-moz-transform: scale(1.5) translate(20px, 40px);
+	-o-transform: scale(1.5) translate(20px, 40px);
+	-ms-transform: scale(1.5) translate(20px, 40px);
+	transform: scale(1.5) translate(20px, 40px);
+
+	/*그레이디언트*/
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+	background: linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
+
+	/*3D 참고*/
+	-webkit-transform: translate3d(59px,0,0) rotate3d(0,1,0,-45deg);
+	-moz-transform: translate3d(59px,0,0) rotate3d(0,1,0,-45deg);
+	-o-transform: translate3d(59px,0,0) rotate3d(0,1,0,-45deg);
+	-ms-transform: translate3d(59px,0,0) rotate3d(0,1,0,-45deg);
+	transform: translate3d(59px,0,0) rotate3d(0,1,0,-45deg);
+
+	/*다중배경*/
+	background: 
+		url(주소) repeat-x fixed -80% 0; /*아래 다중배경을 지원하지 않는 브라우저를 대비함*/
+	background: 
+		url(주소) repeat-x fixed -130% 0,
+		url(주소) repeat-x fixed 40% 0,
+		url(주소) repeat-x fixed -80% 0,
+		url(주소) repeat-x fixed 100% 0;
+	background-color: #1a1a1a;
+
+	/**/
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+
+	/**/
+	-webkit-perspective: 500px;
+	-moz-perspective: 500px;
+	-o-perspective: 500px;
+	-ms-perspective: 500px;
+	perspective: 500px;
+
+	/**/
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+
+	/*키프레임*/
+	.te-flip3 .te-back {
+		-webkit-transform: rotate3d(0,1,0,-180deg);
+	}
+	.te-flip3.te-show .te-card{
+		-webkit-animation: flip3 1s ease-in-out forwards;
+	}
+	@-webkit-keyframes flip3{ /*애니메이션으로 퍼센트로 지정*/
+		0% {
+			-webkit-transform: rotate3d(0,1,0,0);
+		}
+		50% {
+			-webkit-transform: rotate3d(0,1,0,-190deg);
+		}
+		70% {
+			-webkit-transform: rotate3d(0,1,0,-172deg);
+		}
+		80% {
+			-webkit-transform: rotate3d(0,1,0,-180deg);
+		}
+		95% {
+			-webkit-transform: rotate3d(0,1,0,-178deg);
+		}
+		100% { 
+			-webkit-transform: rotate3d(0,1,0,-180deg); 
+		}
+	}
+
+}

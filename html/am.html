@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title>TEST</title>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<style>
+/* css reset */
+body {
+	min-width: 100px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body, html {
+	margin: 0;
+	padding: 0;
+    min-height: 100%;
+    height: 100%;
+    font-size: 16px;
+    color: #1c2023;
+}
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+article, aside, footer, header, nav, section {
+    display: block;
+}
+
+/* app */
+#app {
+	max-width: 100%;
+}
+#app .detail-thumbnail-container {
+    position: relative;
+    width: 100%;
+    background-color: rgba(196,187,171,.2);
+}
+#app .detail-thumbnail-container img {
+	width: 100%;
+}
+#app .detail-thumbnail-container .swiper-pagination {
+	position: absolute;
+    bottom: 20px;
+    font-size: 12px;
+    color: #fff;
+	text-align: center;
+	z-index: 100;
+}
+#app ul.tab {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow: auto;
+}
+#app ul.tab li {
+	margin: 0;
+	padding: 10px;
+	text-align: center;
+	float: left;
+}
+#app ul.tab li.on {
+	background-color: #222;
+	color: #fff;
+}
+
+/* bottom-container */
+#app .bottom-container {
+	overflow: hidden;
+	position: fixed;
+	padding: 16px 0 24px 0;
+	width: 100%;
+	height: 100px;
+	bottom: 0;
+	left: 0;
+	border-radius: 8px 8px 0 0;
+	background-color: #fff;
+	z-index: 300;
+}
+#app .bottom-container .basket-button {
+	border: 1px solid #eb0019;
+	background-color: #eb0019;
+	color: #fff;
+}
+#app .bottom-container .buy-button {
+	border: 1px solid #eb0019;
+	background-color: transparent;
+	color: #eb0019;
+}
+
+/* buy-layer */
+.buy-layer {
+	position: fixed;
+	left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh; /* 100vh -> 디바이스 높이 100% */ 
+    box-sizing: border-box;
+	/*background: rgba(0, 0, 0, 0.2);*/
+    background-color: #fff;
+	z-index: 999;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+</style>
+</head>
+
+<body>
+<div id="app" class="">
+	<!-- slide -->
+	<section class="detail-thumbnail-container">
+		<div class="_swiper swiper-container">
+			<div class="swiper-wrapper">
+				<!-- UL 태그로 변경해야 한다. //-->
+				<div class="swiper-slide">
+					<img src="https://c2.poing.co.kr/MRI-original/MjAyMDA5/16002452525f61ce0463e67.jpeg" alt="">
+				</div>
+				<div class="swiper-slide">
+					<img src="https://c2.poing.co.kr/MRI-original/MjAyMDA5/16002452365f61cdf4123cf.jpeg" alt="">
+				</div>
+				<div class="swiper-slide">
+					<img src="https://c2.poing.co.kr/MRI-original/MjAyMDA5/16002452455f61cdfd0790b.jpeg" alt="">
+				</div>
+				<div class="swiper-slide">
+					<img src="https://c2.poing.co.kr/MRI-original/MjAyMDA5/16003119945f62d2ba8e821.jpeg" alt="">
+				</div>
+				<div class="swiper-slide">
+					<img src="https://c2.poing.co.kr/MRI-original/MjAyMDA5/16002452495f61ce014647c.jpeg" alt="">
+				</div>
+			</div>
+			<div class="swiper-pagination"></span>
+		</div>
+	</section>
+	<!--// slide -->
+
+	<!-- tab -->
+	<section class="">
+		<div>
+			<ul class="_tabMenu tab">
+				<li class="on" data-name="info">정보</li>
+				<li class="" data-name="menu">메뉴</li>
+				<li class="" data-name="item">상품문의</li>
+			</ul>
+		</div>
+		<div>
+			<article class="_tabContent" data-name="info">
+				<div class="_timer"><!-- 0일 00시 00분 00초 --></div>
+			</article>
+			<article class="_tabContent" data-name="menu" style="display: none;">
+				menu
+			</article>
+			<article class="_tabContent" data-name="item" style="display: none;">
+				<textarea class="_questionTextarea"></textarea>
+				<button class="_questionButton">Submit</button>
+				<ul class="_questionList">
+					<li></li>
+				</ul>
+			</article>
+		</div>
+	</section>
+	<!--// tab -->
+
+	<!-- bottom-->
+	<section class="bottom-container">
+		<button class="basket-button">장바구니 담기</button>
+		<button class="_buyButton buy-button">구매하기</button>
+	</section>
+	<!--// bottom-->
+</div>
+
+<!-- layer -->
+<div class="_buyLayer buy-layer" style="display: none;">
+	<button class="_buyLayerCloseButton">Close</button>
+	<section>
+		<!-- 선택 article -->
+		<ul class="_itemCheck">
+			<li>
+				<div><input type="checkbox" name="price" value="" class="_itemCheckbox" data-code="1">[런치] 119,000</div>
+			</li>
+			<li>
+				<div><input type="checkbox" name="price" value="" class="_itemCheckbox" data-code="2">[디너] 119,000</div>
+			</li>
+		</ul>
+		<!--// 선택 -->
+
+		<!-- 선택된 것 article -->
+		<div class="_itemList"></div>
+		<!--// 선택된 것 -->
+
+		<!-- 가격 article -->
+		<div class="_itemTotal"></div>
+		<!--// 가격 -->
+	</section>
+</div>
+<!--// layer -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+// https://m.poing.io/product/7640
+
+/**
+ * 슬라이드 (Swiper 라이브러리 의존)
+ * [리팩토링] import/export 모듈화
+ */
+ if(typeof Swiper === 'function') {
+	new Swiper('._swiper', {
+		loop: true,
+		pagination: {
+			el: '.swiper-pagination',
+			type: 'fraction',
+			renderFraction: function (currentClass, totalClass) {
+				return `<span class="${currentClass}"></span> / <span class="${totalClass}"></span>`;
+			},
+		},
+	});
+}
+
+
+/**
+ * 타이머 
+ * [리팩토링] import/export 모듈화, 타이머는 추후 웹워커 활용
+ * 해외의 경우 디바이스 타임이 변경될 수 있으므로, 서버타임 확인 필요
+ */
+let timer = null; // 인터벌 고유값
+const $timer = document.querySelector('._timer'); // 타이머 출력한 element
+const setCountDownTimerView = ($target, { days, hours, minutes, seconds, }={}) => {
+	//console.log(days, hours, minutes, seconds);
+	//[('0' + hours).slice(-2), ('0' + minutes).slice(-2), ('0' + seconds).slice(-2)].join(':');
+	if($target) {
+		$target.textContent = `${days}일 ${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`;
+	}
+};
+const setCountDownTimerEnd = () => {
+	window.clearInterval(timer);
+};
+const setCountDownTimer = (end=new Date().getTime()) => {
+	// 사용자 지정시간과 현재시간 계산
+	let now = new Date().getTime();
+	let distance = end - now;
+
+	// 필요값
+	let days = 0;
+	let hours = 0;
+	let minutes = 0;
+	let seconds = 0;
+
+	// 타이머 종료 여부 검사
+	if(distance < 0) {
+		setCountDownTimerEnd();
+	}else {
+		// 날짜 계산
+		days = Math.floor(distance / (1000 * 60 * 60 * 24)); // 일
+		hours = Math.floor((distance / (1000 * 60 * 60)) % 24); // 시간
+		minutes = Math.floor((distance / (1000 * 60)) % 60); // 분
+		seconds = Math.floor((distance / 1000) % 60); // 초
+	}
+
+	// 반환
+	return {
+		days,
+		hours,
+		minutes,
+		seconds,
+	};
+};
+const setCountDownTimerStart = () => {
+	// [리팩토링]
+	// 여기서 년, 월, 일, 시, 분, 초를 파라미터로 받아
+	// 가공 후 타머저를 작동해 주는 코드로 리팩토링 해야한다.
+	// 또한 타이머가 시간오차를 계산하는 것도 들어가야 한다.
+	setCountDownTimerEnd();
+	timer = window.setInterval(() => {
+		// 합성함수
+		setCountDownTimerView($timer, setCountDownTimer(new Date(2020, 11-1, 29).getTime()));
+	}, 1000);
+};
+setCountDownTimerStart();
+
+
+/**
+ * tab
+ * [리팩토링] import/export 모듈화, 추후 타이머가 실제 필요한 탭에서만 타이머를 실행해줘야 한다.
+ */
+const $tabMenu = document.querySelector('._tabMenu'); // tab element
+const $tabContent = document.querySelectorAll('._tabContent'); // li 태그에 따른 컨텐츠 elements
+const tabMenuToggle = ($target, name) => {
+	// 유효성 검사
+	if(!$target) {
+		return;
+	}
+
+	// toggle
+	[ ...$target ].forEach($element => {
+		let elementDataName = $element.getAttribute('data-name');
+		if(name === elementDataName) {
+			$element.classList.add('on');
+		}else {
+			$element.classList.remove('on');
+		}
+	});
+};
+const tabContentToggle = ($target, name) => {
+	// 유효성 검사
+	if(!$target) {
+		return;
+	}
+
+	// toggle
+	[ ...$target ].forEach($element => {
+		let elementDataName = $element.getAttribute('data-name');
+		if(name === elementDataName) {
+			$element.style.display = "";
+		}else {
+			$element.style.display = "none";
+		}
+	});
+};
+const tabEvent = event => {
+	let $target = event.target;
+	let name = '';
+
+	// 이벤트 델리게이션 방식
+	// li filter
+	if($target.nodeName !== 'LI') {
+		return;
+	}
+
+	// name view toggle
+	name = $target.getAttribute('data-name');
+	tabMenuToggle($tabMenu.querySelectorAll('li'), name);
+	tabContentToggle($tabContent, name);
+};
+if($tabMenu) {
+	$tabMenu.onclick = tabEvent;
+}
+
+
+/**
+ * 상품문의
+ * [리팩토링] import/export 모듈화
+ */
+const $questionTextarea = document.querySelector('._questionTextarea');
+const $questionButton = document.querySelector('._questionButton');
+const $questionList = document.querySelector('._questionList');
+const setQuestionAppend = ($textarea, $ul) => {
+	// 유효성 검사
+	if(!$textarea) {
+		return;
+	}
+
+	// 텍스트
+	const text = $textarea.value.trim();
+	if(!text) {
+		alert("내용을 입력해 주세요.");
+		$textarea.focus();
+		return;
+	}
+
+	// [리팩토링] 서버로 데이터 전송 필요
+	const fragment = document.createDocumentFragment();
+	const $li = document.createElement('li');
+
+	// fragment 생성 이유는 추후 리플로우, 리페인트 작업 추가(style)
+	// [리팩토링] template 으로 분리필요
+	$li.textContent = `유성민 : ${text}`;
+	fragment.appendChild($li);
+	$ul.appendChild(fragment);
+
+	// 초기화
+	$textarea.value = '';
+	$textarea.focus();
+};
+if($questionButton) {
+	$questionButton.onclick = event => setQuestionAppend($questionTextarea, $questionList);
+}
+
+
+/**
+ * 레이어
+ * [리팩토링] import/export 모듈화
+ */
+const $buyButton = document.querySelector('._buyButton');
+const $buyLayer = document.querySelector('._buyLayer');
+const $buyLayerCloseButton = $buyLayer && $buyLayer.querySelector('._buyLayerCloseButton') || null;
+const setLayerOpen = $layer => {
+	// 유효성 겁사
+	if(!$layer) {
+		return;
+	}
+
+	$layer.style.display = '';
+};
+const setLayerClear = $layer => {
+	// 유효성 겁사
+	if(!$layer) {
+		return;
+	}
+
+	$layer.style.display = 'none';
+};
+if($buyButton && $buyLayerCloseButton) {
+	$buyButton.onclick = event => setLayerOpen($buyLayer);
+	$buyLayerCloseButton.onclick = event => setLayerClear($buyLayer);
+}
+
+
+/**
+ * 상품선택
+ * [리팩토링] import/export 모듈화
+ */
+const itemData = { // 상태 데이터 
+	'1': {
+		'name': '[런치] 119,000',
+		'price': 119000,
+		'count': 1,
+		'checked': false,
+	},
+	'2': {
+		'name': '[디너] 119,000',
+		'price': 119000,
+		'count': 1,
+		'checked': false,
+	},
+};
+const $itemCheck = document.querySelector('._itemCheck');
+const $itemCheckbox = $itemCheck && $itemCheck.querySelectorAll('._itemCheckbox');
+const $itemList = document.querySelector('._itemList');
+const $itemTotal = document.querySelector('._itemTotal');
+const getPriceFormat = price => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const setItemDataUpdate = ({ $checkbox, data }={}) => { // itemData 에서 checked 상태 변경
+	[ ...$checkbox ].forEach($element => {
+		const code = $element.getAttribute('data-code');
+		if(code in data) {
+			data[code].checked = $element.checked;
+			if(!data[code].checked) {
+				data[code].count = 1;
+			}
+		}
+	});
+};
+const setInputCountUpdate = ({ $list, data, }={}) => { // item 리스트 내 input 값 itemData 값에 따라 동기화
+	for(const [code, value] of Object.entries(data)) {
+		const { count } = value;
+		const $input = $list.querySelector(`._item[data-code="${code}"] ._count`);
+		if($input) {
+			$input.value = count;
+		}
+	}
+};
+const getTotalPrice = ({ data }={}) => { // 총 가격 계산
+	let total = 0;
+
+	for(const [code, value] of Object.entries(data)) {
+		const { checked, price, count } = value;
+		if(checked) {
+			total += price * count;
+		}
+	};
+
+	return total;
+};
+const setCreateItem = ({ code, name, price, count, }={}) => { // 선택된 상품 element box
+	const template = `
+		<button class="_plus" data-code="${code}">+</button>
+		<input type="tel" value="${count}" class="_count">
+		<button class="_minus" data-code="${code}">-</button>
+		<div>상품명 : ${name}</div>
+		<div>가격 : ${price}</div>
+		<button class="_itemRemove" data-code="${code}">삭제</button>
+	`;
+	const $div = document.createElement('div');
+
+	$div.setAttribute('data-code', code);
+	$div.setAttribute('class', '_item');
+	$div.innerHTML = template;
+
+	return $div;
+};
+const setCreateItemList = ({ $list, data }={}) => { // item list element 그리기
+	const fragment = document.createDocumentFragment();
+	for(const [code, value] of Object.entries(data)) {
+		//console.log(`${key}: ${value}`);
+		const { checked, name, price, count } = value;
+		if(checked) {
+			fragment.appendChild(setCreateItem({ code, name, price: getPriceFormat(price), count, }));
+		}
+	}
+	$list.innerHTML = '';
+	$list.appendChild(fragment);
+};
+const setRemoveItem = ({ $list, code, }={}) => { // checkbox 에 따라 선택된 리스트 중 하나 제거
+	const $target = $list && $list.querySelector(`._item[data-code="${code}"]`);
+	if($target) {
+		$target.remove();
+	}
+};
+const setCheckboxCancle = ({ $checkbox, code }={}) => { // checkbox checked 해제
+	[ ...$checkbox ].some(($element, index, list) => { // break 를 위해 some 사용
+		if($element.getAttribute('data-code') === code) {
+			$element.checked = false;
+			return false;
+		}
+	});
+};
+const setItemCheckEvent = event => { // 상품 checkbox 이벤트
+	//console.log(event);
+	if($itemCheckbox.length) {
+		// 상태 데이터 checkbox 기준으로 최신화
+		setItemDataUpdate({ $checkbox: $itemCheckbox, data: itemData });
+		
+		// 상태 데이터 기반 list 추가 
+		setCreateItemList({ $list: $itemList, data: itemData });
+
+		// 상태 데이터 기반 총 가격
+		$itemTotal.textContent = getPriceFormat(getTotalPrice({ data: itemData }));
+	}
+};
+const setItemListEvent = event => { // 상품 check 에 따른 list 이벤트 
+	// _plus, _minus, _itemRemove
+	//console.log(event);
+	if(event.target.nodeName === 'BUTTON') {
+		const classValue = event.target.getAttribute('class');
+		const code = event.target.getAttribute('data-code');
+
+		// 유효성 검사
+		if(!(code in itemData)) {
+			return;
+		}
+
+		switch(classValue) {
+			case '_plus':
+				// '+'
+				itemData[code].count += 1;
+				setInputCountUpdate({ $list: $itemList, data: itemData, });
+				break;
+			case '_minus':
+				// '-'
+				itemData[code].count -= 1;
+				if(itemData[code].count < 1) {
+					itemData[code].count = 1;
+				}
+				setInputCountUpdate({ $list: $itemList, data: itemData, });
+				break;
+			case '_itemRemove':
+				// 'close'
+				setRemoveItem({ $list: $itemList, code, });
+				setCheckboxCancle({ $checkbox: $itemCheckbox, code });
+				setItemDataUpdate({ $checkbox: $itemCheckbox, data: itemData });
+				break;
+		}
+		$itemTotal.textContent = getPriceFormat(getTotalPrice({ data: itemData }));
+	}
+};
+/*
+작업순서 (논리적 설계)
+1. 체크박스 element 리스트에서 체크된 것만 필터링 한다.
+2. 체크된 정보를 기반으로 ._itemList 에 추가한다.
+3. ._itemList 에 이벤트 델리게이션 방식으로 하위 '+', '-' 버튼에 따라 상품가격이 제어되도록 한다.
+4. ._itemList 에 이벤트 델리게이션 안에 '제거' 버튼도 모니터링 하여, element 를 제거한다.
+*/
+if($itemCheck && $itemList) {
+	$itemCheck.onclick = setItemCheckEvent;
+	$itemList.onclick = setItemListEvent;
+}
+</script>
+</body>
+</html>
