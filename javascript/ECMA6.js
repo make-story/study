@@ -184,7 +184,7 @@ let [a, , ...b] = [1, 2, 3, 4, 5, 6];
 let [a, b, c = 3] = [1, 2];
 
 // 중첨 배열 해체 (다차원 배열에서 값을 꺼내어 할당)
-let [a, b [c, d]] = [1, 2, [3, 4]];
+let [a, b, [c, d]] = [1, 2, [3, 4]];
 
 // 파라미터로 배열 해체 할당 사용
 // 해체 할당 표현식을 함수 파라미터 자리에 넣으면 함수에 넘긴 이터러블 객체 값을 추출할 수 있다.
@@ -393,7 +393,7 @@ console.log(Math.hypot(2, 2, 1)); // 피타고라스 정리
 
 
 // 산술연산
-console.log(Math.log2(16); // 2를 밑으로 한 로그
+console.log(Math.log2(16)); // 2를 밑으로 한 로그
 console.log(Math.log10(1000)); // 10을 밑으로 한 로그
 console.log(Math.log1p(0)); // log(1 + value)와 동일
 console.log(Math.expm1(0)); // Math.log1p(0)의 역
@@ -2423,7 +2423,7 @@ console.log(Object.getOwnPropertySymbols(proxy)); // [Symbol()]
 인자는 3개다. 첫 번째 인자는 target 객체, 두 번째 인자는 타깃 함수의 this 값, 세번째 인자는 함수 호출 인자를 담은 배열이다.
 타깃 함수를 프록시 없이 호출하면 결국 타깃 함수의 this 값과 동일하다.
 */
-var proxy = new Proxy(function() {
+var proxy = new Proxy(function() {}, {
 	apply: function(target, thisValue, arguments) {
 		console.log(thisValue.name); // 성민
 		return arguments[0] + arguments[1] + arguments[2];
@@ -2444,7 +2444,7 @@ console.log(sum); // 6
 타깃 객체가 함수면 타깃을 생성자, new 연산자, Reflect.construct() 메소드를 이용하여 호출하면 construct 트랩이 실행된다.
 target 객체와 생성자 호출 인자를 가진 배열을 인자로 받는다.
 */
-var proxy = new Proxy(function() {
+var proxy = new Proxy(function() {}, {
 	construct: function(target, arguments) {
 		return {name: arguments[0]};
 	}
