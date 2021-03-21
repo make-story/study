@@ -1,7 +1,13 @@
 # 리덕스 비동기 (미들웨어)
 
 > 참고 페이지  
-https://velog.io/@hyex/redux-saga-redux-saga-%EB%A7%9D%EB%9D%BC%ED%95%98%EA%B8%B0  
+https://velog.io/@hyex/redux-saga-redux-saga-%EB%A7%9D%EB%9D%BC%ED%95%98%EA%B8%B0   
+
+> 디바운싱 (Debouncing)
+https://mskims.github.io/redux-saga-in-korean/recipes/  
+
+> 스로틀(throttle)
+https://mskims.github.io/redux-saga-in-korean/recipes/
 
 
 -----
