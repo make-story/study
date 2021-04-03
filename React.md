@@ -305,3 +305,10 @@ module.exports = {
 프로젝트 구성이 CRA와 매우 유사하다는 장점  
 리액트 라우터와도 잘 호환  
 코드 스플리팅 시 발생하는 깜박임 현상(2019년 4월 기준)
+
+
+-----
+
+
+## 쓰로들링(throttle) / 디바운싱(Debouncing) / XHR호출 재시도(Retrying XHR calls)  
+https://mskims.github.io/redux-saga-in-korean/recipes/  
