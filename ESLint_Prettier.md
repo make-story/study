@@ -66,3 +66,11 @@ $ npm install -D eslint-plugin-prettier eslint-config-prettier
 
 plugin 사용만으로는 eslint formatting rules와 prettier rules가 충돌하므로, eslint-config-prettier를 함께 사용한다   
 (공식문서에서도 둘을 함께 사용하기를 권장한다)  
+
+
+.eslintrc.json 또는 .eslintrc.js  
+{
+    ...
+    "extends": ["eslint:recommended", "prettier"],
+    ...
+}
