@@ -9,6 +9,9 @@ https://mskims.github.io/redux-saga-in-korean/recipes/
 > 스로틀(throttle)
 https://mskims.github.io/redux-saga-in-korean/recipes/
 
+> saga 에러 핸들링 패턴  
+https://redux-saga.js.org/docs/recipes#retrying-xhr-calls  
+https://redux-saga.js.org/docs/api/#retrymaxtries-delay-fn-args  
 
 -----
 
