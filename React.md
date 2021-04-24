@@ -1,5 +1,35 @@
 
 
+## Create React App (CRA)  
+https://create-react-app.dev/  
+
+create-react-app은 React App의 개발 환경을 한 줄의 커맨드로 구성해주는 boilerplate이다.   
+(보일러 플레이트는 변경 없이 계속해서 재 사용할 수 있는 저작물)  
+
+React와 함께 facebook에서 만들었고 npm과 yarn 패키지로 제공된다.  
+하는 일은 크게 3가지라고 할 수 있다.  
+- index.html, index.js를 포함한 웹페이지에 필요한 기본 디렉토리 구성  
+- react, react-dom, react-scripts 및 dependency 라이브러리 설치  
+- react-scripts를 사용하여 package.json에 npm command 정의  
+
+## react-scripts  
+react-scripts/scripts/start.js  
+
+- npm start  
+start.js 스크립트에서는 webpack으로 src/index.js를 엔트리로 하는 소스파일들을 번들링하고 그것을 webpack-dev-server와 react-dev-utils를 사용해 browser에 띄운다.   
+
+- npm run build  
+build.js 스크립트에서는 start.js에서와 마찬가지로 번들링을 하고, 다른 점은 build/ 디렉토리에 번들링한 결과를 저장한다.  
+이것으로 배포할 수 있고 배포 스크립트는 따로 작성해야 한다.  
+
+- npm run eject  
+하나의 dependency로 묶여있는 webpack, babel, eslint 등을 eject(꺼내다)하는 것이다.  
+이는 one-way operation으로 한 번 실행하면 이전으로 돌아갈 수 없다.  
+
+
+-----
+
+
 ## Presentational & Container 분리는 이제 그만?
 Dan Abramov  
 https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
