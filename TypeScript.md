@@ -21,7 +21,13 @@ https://react-etc.vlpt.us/07.typescript-redux.html
 
 
 # 타입스크립트 타입
-https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html
+https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html  
+
+- 예를 들어, intersectionobserver TypeScript 의 기본 타입을 재정의할 경우 에러
+`Type 'string' is not assignable to type 'number'` 
+`Type error: Type 'Document | Element | null' is not assignable to type 'Element | null | undefined'.`
+`Type 'Document' is missing the following properties from type 'Element': assignedSlot, attributes, classList, className, and 58 more.`
+
 https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.intersectionobserver.html  
 
 
