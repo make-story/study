@@ -65,6 +65,25 @@ user.age = 85; // Error
 user.name = 'Evan'; // Error
 ```
 
+```typescript
+const Product = {
+  bgImg: `/public/images/@temp_img_discount.png`,
+  title: '헤라 루즈 홀릭 런칭',
+  tags: '#NEW CLASSIC #NEW COLOR',
+  prodImg: `/public/images/@temp_img_prod_s.png`,
+  isSoldout: false,
+  brandName: '헤라',
+  prodName: '헤라 루즈 홀릭 매트 립',
+  discountPrice: 38000,
+  originalPrice: 50000,
+  discountRate: 10,
+  prodLink: 'naver.com',
+};
+const Mock = {
+  products: [] as typeof Product[],
+};
+```
+
 
 # enum
 https://medium.com/@seungha_kim_IT/typescript-3-4-const-assertion-b50a749dd53b  
