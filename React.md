@@ -29,6 +29,12 @@ build.js 스크립트에서는 start.js에서와 마찬가지로 번들링을 �
 
 -----
 
+## 합성 이벤트 (SyntheticEvent)
+https://ko.reactjs.org/docs/events.html  
+
+
+-----
+
 
 ## Presentational & Container 분리는 이제 그만?
 Dan Abramov  

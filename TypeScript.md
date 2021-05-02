@@ -20,7 +20,7 @@ https://react-etc.vlpt.us/07.typescript-redux.html
 -----
 
 
-# 타입스크립트 타입
+## 타입스크립트 타입
 https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html  
 
 - 예를 들어, intersectionobserver TypeScript 의 기본 타입을 재정의할 경우 에러
@@ -31,20 +31,29 @@ https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_nod
 https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.intersectionobserver.html  
 
 
-# DOM Type 
+-----
+
+
+## DOM Type 
 https://typescript-kr.github.io/pages/tutorials/dom-manipulation.html  
 ## 타입스크립트 Element Type   
 https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelement.html  
 
 
-# 타입추론
+-----
+
+
+## 타입추론
 ```typescript
 let hello = 'world'; // let hello: string
 const hello = 'world'; // const hello: 'world'
 ```
 
 
-# 타입단언
+-----
+
+
+## as - 타입단언
 https://heropy.blog/2020/01/27/typescript/
 ```typescript
 let val = 0;
@@ -85,6 +94,38 @@ const Mock = {
 ```
 
 
-# enum
+## keyof
+인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용  
+```typescript
+interface ICountries {
+  KR: '대한민국',
+  US: '미국',
+  CP: '중국'
+}
+// key 로 접근
+let country1: keyof ICountries; // 'KR' | 'US' | 'CP'
+country1 = 'KR'; // ok
+country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
+
+// value 로 접근
+let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+country2 = '대한민국';
+country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
+```
+
+
+## typeof - 타입가드 (typeof type guards)
+```typescript
+const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
+const code = 'a';
+
+test[code as keyof typeof test];
+```
+
+
+-----
+
+
+## enum
 https://medium.com/@seungha_kim_IT/typescript-3-4-const-assertion-b50a749dd53b  
 
