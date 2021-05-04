@@ -12,6 +12,7 @@ React와 함께 facebook에서 만들었고 npm과 yarn 패키지로 제공된�
 - react, react-dom, react-scripts 및 dependency 라이브러리 설치  
 - react-scripts를 사용하여 package.json에 npm command 정의  
 
+
 ## react-scripts  
 react-scripts/scripts/start.js  
 
@@ -331,11 +332,13 @@ module.exports = {
 };
 ```
 
+
 ## Next.js
 리액트 라우터와 호환되지 않음  
 파일 시스템에 기반하여 라우트를 설정  
 복잡한 작업들을 모두 Next.js가 대신해 주기 때문에 실제 작동 원리를 파악하기 힘듦
 코드 스플리팅, 데이터 로딩, 서버 사이드 렌더링을 가장 쉽게 적용하고 싶다면 Next.js 사용  
+
 
 ## Razzle  
 프로젝트 구성이 CRA와 매우 유사하다는 장점  
@@ -348,3 +351,11 @@ module.exports = {
 
 ## 쓰로들링(throttle) / 디바운싱(Debouncing) / XHR호출 재시도(Retrying XHR calls)  
 https://mskims.github.io/redux-saga-in-korean/recipes/  
+
+
+-----
+
+
+## 리액트 훅스 컴포넌트에서 setInterval 사용 시의 문제점
+https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%9B%85%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%97%90%EC%84%9C-setInterval-%EC%82%AC%EC%9A%A9-%EC%8B%9C%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90  
+
