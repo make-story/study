@@ -93,15 +93,24 @@ let dataObject = data.map((currnet, index, list) => {
 	{ data: 4, index: 3 },
 ]
 */
-let dataFilter = data.filter((current, index, list) => {
-	return current % 2 === 0; // 짝수 분류
-});
-// [2, 4]
+
 let dataReduce = data.reduce((acc, current, index, list) => {
 	return acc + current;
 }, 0);
 // 1 + 2 + 3 + 4 = 10;
 
+const array1 = ['a', 'b', 'c'];
+array1.forEach(element => console.log(element));
+// expected output: "a"
+// expected output: "b"
+// expected output: "c"
+
+
+// some 을 활용한 반복 break
+[1,2,3,4,5].some(function(v) {
+	if(v == 2) console.log(v);
+	return (v ==2);
+ });
 
 // ----------
 
@@ -145,14 +154,21 @@ var pos = fruits.indexOf("바나나");
 // 1
 
 const array1 = [5, 12, 8, 130, 44];
+const isLargeNumber = (element) => element > 13;
+console.log(array1.findIndex(isLargeNumber));
+// expected output: 3
+
+
+// 배열 안 특정 값 찾기
+const array1 = [5, 12, 8, 130, 44];
 const found = array1.find(element => element > 10);
 console.log(found);
 // expected output: 12
 
-const array1 = [5, 12, 8, 130, 44];
-const isLargeNumber = (element) => element > 13;
-console.log(array1.findIndex(isLargeNumber));
-// expected output: 3
+let dataFilter = data.filter((current, index, list) => {
+	return current % 2 === 0; // 짝수 분류
+});
+// [2, 4]
 
 
 // 특정 요소 포함여부 
