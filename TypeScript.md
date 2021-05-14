@@ -51,6 +51,18 @@ const hello = 'world'; // const hello: 'world'
 -----
 
 
+## Never 
+Never은 절대 발생하지 않을 값을 나타내며, 어떠한 타입도 적용할 수 없습니다.  
+```typescript
+// 빈 배열을 타입으로 잘못 선언한 경우, Never를 볼 수 있습니다.
+const never: [] = [];
+never.push(3); // Error - TS2345: Argument of type '3' is not assignable to parameter of type 'never'.
+```
+
+
+-----
+
+
 ## as - 타입단언
 https://heropy.blog/2020/01/27/typescript/
 ```typescript
@@ -158,3 +170,74 @@ test[code as keyof typeof test];
 ## enum
 https://medium.com/@seungha_kim_IT/typescript-3-4-const-assertion-b50a749dd53b  
 
+
+-----
+
+
+## 제네릭(Generic)  
+```typescript 
+function toArray<T>(a: T, b: T): T[] {
+  return [a, b];
+}
+
+toArray<number>(1, 2);
+toArray<string>('1', '2');
+toArray<string | number>(1, '2');
+toArray<number>(1, '2'); // Error
+
+// 타입 추론을 활용해, 사용 시점에 타입을 제공하지 않을 수 있습니다.
+toArray(1, 2);
+toArray('1', '2');
+toArray(1, '2'); // Error
+```
+
+
+## 제약 조건(Constraints)  
+인터페이스나 타입 별칭을 사용하는 제네릭을 작성할 수도 있습니다.  
+```typescript
+interface MyType<T> {
+  name: string,
+  value: T
+}
+
+const dataA: MyType<string> = {
+  name: 'Data A',
+  value: 'Hello world'
+};
+const dataB: MyType<number> = {
+  name: 'Data B',
+  value: 1234
+};
+const dataC: MyType<boolean> = {
+  name: 'Data C',
+  value: true
+};
+const dataD: MyType<number[]> = {
+  name: 'Data D',
+  value: [1, 2, 3, 4]
+};
+```
+
+```typescript
+interface MyType<T extends string | number> {
+  name: string,
+  value: T
+}
+
+const dataA: MyType<string> = {
+  name: 'Data A',
+  value: 'Hello world'
+};
+const dataB: MyType<number> = {
+  name: 'Data B',
+  value: 1234
+};
+const dataC: MyType<boolean> = { // TS2344: Type 'boolean' does not satisfy the constraint 'string | number'.
+  name: 'Data C',
+  value: true
+};
+const dataD: MyType<number[]> = { // TS2344: Type 'number[]' does not satisfy the constraint 'string | number'.
+  name: 'Data D',
+  value: [1, 2, 3, 4]
+};
+```
