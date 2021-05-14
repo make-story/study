@@ -3,8 +3,6 @@
 https://typescript-kr.github.io/  
 https://heropy.blog/2020/01/27/typescript/  
 
-https://typescript-kr.github.io/  
-https://heropy.blog/2020/01/27/typescript/  
 https://joshua1988.github.io/ts/guide/enums.html#%EB%AC%B8%EC%9E%90%ED%98%95-%EC%9D%B4%EB%84%98  
 http://typescript-handbook-ko.org/pages/generics.html  
 https://velog.io/@zeros0623/TypeScript-%EA%B3%A0%EA%B8%89-%ED%83%80%EC%9E%85  
@@ -93,6 +91,37 @@ const Mock = {
 };
 ```
 
+
+## value! - Non-null 단언 연산자  
+https://heropy.blog/2020/01/27/typescript/  
+!를 사용하는 Non-null 단언 연산자(Non-null assertion operator)를 통해 피연산자가 Nullish(null이나 undefined) 값이 아님을 단언할 수 있는데,   
+변수나 속성에서 간단하게 사용할 수 있기 때문에 유용  
+```typescript
+// Error - TS2533: Object is possibly 'null' or 'undefined'.
+function fnA(x: number | null | undefined) {
+  return x.toFixed(2);
+}
+
+// if statement
+function fnD(x: number | null | undefined) {
+  if (x) {
+    return x.toFixed(2);
+  }
+}
+
+// Type assertion
+function fnB(x: number | null | undefined) {
+  return (x as number).toFixed(2);
+}
+function fnC(x: number | null | undefined) {
+  return (<number>x).toFixed(2);
+}
+
+// Non-null assertion operator
+function fnE(x: number | null | undefined) {
+  return x!.toFixed(2);
+}
+```
 
 ## keyof
 인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용  
