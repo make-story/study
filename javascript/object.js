@@ -2,6 +2,36 @@
  * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object
  */
 
+// 객치 순회
+const object1 = {
+	a: 'somestring',
+	b: 42
+};
+for (const [key, value] of Object.entries(object1)) {
+	console.log(`${key}: ${value}`);
+}
+// expected output:
+// "a: somestring"
+// "b: 42"
+// order is not guaranteed
+
+
+// 비동기 순회
+// for await 와 Promise.all()과의 차이
+// promise.all()은 인자의 프로미스 배열을 동시에 실행한다.
+// for await of 내의 비동기 작업은 루프를 돌며 순차적으로 실행된다.}
+(async () => { 
+	const object1 = {
+		a: 'somestring',
+		b: 42
+	};
+	for await (let [key, value] of Object.entries(object1)) {
+		await console.log(key); 
+	}
+})();
+
+
+
 // 객체 펼침연산자로 값 갱신
 const book = {
 	title: 'A',
@@ -22,6 +52,7 @@ const employee = {
 		...defaultEmployee.name
 	},
 };
+
 
 
 // Map 으로 key-value 관리
@@ -66,6 +97,7 @@ function getAppliedFilters(filters) {
 }
 
 
+
 // Map key 정렬
 // Map 정렬
 function sortByKey(a, b) {
@@ -78,6 +110,7 @@ function getSortedAppliedFilters(filters) {
 	}
 	return `선택한 조건은 ${applied.join(', ')} 입니다`;
 }
+
 
 
 // Map key-value 합치기
@@ -96,6 +129,7 @@ update.get('색상'); // 갈색
 function applyDefaults(map, defaults) {
 	return new Map([...defaults, ...map]);
 }
+
 
 
 // Set 고유값 관리
