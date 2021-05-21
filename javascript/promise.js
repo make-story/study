@@ -1,3 +1,11 @@
+// 콜백실행 값 반환
+const setTest = (callback) => callback();
+console.log(setTest(() => 'test'));
+
+
+// ----------
+
+
 // https://velog.io/@hiro2474/understandfor-await-of
 
 // 타이머 함수 정의
