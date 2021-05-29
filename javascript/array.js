@@ -2,6 +2,36 @@
  * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array
  */
 
+// https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+const newItems = [].map((item, index, list) => {
+
+});
+const filterItems = [].filter((item, index, list) => {
+
+});
+const findItem = [].find((item, index, list) => {
+	// 조건만족하는 첫번쨰 아이템 반환
+});
+const findItemIndex = [].findIndex((item, index, list) => {
+	// 주어진 판별 함수를 만족하는 배열의 첫 번째 요소에 대한 인덱스를 반환
+});
+const fillItems = [].fill((value/*배열을 채울 값*/, start/*시작 인덱스*/, end/*끝 인덱스*/) => {
+
+});
+const someBool = [].some((item, index, list) => {
+	// 배열 안의 어떤 요소라도 주어진 판별 함수를 통과하는지 테스트
+	// callback이 참(불린으로 변환했을 때 true가 되는 값)을 반환하는 요소를 찾을 때까지 배열에 있는 각 요소에 대해 한 번씩 callback 함수를 실행
+	// 해당하는 요소를 발견한 경우 some은 즉시 true를 반환합니다. 그렇지 않으면, 즉 모든 값에서 거짓을 반환하면 false를 반환
+});
+const everyBool = [].every((item, index, list) => {
+	// 배열 안의 모든 요소가 주어진 판별 함수를 통과하는지 테스트
+	// callback이 거짓을 반환하는 요소를 찾을 때까지 배열에 있는 각 요소에 대해 한 번씩 callback 함수를 실행
+	// 해당하는 요소를 발견한 경우 every는 즉시 false를 반환합니다. 그렇지 않으면, 즉 모든 값에서 참을 반환하면 true를 반환
+});
+
+
+// ----------
+
 // 배열 만들기 
 var fruits = ['사과', '바나나'];
 
@@ -18,10 +48,8 @@ Array(1, 2, 3);    // [1, 2, 3]
 const array1 = [1, 2, 3, 4];
 console.log(array1.fill(0, 2, 4));
 // expected output: [1, 2, 0, 0]
-
 console.log(array1.fill(5, 1));
 // expected output: [1, 5, 5, 5]
-
 console.log(array1.fill(6));
 // expected output: [6, 6, 6, 6]
 
