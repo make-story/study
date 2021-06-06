@@ -1,32 +1,20 @@
 
 > 참고페이지  
 https://typescript-kr.github.io/  
-https://heropy.blog/2020/01/27/typescript/  
 
+- 핸드북  
 https://joshua1988.github.io/ts/guide/enums.html#%EB%AC%B8%EC%9E%90%ED%98%95-%EC%9D%B4%EB%84%98  
-http://typescript-handbook-ko.org/pages/generics.html  
-https://velog.io/@zeros0623/TypeScript-%EA%B3%A0%EA%B8%89-%ED%83%80%EC%9E%85  
 https://typescript-kr.github.io/pages/tutorials/typescript-in-5-minutes.html  
 
-- 타입스크립트 고급
+- 한눈에 보는 타입스크립트  
+https://heropy.blog/2020/01/27/typescript/  
+
+- 타입스크립트 고급  
 https://typescript-kr.github.io/pages/advanced-types.html  
-  
-- 타입스크립트 + 리덕스
+https://velog.io/@zeros0623/TypeScript-%EA%B3%A0%EA%B8%89-%ED%83%80%EC%9E%85  
+
+- 타입스크립트 + 리덕스  
 https://react-etc.vlpt.us/07.typescript-redux.html  
-
-
------
-
-
-## 타입스크립트 타입
-https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html  
-
-- 예를 들어, intersectionobserver TypeScript 의 기본 타입을 재정의할 경우 에러
-`Type 'string' is not assignable to type 'number'` 
-`Type error: Type 'Document | Element | null' is not assignable to type 'Element | null | undefined'.`
-`Type 'Document' is missing the following properties from type 'Element': assignedSlot, attributes, classList, className, and 58 more.`
-
-https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.intersectionobserver.html  
 
 
 -----
@@ -34,8 +22,23 @@ https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_
 
 ## DOM Type 
 https://typescript-kr.github.io/pages/tutorials/dom-manipulation.html  
-## 타입스크립트 Element Type   
+
+https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html
+
+
+## Element Type   
 https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelement.html  
+
+
+-----
+
+
+## 타입스크립트 참고
+- intersectionobserver TypeScript 의 기본 타입을 재정의할 경우 에러
+`Type 'string' is not assignable to type 'number'` 
+`Type error: Type 'Document | Element | null' is not assignable to type 'Element | null | undefined'.`
+`Type 'Document' is missing the following properties from type 'Element': assignedSlot, attributes, classList, className, and 58 more.`
+https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.intersectionobserver.html  
 
 
 -----
@@ -168,8 +171,38 @@ test[code as keyof typeof test];
 
 
 ## enum
-https://medium.com/@seungha_kim_IT/typescript-3-4-const-assertion-b50a749dd53b  
+enum은 열거형 변수로 정수를 하나로 합칠 때 편리한 기능입니다.  
+임의의 숫자나 문자열을 할당할 수 있으며 하나의 유형으로 사용해서 버그를 줄일 수 있습니다.
+enum은 TypeScript가 자체적으로 구현하는 기능입니다.   
 
+```typescript
+// 아무것도 지정하지 않은 경우에는 0부터 숫자를 매깁니다. 
+enum MOBILE_OS {
+  IOS, // 0
+  ANDROID // 1
+}
+// 임의의 숫자나 문자열을 할당할 수도 있습니다
+enum MOBILE_OS {
+  IOS = 'iOS',
+  ANDROID = 'Android'
+}
+// 아래와 같이 유형으로 사용할 수도 있습니다 
+const os: MOBILE_OS = MOBILE_OS.IOS
+function detectOSType(userAgent: string): MOBILE_OS {
+    // 생략
+}
+```
+
+`TypeScript에서 enum을 사용하면 Tree-shaking이 되지 않습니다`  
+https://engineering.linecorp.com/ko/blog/typescript-enum-tree-shaking/  
+`그렇다면 enum 말고 어떤 것을 사용하면 좋을까요?`  
+```typescript
+const MOBILE_OS = {
+  IOS: 'iOS',
+  Android: 'Android'
+} as const;
+type MOBILE_OS = typeof MOBILE_OS[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
+```
 
 -----
 
