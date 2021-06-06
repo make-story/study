@@ -65,8 +65,11 @@ never.push(3); // Error - TS2345: Argument of type '3' is not assignable to para
 
 -----
 
+https://iancoding.tistory.com/160  
+ 
 
 ## as - 타입단언
+`as 를 사용해 최종적으로 확실하게 타입을 단언`  
 https://heropy.blog/2020/01/27/typescript/
 ```typescript
 let val = 0;
@@ -75,6 +78,14 @@ let val = 0;
 // <타입>변수
 // JSX를 사용하는 경우 특정 구문 파싱에서 문제가 발생할 수 있으며, 결과적으로 .tsx 파일에서는 전혀 사용할 수 없습니다.
 (<number>val).toFixed(2);
+```
+
+```typescript
+//let div = document.querySelector('div'); // let div: HTMLDivElement | null
+// 타입을 지정해주기 전 div는 HTMLDivElement | null 일수 가 있어 오류가 생길수 있다.
+
+// 타입 단언
+let div = document.querySelector('div') as HTMLDivElement;
 ```
 
 ```typescript
@@ -133,6 +144,46 @@ const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
 const code = 'a';
 
 test[code as keyof typeof test];
+```
+
+
+## is - 타입가드
+```typescript
+interface Dev {
+  name: string;
+  skill: string;
+}
+interface Person {
+  name: string;
+  age: number;
+}
+
+function introduce(): Dev | Person {
+  return { name: "d", age: 33, skill: "c" };
+}
+const tony = introduce(); // Dev | Person 으로 공통된 속성만 사용가능. 즉, tony.skill 불가
+
+// skill을 빼고 싶다면? -> type assertion으로 사용 가능
+if ((tony as Dev).skill) {
+  console.log((tony as Dev).skill);
+} else if ((tony as Person).age) {
+  console.log((tony as Person).age);
+}
+// 너무 assertion을 많이 씀으로 타입 가드 함수를 만든다.
+
+// 타입 가드 정의
+// target is Dev -> 넘겨 받은 파라미터가 해당 타입인지를 확인
+function isDev(target: Dev | Person): target is Dev {
+  // skill이 있다면 Dev이다
+  return (target as Dev).skill !== undefined;
+}
+if (isDev(tony)) {
+  // name, skill 사용 가능
+  console.log(tony.skill);
+} else {
+  // name, age 사용 가능
+  console.log(tony.age);
+}
 ```
 
 
