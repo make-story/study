@@ -66,7 +66,18 @@ never.push(3); // Error - TS2345: Argument of type '3' is not assignable to para
 -----
 
 https://iancoding.tistory.com/160  
- 
+
+
+# 타입단언
+```
+// 타입 단언에는 두 가지 종류가 있다.
+1: <Fish>pet 
+2: (pet as Fish)
+```
+1 번은 런타임과 컴파일 단계에서 모두 돌아가고  
+2 번은 컴파일 때만 돌아간다.  
+리액트로 개발할 시 꺽쇠(<>)로 타입캐스팅 하는 것은 TSX 태그 문법이랑 비슷하기 때문에 as 를 추천한다.  
+
 
 ## as - 타입단언
 `as 를 사용해 최종적으로 확실하게 타입을 단언`  
@@ -88,8 +99,11 @@ let val = 0;
 let div = document.querySelector('div') as HTMLDivElement;
 ```
 
+
+## let, const 선언의 타입 추론
 ```typescript
 // Type assertion
+// TypeScript 3.4에 추가된 const assertion 기능을 사용하면, let 변수에 대해서도 const 변수를 사용할 때와 같은 타입 추론 규칙을 적용할 수 있습니다.
 let user = {
   name: 'Neo',
   age: 36
@@ -118,36 +132,19 @@ const Mock = {
 ```
 
 
-## keyof
-인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용  
-```typescript
-interface ICountries {
-  KR: '대한민국',
-  US: '미국',
-  CP: '중국'
-}
-// key 로 접근
-let country1: keyof ICountries; // 'KR' | 'US' | 'CP'
-country1 = 'KR'; // ok
-country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
-
-// value 로 접근
-let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
-country2 = '대한민국';
-country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
-```
-
-
-## typeof - 타입가드 (typeof type guards)
-```typescript
-const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
-const code = 'a';
-
-test[code as keyof typeof test];
-```
-
-
 ## is - 타입가드
+```
+typeof 같은 걸로 타입 따져서 분기 처리 하는 역할을 TS 에선 is 이다.
+
+if (isFish(Fish 타입 인 애)) { // isFish에서 Fish 타입이면 타입 가드에 의해서 조건문 통과
+  console.log(Fish 타입인 애); // OK
+  console.log(Bird 타입인 애); // Error
+} else { // Bird 타입인 애가 들어가면 여기로!
+  console.log(Fish 타입); // Error
+  console.log(Bird 타입); // OK
+}
+```
+
 ```typescript
 interface Dev {
   name: string;
@@ -184,6 +181,38 @@ if (isDev(tony)) {
   // name, age 사용 가능
   console.log(tony.age);
 }
+```
+
+
+-----
+
+
+## keyof - 속성 이름을 타입으로 사용
+`인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`  
+```typescript
+interface ICountries {
+  KR: '대한민국',
+  US: '미국',
+  CP: '중국'
+}
+// key 로 접근
+let country1: keyof ICountries; // 'KR' | 'US' | 'CP'
+country1 = 'KR'; // ok
+country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
+
+// value 로 접근
+let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+country2 = '대한민국';
+country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
+```
+
+
+## typeof - 타입가드 (typeof type guards)
+```typescript
+const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
+const code = 'a';
+
+test[code as keyof typeof test];
 ```
 
 
