@@ -288,6 +288,50 @@ type MOBILE_OS = typeof MOBILE_OS[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
 -----
 
 
+## Union Type
+유니온 타입(Union Type)이란 자바스크립트의 OR 연산자(||)와 같이 'A' 이거나 'B'이다 라는 의미의 타입이다.  
+```typescript
+function logText(text: string | number) {
+  // ...
+}
+```
+주의점
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+interface Developer {
+  name: string;
+  skill: string;
+}
+function introduce(someone: Person | Developer) {
+  someone.name; // O 정상 동작
+  someone.age; // X 타입 오류
+  someone.skill; // X 타입 오류
+}
+```
+
+## Intersection Type
+인터섹션 타입(Intersection Type)은 여러 타입을 모두 만족하는 하나의 타입을 의미한다.
+```typescript
+interface Person {
+    name: string;
+    age: number;
+}
+
+interface Developer {
+    name: string;
+    skill: number;
+}
+
+type Capt = Person & Developer;
+```
+
+
+-----
+
+
 ## 제네릭(Generic)  
 ```typescript 
 function toArray<T>(a: T, b: T): T[] {
