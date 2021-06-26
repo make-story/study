@@ -9,6 +9,113 @@
 동기-블로킹 방식에서는 백그라운드 작업 완료 여부를 계속 확인하여, 호출한 함수가 바로 return 되지 않고 백그라운드 작업이 끝나야 return 됩니다.  
 비동기-논 블로킹 방식에서는 호출한 함수가 바로 return 되어 다음 작업으로 넘어가며, 백그라운드 작업 완료 여부는 신경 쓰지 않고 나중에 백그라운드가 알림을 줄 때 비로소 처리합니다.  
 
+```javascript
+// 동기-블로킹 방식
+const fs = require('fs');
+
+console.log('시작');
+let data = null;
+
+data = fs.readFileSync('./readme2.txt');
+console.log('1번', data.toString());
+
+data = fs.readFileSync('./readme2.txt');
+console.log('2번', data.toString());
+
+data = fs.readFileSync('./readme2.txt');
+console.log('3번', data.toString());
+
+console.log('끝');
+```
+```javascript
+// 비동기-논 블로킹 방식
+const fs = require('fs').promises;
+
+console.log('시작');
+
+fs.readFile('./readme2.txt')
+.then((data) => {
+    console.log('1번', data.toString());
+    return fs.readFile('./readme2.txt');
+})
+.then((data) => {
+    console.log('2번', data.toString());
+    return fs.readFile('./readme2.txt');
+})
+.then((data) => {
+    console.log('3번', data.toString());
+    console.log('끝');
+})
+.catch(error => {
+    console.error(error);
+});
+```
+
+
+-----
+
+
+# 버퍼와 스트림
+파일을 읽거나 쓰는 방식에는 크게 두 가지 방식, 즉 버퍼를 이용하는 방식과 스트림을 이용하는 방식이 있습니다.  
+노드는 파일을 읽을 때 메머리에 파일 크기만큼 공간을 마련해두며, 파일 데이터를 메모리에 저장한 뒤 사용자가 조작할 수 있도록 합니다.  
+이때 메모리에 저장된 데이터가 바로 버퍼입니다.  
+
+readFile 방식의 버퍼가 편리하기는 하지만 문제점도 있습니다.  
+만약 용량이 100MB인 파일이 있으면 읽을 때 메모리에 100MB의 버퍼를 만들어야 합니다. 이 작업을 동시에 열 개만 해도 1GB에 달하는 메모리가 사용됩니다.  
+특히 서버처럼 몇 명이 이용할지 모르는 환경에서는 메모리 문제가 발생할 수 있습니다.  
+또한, 모든 내용을 버퍼에 다 쓴 후에야 다음 동작으로 넘어가므로 파일 읽기, 압축, 파일 쓰기 등의 조작을 연달아 할 때 매번 전체 용량을 버퍼로 처리해야 다음 단계로 넘어갈 수 있습니다.  
+
+그래서 버퍼의 크리를 작게 만든 후 여러 번으로 나눠 보내는 방식이 등장했습니다.  
+예를 들면 버퍼 1MB를 만든 후 100MB 파일을 백 번에 걸쳐서 나눠 보내는 것입니다. 이로써 메모리 1MB로 100MB 파일을 전송할 수 있습니다.  
+이를 편리하게 만든 것이 스트림 입니다.  
+스트림 메서드로는 createReadStream, createWriteStream 이 있습니다.
+
+```javascript
+/**
+ * 파일 읽는 스트림
+ */
+const fs = require('fs');
+
+const readStream = fs.createReadStream('./readme3.txt', { highWaterMark: 16 }); // highWaterMark : 버퍼의 크기(기본값 64KB)
+const data = [];
+readStream.on('data', (chunk) => {
+    data.push(chunk);
+    console.log('data :', chunk, chunk.length);
+});
+readStream.on('end', () => {
+    console.log('end :', Buffer.concat(data).toString());
+});
+readStream.on('error', (error) => {
+    console.log('error :', error);
+});
+```
+```javascript
+/**
+ * 파일 쓰는 스트림
+ */
+const fs = require('fs');
+
+const writeStream = fs.createWriteStream('./writeme2.txt');
+writeStream.on('finish', () => {
+    console.log('파일 쓰기 완료');
+});
+
+writeStream.write('이 글을 씁니다.\n');
+writeStream.write('한 번 더 씁니다.\n');
+writeStream.end();
+
+
+// createReadStream 으로 파일을 읽고 그 스트림을 전달받아 
+// createWriteStream 으로 파일을 쓸 수도 있습니다. 파일 복사와 비슷합니다.
+// 스트림끼리 연결하는 것을 '파이핑한다'고 표현합니다.
+const readStreamPipe = fs.createReadStream('./readme4.txt');
+const writeStreamPipe = fs.createWriteStream('./writeme3.txt');
+readStreamPipe.pipe(writeStreamPipe);
+```
+
+
+-----
+
 
 # 예외 처리하기
 노드에서는 예외처리가 정말 중요합니다.  
@@ -66,6 +173,9 @@ setTimeout(() => {
 에러가 발새앟는 코드를 수정하지 않는 이상, 프로세스가 실행되는 동안 에러는 계속 발생할 것입니다.  
 
 
+-----
+
+
 # express 
 ## express 미들웨어  
 미들웨어는 app.use 와 함께 사용됩니다. app.use(미들웨어)  
@@ -110,7 +220,9 @@ app.use((request, response, next) => {
 });
 ```
 
------
+
+=====
+
 
 # `한권으로 끝내는 Node & Express` 책 정리
 
