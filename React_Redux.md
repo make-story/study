@@ -586,6 +586,8 @@ export default App;
 
 
 `redux-tutorial/containers/CounterContainer`
+# Redux와 React의 연결
+https://code.tutsplus.com/ko/tutorials/getting-started-with-redux-connecting-redux-with-react--cms-30352
 ```javascript
 // redux-tutorial/containers/CounterContainer
 
@@ -596,8 +598,8 @@ import { increase, decrease } from '../modules/counter'; // 리덕스 모듈
 
 
 /*
-1. 
-컨테이너 컴포넌트 - connect 함수 사용 방식 
+1. Redux와 React의 연결
+컨테이너 컴포넌트 - connect 함수 사용 방식  (React 스토어 상태와 React 컴포넌트간 연결)
 */
 // 이 컴포넌트를 리덕스와 연동하려면 react-redux 에서 제공하는 connect 함수를 사용
 /*const CounterContainer = ({ number, increase, decrease }) => {
@@ -625,6 +627,7 @@ import { increase, decrease } from '../modules/counter'; // 리덕스 모듈
 
 // connect(mapStateToProps, mapDispatchToProps)(연동할 컴포넌트)
 /*export default connect(
+	// CounterContainer 에 props 로 넘겨주는 값 (함수의 경우 실행 반환 값)
 	mapStateToProps,
 	mapDispatchToProps,
 )(CounterContainer);*/
@@ -658,7 +661,7 @@ import { increase, decrease } from '../modules/counter'; // 리덕스 모듈
 
 
 /*
-2. 
+2. Redux와 React의 연결
 connect 함수가 아닌, useSelector, useDispatch Hook 사용 방식 
 */
 // useSelector Hook 을 사용하면 connect 함수를 사용하지 않고도 리덕스의 상태를 조회할 수 있습니다.
