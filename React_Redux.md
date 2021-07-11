@@ -476,7 +476,7 @@ const CounterContainer = () => {
 	);
 };
 
-// connect 함수를 활용하여 컴포넌트 연동하는 방식 참고 (비추천)
+// connect 함수를 활용하여 컴포넌트 연동하는 방식 참고 (비추천) - Redux 상태와 React 컴포넌트간 연결
 /*
 connect(
 	리덕스 스토어 안의 상태를 컴포넌트의 props로 넘겨주지 위해 설정하는 함수,
