@@ -187,6 +187,56 @@ if (isDev(tony)) {
 -----
 
 
+## unknown과 any의 차이, 그리고  never
+unknown은 TypeScript의 탑 타입(Top Type)입니다.  
+TypeScript에 존재하고, 존재 할 수 있는 모든 타입들을 포함하여 어떤 값이든 가질 수 있지만,  
+그로 인해 모든 타입이 공통적으로 할 수 있는 연산 외에는 할 수 있는 것이 아무것도 없습니다.   
+그래서 이름 그대로 값이 어떤 타입인지 알 수 없는(unknown) 타입이기 때문에 `unknown 타입 변수는 사용할 때 어떤 타입인지 다시 한번 명시를 해주어야 합니다.`  
+
+`unknown 타입 변수에 대해 타입 검사가 된 후에는 타입을 명시해주지 않아도 됩니다.`  
+```javascript
+const flag: unknown = true;
+if (flag === true) {
+    // if 조건문에서 엄격한 비교를 통해 boolean 값인지 확인했으므로
+    // 새 boolean 변수에 대입을 할 때에는 타입을 명시하지 않아도 됨
+    const something: boolean = flag;
+    
+    // ...
+}
+
+if (typeof maybe === 'string') {
+  // typeof 연산자를 사용하여 타입을 확인한 뒤에도 타입을 명시하지 않아도 됨
+  const text: string = maybe;
+}
+```
+
+`any`
+JavaScript로 작성된 모듈을 최소한의 수정으로 사용하거나,  
+혹은 기존의 JavaScript 코드를 TypeScript로 재작성하는 작업을 할 때 이 any라는 마법 같은 타입을 사용하면 별다른 작업 없이 코드가 동작하지만,  
+반대로 타입 검사를 항상 만족하므로 의도치 않은 형 변환이나 전혀 예상하지 못한 의도되지 않은 타입의 값이 대입되는 등 여러 사이드 이펙트를 일으켜 안전성이 낮아지기 때문에 조심해야 합니다.  
+
+`never`
+```javascript
+// never 변수에는 어떤 값도 할당할 수 없습니다.
+// 그래서 아래의 두 코드는 TypeScript에서 컴파일 오류가 발생합니다.
+const first: never = 42;
+const second: never = 'some text';
+```
+아래와 같이 어떠한 값도 반환하지 않는 함수라면 반환 타입을 never로 명시하여 어떠한 값도 반환하지 않음을 알려줄 수 있습니다.
+```javascript
+const fetchFriendsOfUser = (username: string): never => {
+  throw new Error('Not Implemented');
+}
+
+// never를 사용하여 특정 타입 값을 할당받지 않도록 하는것도 가능합니다
+// NonString 타입은 어떤 타입이든 될 수 있지만 string 타입인 경우는 never로 추론하여 string 타입의 값이 할당되지 못하도록 할 수 있습니다.
+type NonString<T> = T extends string ? never : T;
+```
+
+
+-----
+
+
 ## keyof - 속성 이름을 타입으로 사용
 `인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`  
 ```typescript
