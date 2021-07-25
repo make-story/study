@@ -183,6 +183,77 @@ if (isDev(tony)) {
 }
 ```
 
+```javascript
+function isNumber(x: any): x is number {
+  return typeof x === "number";
+}
+
+function isString(x: any): x is string {
+  return typeof x === "string";
+}
+```
+
+
+## typeof - 타입가드 (typeof type guards)
+```typescript
+const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
+const code = 'a';
+
+test[code as keyof typeof test];
+```
+
+
+## keyof - 속성 이름을 타입으로 사용
+`인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`  
+```typescript
+interface ICountries {
+  KR: '대한민국',
+  US: '미국',
+  CP: '중국'
+}
+// key 로 접근
+let country1: keyof ICountries; // 'KR' | 'US' | 'CP'
+country1 = 'KR'; // ok
+country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
+
+// value 로 접근
+let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+country2 = '대한민국';
+country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
+```
+
+
+## value! - Non-null 단언 연산자  
+https://heropy.blog/2020/01/27/typescript/  
+`변수!.`를 사용하는 Non-null 단언 연산자(Non-null assertion operator)를 통해 피연산자가 Nullish(null이나 undefined) 값이 아님을 단언할 수 있는데,   
+변수나 속성에서 간단하게 사용할 수 있기 때문에 유용  
+```typescript
+// Error - TS2533: Object is possibly 'null' or 'undefined'.
+function fnA(x: number | null | undefined) {
+  return x.toFixed(2);
+}
+
+// if statement
+function fnD(x: number | null | undefined) {
+  if (x) {
+    return x.toFixed(2);
+  }
+}
+
+// Type assertion
+function fnB(x: number | null | undefined) {
+  return (x as number).toFixed(2);
+}
+function fnC(x: number | null | undefined) {
+  return (<number>x).toFixed(2);
+}
+
+// Non-null assertion operator
+function fnE(x: number | null | undefined) {
+  return x!.toFixed(2);
+}
+```
+
 
 -----
 
@@ -231,70 +302,6 @@ const fetchFriendsOfUser = (username: string): never => {
 // never를 사용하여 특정 타입 값을 할당받지 않도록 하는것도 가능합니다
 // NonString 타입은 어떤 타입이든 될 수 있지만 string 타입인 경우는 never로 추론하여 string 타입의 값이 할당되지 못하도록 할 수 있습니다.
 type NonString<T> = T extends string ? never : T;
-```
-
-
------
-
-
-## keyof - 속성 이름을 타입으로 사용
-`인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`  
-```typescript
-interface ICountries {
-  KR: '대한민국',
-  US: '미국',
-  CP: '중국'
-}
-// key 로 접근
-let country1: keyof ICountries; // 'KR' | 'US' | 'CP'
-country1 = 'KR'; // ok
-country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
-
-// value 로 접근
-let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
-country2 = '대한민국';
-country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
-```
-
-
-## typeof - 타입가드 (typeof type guards)
-```typescript
-const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
-const code = 'a';
-
-test[code as keyof typeof test];
-```
-
-
-## value! - Non-null 단언 연산자  
-https://heropy.blog/2020/01/27/typescript/  
-`변수!.`를 사용하는 Non-null 단언 연산자(Non-null assertion operator)를 통해 피연산자가 Nullish(null이나 undefined) 값이 아님을 단언할 수 있는데,   
-변수나 속성에서 간단하게 사용할 수 있기 때문에 유용  
-```typescript
-// Error - TS2533: Object is possibly 'null' or 'undefined'.
-function fnA(x: number | null | undefined) {
-  return x.toFixed(2);
-}
-
-// if statement
-function fnD(x: number | null | undefined) {
-  if (x) {
-    return x.toFixed(2);
-  }
-}
-
-// Type assertion
-function fnB(x: number | null | undefined) {
-  return (x as number).toFixed(2);
-}
-function fnC(x: number | null | undefined) {
-  return (<number>x).toFixed(2);
-}
-
-// Non-null assertion operator
-function fnE(x: number | null | undefined) {
-  return x!.toFixed(2);
-}
 ```
 
 
