@@ -3,6 +3,85 @@
 > 참고 페이지  
 https://medium.com/@kiwanjung/%EB%B2%88%EC%97%AD-async-await-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-%EC%A0%84%EC%97%90-promise%EB%A5%BC-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-955dbac2c4a4  
 
+-----
+
+1. Promise.all()
+다수의 비동기 작업이 한 번에 실행되는가? : O  
+다수의 비동기 작업이 모두 끝나기를 기다리는가? : O  
+```javascript
+async function runPromiseAll() {
+    const times = [3000, 1000, 7000, 5000];
+  
+    await Promise.all(times.map((time) => timer(time)));
+  
+    console.log('모든 타이머 끝');
+}
+/*
+$ 3000 타이머 시작
+$ 1000 타이머 시작
+$ 7000 타이머 시작
+$ 5000 타이머 시작
+$ 1000 타이머 끝
+$ 3000 타이머 끝
+$ 5000 타이머 끝
+$ 7000 타이머 끝
+$ 모든 타이머 끝
+*/
+```
+
+2. for await of문
+다수의 비동기 작업이 한 번에 실행되는가? : X  
+다수의 비동기 작업이 모두 끝나기를 기다리는가? : O  
+```javascript
+async function runForAwait() {
+    const times = [3000, 1000, 7000, 5000];
+  
+    for await (let time of times) {
+        await timer(time);
+    }
+  
+    console.log('모든 타이머 끝');
+}
+/*
+$ 3000 타이머 시작
+$ 3000 타이머 끝
+$ 1000 타이머 시작
+$ 1000 타이머 끝
+$ 7000 타이머 시작
+$ 7000 타이머 끝
+$ 5000 타이머 시작
+$ 5000 타이머 끝
+$ 모든 타이머 끝
+*/
+```
+
+3. forEach 메소드 안에 async function을 사용
+다수의 비동기 작업이 한 번에 실행되는가? : O  
+다수의 비동기 작업이 모두 끝나기를 기다리는가? : X  
+```javascript
+async function runForEach() {
+    const times = [3000, 1000, 7000, 5000];
+  
+    times.forEach(async (time) => {
+      await timer(time);
+    })
+  
+    console.log('모든 타이머 끝');
+}
+/*
+$ 3000 타이머 시작
+$ 1000 타이머 시작
+$ 7000 타이머 시작
+$ 5000 타이머 시작
+$ 모든 타이머 끝
+$ 1000 타이머 끝
+$ 3000 타이머 끝
+$ 5000 타이머 끝
+$ 7000 타이머 끝
+*/
+```
+
+-----
 
 ```javascript
 let myFirstPromise = new Promise((resolve, reject) => {

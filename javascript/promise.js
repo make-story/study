@@ -45,6 +45,7 @@ $ 모든 타이머 끝
 // 2. for await of문
 // 다수의 비동기 작업이 한 번에 실행되는가? : X
 // 다수의 비동기 작업이 모두 끝나기를 기다리는가? : O
+// https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/for-await...of
 async function runForAwait() {
     const times = [3000, 1000, 7000, 5000];
   
