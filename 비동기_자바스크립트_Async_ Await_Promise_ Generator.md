@@ -5,6 +5,135 @@ https://medium.com/@kiwanjung/%EB%B2%88%EC%97%AD-async-await-%EB%A5%BC-%EC%82%AC
 
 -----
 
+
+# Primise
+프로미스는 비동기 상태를 값으로 다룰 수 있는 객체다. (ES6)
+
+## 프로미스의 세 가지 상태
+- 대기 중(pending) : 결과를 기다리는 중  
+- 이행 됨(fulfilled) : 수행이 정상적으로 끝났고 결과값을 가지고 있음
+- 거부 됨(rejected) : 수행이 비정상적으로 끝났음 
+
+이행 됨, 거부 됨 상태를 `처리됨(settled)`상태라고 부른다.  
+
+## 프로미스를 생성하는 세 가지 방식
+```javascript
+const p1 = new Promise((resolve, reject) => {
+    // resolve(data);
+    // reject('error message');
+});
+const p2 = Promise.reject('error message'); // 거부됨 상태인 프로미스가 생성
+const p3 = Promise.resolve(123); // 만약 입력 값이 프로미스였다면 그 객체가 그대로 반환되고, 프로미스가 아니라면 이행됨 상태인 프로미스가 반환
+console.log(p3 !== 123); // false
+```
+```javascript
+const p = new Promise(resolve => setTimeout(() => resolve(10), 1));
+console.log(Promise.resolve(p) === p); // true
+```
+
+## 프로미스 이용하기1 : then
+then은 처리됨 상태가 된 프로미스를 처리할 때 사용되는 메서드다.  
+프로미스가 처리됨 상태가 되면 then 메서드의 인수로 전달된 함수가 호출된다.  
+```javascript
+// 처리됨 상태의 호출
+const onResolve = () => console.log('처리됨');
+// 거부됨 상태의 호출
+const onReject = () => console.log('거부됨');
+
+Promise.resolve(123).then(onResolve, onReject);
+Promise.reject('error').then(onResolve, onReject);
+
+// 거부됨 상태인 프로미스는 처음으로 만나는 onReject 콜백함수를 호출
+Promise.reject('error')
+.then(() => console.log('then 1'))
+.then(() => console.log('then 2'))
+.then(() => console.log('then 3'), () => console.log('then 4')) // then 4 호출됨
+.then(() => console.log('then 5'), () => console.log('then 6')) // then 5 호출됨
+// 위와 같은 특징 덕에 프로미스로 비동기 프로그래밍을 할 때 동기 프로그래밍 방식으로 코드를 작성할 수 있다.
+```
+
+## 프로미스 이용하기2 : catch
+catch 는 프로미스 수행 중 발생한 예외를 처리하는 메서드다.  
+catch 메서드는 then 메서드의 onReject 함수와 같은 역할을 한다.
+```javascript
+Promise.resolve()
+.then(
+    () => {
+        throw new Error('some error');
+    },
+    error => {
+        console.log(error);
+    }
+);
+// Unhandled promise rejection 에러가 발생
+```
+```javascript
+Promise.resolve()
+.then(() => {
+    throw new Error('some error');
+})
+.catch(error => {
+    console.log(error);
+});
+```
+
+## 프로미스 이용하기 3 : finally
+finally는 프로미스가 이행됨 또는 거부됨 상태일 때 호출되는 메서드다.  
+프로미스 체인의 가장 마지막에 사용된다.  
+```javascript
+const p = new Promise();
+p.then(data => {
+    // ...
+}).catch(error => {
+    // ...
+}).finally(() => {
+    // ...
+});
+```
+
+
+## 프로미스 사용 시 주의할 점
+- return 키워드 깜빡하지 않기
+then 메서드 내부 함수에서 return 키워드를 입력하는 것을 깜빡히기 쉽다.  
+- 프로미스는 불변 객체라는 사실 명심하기  
+```javascript
+function requestData() {
+    const p = Promise.resolve(10);
+    p.then(() => { // then 메서드는 기존 객체를 수정하지 않고, 새로운 프로미스를 반환한다.
+        return 20;
+    });
+    return p;
+}
+requestData().then(v => {
+    console.log(v); // 10
+});
+```
+```javascript
+function requestData() {
+    return Promise.resolve(10).then(v => {
+        return 20;
+    });
+}
+requestData().then(v => {
+    console.log(v); // 20
+});
+```
+- 동기 코드의 예외 처리 신경 쓰기  
+프로미스를 동기(sync) 코드와 같이 사용할 때는 예외 처리에 신경 써야 한다.  
+```javascript
+const doSync => console.log('sync 실행');
+function requestData() {
+    return fetch()
+    .then(data => {
+        doSync();
+        console.log(data);
+    })
+    .catch(error => console.log(error)); // doSync 에서 발생하는 예외는 catch 메서드에서 처리가 된다.
+}
+```
+
+-----
+
 1. Promise.all()
 다수의 비동기 작업이 한 번에 실행되는가? : O  
 다수의 비동기 작업이 모두 끝나기를 기다리는가? : O  
@@ -173,8 +302,9 @@ async function getFirstUser() {
     return users[0].name;
 }
 ```
-```javascript
 
-```
+-----
 
+
+# 제너레이터
 
