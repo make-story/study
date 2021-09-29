@@ -9,12 +9,16 @@ https://medium.com/@kiwanjung/%EB%B2%88%EC%97%AD-async-await-%EB%A5%BC-%EC%82%AC
 # Primise
 프로미스는 비동기 상태를 값으로 다룰 수 있는 객체다. (ES6)
 
+
 ## 프로미스의 세 가지 상태
 - 대기 중(pending) : 결과를 기다리는 중  
 - 이행 됨(fulfilled) : 수행이 정상적으로 끝났고 결과값을 가지고 있음
 - 거부 됨(rejected) : 수행이 비정상적으로 끝났음 
 
-이행 됨, 거부 됨 상태를 `처리됨(settled)`상태라고 부른다.  
+이행 됨, 거부 됨 상태를 `처리됨(settled)`상태라고 부른다.    
+`프로미스는 처리된 상태가 되면 더 이상 다른 상태로 변경되지 않는다.`  
+대기 중 상태일 때만 이행됨 또는 거부됨 상태로 변할 수 있다.
+
 
 ## 프로미스를 생성하는 세 가지 방식
 ```javascript
@@ -22,14 +26,17 @@ const p1 = new Promise((resolve, reject) => {
     // resolve(data);
     // reject('error message');
 });
-const p2 = Promise.reject('error message'); // 거부됨 상태인 프로미스가 생성
-const p3 = Promise.resolve(123); // 만약 입력 값이 프로미스였다면 그 객체가 그대로 반환되고, 프로미스가 아니라면 이행됨 상태인 프로미스가 반환
+
+// new 키워드를 사용하지 않고 Promise.reject 를 호출하면, 거부됨 상태인 프로미스가 생성
+const p2 = Promise.reject('error message'); 
+
+// 만약 입력 값이 프로미스였다면 그 객체가 그대로 반환되고, 프로미스가 아니라면 이행됨 상태인 프로미스가 반환
+const p3 = Promise.resolve(123);  // p3 는 123을 데이터로 가진 프로미스다.
 console.log(p3 !== 123); // false
-```
-```javascript
-const p = new Promise(resolve => setTimeout(() => resolve(10), 1));
+const p4 = new Promise(resolve => setTimeout(() => resolve(10), 1)); 
 console.log(Promise.resolve(p) === p); // true
 ```
+
 
 ## 프로미스 이용하기1 : then
 then은 처리됨 상태가 된 프로미스를 처리할 때 사용되는 메서드다.  
@@ -40,8 +47,8 @@ const onResolve = () => console.log('처리됨');
 // 거부됨 상태의 호출
 const onReject = () => console.log('거부됨');
 
-Promise.resolve(123).then(onResolve, onReject);
-Promise.reject('error').then(onResolve, onReject);
+Promise.resolve(123).then(onResolve, onReject); // onResolve 호출됨
+Promise.reject('error').then(onResolve, onReject); // onReject 호출됨
 
 // 거부됨 상태인 프로미스는 처음으로 만나는 onReject 콜백함수를 호출
 Promise.reject('error')
@@ -52,22 +59,36 @@ Promise.reject('error')
 // 위와 같은 특징 덕에 프로미스로 비동기 프로그래밍을 할 때 동기 프로그래밍 방식으로 코드를 작성할 수 있다.
 ```
 
+
 ## 프로미스 이용하기2 : catch
 catch 는 프로미스 수행 중 발생한 예외를 처리하는 메서드다.  
 catch 메서드는 then 메서드의 onReject 함수와 같은 역할을 한다.
 ```javascript
+// 같은 기능을 하는 then 메서드와 catch 메서드
+Promise.reject(1).then(null, error => {
+    console.log(error);
+});
+Promise.reject(1).catch(error => {
+    console.log(error);
+})
+```
+```javascript
+// then 메서드의 onReject 를 사용했을 때의 문제점
 Promise.resolve()
 .then(
     () => {
+        // onResolve 내부에서 예외를 발생시켰을 경우
         throw new Error('some error');
     },
     error => {
+        // onResolve 내부에서 발생한 예외를 처리하지 못한다!!!
         console.log(error);
     }
 );
 // Unhandled promise rejection 에러가 발생
 ```
 ```javascript
+// onResolve 내부 예외를 처리를 위한 catch 사용
 Promise.resolve()
 .then(() => {
     throw new Error('some error');
@@ -76,6 +97,7 @@ Promise.resolve()
     console.log(error);
 });
 ```
+
 
 ## 프로미스 이용하기 3 : finally
 finally는 프로미스가 이행됨 또는 거부됨 상태일 때 호출되는 메서드다.  
@@ -132,7 +154,9 @@ function requestData() {
 }
 ```
 
+
 -----
+
 
 1. Promise.all()
 다수의 비동기 작업이 한 번에 실행되는가? : O  
@@ -210,7 +234,9 @@ $ 7000 타이머 끝
 */
 ```
 
+
 -----
+
 
 ```javascript
 let myFirstPromise = new Promise((resolve, reject) => {
@@ -303,8 +329,140 @@ async function getFirstUser() {
 }
 ```
 
+
 -----
 
 
 # 제너레이터
+제너레이터(generator)는 함수의 실행을 중간에 멈추고 재개할 수 있는 독특한 기능이다.  
+실행을 멈출 때 값을 전달할 수 있기 때문에 반목분에서 제너레이터가 전달하는 값을 하나씩 꺼내서 사용할 수 있다.  
+이는 배열이 반복문에서 사용되는 방식과 같다.  다만, 제너레이터는 보통의 컬렉션(collection)과 달리 값을 미리 만들어 놓지 않는다.  
+값을 미리 만들어 놓으면 불필요하게 메모리를 사용하는 단점이 있다. 제너레이터를 사용하면 필요한 순간에 값을 계산해서 전달할 수 있기 때문에 메모리 측면에서 효율적이다.  
+
+제너레이터 객체는 next, return, throw 메서드를 가지고 있다.  
+```javascript
+function* f1() {
+    console.log('f1-1');
+    yield 10;
+    console.log('f1-2');
+    yield 20;
+    console.log('f1-3');
+    yield 30;
+}
+
+const gen1 = f1();
+console.log(gen1.next());
+// f1-1
+// { value: 10, done: false }
+console.log(gen1.next());
+// f1-2
+// { value: 20, done: false }
+console.log(gen1.next());
+// f1-3
+// { value: 30, done: true }
+
+const gen2 = f1();
+console.log(gen2.next());
+// f1-1
+// { value: 10, done: false }
+console.log(gen2.return('abc')); // 제너레이터 return
+// { value: 'abc', done: true }
+console.log(gen2.next());
+// { value: undefined, done: true }
+```
+
+## 반복 가능하면서 반복자인 제너레이터 객체
+다음 조건을 만족하는 객체는 `반복자`이다.  
+- next 메서드를 가지고 있다.  
+- next 메서드는 value와 done속성값을 가진 객체를 반환한다.  
+- done 속성값은 작업이 끝났을 때 참이 된다.  
+
+다음 조건을 만족하면 `반복 가능(iterable)한 객체`다.  
+- Symbol.interator 속성값으로 함수를 가지고 있다.  
+- 해당 함수를 호출하면 반복자를 반환한다.  
+
+배열은 대표적인 반복 가능한 객체다.    
+```javascript
+const arr = [10, 20, 30];
+const iter = arr[Symbol.iterator](); // 배열은 Symbol.iterator 속성값으로 함수를 갖고 있으므로 첫 번째 조건을 만족한다.
+console.log(iter.next()); // 함수가 반환한 iter 변수는 반복자이므로 두 번째 조건도 만족한다.
+// { value: 10, done: false }
+```
+
+## 제너레이터로 구현한 map, filter, take 함수
+```javascript
+function* map(iter, mapper) {
+    for(const v of iter) {
+        yield mapper(v);
+    }
+}
+
+function* filter(iter, test) {
+    for(const v of iter) {
+        if(test(v)) {
+            yield v;
+        }
+    }
+}
+
+function* take(n, iter) {
+    for(const v of iter) {
+        if(n <= 10) return;
+        yield v;
+        n--;
+    }
+}
+
+const value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const result = take(3, map(filter(values, n => n % 2 === 0), n => n * 10));
+console.log([ ...result ]); // [ 20, 40, 60 ]
+```
+
+
+## 제너레이터 함수끼지 호출하기  
+제너레이터 함수에서 다른 제너레이터 함수를 호출할 때는 `yield* 키워드`를 이용한다.
+```javascript
+function* f1() {
+    yield 2;
+    yield 3;
+}
+function* f2() {
+    yield 1;
+    yield* f1();
+    yield 4;
+}
+console.log([ ...f2() ]); // [ 1, 2, 3, 4, ]
+```
+
+
+## 제너레이터 함수로 데이터 전달하기
+```javascript
+function* f1() {
+    const data1 = yield;
+    console.log(data1); // 10
+    const data2 = yield;
+    console.log(data2); // 20
+}
+
+const gen = f1();
+gen.next(); // 첫 번째 next 메서드의 호출은 제너레이터 함수의 실행이 시작되도록 하는 역할만 수행한다.  
+gen.next(10);
+gen.next(20);
+```
+
+
+## 제너레이터 함수에서 예외 발생한 경우
+```javascript
+function* genFunc() {
+    throw new Error('some error');
+}
+function func() {
+    const gen = genFunc();
+    try {
+        gen.next();
+    }catch (e) {
+        console.log('in catch:', e); // 'in catch: Error: some error' 에러 발생!
+    }
+}
+```
 

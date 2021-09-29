@@ -29,6 +29,52 @@
 useState 와 useEffect 훅을 함께 사용해야 한다.  
 useState 훅을 사용해 fetch 의 응답을 상태에 저장하고, useEffect 훅을 사용해 fetch 요청을 만든다.  
 
+
+`useState 상태값 변경 함수는 기본 비동기로 동작`  
+```javascript
+const [count, setCount] = useState(0);
+
+setCount(count + 1); // 1
+setCount(count + 1); // 1
+```
+
+
+`상태값 변경 함수의 인수로 함수를 입력할 수 있음`
+```javascript
+const [count, setCount] = useState(0);
+
+setCount(prev => prev + 1); // 1
+setCount(prev => prev + 1); // 2
+```
+
+
+`상태값 변경 함수는 비동기로 처리되지만 그 순서가 보장`  
+```javascript
+const [count1, setCount1] = useState(0);
+const [count2, setCount2] = useState(0);
+
+function onClick() {
+	// count1 상태값을 먼저 증가하고 count2 상태값은 나중에 증가 한다.
+	setCount1(count1 + 1);
+	setCount1(count2 + 1);
+}
+
+// 상태값 변경 함수의 호출 순서대로 상태값이 변경되기 때문에 result 변수는 항상 참이다.
+const result = count1 >= count2;
+```
+
+
+`하나의 useState 훅으로 여러 상태값 관리하기`  
+```javascript
+const [state, setState] = useState({ name: '', age: 0 });
+
+setState({ ...state, name: 'a' });
+setState({ ...state, age: 1 });
+```
+
+
+
+
 ```javascript
 const getAverage = numbers => {
 	console.log('평균값 계산 실행');
