@@ -30,6 +30,7 @@ useState 와 useEffect 훅을 함께 사용해야 한다.
 useState 훅을 사용해 fetch 의 응답을 상태에 저장하고, useEffect 훅을 사용해 fetch 요청을 만든다.  
 
 
+### useState
 `useState 상태값 변경 함수는 기본 비동기로 동작`  
 ```javascript
 const [count, setCount] = useState(0);
@@ -73,6 +74,114 @@ setState({ ...state, age: 1 });
 ```
 
 
+### useRef
+`돔 요소 접근`
+```javascript
+function TextInput() {
+	const inputRef = useRef();
+
+	useEffect(() => {
+		// ref 객체의 current 속성을 이용하여 접근
+		inputRef.current.focus();
+	}, []);
+
+	return (
+		<div>
+			<input type="text" ref={inputRef} />
+			<button>저장</button>
+		</div>
+	);
+}
+```
+
+
+`forwardRef 함수로 ref 속성값을 직접 처리하기`
+```javascript
+// forwardRef 함수를 이용하면 부모 컴포넌트에서 넘어온 ref 속성값을 직접 처리할 수 있다.
+const TextInput = React.forwardRef((props, ref) => (
+	<div>
+		<input type="text" ref={ref} />
+		<button>저장</button>
+	</div>
+));
+
+function Form() {
+	const inputRef = useRef();
+	return (
+		<div>
+			<TextInput ref={inputRef} />
+			<button onClick={() => inputRef.current.focus()}>텍스트로 이동</button>
+		</div>
+	);
+}
+```
+
+
+`ref 속성값으로 함수 사용하기`
+ref 속성값에 함수를 입력하면 자식 요소가 생성되거나 제거되는 시점에 호출된다.
+```javascript 
+function Form() {
+	const [text, setText] = useState(INITIAL_TEXT);
+	const [showText, setShowText] = useState(true);
+
+	const setInitialText = useCallback(ref => ref && setText(INITIAL_TEXT), []);
+	return (
+		<div>
+			{showText && (
+				<input
+					text="text"
+					ref={setInitialText}
+					value={text}
+					onChange={e => setText(e.target.value)}	
+				/>
+			)}
+			<button onClick={() => setShow(!showText)}>
+				보이기/가리기
+			</button>
+		</div>
+	);
+}
+
+const INITIAL_TEXT = '안녕하세요';
+```
+
+
+`렌더링과 무관한 값 저장히기: useRef`
+```javascript
+function Profile() {
+	const [age, setAge] = useState(20);
+	const prevAgeRef = useRef(20);
+
+	// 렌더링 끝나면 실행
+	useEffect(() => {
+		// age 값이 변경되면 그 값을 prevAgeRef 에 저장한다.
+		prevAgeRef.current = age;
+	}, [age]);
+
+	// age 의 이전 상태값을 이용한다.
+	const prevAge = prevAgeRef.current;
+	const text = age === prevAge ? 'same' : age > prevAge ? 'older' : 'younger';
+
+	return (
+		<div>
+			<p>`${age} ${text} ${prevAge}`</p>
+			<button 
+				onClick={() => {
+					const age = Math.floor(Math.random() * 50 + 1);
+					// age 가 변경되어 다시 렌더링할 때 prevAge 는 age 의 이전 상태값,
+					// 렌더링이 끝나면 useEffect 에 의해, prevAgeRef 는 age 의 최신 상태값으로 변경된다.
+					setAge(age);
+				}}
+			>
+				나이변경
+			</button>
+		</div>
+	);
+}
+```
+
+
+-----
 
 
 ```javascript
