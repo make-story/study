@@ -160,3 +160,46 @@ function getUniqueColors(dogs) {
 	}
 	return [ ...unique ];
 }
+
+
+// ----------
+
+
+const store = new Map();
+
+const initalGroupItem = {
+    groupCode: '',
+    text: '',
+    todoList: [],
+};
+const initalTodoItem = {
+    todoCode: '',  // 고유값
+    text: '',  // 할일
+    rank: 0, 
+    time: 0, 
+    minute: 0, // 타이머 작동시 사용 : 분
+    second: 0, // 타이머 작동시 사용 : 초
+    timer: false, // 타이머 작동여부
+    done: false,  // 종료여부
+};
+const groupCode = '111111';
+const todoCode = '222222';
+store.set(groupCode, { ...initalGroupItem, groupCode });
+store.set(groupCode, { ...store.get(groupCode), text: 'TEST' });
+
+let groupData, todoData;
+groupData = store.get(groupCode);
+groupData.todoList = [ ...groupData.todoList, { ...initalTodoItem, todoCode } ];
+groupData = store.get(groupCode);
+console.log(groupData);
+
+[ todoData ] = groupData.todoList.filter(value => value.todoCode === todoCode);
+let todoUpdate = {
+    text: 'TEST',
+};
+for(const key in todoUpdate) {
+    todoData[key] = todoUpdate[key];
+}
+
+groupData = store.get(groupCode);
+console.log(groupData);
