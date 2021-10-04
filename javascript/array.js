@@ -172,6 +172,12 @@ var first = fruits.shift(); // 앞에서 사과를 제거
 var removedItem = fruits.splice(pos, 1); // 항목을 제거하는 방법 (제거하고자 하는 인덱스 값)
 // ["딸기", "망고"]
 
+// 배열 내부 JSON 찾아서 제거
+var index = fruits.findIndex(value => value.key === key);
+fruits.splice(index, 0 <= index ? 1 : 0); // 제거 됨 - splice 는 반환값을 다시 해당 배열에 바인딩 안한다! splice는 원본 배열을 바로 수정한다!
+
+
+
 
 // ----------
 
