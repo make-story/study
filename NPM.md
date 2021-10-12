@@ -2,6 +2,8 @@
 npm 은 자바스크립트 프로그래밍 언어를 위한 패키지 관리자  
 - https://docs.npmjs.com/about-npm  
 
+## 참고  
+- https://www.hamadevelop.me/packagelock/?fbclid=IwAR1y3fmMaOrHqAE9L9JbQit80yMjiI6KjRxIdB6UhGwTp_PG94tK7rfgQTs  
 
 -----
 
