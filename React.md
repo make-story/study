@@ -1,5 +1,5 @@
 # 기본
-
+https://ko.reactjs.org/docs/hello-world.html  
 
 # 리렌더링 주의!
 문제 : 데이터 리스트 추가에 따라 컴포넌트가 append 되는 부분만 렌더하는 것이 아닌, 전체 리스트를 다시 렌더링 하는 경우가 있다.
@@ -96,6 +96,7 @@ function TextInput() {
 
 
 `forwardRef 함수로 ref 속성값을 직접 처리하기`
+// https://ko.reactjs.org/docs/forwarding-refs.html
 ```javascript
 // forwardRef 함수를 이용하면 부모 컴포넌트에서 넘어온 ref 속성값을 직접 처리할 수 있다.
 const TextInput = React.forwardRef((props, ref) => (
