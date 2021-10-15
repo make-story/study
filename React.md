@@ -115,6 +115,25 @@ function Form() {
 	);
 }
 ```
+```javascript
+// 타잆스크립트 사용할 경우
+const TextInput = React.forwardRef<any, any>((props, ref) => (
+	<div>
+		<input type="text" ref={ref} />
+		<button>저장</button>
+	</div>
+);
+
+function Form() {
+	const inputRef = useRef<HTMLElement>();
+	return (
+		<div>
+			<TextInput ref={inputRef} />
+			<button onClick={() => inputRef.current.focus()}>텍스트로 이동</button>
+		</div>
+	);
+}
+```
 
 
 `ref 속성값으로 함수 사용하기`
