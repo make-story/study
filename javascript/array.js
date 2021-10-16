@@ -32,7 +32,10 @@ const everyBool = [].every((item, index, list) => {
 
 // ----------
 
-// 배열 만들기 
+
+/**
+ * 배열 만들기 
+ */
 var fruits = ['사과', '바나나'];
 
 
@@ -42,6 +45,13 @@ Array.of(1, 2, 3); // [1, 2, 3]
 
 Array(7);          // [ , , , , , , ]
 Array(1, 2, 3);    // [1, 2, 3]
+
+
+// 더미 데이터
+const posts = [ ...Array(40).keys() ].map(i => ({
+	title: `포스트${i}`,
+	body: '',
+}));
 
 
 // 시작 인덱스 부터 끝 인덱스 이전까지 값 채움
@@ -75,10 +85,20 @@ arr5.flat();
 // [1, 2, 4, 5]
 
 
+// 배경 length 값 설정/주입
+// 현재 배열의 값이 3개 있을 때, length 값을 임의로 2개로 감소시키면 넘치는 요소(element)를 지웁니다.
+// (배열의 length 속성을 그에 맞춰 업데이트)
+
+// 배열 크기 설정
+new Array(10/*크기*/);
+
 
 // ----------
 
 
+/**
+ * 반복
+ */
 // 배열의 항목 각각에 대해 반복하기
 fruits.forEach(function (item, index, array) { // 기존 for문과 다르게 스코프가 지역
 	console.log(item, index);
@@ -140,8 +160,12 @@ array1.forEach(element => console.log(element));
 	return (v ==2);
  });
 
+
 // ----------
 
+/**
+ * 아이템 추가 / 제거
+ */
 
 // 배열 '뒤' 항목 추가하기
 var newLength = fruits.push("오렌지"); // push("오렌지", "포도") 처럼 여러개 가능
@@ -172,16 +196,19 @@ var first = fruits.shift(); // 앞에서 사과를 제거
 var removedItem = fruits.splice(pos, 1); // 항목을 제거하는 방법 (제거하고자 하는 인덱스 값)
 // ["딸기", "망고"]
 
+
+
 // 배열 내부 JSON 찾아서 제거
 var index = fruits.findIndex(value => value.key === key);
 fruits.splice(index, 0 <= index ? 1 : 0); // 제거 됨 - splice 는 반환값을 다시 해당 배열에 바인딩 안한다! splice는 원본 배열을 바로 수정한다!
 
 
-
-
 // ----------
 
 
+/**
+ * 자르기
+ */
 // 배열 자르기
 // slice(start, [, end]) : 복사본을 새로운 배열 객체로 반환 (즉, 원본 배열은 수정되지 않는다.)
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -196,7 +223,7 @@ var arr8 = arr.slice(5, -4); // [6]
 var arr9 = arr.slice(2, 15); // [3, 4, 5, 6, 7, 8, 9, 10]
 
 
-// splice(start [, length]) : 배열의 기존 요소를 삭제 또는 교체하거나 새 요소를 추가하여 배열의 내용을 변경 (즉, 원본 배열을 수정한다.
+// splice(start [, length]) : 배열의 기존 요소를 삭제 또는 교체하거나 새 요소를 추가하여 배열의 내용을 변경 (즉, 원본 배열을 수정한다.)
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 var arr1 = arr.splice(10, 2, 'a', 'b', 'c');
 console.log(arr); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "a", "b", "c"]
@@ -211,6 +238,9 @@ console.log(arr1); // [7, 8, 9, 10]
 // ----------
 
 
+/**
+ * 아이템 검색
+ */
 // 배열 안 항목의 인덱스 찾기
 fruits.push("망고");
 // ["딸기", "바나나", "망고"]
@@ -256,6 +286,9 @@ console.log(array1.every(isBelowThreshold));
 // ----------
 
 
+/**
+ * 복사
+ */
 // 배열 복사하기
 var shallowCopy = fruits.slice(); // 사본을 만드는 방법
 // ["딸기", "망고"]
@@ -264,6 +297,9 @@ var shallowCopy = fruits.slice(); // 사본을 만드는 방법
 // ----------
 
 
+/**
+ * 합치기
+ */
 // 배열 합치기
 var list1 = [1, 2, 3];
 var list2 = [4, 5, 6];
@@ -274,23 +310,15 @@ var list3 = list1.concat(list2, [7, 8, 9]);
 // ----------
 
 
-// 배경 length 값 설정/주입
-// 현재 배열의 값이 3개 있을 때, length 값을 임의로 2개로 감소시키면 넘치는 요소(element)를 지웁니다.
-// (배열의 length 속성을 그에 맞춰 업데이트)
-
-// 배열 크기 설정
-new Array(10/*크기*/);
-
-
-// ----------
-
-
-// 자료구조
+/**
+ * 자료구조
+ */
 // 스택 (후입선출)
 var stack = [];
 stack.push(1);
 stack.push(2);
 stack.pop();
+
 // 큐 (선입선출)
 var queue = [];
 queue.push(1); // enqueue
@@ -301,7 +329,9 @@ queue.shift(); // dequeue
 // ----------
 
 
-// 펼침연산자 활용
+/**
+ * 펼침연산자 활용
+ */
 // 기존
 function removeItem(items, removable) {
 	const index = items.indexOf(removable);
@@ -312,6 +342,8 @@ function removeItem(items, removable) {
 	const index = items.indexOf(removable);
 	return [ ...items.slice(0, index), ...items.slice(index + 1) ];
 }
+
+
 // 파라미터
 const book = ['A', 'B', 99.90];
 function formatBook(title, author, price) {
@@ -320,8 +352,7 @@ function formatBook(title, author, price) {
 formatBook(...book);
 
 
-
-// 펼침연산자 정렬
+// 정렬
 const staff = [
 	{ 
 		years: 10
