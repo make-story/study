@@ -99,24 +99,32 @@ UserSchema.methods.generateToken = function() {
 단, CSRF는 CSRF 토큰 사용 및 Referer 검증 등의 방식으로 제대로 막을 수 있는 반면, XSS는 보안장치를 적용해 놓아도 개발자가 놓칠 수 있는 다양한 취약점을 통해 공격을 받을 수 있습니다.  
 
 ```javascript
-// 회원가입 / 로그인 쿠키 설정
+// 회원가입 
 export const register = async ctx => {
     // ...
 
     ctx.body = user.serialize();
 
+    // JWT 토큰 발급
     const token = user.generateToken();
+
+    // 쿠키 값 설정
     ctx.cookies.set('access_token', token, {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
         httpOnly: true,
     });
 };
 
+// 로그인 
 export const login = async ctx => {
     // ...
 
     ctx.body = user.serialize();
+
+    // JWT 토큰 발급
     const token = user.generateToken();
+
+    // 쿠키 값 설정
     ctx.cookies.set('access_token', token, {
         maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
         httpOnly: true,
@@ -131,12 +139,14 @@ export const login = async ctx => {
 import jwt from 'jsonwebtoken';
 
 const jwtMiddleware = (ctx, next) => {
+    // 쿠키 값 불러오기
     const token = ctx.cookies.get('access_token');
     if(!token) {
         // 토큰 없음
         return next();
     }
     try {
+        // JWT 토큰 값 확인
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log(decoded);
         // ctx 통해 접근 가능하도록 추가
@@ -166,12 +176,14 @@ export default jwtMiddleware;
 import jwt from 'jsonwebtoken';
 
 const jwtMiddleware = (ctx, next) => {
+    // 쿠키 값 불러오기
     const token = ctx.cookies.get('access_token');
     if(!token) {
         // 토큰 없음
         return next();
     }
     try {
+        // JWT 토큰 값 확인
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log(decoded);
         // ctx 통해 접근 가능하도록 추가
