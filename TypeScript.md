@@ -255,6 +255,7 @@ country2 = '대한민국';
 country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
 ```
 
+`const - readonly`
 ```typescript
 export const TAB = {
   HOME: 'home', // 홈
