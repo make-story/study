@@ -243,21 +243,46 @@ interface ICountries {
   CP: '중국'
 }
 // key 로 접근
-let country1: keyof ICountries; // 'KR' | 'US' | 'CP'
+type TKeys = keyof ICountries; // 'KR' | 'US' | 'CP'
+let country1: TKeys; 
 country1 = 'KR'; // ok
 country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
 
 // value 로 접근
-let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+type TValues = ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+let country2: TValues; 
 country2 = '대한민국';
 country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
 ```
 
-`값을 사용할 경우`
 ```typescript
-type keys = keyof ICountries;
-type values = ICountries[keys];
+export const TAB = {
+  HOME: 'home', // 홈
+  INTRODUCE: 'introduce', // 소개
+  RESERVE: 'reserve', // 예약
+  NOTICE: 'notice', // 소식
+} as const;
+
+// key 로 접근
+export type TTabKey = keyof typeof TAB; // TAB 의 key 
+
+// value 로 접근
+export type TTab = typeof TAB[keyof typeof TAB]; // TAB 의 key 의 value
 ```
+
+`enum`
+```typescript
+enum sample_keys {
+  TypeScript,
+  JavaScript,
+  ExpressJS,
+  NodeJS,
+  NextJS
+}
+
+type keyofEnum = keyof typeof sample_keys;
+```
+
 
 
 ## value! - Non-null 단언 연산자  
