@@ -202,6 +202,37 @@ const code = 'a';
 test[code as keyof typeof test];
 ```
 
+```typescript
+const object = {
+  a: 1,
+  b: 2,
+  c: 3,
+}
+
+type objectShape = typeof object
+// objectShape는 아래와 같을 것
+/*type objectShape = {
+  a: number
+  b: number
+  c: number
+}*/
+```
+```typescript
+const object = {
+  a: 1,
+  b: 2,
+  c: 3,
+} as const
+
+type objectShape = typeof object
+// objectShape는 아래와 같을 것
+/*type objectShape = {
+  readonly a: 1
+  readonly b: 2
+  readonly c: 3
+}*/
+```
+
 
 ## keyof - 속성 이름을 타입으로 사용
 `인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`  
@@ -220,6 +251,12 @@ country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" 
 let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
 country2 = '대한민국';
 country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
+```
+
+`값을 사용할 경우`
+```typescript
+type keys = keyof ICountries;
+type values = ICountries[keys];
 ```
 
 
