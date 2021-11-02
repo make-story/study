@@ -30,5 +30,26 @@ for (let [key, value] of result.entries()) {
 
 
 /**
- * 
+ * 배열 내부 정보 선택 제거
  */
+const list = [
+    { code: 'a' },
+    { code: 'a' },
+    { code: 'b' },
+    { code: 'c' },
+    { code: 'c' },
+    { code: 'd' },
+];
+const setListRemoveItem = (list, key, value) => {
+    let index = 0;
+    while (index < list.length) {
+        if (list[index][key] === value) {
+            // 배열에서 제거
+            list.splice(index, 1);
+        } else {
+            ++index;
+        }
+    }
+    return list;
+};
+
