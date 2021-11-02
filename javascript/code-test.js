@@ -31,6 +31,7 @@ for (let [key, value] of result.entries()) {
 
 /**
  * 배열 내부 정보 선택 제거
+ * https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
  */
 const list = [
     { code: 'a' },
