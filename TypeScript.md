@@ -264,6 +264,9 @@ export const TAB = {
   NOTICE: 'notice', // 소식
 } as const;
 
+// object 로 접근
+export type TTab = typeof TAB;
+
 // key 로 접근
 export type TTabKey = keyof typeof TAB; // TAB 의 key 
 
