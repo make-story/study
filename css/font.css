@@ -1,0 +1,30 @@
+@font-face {
+	font-family: 'Nanum Gothic';
+	font-style: normal;
+	font-weight: 400; /* font-weight:400; - Nomal (보통, '본문' 적용) */
+	src: url(/fonts/NanumGothic-Regular.eot);
+	src: url(/fonts/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+		 url(/fonts/NanumGothic-Regular.woff2) format('woff2'),
+		 url(/fonts/NanumGothic-Regular.woff) format('woff'),
+		 url(/fonts/NanumGothic-Regular.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'Nanum Gothic';
+	font-style: normal;
+	font-weight: 700; /* font-weight:700; - Bold (굵게, '포스트 제목' 적용) */
+	src: url(/fonts/NanumGothic-Bold.eot);
+	src: url(/fonts/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+		 url(/fonts/NanumGothic-Bold.woff2) format('woff2'),
+		 url(/fonts/NanumGothic-Bold.woff) format('woff'),
+		 url(/fonts/NanumGothic-Bold.ttf) format('truetype');
+}
+@font-face {
+	font-family: 'Nanum Gothic';
+	font-style: normal;
+	font-weight: 800; /* font-weight:800; - Extra Bold (아주굵게, '블로그 타이틀' 적용) */
+	src: url(/fonts/NanumGothic-ExtraBold.eot);
+	src: url(/fonts/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
+		 url(/fonts/NanumGothic-ExtraBold.woff2) format('woff2'),
+		 url(/fonts/NanumGothic-ExtraBold.woff) format('woff'),
+		 url(/fonts/NanumGothic-ExtraBold.ttf) format('truetype');
+}

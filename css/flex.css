@@ -1,0 +1,26 @@
+/*
+https://studiomeal.com/archives/197
+*/
+
+.flex-container {
+	display: flex;
+	flex-direction: row; /* 아이템들이 행(가로) 방향으로 배치 */
+	flex-wrap: wrap; /* 아이템 줄바꿈 처리 */
+	justify-content: center; /* 메인축 방향 정렬 */
+}
+.flex-item {
+	
+}
+ 
+/* 모바일 */
+@media (max-width: 767px) {
+	
+}
+/* 태블릿 */
+@media (min-width: 768px) and (max-width: 1023px) {
+	
+}
+/* 데스크탑 */
+@media (min-width: 1024px) {
+	
+}
