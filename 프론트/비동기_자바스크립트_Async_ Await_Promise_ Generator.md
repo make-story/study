@@ -117,6 +117,7 @@ p.then(data => {
 ## 프로미스 사용 시 주의할 점
 - return 키워드 깜빡하지 않기
 then 메서드 내부 함수에서 return 키워드를 입력하는 것을 깜빡히기 쉽다.  
+
 - 프로미스는 불변 객체라는 사실 명심하기  
 ```javascript
 function requestData() {
@@ -140,7 +141,8 @@ requestData().then(v => {
     console.log(v); // 20
 });
 ```
-- 동기 코드의 예외 처리 신경 쓰기  
+
+- 동기 코드의 예외 처리 신경 쓰기 (`Promise 비동기 프로그래밍 대표적 예, API 데이터 호출`)   
 프로미스를 동기(sync) 코드와 같이 사용할 때는 예외 처리에 신경 써야 한다.  
 ```javascript
 const doSync => console.log('sync 실행');
@@ -151,6 +153,70 @@ function requestData() {
         console.log(data);
     })
     .catch(error => console.log(error)); // doSync 에서 발생하는 예외는 catch 메서드에서 처리가 된다.
+}
+```
+
+
+-----
+
+
+# async await  
+async await 함수는 프로미스를 반환한다.  
+```javascript
+async function getData() {
+    return 123;
+}
+getData().then(data => console.log(data)); // 123
+```
+```javascript
+async function getData() {
+    return Promise.resolve(123);
+}
+getData().then(data => console.log(data)); // 123
+```
+
+async await 함수에서 예외가 발생하는 경우
+```javascript
+async function getData() {
+    throw new Error('123');
+}
+getData().catch(error => console.log(error)); // 123
+```
+
+async await 와 프로미스 비교하기
+```javascript
+function getDataPromise() {
+    asyncFunc1()
+    .then(data => {
+        console.log(data);
+        return asyncFunc2();
+    })
+    .then(data => {
+        console.log(data);
+    });
+}
+
+async function getDataAsync() {
+    const data1 = await asyncFunc1();
+    console.log(data1);
+    const data2 = await asyncFunc2();
+    console.log(data2);
+}
+```
+
+async await 활용 병렬로 실행
+```javascript
+async function getData() {
+    const p1 = asyncFunc1();
+    const p2 = asyncFunc2();
+    const data1 = await p1;
+    const data2 = await p2; 
+}
+```
+```javascript
+async function getData() {
+    const [data1, data2] = await Promise.all([asyncFunc1(), asyncFunc2()]);
+    // ...
 }
 ```
 

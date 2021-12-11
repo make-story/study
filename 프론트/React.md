@@ -226,6 +226,23 @@ function Profile() {
 	);
 }
 ```
+```javascript
+// useRef 훅으로 부수 효과 함수가 자주 호출되지 않도록 개선
+function MyComponent({ onClick }) {
+	const onClickRef = useRef();
+	useEffect(() => {
+		onClickRef.current = onClick;
+	});
+	useEffect(() => {
+		window.addEventListener("click", () => {
+			onClickRef.current();
+			// ...
+		});
+		// ...
+	});
+	// ...
+}
+```
 
 
 -----
@@ -380,6 +397,7 @@ const Hook = () => {
 	 * useRef
 	 */
 	// useRef 를 사용하여 ref 를 설정하면, useRef 를 통해 만든 객체 안의 current 값이 실제 엘리먼트룰 가리킵니다.
+	// useRef 를 사용하여 렌더링과 무관한 값(타임아웃, 인터벌 등 타임 관련 고유값 / 클래스 인스턴스 값 / 스크롤 위치 값)을 저장할 때도 사용한다.
 	const inputElement = useRef(null);
 
 
@@ -506,6 +524,21 @@ React와 함께 facebook에서 만들었고 npm과 yarn 패키지로 제공된�
 - index.html, index.js를 포함한 웹페이지에 필요한 기본 디렉토리 구성  
 - react, react-dom, react-scripts 및 dependency 라이브러리 설치  
 - react-scripts를 사용하여 package.json에 npm command 정의  
+
+
+## serviceWorker.js
+serviceWorker.js 파일에는 PWA(Progressive web app)와 관련된 코드가 들어 있다.  
+PWA는 오프라인에서도 잘 동작하는 웹 애플리케이션을 만들기 위한 기술이다.  
+create-react-app 으로 프로젝트를 생성하면 PWA 기능은 기본적으로 꺼져 있는 상태다.  
+PWA 기능을 원한다면 index.js 파일에 serviceWorker.register(); 코드를 넣으면 된다.  
+
+
+## NODE_ENV
+create-react-app 에서는 NODE_ENV 환경 변수를 기본으로 제공한다. (process.env.NODE_ENV 설정값 존재)  
+NODE_ENV 환경 변수의 값은 다음과 같이 결정된다.  
+- npm start 로 실행하면 development  
+- npm test 로 실행하면 test  
+- npm run build 로 실행하면 production
 
 
 ## react-scripts  
