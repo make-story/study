@@ -783,6 +783,87 @@ function someFunc(arg: MyType): YourType {
 ```
 
 
+## type 과 interface 의 공통점과 차이점 (21년 3월 기준)
+https://yceffort.kr/2021/03/typescript-interface-vs-type
+
+- `공통점`  
+```typescript
+interface PeopleInterface {
+  name: string
+  age: number
+}
+
+const me1: PeopleInterface = {
+  name: 'yc',
+  age: 34,
+}
+
+type PeopleType = {
+  name: string
+  age: number
+}
+
+const me2: PeopleType = {
+  name: 'yc',
+  age: 31,
+}
+```
+
+- `차이점`   
+확장하는 방법
+```typescript
+interface PeopleInterface {
+  name: string
+  age: number
+}
+
+interface StudentInterface extends PeopleInterface {
+  school: string
+}
+```
+```typescript
+type PeopleType = {
+  name: string
+  age: number
+}
+
+type StudentType = PeopleType & {
+  school: string
+}
+```
+
+선언적 확장  
+interface에서 할 수 있는 대부분의 기능들은 type에서 가능하지만,  
+한 가지 중요한 차이점은 type은 새로운 속성을 추가하기 위해서 다시 같은 이름으로 선언할 수 없지만,  
+interface는 항상 선언적 확장이 가능하다는 것이다. 그 차이에 대한 예제가 바로 밑에 있는 것이다.  
+```typescript
+interface Window {
+  title: string
+}
+
+interface Window {
+  ts: TypeScriptAPI
+}
+
+// 같은 interface 명으로 Window를 다시 만든다면, 자동으로 확장이 된다.
+
+const src = 'const a = "Hello World"'
+window.ts.transpileModule(src, {})
+```
+```typescript
+type Window = {
+  title: string
+}
+
+type Window = {
+  ts: TypeScriptAPI
+}
+
+// Error: Duplicate identifier 'Window'.
+// 타입은 안된다.
+```
+
+
 -----
 
 
