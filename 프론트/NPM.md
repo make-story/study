@@ -44,6 +44,7 @@ package.json: ^16.8.2
 # NPM 모듈 만들어서 배포
 http://makestory.net/media/#/view/856  
 
+
 ## 로그인
 ```
 $ npm login
@@ -69,6 +70,7 @@ https://www.npmjs.com/settings/yusungmin/tfa
 $ npm whoami
 ```
 
+
 ## 배포!
 ```
 $ npm publish
@@ -81,6 +83,7 @@ OTP 값 입력 요구할 수 있음
 ```
 Enter OTP: <값입력>
 ```
+
 
 ## .npmrc 파일을 통해 배포할 경우
 배포한 NPM 패키지 폴더에 .npmrc 파일생성(package.json 파일과 동일 위치)  
