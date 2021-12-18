@@ -39,3 +39,58 @@ package.json: ^16.8.2
 신규 패키지를 설치하거나 기존 패키지를 갱신/제거한 개발자는 package.json과 더불어 함께 업데이트된 패키지 잠금 파일을 반드시 커밋  
 
 
+-----
+
+# NPM 모듈 만들어서 배포
+http://makestory.net/media/#/view/856  
+
+## 로그인
+```
+$ npm login
+Username: yusungmin
+Password:
+Email: (this IS public)   
+```
+
+```
+npm notice Please check your email for a one-time password (OTP)
+Enter one-time password from your authenticator app:
+```
+위와 같은 메시지가 나오면, `OTP 인증`이 필요하다는 것
+https://docs.npmjs.com/configuring-two-factor-authentication  
+
+`NPM 인증 관련 페이지`  
+https://www.npmjs.com/settings/yusungmin/tfa   
+본인 인증 접속 -> `Authorization and Publishing` 선택 -> App으로 QR코드 찍어서 해당 URL이동 -> App에 설치된 OTP 실행됨 -> OTP 값 입력  
+
+
+## 로그인 확인
+```
+$ npm whoami
+```
+
+## 배포!
+```
+$ npm publish
+```
+배포된 패키지는 72시간이 지나면 삭제할 수 없어서 불필요한 패키지라면 미리 삭제하자.
+```
+$ npm unpublish <PACKAGE_NAME> -f
+```
+OTP 값 입력 요구할 수 있음
+```
+Enter OTP: <값입력>
+```
+
+## .npmrc 파일을 통해 배포할 경우
+배포한 NPM 패키지 폴더에 .npmrc 파일생성(package.json 파일과 동일 위치)  
+```
+registry=
+email=
+always-auth=true
+_auth=
+```
+`_auth`값 생성 방법  
+```
+$ echo -n '<Username값>:<Password값>' | openssl base64
+```
