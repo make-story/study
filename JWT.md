@@ -1,9 +1,13 @@
-# JWT?
+# JWT?  (`리액트를 다루는 기술` 책 내용 중 토큰 발급 및 검증하기, Node.js 의 Koa 프레임워크 기반 예제)
 JWT는 JSON Web Token 의 약자로,  
 데이터가 JSON 으로 이루어져 있는 토큰을 의미합니다.  
 (두 개체가 서로 안전하게 정보를 주고받을 수 있도록 웹 표준으로 정의된 기술)  
 
 - https://www.npmjs.com/package/jsonwebtoken  
+
+
+## Access Token, Refresh Token   
+https://cotak.tistory.com/102   
 
 
 -----
@@ -52,13 +56,29 @@ JWT 토큰을 만들기 위해서는 jsonwebtoken 이라는 모듈을 설치해�
 $ yarn add jsonwebtoken  
 ```
 
+> `참고!` 단방향 해싱 함수를 지원해 주는 bcrypt 라이브러리  
+```javascript
+import bcrypt from 'bcrypt';
+
+const password = '';
+const hash = await bcrypt.hash(password, 10); // 해시 생성
+const result = await bcrypt.compare(password, hash); // 검증 (true/false 반환)
+```
+
 
 ## 비밀키 설정하기  
+.env 파일에 추가
 ```shell
 JWT_SECRET=jwtkeytest
 ```
 비밀키는 나중에 JWT 토큰의 서명을 만드는 과정에서 사용됩니다.  
 비밀키는 외부에 공개되면 절대 안 됩니다. (마음대로 JWT 토큰을 발행할 수 있기 때문)  
+
+> `참고!` 비밀키 생성
+```
+$ openssl rand -hex 64
+51cb0e18c90cdb09ab1f3dd3fcbc46673b91479748894161d162504ef6ae24c52e777ee19dc6c02ba2bf756bc081b940f67835de7dc49d7cd58232882b83f904
+```
 
 
 ## 토큰 발급하기
@@ -99,7 +119,7 @@ UserSchema.methods.generateToken = function() {
 단, CSRF는 CSRF 토큰 사용 및 Referer 검증 등의 방식으로 제대로 막을 수 있는 반면, XSS는 보안장치를 적용해 놓아도 개발자가 놓칠 수 있는 다양한 취약점을 통해 공격을 받을 수 있습니다.  
 
 ```javascript
-// 회원가입 
+// 회원가입 예 
 export const register = async ctx => {
     // ...
 
@@ -115,7 +135,7 @@ export const register = async ctx => {
     });
 };
 
-// 로그인 
+// 로그인 예 
 export const login = async ctx => {
     // ...
 
@@ -133,7 +153,7 @@ export const login = async ctx => {
 ```
 
 
-## 토큰 검증하기
+## 토큰 검증하기 / 재발급하기  
 ```javascript
 // 미들웨어
 import jwt from 'jsonwebtoken';
@@ -141,56 +161,25 @@ import jwt from 'jsonwebtoken';
 const jwtMiddleware = (ctx, next) => {
     // 쿠키 값 불러오기
     const token = ctx.cookies.get('access_token');
+    // 또는
+    //const token = ctx.headers.authorization;
+
     if(!token) {
         // 토큰 없음
         return next();
     }
+
     try {
         // JWT 토큰 값 확인
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log(decoded);
+
         // ctx 통해 접근 가능하도록 추가
         ctx.state.user = {
             _id: decoded._id,
             username: decoded.username,
         };
-        return next();
-    }catch(e) {
-        // 토큰 검증 실패
-        return next();
-    }
-}
 
-export default jwtMiddleware;
-```
-
-미들웨어 적용 (Koa 환경 예)
-```javascript
-
-```
-
-
-## 토큰 재발급하기  
-```javascript
-// 미들웨어
-import jwt from 'jsonwebtoken';
-
-const jwtMiddleware = (ctx, next) => {
-    // 쿠키 값 불러오기
-    const token = ctx.cookies.get('access_token');
-    if(!token) {
-        // 토큰 없음
-        return next();
-    }
-    try {
-        // JWT 토큰 값 확인
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decoded);
-        // ctx 통해 접근 가능하도록 추가
-        ctx.state.user = {
-            _id: decoded._id,
-            username: decoded.username,
-        };
         // 토큰의 남은 유효기간이 3.5일 미민이면 재발급
         const now = Math.floor(Date.now() / 1000);
         if(decoded.exp - now < 60 * 60 * 24 * 3.5) {
@@ -201,14 +190,41 @@ const jwtMiddleware = (ctx, next) => {
                 httpOnly: true,
             });
         }
+
         return next();
     }catch(e) {
         // 토큰 검증 실패
-        return next();
+        if (e.name === 'TokenExpiredError') {
+            // 토큰 만료
+            // ...
+        }else {
+            // 유효하지 않은 토큰
+            return next();
+        }
     }
 }
 
 export default jwtMiddleware;
+```
+
+
+## 미들웨어 적용 (Koa 환경 예)
+```javascript
+// main.js 예  
+require('dotenv').config();
+import Koa from 'koa';
+import Router from 'koa-router';
+
+import jwtMiddleware from './lib/jwtMiddleware'; // JWT 미들웨어 코드 import
+
+// ...
+
+const app = new Koa();
+const router = new Router();
+
+app.use(jwtMiddleware);
+
+// ...
 ```
 
 
