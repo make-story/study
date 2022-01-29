@@ -31,6 +31,12 @@ Scss, Template, Typescript, React, Vue 등의 웹 자원을 실행가능한 형�
 
 -----
 
+# 웹팩 4, 5 버전 차이  
+https://webpack.js.org/blog/2020-10-10-webpack-5-release/
+https://webpack.kr/migrate/5/  
+
+-----
+
 # 나무 흔들리(트리쉐이킹) 실패하는 경우  
 - 사용되는 모듈이 ESM(ECMAScript Modules)이 아닌 경우  
 - 사용하는 쪽에서 ESM이 아닌 다른 모듈 시스템을 사용하는 경우  
