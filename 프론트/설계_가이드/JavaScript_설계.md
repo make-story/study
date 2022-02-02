@@ -11,3 +11,10 @@ container는 화면을 구성하기 위한 영역에 해당하며 이며 여러�
 
 ## pages
 pages에 존재하는 파일 이름을 기준으로 서비스의 경로가 생성됩니다. 해당 파일은 경로 이름과 SEO를 위한 title, description 등을 추가하며 콘텐츠들은 모두 container에서 관리하였습니다.
+
+
+-----
+
+
+# Javascript에서도 SOLID 원칙이 통할까?
+https://velog.io/@teo/Javascript%EC%97%90%EC%84%9C%EB%8F%84-SOLID-%EC%9B%90%EC%B9%99%EC%9D%B4-%ED%86%B5%ED%95%A0%EA%B9%8C?fbclid=IwAR3Q9yeXJNSYNOqMWF-CBqtZHNpf8FSZ9BspxCLRPFYzdouJ2EvySeyzFRc  
