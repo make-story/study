@@ -284,3 +284,19 @@ p308
 
 
 
+----------
+
+# Express
+## express use get 차이
+
+'/' 를 "마운트"경로로 지정하면 app.use() 는 '/' 로 시작하는 모든 경로에 응답합니다.
+
+app.use('/', ...); 경우
+
+GET /
+PUT /foo
+POST /foo/bar
+
+위 경로 모두 응답 합니다.
+
+반면 app.get() 는 HTTP GET 요청 될 때, 특정 경로를 일치시키고 처리하기위한 것 입니다.  
