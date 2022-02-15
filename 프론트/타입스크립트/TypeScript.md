@@ -16,6 +16,12 @@ https://velog.io/@zeros0623/TypeScript-%EA%B3%A0%EA%B8%89-%ED%83%80%EC%9E%85
 - 타입스크립트 + 리덕스  
 https://react-etc.vlpt.us/07.typescript-redux.html  
 
+- 타입스크립트에서 Type, Interface를 어떻게 사용해야 하는가?
+1 - 나는 Interface만을 사용하는 것을 선호한다. 이는 지향 객체 프로그래밍에서 우리가 무엇을 할 것인지를 명확하게 보여주기 때문.  
+2 - 다른 언어의 프로그래머의 경우 Type 대신 Interface를 사용하면 더 읽기 쉽다.  
+3 - 깨끗한 코드와 더 나은 소프트웨어 아키텍처를 위해 복제하는 대신 하나의 Interface만 사용한다.  
+https://dev.to/luizcalaca/how-to-use-in-typescript-type-or-interface-47jk  
+
 
 -----
 
