@@ -44,4 +44,15 @@ $ ssh -i "~/Downloads/ec2-key-pair.pem" ec2-user@ec2-3-34-192-17.ap-northeast-2.
 ```
 
 
+# Bastion Host  
+https://err-bzz.oopy.io/f5616e26-79ca-4167-b2eb-140de69b9b54
+
+Bastion Host 란 보안을 위해 고안된 Host로 외부 네트워크와 내부 네트워크 사이에서 일종의 `게이트웨이 역할을 수행하는 호스트`를 뜻한다.  
+특히 Private IP로만 접근이 허용된 서버를 외부에서 접속하고자 할 경우, Bastion Host를 경유하여 Private IP 서버에 접근하도록 설계되곤 한다.  
+  
+이렇게 관리할 경우, Bastion Host에서 특정 IP로의 접근만 허용하거나, 통신 로그를 일괄적으로 관리할 수 있는 편리함이 보장된다.  
+
+ 
 -----
+
+
