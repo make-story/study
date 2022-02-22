@@ -16,7 +16,7 @@ https://velog.io/@cada/%ED%86%A0%EA%B7%BC-%EA%B8%B0%EB%B0%98-%EC%9D%B8%EC%A6%9D%
 우리가 궁금해하던 bearer는 위 형식에서 type에 해당합니다.  
 토큰에는 많은 종류가 있고 서버는 다양한 종류의 토큰을 처리하기 위해 전송받은 type에 따라 토큰을 다르게 처리합니다.  
 
-`bearer는 JWT와 OAuth를 타나내는 인증 타입`  
+`bearer는 JWT와 OAuth를 타나내는 인증 타입 - 토큰 포맷의 일종`  
 
 ## 인증 타입
 - Basic  
