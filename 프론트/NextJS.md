@@ -5,8 +5,62 @@ https://velog.io/@jakeseo_me/Next.js-%EB%B9%A8%EB%A6%AC-%EB%B0%B0%EC%9A%B0%EA%B8
 ## next-redux-wrapper가 필요한 이유  
 https://simsimjae.medium.com/next-redux-wrapper%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0-5d0176209d14  
 
+## hydration  
+https://wonit.tistory.com/362  
+initial load 에서 html 을 로드한 뒤 js 파일을 서버로부터 받아 html을 연결시키는 과정이다.  
+여기서 js랑 html이랑 연결한다.  
+해당 과정에서 react 컴포넌트는 초기화되고 사용자와 상호작용할 준비를 마친다.  
+
 ## Next.js pre-rendering 정리  
 https://helloinyong.tistory.com/306  
+
+### Server Side Generation (Static Generation)
+https://nextjs.org/docs/basic-features/pages#static-generation-recommended  
+`getStaticProps`  
+```javascript
+function Blog({ posts }) {
+  // Render posts...
+}
+
+// This function gets called at build time
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://.../posts');
+  const posts = await res.json();
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+export default Blog;
+```
+
+### Server Side Rendering (Server-side Rendering)
+https://nextjs.org/docs/basic-features/pages#server-side-rendering  
+`getServerSideProps`  
+```javascript
+function Page({ data }) {
+  // Render data...
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`https://.../data`);
+  const data = await res.json();
+
+  // Pass data to the page via props
+  return { props: { data } };
+}
+
+export default Page;
+```
+
 
 ## Script 로드 우선순위  
 https://nextjs.org/docs/basic-features/script  
