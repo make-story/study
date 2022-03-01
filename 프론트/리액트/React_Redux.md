@@ -441,6 +441,8 @@ export default React.memo(컨테이너 컴포넌트);
 
 
 # redux-actions  
+https://redux-actions.js.org/api    
+
 `redux-actions 를 사용하면 액션 생성 함수를 더 짧은 코드로 작성할 수 있습니다.`  
 (TypeScript 지원을 위해서는 typesafe-actions 를 사용)   
 그리고 리듀서를 작성할 때도 switch/case 문이 아닌 handleActions 라는 함수를 사용하여 각 액션마다 업데이트 함수를 설정하는 형식으로 작성해 줄 수 있습니다.
