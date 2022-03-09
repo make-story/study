@@ -17,10 +17,14 @@ plugin 사용만으로는 eslint formatting rules와 prettier rules가 충돌하
 (공식문서에서도 둘을 함께 사용하기를 권장한다)
 */
 module.exports = {
-	trailingComma: "es5",
-	tabWidth: 4,
-	semi: false,
-	singleQuote: false,
-	//printWidth: 100,
-	//singleQuote: true,
+	"arrowParens": "avoid",
+	"bracketSpacing": true,
+	"endOfLine": "auto",
+	"printWidth": 120,
+	"semi": true,
+	"singleQuote": true,
+	"jsxSingleQuote": true,
+	"tabWidth": 2,
+	"trailingComma": "all",
+	"useTabs": false,
 };
