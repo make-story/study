@@ -5,7 +5,7 @@
 
 
 /**
- * Mao
+ * new Map
  */
 const sayings = new Map();
 sayings.set("dog", "woof");
@@ -58,7 +58,7 @@ we.forEach((value, key, map) => {
 
 
 /**
- * Set
+ * new Set
  */
 const mySet = new Set();
 mySet.add(1);
@@ -123,7 +123,7 @@ let setA = new Set([1, 2, 3, 4, 5]);
 let setB = new Set([4, 5, 6, 7, 8]);
 
 // 합집합
-let unionSet = new Set([...setA, ...setB])
+let unionSet = new Set([...setA, ...setB]);
 for (let value of unionSet) {
 console.log(value);
 }
@@ -131,7 +131,7 @@ console.log(value);
 
 // 교집합
 let intersectionSet = new Set(
-[...setA].filter(v => setB.has(v))
+  [...setA].filter(v => setB.has(v))
 );
 for (let value of intersectionSet) {
 console.log(value);
@@ -140,7 +140,7 @@ console.log(value);
 
 // 차집합
 let differenceSet = new Set(
-[...setA].filter(v => !setB.has(v))
+  [...setA].filter(v => !setB.has(v))
 );
 for (let value of differenceSet) {
 console.log(value);
@@ -151,8 +151,8 @@ console.log(value);
 let set1 = new Set([1, 2, 3, 4, 5]);
 let set2 = new Set([3, 4, 5, 6, 7]);
 let symmetricDifferenceSet = new Set(
-[...[...set1].filter(x => !set2.has(x)), ...[...set2].filter(x => !set1.has(x))]
-)
+  [...[...set1].filter(x => !set2.has(x)), ...[...set2].filter(x => !set1.has(x))]
+);
 for (let value of symmetricDifferenceSet) {
   console.log(value);
 }
