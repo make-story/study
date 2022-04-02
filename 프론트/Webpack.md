@@ -31,6 +31,30 @@ Scss, Template, Typescript, React, Vue 등의 웹 자원을 실행가능한 형�
 
 -----
 
+# 설치
+1. webpack 설치  
+https://webpack.kr/guides/installation/  
+```
+$ npm install --save-dev webpack 
+$ npm install --save-dev webpack@<version>
+```
+> --save-dev (또는 -D, --save-prod 기본값)     
+패키지(plugin)를 ./node_moduels 디렉터리에 설치하고 ./package.json 파일의 devDependencies 항목에 플러그인 정보가 저장   
+--production 빌드시 해당 플러그인이 포함되지 않음  
+
+2. 웹팹 v4 혹은 이후 버전을 사용한다면, CLI도 설치  
+```
+$ npm install --save-dev webpack-cli
+```
+
+> 대부분의 프로젝트는 로컬 설치할 것을 권장  
+변경사항이 생겼을때 개별 업그레이드가 쉬워짐  
+전역 설치는 특정 버전으로 고정되고, 다른 버전을 사용하는 프로젝트에서 정상 동작하지 않을 수 있음  
+
+> 로컬에 설치된 웹팩을 실행하기 위해서 bin 버전에 접근할 수 있음  
+node_modules/.bin/webpack  
+
+
 # 웹팩 4, 5 버전 차이  
 https://webpack.js.org/blog/2020-10-10-webpack-5-release/
 https://webpack.kr/migrate/5/  
@@ -63,3 +87,8 @@ const presets = [
 ```
 
 -----
+
+
+
+
+
