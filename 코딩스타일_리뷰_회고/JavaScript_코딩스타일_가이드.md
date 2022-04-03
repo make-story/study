@@ -614,17 +614,6 @@ function do_something() {
 생성자는 타입의 인스턴스를 만드는 데 사용되므로 이름은 명사로 짓습니다.   
 
 
-## 타입스크립트
-참고: typescript 3.x 부터 tslint 가 모든 인터페이스 네이밍 앞에 대문자 I 를 강제한다. (interface name must start with a capitalized Itslint(interface-name))  
-```
-interface: I  
-type: T
-eum: E
-```
-
-`우리는 타입 선언시, 프리픽스(prefix)를 함께 사용한다.`  
-
-
 # 구문
 ## if
 "읽기 좋은 자바스크립트 코딩 기법" 책 내용 중...  
