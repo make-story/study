@@ -2,6 +2,9 @@
 https://github.com/apple77y/javascript/tree/master/react
 
 
+# 함수 컴포넌트 
+https://ko.reactjs.org/docs/components-and-props.html  
+
 
 # 명명규칙
 - 확장자 : .tsx  
