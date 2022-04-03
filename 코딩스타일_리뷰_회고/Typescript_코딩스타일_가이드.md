@@ -7,3 +7,24 @@ eum: E
 ```
 
 `우리는 타입 선언시, 프리픽스(prefix)를 함께 사용한다.`  
+
+
+# 데이터 통신 (axios response)
+```typescript
+import axios from 'axios';
+
+interface User {
+  id: number;
+  firstName: string;
+}
+
+export type TUserList = User[]
+
+// ...
+
+axios
+.get<TUserList>('http://url')
+.then((response) => {
+	console.log(response.data);
+});
+```
