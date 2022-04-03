@@ -5,25 +5,7 @@
 한사람이 작성한 것처럼 보인다  
 문서화 되어있다  
 
-----------
-
-# 코딩스타일에 대해 논쟁하는 이유
-https://www.mimul.com/blog/why-we-argue-style/  
-(원문: https://sandimetz.com/blog/2017/6/1/why-we-argue-style)  
-  
-https://velog.io/@dell_mond/Coding-Style-Guide-%EB%A5%BC-%EC%9E%91%EC%84%B1%ED%95%98%EB%A0%A4%EB%8A%94-%EC%A7%80%EA%B8%88-%EC%9A%B0%EB%A6%AC%EA%B0%80-%ED%95%B4%EC%95%BC-%ED%95%98%EB%8A%94-%EA%B1%B4-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C  
-우리는 아직 실 서비스 개발에 초점을 두고 나아갈 때다. 프로세스 개선도 물론 중요하지만 개발보다는 '덜' 중요하다.  
-그렇지만 아무것도 개선하지 않고, 정립하지 않고, 해당 논의의 필요성을 무시하고 그냥 지나칠 순 없는 상황이다.  
-(당연하다. 개편된 조직 내의 체계와 문화를 잡지 않고 구성원에게 무조건 앞으로 달리라고만 말하면 그들이 제대로 목적지에 도착할 수 있을까? 준비 운동은 어느 과정에서나 꼭 필요하다.)  
-
-
-1. `코딩스타일 가이드 없이 몇몇 각각의 작업자 스타일로 프로젝트 진행, 이를 바탕으로 논의 대상이 되는 항목 리스트업(눈에 보이는 결과물을 가지고 논의대상 추출)`
-2. `코딩스타일 가이드 필요성 대한, 공감대 형성`
-3. `외부 가이드 자료 수집 및 우리 코딩 스타일과 유사(코딩 스타일)하거나 코딩 스타일 가이드 수립에 필요한 항목 리스트업(우리 가이드 기반자료)`
-4. `코딩 가이드 초안 작성`
-5. `협의체 회의 진행하여 코딩가이드 초안 재정립`
-6. `코드 리뷰 기반자료로 활용하며, 지속적 가이드 업데이트(단, 업데이트는 구성원 모두의 동의된 것에 한함)`
-
+-----
 
 # 가이드 수립 기초/기반 자료
 ## Douglas Crockford 코딩컨벤션
@@ -98,25 +80,22 @@ src 하위에 아래 폴더 구성됨
 ```
   
 - 폴더명 규칙  
-'소문자'로 시작  
-예: /pacificShop/index.tsx  
-  
+  - '소문자'로 시작  
+  - 예: /pacificShop/index.tsx   
 - 파일명 규칙  
-컴포넌트의 경우(index 파일 제외) '대문자'로 시작  
-예: /molecules/FullLayer.tsx  
-컴포넌트가 아닌 경우 '소문자'로 시작  
-예: /utils/array.ts  
-react-query API 호출 Hook 경우, 'useQuery' 파일명 프리픽스  
-예: /hooks/test/useQueryTest.ts  
-  
-- 신규 NPM(도구, 라이브러리, 프레임워크 등등) 설치시, 파트 전체 대화채널(워크챗, ABC챗)에 공유  
-예: [공유] XXX 설치하려고 합니다. (XXX를 해결하기 위한 목적입니다.)  
-  
-- 비즈니스 로직  
-추천방법1:  
-프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리  
-추천방법2:  
-useQueryXXX(react-query API) 와 useXXX(비즈니스 또는 유틸) 등 사용자 Hooks 로 분리  
+  - 컴포넌트의 경우(index 파일 제외) '대문자'로 시작
+    - 예: /molecules/FullLayer.tsx
+  - 컴포넌트가 아닌 경우 '소문자'로 시작
+    - 예: /utils/array.ts
+  - react-query API 호출 Hook 경우, 'useQuery' 파일명 프리픽스
+    - 예: /hooks/test/useQueryTest.ts
+- 비즈니스 로직
+  - 추천방법1:
+    - 프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리
+  - 추천방법2:
+    - useQueryXXX(react-query API) 와 useXXX(비즈니스 또는 유틸) 등 사용자 Hooks 로 분리
+- 신규 NPM(도구, 라이브러리, 프레임워크 등등) 설치시, 파트 전체 대화채널(워크챗, ABC챗)에 공유
+  - 예: [공유] XXX 설치하려고 합니다. XXX를 해결하기 위한 목적입니다.  
   
 `컴포넌트 내 폴더(components 폴더) 구조는 기본 아토믹 디자인 패턴을 따르며, pages 단위(폴더)는 Next.js 프레임워크 구조에 따른 해당 경로(next.js 구조의 폴더)를 사용한다`    
 
@@ -828,24 +807,10 @@ try {
 -----
 
 
-# JSX
-JSX의 열고 닫는 태그 사이의 space 규칙은 다음과 같다. - 뱅크샐러드 가이드  
-```javascript
-// 나쁜 예: 줄바꿈 
-<Header
-  firstName='John'
-  lastName='Smith'
->{ title }</Header>
-
-// 좋은 예
-<Header
-  firstName={'John'}
-  lastName={'Smith'}
->
-  { title }
-</Header>
-
-```
+# 데이터(비동기) 통신 
+redux saga 미들웨어를 통한 데이터 통신, react component 직접 데이터 통신  
+  
+데이터 활용이 지역 단위의 경우 컴포넌트에서 직접 데이터 통신, 데이터 활용이 전역(또는 전파)단위의 경우 redux saga 통한 데이터 통신 (즉, 데이터 상태관리 범위를 기준으로 한다)  
 
 
 -----
