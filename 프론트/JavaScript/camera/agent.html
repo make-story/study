@@ -9,6 +9,7 @@
 <body>
 <ul id="devices"></ul>
 <div id="is-videoinput">-</div>
+<div id="is-videopermission">-</div>
 <video id="videotest"></video>
 <script>
 // 카메라와 마이크 리스트
@@ -77,17 +78,17 @@ const setDevicesAppend = (devices = [], { selector = '#devices' } = {}) => {
     }
 };
 
-// 비디오 존재여부 텍스트 출력
-const setIsVideoInputText = (isVideoInput, { selector = '#is-videoinput' } = {}) => {
-    const $isVideoInput = document.querySelector(selector);
+// 엘리먼트에 html 출력
+const setConditionElementText = (condition, { selector = '#is-videoinput', htmlTrue = '', htmlFalse = '' } = {}) => {
+    const $element = document.querySelector(selector);
 
-    if(!$isVideoInput) {
+    if(!$element) {
         return;
     }
-    if(isVideoInput === true) {
-        $isVideoInput.innerHTML = '카메라 있음';
-    }else if(isVideoInput === false) {
-        $isVideoInput.innerHTML = '카메라 없음';
+    if(condition === true) {
+        $element.innerHTML = htmlTrue;
+    }else if(condition === false) {
+        $element.innerHTML = htmlFalse;
     }
 };
 
@@ -106,12 +107,13 @@ const setVideoPlay = (stream, { selector = '#videotest' } = {}) => {
     const isVideoInput = getDevicesVideoInput(devices);
 
     setDevicesAppend(devices);
-    setIsVideoInputText(isVideoInput);
+    setConditionElementText(isVideoInput, { selector: '#is-videoinput', htmlTrue: '카메라 있음', htmlFalse: '카메라 없음' });
     console.log('devices', devices);
     if(isVideoInput) {
         const stream = await getUserMediaPermission(); // stream.active / stream.id
         console.log('stream', stream);
         setVideoPlay(stream);
+        setConditionElementText(Boolean(stream), { selector: '#is-videopermission', htmlTrue: '카메라 권한있음', htmlFalse: '카메라 권한없음' });
     }
 })();
 </script>
