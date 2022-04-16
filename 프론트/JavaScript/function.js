@@ -11,6 +11,14 @@ const func = () => (...args) => /*arguments.length 화살표함수는 arguments 
 console.log(func()(1));
 
 
+// 화살표 함수
+// https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+// this나 super에 대한 바인딩이 없고, methods 로 사용될 수 없습니다.
+// new.target키워드가 없습니다.
+// 일반적으로 스코프를 지정할 때 사용하는 call, apply, bind methods를 이용할 수 없습니다.
+// 생성자(Constructor)로 사용할 수 없습니다.
+// yield를 화살표 함수 내부에서 사용할 수 없습니다.
+
 
 // bind
 if (!Function.prototype.bind) {
