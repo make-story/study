@@ -1,7 +1,11 @@
 # CORS  
 https://developer.mozilla.org/ko/docs/Web/HTTP/CORS  
 https://ingg.dev/cors/   
+https://evan-moon.github.io/2020/05/21/about-cors/  
 
+
+# 크롬 브라우저 
+https://developer.chrome.com/blog/referrer-policy-new-chrome-default/
 
 -----
 
