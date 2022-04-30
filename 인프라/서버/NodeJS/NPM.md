@@ -5,6 +5,7 @@ npm 은 자바스크립트 프로그래밍 언어를 위한 패키지 관리자
 ## 참고  
 - https://www.hamadevelop.me/packagelock/?fbclid=IwAR1y3fmMaOrHqAE9L9JbQit80yMjiI6KjRxIdB6UhGwTp_PG94tK7rfgQTs  
 
+
 -----
 
 
@@ -40,6 +41,15 @@ package.json: ^16.8.2
 
 
 -----
+
+
+# .npmrc
+https://docs.npmjs.com/cli/v8/configuring-npm/npmrc  
+npm 구성 파일  
+
+
+-----
+
 
 # NPM 모듈 만들어서 배포
 http://makestory.net/media/#/view/856  
