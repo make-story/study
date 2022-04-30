@@ -1,14 +1,40 @@
 # MDN
-
 https://developer.mozilla.org/ko/docs/Web/CSS
 
 # CSS 방법론
-
 https://wit.nts-corp.com/2015/04/16/3538
 
-# CSS 검사기
-
+# CSS 검사기  
 http://www.css-validator.org/validator.html.ko
+
+# 반응형 계산
+```javascript
+const sizePercent = function(target, content) {
+  // 단위 : https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Values_and_Units
+  // 공식 : target / content = result %
+  // 공식(rem) : 사용하려는 값 / 최상단 부모값 = rem 값
+  // 예제1 : 60(구하고자하는 크기) / 320(기준, 최소 해상도) = 0.1875 -> 18.75%
+  // 예제2 : 10(구하고자하는 크기) / 320(기준, 최소 해상도) = 0.03125 -> 3.125%
+  target = Number(target);
+  content = Number(content);
+  return (target / content) * 100;
+};
+
+// 비율 
+const getAspectRatio = function(width, height) { 
+  const result = {};
+  const getGCD = function(a, b) {
+    return (b == 0) ? a : getGCD(b, a % b);
+  };
+
+  result.width = width;
+  result.height = height;
+  result.gcd = getGCD(width, height);
+  result.aspect = [width/result.gcd, height/result.gcd].join(':');
+
+  return result;
+};
+```
 
 ---
 
@@ -20,11 +46,9 @@ http://www.css-validator.org/validator.html.ko
 ---
 
 # 모르는 것 리스트업!
-
 https://wit.nts-corp.com/?s=css
 
 ## touch-action
-
 auto; /_ 기본 값, 모든 터치 이벤트를 활성화 _/  
 none; /_ 기본 값, 모든 터치 이벤트를 비활성화 _/  
 pan-x; /_ 한 손가락 수평(X축) 이동 제스처를 사용합니다. _/  
@@ -37,13 +61,11 @@ pan-down; /_ 아래쪽 방향으로의 터치를 사용한 스크롤 허용 _/
 manipulation; /_ 터치를 사용한 스크롤, 핀치 줌만 허용하고 그 외 비표준 동작 (더블 탭으로 확대 등) 불허용 _/
 
 ## 랜더링 성능을 향상 시키는 새로운 CSS 속성 content-visibility
-
 content-visibility는 UserAgent가 layout, painting을 포함한 요소의 렌더링 작업을 필요로할 때까지 생략할 수 있도록 합니다.  
 콘텐츠의 대부분이 화면 밖에 있을 때, content-visibility을 활용해서 렌더링을 생략하게 되면 사용자의 초기 로드 시간이 훨씬 빨라집니다.  
 또한, 화면 내 콘텐츠와 더 빠르게 상호작용할 수 있습니다.
 
 ## CSS 애니메이션의 성능
-
 CSS 애니메이션은 일부 속성에 의존합니다.  
 position : absolute / relative  
 transform  
@@ -62,12 +84,10 @@ left, right, top, bottom 등등…
    생성한 레이어 계층을 합성. 이 계층을 내려다보면 모든 요소가 고유한 위치(복합 계층)를 갖는 완전한 웹 페이지로 보여집니다.
 
 ## CSS Containment Module
-
 CSS Containment Module은 웹페이지에서 선택된 하위 트리를 문서의 나머지 영역과 분리하는 기능을 갖고 있습니다.  
 selector {contain:none | strict | content | [ size || layout || style || paint ]}
 
 ## CSS Paint API
-
 “CSS Custom Paint” 혹은 “Houdini’s paint worklet”이라고도 불리는 CSS Paint API
 
 Houdini(후디니) ?  
@@ -76,7 +96,6 @@ Houdini(후디니) 는 “웹 개발자들이 렌더링을 핸들링 할 수 있
 LayoutAPI, Typed OM, AnimationWorklet 등 다양한 기술들을 만들어 내고 있는데, CSS Paint API는 그 일부일 뿐이다.
 
 ## GPU 애니메이션 장점, 단점
-
 - 장점
   애니메이션이 빠르고 부드럽다 (60FPS).  
   적절히 신경써서 만든 애니메이션은 독립된 스레드 상에서 재생된다. 또한 이는 무거운 자바스크립트 코드 연산 때문에 방해를 받지 않는다.  
@@ -90,13 +109,11 @@ LayoutAPI, Typed OM, AnimationWorklet 등 다양한 기술들을 만들어 내�
   사파리 텍스트 렌더링처럼 부자연스런 시각 요소가 나타날 수 있으며, 일부 경우 페이지 컨텐츠가 사라지거나 왜곡되어 나타날 가능성이 있다.
 
 ## CSS Custom Properties (커스텀속성)
-
 CSS 커스텀 속성은 작성자가 정의한 속성의 집합입니다.  
 작성자는 임의로 정한 이름의 속성에 임의의 값을 할당할 수 있습니다.  
 “CSS 변수”라고 부르기도 하지만 올바른 이름은 “CSS 커스텀 속성”입니다.
 
 ## picture 요소
-
 디스플레이 크기에 따라 적합한 이미지를 노출합니다.
 
 ```html
@@ -127,13 +144,11 @@ CSS 커스텀 속성은 작성자가 정의한 속성의 집합입니다.
 ```
 
 ## 아이폰X 안전영역(Safe Area) 대응
-
 https://wit.nts-corp.com/2019/10/24/5731
 
 ---
 
 # Layer 화면 중앙정렬 방법
-
 https://wit.nts-corp.com/2017/02/06/4123
 
 1. position:absolute와 margin 마이너스값을 이용한 중앙 정렬  
