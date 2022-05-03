@@ -23,6 +23,10 @@ https://react-etc.vlpt.us/07.typescript-redux.html
 https://dev.to/luizcalaca/how-to-use-in-typescript-type-or-interface-47jk  
 
 
+# @type/react 버전 관련 이슈
+https://stackoverflow.com/questions/71842787/next-js-typescript-error-you-do-not-have-the-required-packages-installed  
+
+
 -----
 
 
