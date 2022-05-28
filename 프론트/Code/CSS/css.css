@@ -114,33 +114,32 @@
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
 	flex-direction: row;
+}
 
-	/*키프레임*/
-	.te-flip3 .te-back {
+/*키프레임*/
+.te-flip3 .te-back {
+	-webkit-transform: rotate3d(0,1,0,-180deg);
+}
+.te-flip3.te-show .te-card{
+	-webkit-animation: flip3 1s ease-in-out forwards;
+}
+@-webkit-keyframes flip3{ /*애니메이션으로 퍼센트로 지정*/
+	0% {
+		-webkit-transform: rotate3d(0,1,0,0);
+	}
+	50% {
+		-webkit-transform: rotate3d(0,1,0,-190deg);
+	}
+	70% {
+		-webkit-transform: rotate3d(0,1,0,-172deg);
+	}
+	80% {
 		-webkit-transform: rotate3d(0,1,0,-180deg);
 	}
-	.te-flip3.te-show .te-card{
-		-webkit-animation: flip3 1s ease-in-out forwards;
+	95% {
+		-webkit-transform: rotate3d(0,1,0,-178deg);
 	}
-	@-webkit-keyframes flip3{ /*애니메이션으로 퍼센트로 지정*/
-		0% {
-			-webkit-transform: rotate3d(0,1,0,0);
-		}
-		50% {
-			-webkit-transform: rotate3d(0,1,0,-190deg);
-		}
-		70% {
-			-webkit-transform: rotate3d(0,1,0,-172deg);
-		}
-		80% {
-			-webkit-transform: rotate3d(0,1,0,-180deg);
-		}
-		95% {
-			-webkit-transform: rotate3d(0,1,0,-178deg);
-		}
-		100% { 
-			-webkit-transform: rotate3d(0,1,0,-180deg); 
-		}
+	100% { 
+		-webkit-transform: rotate3d(0,1,0,-180deg); 
 	}
-
 }
