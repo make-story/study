@@ -1,0 +1,45 @@
+# UI 컴포넌트 개발 도구
+
+## @storybook/react vs bit vs catalog vs mondorepo vs react-styleguidist  
+https://www.npmtrends.com/bit-vs-mondorepo-vs-react-styleguidist-vs-catalog-vs-@storybook/react  
+https://velog.io/@seonja/Build-an-Ui-Library-feat.%EC%8B%A0%EC%9E%85-%EA%B0%9C%EB%B0%9C%EC%9E%90  
+
+## storybook(스토리북)  
+https://www.daleseo.com/storybook/  
+
+사용목적에 따라, 다양하게 사용되고 있는 UI라이브러리  
+UI 라이브러리를 내부 개발자들을 위해 문서화(documentation)하기 위해서 사용할 수 있고,  
+외부 공개용 디자인 시스템(Design System)을 개발하기 위한 기본 플랫폼으로도 사용할 수 있습니다.  
+스토리북(Storybook)을 기본 구성 단위는 스토리(Story)이며 하나의 UI 컴포넌트는 보통 하나 이상의 Story를 가지게 됩니다.   
+
+### Storybook 사용
+package.json
+```json
+{
+  "scripts": {
+	// ...
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+	// ...
+  },
+  "devDependencies": {
+	// ...
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/addon-storysource": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
+	// ...
+  }
+}
+```
+
+### Storybook 설정
+.storybook 디렉터리를 열어보시면 Storybook 관련 2개의 설정 파일이 있을 것입니다.  
+addons.js파일은 Storybook 애드온을 추가할 때 사용하고,  
+config.js 파일은 그 밖에 다른 설정을 할 때 사용됩니다.  
+
+.storybook/config.js 파일을 열고,  
+src 디렉터리 내부에 stories.js로 끝나는 모든 파일이 Story로 인식되도록 설정해줍니다.  
+(기본 설정은 src/stories 디렉터리 하위만 탐색하므로 주석 처리가 하거나 삭제합니다.)  
