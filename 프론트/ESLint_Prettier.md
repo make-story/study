@@ -10,6 +10,10 @@ ESLint가 발견한 많은 문제는 자동으로 수정될 수 있음
 포맷팅은 일관된 코드 스타일을 유지하도록 하고 개발자로 하여금 쉽게 읽히는 코드를 만들어 준다. 이를 테면 "들여쓰기 규칙", "코드 라인의 최대 너비 규칙"을 따르는 코드가 가독성이 더 좋다.  
 
 
+# ESLint의 규칙을 테스트해보고 설정을 다운받을 수 있는 플레이그라운드  
+https://new.eslint.org/play  
+
+
 # ESLint 설치
 https://eslint.org/docs/user-guide/getting-started  
 ```
