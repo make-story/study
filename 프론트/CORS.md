@@ -43,6 +43,23 @@ https://evan-moon.github.io:8000
 -----
 
 
+# crossOrigin 속성
+https://developer.mozilla.org/ko/docs/Web/HTML/Attributes/crossorigin  
+```
+<audio>, <img>, <link>, <script>, <video>에 있는 crossOrigin 속성은  
+element가 CORS 요청을 처리하는 방식을 명시하여 element가 fetch한 데이터를 CORS 가능하게 합니다.  
+특정 element에서는 CORS 세팅 속성이 될 수도 있습니다.
+```
+- anonymous	  
+element의 CORS 요청의 credentials flag가 'same-origin'으로 지정됩니다.  
+- use-credentials  
+element의 CORS 요청의 crendentials flag가 'include'로 지정됩니다.  
+- ""  
+crossorigin 또는 crossorigin=""처럼 빈 값을 할당하는건 anonymous와 동일합니다.  
+
+
+-----
+
 ## 단순 요청 (Simple requests)
 Simple Request는 Preflight Request와 다르게 요청을 보내면서 즉시 cross origin인지 확인하는데,  
 다음 조건을 모두 충족해야한다.
