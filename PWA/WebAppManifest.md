@@ -44,16 +44,3 @@ https://web.dev/add-manifest/#screenshots
 - 스크린샷은 가로 세로 비율이 동일해야 합니다.  
 - JPEG 및 PNG 이미지 형식만 지원됩니다.  
 
-
-# PWA 적용사례  
-https://www.pwastats.com/  
-## 캐싱 전략, 설치 및 푸시 알림을 통해 모바일 전환율을 53% 향상시킨 JD.ID  
-https://web.dev/jdid/  
-
-## Rakuten 24의 PWA 투자로 사용자 유지율 450% 증가  
-https://web.dev/rakuten-24/
-
-## 프로그레시브 웹 앱(PWA)이란 무엇이며, 왜 필요한가?
-https://blog.wishket.com/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%A0%88%EC%8B%9C%EB%B8%8C-%EC%9B%B9-%EC%95%B1pwa%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80/  
-https://app.starbucks.com/  
-https://www.pinterest.co.kr/  
