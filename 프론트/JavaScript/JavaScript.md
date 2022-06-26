@@ -15,7 +15,17 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript
 
 
 
+-----
 
+# window.self 
+https://developer.mozilla.org/ko/docs/Web/API/Window/self   
+```javascript
+var w1 = window;
+var w2 = self;
+var w3 = window.window;
+var w4 = window.self;
+// w1, w2, w3, w4 모두 일치. 그러나 워커에서는 w2만 작동함
+```
 
 -----
 
