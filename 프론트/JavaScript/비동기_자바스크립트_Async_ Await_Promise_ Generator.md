@@ -2,7 +2,14 @@
 
 > 참고 페이지  
 https://medium.com/@kiwanjung/%EB%B2%88%EC%97%AD-async-await-%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-%EC%A0%84%EC%97%90-promise%EB%A5%BC-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-955dbac2c4a4  
-
+  
+https://velog.io/@dltjq2323/%EB%B9%84%EB%8F%99%EA%B8%B0%EC%A0%81-JavaScript%EB%8F%99%EC%9E%91-%EC%9B%90%EB%A6%AC-%EB%B0%8F-%EB%B0%A9%EB%B2%95  
+  
+https://velog.io/@hiro2474/understandfor-await-of    
+  
+https://helloworldjavascript.net/pages/285-async.html  
+  
+  
 -----
 
 
@@ -222,6 +229,19 @@ async function getData() {
 
 
 -----
+
+
+```javascript
+const timer = (time) => {
+  return new Promise((resolve, reject) => {
+    console.log(`${time} 타이머 시작`);
+    setTimeout(() => {
+      console.log(`${time} 타이머 끝`);
+      resolve();
+    }, time);
+  });
+};
+```
 
 
 1. Promise.all()
