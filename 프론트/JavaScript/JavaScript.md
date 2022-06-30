@@ -14,6 +14,10 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript
 
 
 
+# window.open
+Mac 환경에서, 크롬 브라우저 전체화면 모드에서는 window.open 이 '새탭'으로 열린다.  
+전체회면 모드가 아닌 창 사이즈 조절이 가능한 화면에서는 window.open 이 '새창'으로 열린다.  
+
 
 -----
 
