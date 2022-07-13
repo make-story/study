@@ -1,7 +1,15 @@
 /**
+ * 숫자 또는 날짜 확인
+ */
+isNaN('문자');
+isNaN(new Date('TEST'));
+
+/**
  * 공색제거
  */
 const text1 = ' 1, 2, 3 '.replace(/(\s*)/g, '');
+
+// ---------- ----------
 
 /**
  * 특정 문자열 기준 분리
@@ -14,6 +22,55 @@ const list1 = text1.split(',');
 const list2 = list1.filter(item => item !== '1');
 
 /**
+ * 특정값으로 배열 채우기
+ */
+const list5 = new Array(5).fill(0); //  [0,0,0,0,0];
+
+// ---------- ----------
+
+/**
+ * 배열에서 최대값 / 최소값
+ */
+const maxValue1 = Math.max(1, 2, 3, 4, 5);
+const minValue1 = Math.min(1, 2, 3, 4, 5);
+
+const arr = [1, 2, 3, 4, 5];
+const maxValue2 = Math.max.apply(null, arr);
+const minValue2 = Math.min.apply(null, arr);
+const maxValue3 = Math.max(...arr);
+const minValue3 = Math.min(...arr);
+
+/**
+ * JSON 에서 최대값 / 최소값
+ */
+const list6 = [
+  {
+    x: '8/11/2009',
+    y: 0.026572007,
+  },
+  {
+    x: '8/12/2009',
+    y: 0.025057454,
+  },
+  {
+    x: '8/13/2009',
+    y: 0.024530916,
+  },
+  {
+    x: '8/14/2009',
+    y: 0.031004457,
+  },
+];
+Math.max.apply(
+  Math,
+  array.map(function (item) {
+    return item.y;
+  }),
+);
+
+// ---------- ----------
+
+/**
  * 배열에서 특정 값 존재 확인
  */
 list2.includes('1');
@@ -23,8 +80,11 @@ const set = new Set([1, 2, 3]);
 set.has(4); // false
 set.has(2); // true
 
+// ---------- ----------
+
 /**
  * 배열 정렬
+ * array.sort(), array.reverse()
  */
 const list3 = [1, 2, 11, 34, 22];
 list3.sort((a, b) => a - b);
@@ -62,6 +122,8 @@ json1.sort((a, b) => {
 });
 console.log(json1);
 
+// ---------- ----------
+
 /**
  * 반복되는 숫자가 몇번나오는지 카운트
  */
@@ -90,6 +152,8 @@ for (let [key, value] of result.entries()) {
   document.write(key + ' : ' + value + '<br>');
 }
 
+// ---------- ----------
+
 /**
  * 배열 값 중복제거
  */
@@ -102,6 +166,11 @@ console.log(arrUnique); // ['라이언', '어피치', '프로도', '콘']
 // Set 활용
 let dupList = ['key', 'value', 'key', 'value'];
 let uniqueList = [...new Set(dupList)];
+
+// Array.from 활용
+const cars = ['Mazda', 'Ford', 'Renault', 'Opel', 'Mazda'];
+const uniqueWithArrayFrom = Array.from(new Set(cars));
+console.log(uniqueWithArrayFrom);
 
 /**
  * JSON 값 중복제거
@@ -123,6 +192,8 @@ const example2 = [
 console.log([...new Set(example2.map(JSON.stringify))].map(JSON.parse));
 // [{id: 123,  name: 'nkh'}, {id: 123, name: 'ddd'}, {id: 5456, name: 'zxc'}]
 
+// ---------- ----------
+
 /**
  * 배열 내부 정보 선택 제거
  * https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
@@ -142,3 +213,31 @@ console.log([...new Set(example2.map(JSON.stringify))].map(JSON.parse));
     return list;
   };
 })();
+
+// ---------- ----------
+
+/**
+ * 배열 합치기
+ */
+const arr11 = [1, 2, 3];
+const arr22 = [4, 5, 6];
+const arr33 = [7, 8, 9];
+
+const newArr = [...arr11, ...arr22, ...arr33];
+
+// push 활용
+const arr44 = [1, 2, 3];
+const arr55 = [4, 5, 6];
+
+arr44.push(arr55);
+
+/**
+ * 객체 합치기
+ */
+// merging objects
+const product = { name: 'Milk', packaging: 'Plastic', price: '5$' };
+const manufacturer = { name: 'Company Name', address: 'The Company Address' };
+
+const productManufacturer = { ...product, ...manufacturer };
+console.log(productManufacturer);
+// outputs { name: "Company Name", packaging: "Plastic", price: "5$", address: "The Company Address" }
