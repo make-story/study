@@ -3,7 +3,8 @@
 
 # Safari visibility 버그
 https://developer.apple.com/forums/thread/71979
-
+https://bugs.webkit.org/show_bug.cgi?id=45399
+-webkit-line-clamp and visibility hidden issue  
 
 # background-size
 일부 사파리에서 background-image 로 svg 설정하고, background-size 100% 했을 때 노출안되는 경우 발생  
