@@ -4,6 +4,14 @@ https://genie-youn.github.io/journal/axios%EC%99%80_retry.html
 axios는 실패시 체인의 중간단계에서나 설정을 통한 retry를 제공하지 않는다.  
 사용자가 직접 구현해 주어야 하는데, 방법은 크게 다음과 같다.  
 
+
+## 특수문자 대응
+기본적으로 `axios.get('URL', { params })` GET 파라미터 데이터를 .get 함수 두번째 값에 추가할 경우,  
+해당 값은 자동 URL인코딩이 된다.  
+그러나  '[', ']'  등 일부 특수문자는 인코딩이 되지 않는다.  
+이 경우, 'axios.get(`auto-complete?keyword=${encodeURIComponent(keyword)}`)' 형태로 작업해야 한다.  
+
+
 ## Interceptor 활용
 실패시 인터셉터로 잡아 재시도 하는 방법이다. axios 개발팀도 이 방법을 권하고 있다.  
 ```javascript
