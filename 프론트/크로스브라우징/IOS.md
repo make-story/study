@@ -1,6 +1,10 @@
 # 사파리 버전 13.4 이상부터 replaceAll() 지원
 
 
+# Safari visibility 버그
+https://developer.apple.com/forums/thread/71979
+
+
 # background-size
 일부 사파리에서 background-image 로 svg 설정하고, background-size 100% 했을 때 노출안되는 경우 발생  
 width, height = 아이콘과 동일한 사이즈 적용  
