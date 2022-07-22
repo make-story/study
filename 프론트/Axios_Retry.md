@@ -11,6 +11,32 @@ axios는 실패시 체인의 중간단계에서나 설정을 통한 retry를 제
 그러나  '[', ']'  등 일부 특수문자는 인코딩이 되지 않는다.  
 이 경우, 'axios.get(`auto-complete?keyword=${encodeURIComponent(keyword)}`)' 형태로 작업해야 한다.  
 
+```javascript
+import qs from 'query-string';
+
+/**
+ * Params Object를 String으로 선형화하는 Utility
+ * - axios의 paramsSerializer 옵션으로 사용
+ * - axios v0.x에서 `[`, `]`등의 문자가 Url String으로 Encode 되지 않는 문제에 대응
+ *   - 관련이슈: https://github.com/axios/axios/issues/3316
+ * - Array 포멧 변환
+ *   - { a: [1, 2] } 전달 시
+ *     - 적용 전 - a[]=1&a[]=2
+ *     - 적용 시 - a=1,2
+ *
+ * @param params Get Parameters Object
+ *
+ * @example
+ * const fetchData = (params) =>
+ *   axios.get('apis/endpoint', {
+ *     params,
+ *     paramsSerializer,
+ *   })
+ */
+const paramsSerializer = (params) => qs.stringify(params, { arrayFormatSeparator: ',' });
+
+export default paramsSerializer;
+```
 
 ## Interceptor 활용
 실패시 인터셉터로 잡아 재시도 하는 방법이다. axios 개발팀도 이 방법을 권하고 있다.  
