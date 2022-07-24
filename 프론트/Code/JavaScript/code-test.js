@@ -167,6 +167,9 @@ console.log(arrUnique); // ['라이언', '어피치', '프로도', '콘']
 let dupList = ['key', 'value', 'key', 'value'];
 let uniqueList = [...new Set(dupList)];
 
+const data1 = [{ category: 'a', category: 'a', category: 'b' }];
+const menuItems = [...new Set(Data.map(Val => Val.category))];
+
 // Array.from 활용
 const cars = ['Mazda', 'Ford', 'Renault', 'Opel', 'Mazda'];
 const uniqueWithArrayFrom = Array.from(new Set(cars));
