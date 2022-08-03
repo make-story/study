@@ -120,54 +120,63 @@
 </head>
 <body>
 <!-- https://codepen.io/paperblock/pen/wvzrezj //-->
-    <h3 class="pc-view"> PC 사용중! </h3>
-    <h3 class="mobile-view"> 모바일 사용중</h3>
-    <h4> Media Query Test: </h4>
-    
-    <div class="output">
-      
-        <div>
-            <div class="demo hover--none">
-                hover: none
-            </div>
-            <div class="demo hover--hover">
-                hover: hover
-            </div>
+<h3 class="pc-view"> PC 사용중! </h3>
+<h3 class="mobile-view"> 모바일 사용중</h3>
+<h4> Media Query Test: </h4>
+
+<div class="output">
+  
+    <div>
+        <div class="demo hover--none">
+            hover: none
         </div>
-      
-      <div>		
-            <div class="demo pointer--none">
-                pointer: none
-            </div>
-            <div class="demo pointer--coarse">
-                pointer: coarse
-            </div>
-            <div class="demo pointer--fine">
-                pointer: fine
-            </div>
+        <div class="demo hover--hover">
+            hover: hover
         </div>
-    
-      <div>
-        <div class="demo any-hover--none">
-          any-hover: none
+    </div>
+  
+  <div>		
+        <div class="demo pointer--none">
+            pointer: none
         </div>
-        <div class="demo any-hover--hover">
-          any-hover: hover
+        <div class="demo pointer--coarse">
+            pointer: coarse
         </div>
-      </div>
-      
-      <div>	
-        <div class="demo any-pointer--none">
-          any-pointer: none
+        <div class="demo pointer--fine">
+            pointer: fine
         </div>
-        <div class="demo any-pointer--coarse">
-          any-pointer: coarse
-        </div>
-        <div class="demo any-pointer--fine">
-          any-pointer: fine
-        </div>
-      </div>
-    
-    </div>    
+    </div>
+
+  <div>
+    <div class="demo any-hover--none">
+      any-hover: none
+    </div>
+    <div class="demo any-hover--hover">
+      any-hover: hover
+    </div>
+  </div>
+  
+  <div>	
+    <div class="demo any-pointer--none">
+      any-pointer: none
+    </div>
+    <div class="demo any-pointer--coarse">
+      any-pointer: coarse
+    </div>
+    <div class="demo any-pointer--fine">
+      any-pointer: fine
+    </div>
+  </div>
+
+</div>    
+
+<script>
+// JavaScript 터치 디바이스 여부 확인
+if(window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(any-pointer: coarse)").matches) {
+    // touchscreen
+}
+
+const isTouchDevice = ('ontouchstart' in window || window.navigator.MaxTouchPoints > 0 || window.navigator.msMaxTouchPoints > 0 || !!(window.DocumentTouch && window.document instanceof DocumentTouch));
+</script>
 </body>
 </html>
