@@ -105,6 +105,11 @@ $ npm install @tistory/module1
 ```
 
 
+# 의존성 형태
+종속성은 tarball 또는 git URL로도 저장소 지정 가능(install url)  
+https://docs.npmjs.com/cli/v8/configuring-npm/package-json#dependencies  
+
+
 -----
 
 
