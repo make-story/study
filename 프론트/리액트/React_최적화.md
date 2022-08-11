@@ -22,7 +22,22 @@ prevProps.todos !== nextProps.todos
 속성값을 불변 객체로 관리했다면 이전 이후 값의 단순 비교만으로 컴포넌트의 속성값이 변경되었는지 알 수 있다.  
 따라서 속성값을 불변 객체로 관리하면 렌더링 성능에 큰 도움이 된다.  
 
+
 -----
+
+
+# React.lazy 및 Suspense를 사용한 코드 분할
+https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=lr  
+
+# 라이브러리
+https://loadable-components.com/docs/getting-started/
+
+# React.memo
+https://ko.reactjs.org/docs/react-api.html#reactmemo
+
+
+-----
+
 
 # useCallback
 ```javascript
