@@ -44,3 +44,21 @@ export const usePrevious = <Value = any>(value: Value): Value => {
   return ref.current;
 };
 ```
+
+-----
+
+# redux 
+```javascript
+interface IProduct {
+  imgUrl: string;
+}
+interface IBandBannerResponse {
+  backgroundColor: string;
+  imgUrl: string;
+  linkUrl: string;
+  products: IProduct[];
+  text: string;
+}
+
+const middle = useSelector((state: RootState) => state.home.bandBanner.middle ?? {}) as IBandBannerResponse;
+```
