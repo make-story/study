@@ -215,3 +215,14 @@ export default function Home() {
   );
 }
 ```
+
+----------
+
+# NextJS 슈팅
+## 
+`<Link />`로 동일화면 이동 시 Redux state는 rehydration 되는 데,  
+컴포넌트는 remount 되지 않아 화면진입 시 호출되던 dispatch 들이 실행되지 않는 문제  
+link에 shallow 옵션을 주면 rehydration이 되어 데이터가 소실되는 것을 막을 수 있음  
+```javascript
+<Link href={urlMain} shallow={router.asPath.startsWith(urlMain)}>
+```
