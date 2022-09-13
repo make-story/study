@@ -13,7 +13,7 @@ https://helloworldjavascript.net/pages/285-async.html
 
 ---
 
-# Primise
+# Promise
 
 프로미스는 비동기 상태를 값으로 다룰 수 있는 객체다. (ES6)
 
@@ -136,17 +136,33 @@ p.then(data => {
 ## 프로미스 사용 시 주의할 점
 
 - return 키워드 깜빡하지 않기
-  then 메서드 내부 함수에서 return 키워드를 입력하는 것을 깜빡히기 쉽다.
+
+  then 메서드 내부 함수에서 return 키워드를 입력하는 것을 깜빡히기 쉽다.  
+  return 키워드를 사용하지 않으면 프로미스 객체의 데이터는 undefined 가 된다.  
+```javascript
+Promise.resolve(10)
+.then(data => {
+  console.log(data);
+  // return 키워드가 없는 경우
+  Promise.resolve(20);
+})
+.then(data => {
+  console.log(data); // undefined
+});
+```
 
 - 프로미스는 불변 객체라는 사실 명심하기
 
 ```javascript
+// 프로미스가 수정된다고 생각하고 작성한 코드
 function requestData() {
   const p = Promise.resolve(10);
+
+  // then 메서드는 기존 객체를 수정하지 않고, 새로운 프로미스를 반환한다.
   p.then(() => {
-    // then 메서드는 기존 객체를 수정하지 않고, 새로운 프로미스를 반환한다.
     return 20;
   });
+
   return p;
 }
 requestData().then(v => {
@@ -162,6 +178,17 @@ function requestData() {
 }
 requestData().then(v => {
   console.log(v); // 20
+});
+```
+
+- 프로미스를 중첩해서 사용하지 않기
+
+프로미스를 중첩해서 사용하면 콜백 패턴처럼 코드가 복잡해지므로 사용을 권장하지 않는다.  
+```javascript
+requestData1().then(result1 => {
+  requestData2(result1).then(result2 => {
+    // ...
+  });
 });
 ```
 
