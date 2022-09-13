@@ -10,48 +10,6 @@ Babel 이 6.0이 되면서 각 기능이 모듈화되어 예전에는 Babel을 �
 
 * 리액트에서는 JSX문법을 사용하기 위해 바벨을 사용한다. 바벨이 JSX 문법으로 작성된 코드를 createElement 함수를 호출하는 코드로 변환해 준다.  
 
-
-## 바벨과 폴리필
-폴리필(polyfill)은 런타임에 기능을 주입하는 것을 말한다. (오래된 브라우저의 최신 문법 지원일 위함)  
-런타임에 기능이 존재하는지 검사해서 기능이 없는 경우에만 주입한다.  
-`바벨을 사용하더라도 폴리필에 대한 설정은 별도로 해야한다.`  
-async await 는 플리필로 추가할 수 없으며, 컴파일 타임에 코드 변환을 해야 한다.  
-
-- core-js 모듈의 모든 폴리필 사용하기  
-core-js 는 바벨에서 폴리필을 위해 공식적으로 지원하는 패키지다.  
-가장 간단한 사용법은 core-js 모듈을 자바스크립트 코드로 불러오는 것이다.  
-```javascript
-import 'core-js';
-```
-
-- core-js 에서 필요한 폴리필만 가져오기
-core-js로 부터 직접 필요한 폴리필만 가져오면 번들 파일의 크기를 줄일 수 있다.  
-```javascript
-import 'core-js/features/promise';
-import 'core-js/features/object/values';
-import 'core-js/features/array/includes';
-```
-
-- @babel/preset-env 프리렛 이용하기
-@babel/preset-env 프리렛은 실행 환경에 대한 정보를 설정해 주면 자동으로 필요한 기능을 주입해 준다.  
-```javascript
-// babel.config.js
-const presets = [
-    [
-        '@babel/preset-env',
-        {
-            targets: '> 0.25%, not dead',
-        },
-    ],
-];
-
-module.export = { presets };
-```
-시장 점유율이 0.25% 이상이고 업데이트가 종료되지 않은 브라우저를 입력했다.  
-브라우저 정보는 browserslist 라는 패키지의 문법을 사용하므로, 자세한 설정은 해당 패키지의 공식 문서를 참조하기 바란다.  
-https://github.com/browserslist/browserslist#full-list  
-
-
 -----
 
 
@@ -62,35 +20,15 @@ babel은 그 자체로는 아무것도 하지 않는다.
 $ npm install --save-dev @babel/core @babel/cli
 ```
 
-## 바벨은 컴파일 시 다음 세 단계를 거친다.
-- 파싱(parse) 단계  
-입력된 코드로 부터 AST(abstract syntax tree)를 생성한다.   
-- 변환(transform) 단계  
-AST 를 원하는 형태로 변환한다.  
-- 생성(generate) 단계  
-AST 를 코드로 출력한다.  
+-----
 
-## 바벨에서 현재 환경은 다음과 같이 결정된다.
-process.env.BABEL_ENV || process.env.NODE_ENV || "development"  
-
-## 전체 설정 파일과 지역 설정 파일
-## 바벨 6까지는 .babelrc 파일로 설정값을 관리했지만, 바벨 7부터는 babel.config.js 파일로 관리하는 것을 추천 (실전 리액트 프로그래밍 책 내용 중)
-- 첫 번째  
-모든 자바스크립트 파일에 적용되는 전체(project-wide) 설정 파일 이다.  
-바벨 버전 7에 추가된 babel.config.js 파일이 전체 설정 파일이다.  
-- 두 번째  
-자바스크립트 파일의 경로에 따라 결정되는 지역(file-relative) 설정 파일이다.  
-.babelrc, .babelrc.js 파일과 바벨 설정이 있는 package.json 파일이 지역 설정 파일이다.  
-  
-1. package.json, .babelrc, .babelrc.js 파일을 만날 때까지 부모 폴더로 이동한다.  
-2. 프로젝트 루트의 babel.config.js 파일이 전체 설정 파일이다.  
-3. 전체 설정 파일과 지역 설정 파일을 병합한다.  
-
-## 바벨은 다음과 같이 다양한 방식으로 실행 
+## 바벨을 실행하는 여러가지 방법
 - @babel/cli 로 실행하기  
+```
 $ npx babel src/code.js --presets=@babel/preset-react --plugins=@babel/plugin-transform-template-literals,@babel/plugin-transform-arrow-functions  
+```
 
-- 웹팩에서 babel-loder 로 실행하기    
+- `웹팩에서 babel-loder 로 실행`하기    
 webpack 의 modules 설정에 babel-loader 추가  
 
 - @babel/core 를 직접 실행하기  
@@ -120,9 +58,92 @@ $ node runBabel.js
 
 - @babel/register 로 실행하기  
 
+-----
+
+## 바벨은 컴파일 시 다음 세 단계를 거친다.
+- 파싱(parse) 단계  
+입력된 코드로 부터 AST(abstract syntax tree)를 생성한다.   
+- 변환(transform) 단계  
+AST 를 원하는 형태로 변환한다.  
+- 생성(generate) 단계  
+AST 를 코드로 출력한다.  
 
 -----
 
+# 확장성과 유연성을 고려한 바벨 설정 방법
+- extends 속성으로 다른 설정 파일 가져오기  
+- env 속성으로 환경별로 설정하기  
+- overrides 속성으로 파일별로 설정하기  
+## 바벨에서 현재 환경은 다음과 같이 결정된다.
+process.env.BABEL_ENV || process.env.NODE_ENV || "development"  
+
+-----
+
+# 전체 설정 파일과 지역 설정 파일
+바벨 설정 팡리은 크게 두 가지 종류로 나눌 수 있다.  
+첫 번째는 모든 자바스크립트 파일에 적용되는 전체(project-wide)설정 파일 이다.  
+`바벨 버전 7에 추가된 babel.config.js 파일이 전체 설정 파일`이다.  
+두 번째는 자바스크립트 파일의 경로에 따라 결정되는 지역(file-relative)설정 파일 이다.  
+`.babelrc, .babelrc.js 파일과 바벨 설정이 있는 package.json 파일이 지역 설정 파일`이다.  
+
+## 바벨 6까지는 .babelrc 파일로 설정값을 관리했지만, 바벨 7부터는 babel.config.js 파일로 관리하는 것을 추천 (실전 리액트 프로그래밍 책 내용 중)
+- 첫 번째  
+모든 자바스크립트 파일에 적용되는 전체(project-wide) 설정 파일 이다.  
+바벨 버전 7에 추가된 babel.config.js 파일이 전체 설정 파일이다.  
+- 두 번째  
+자바스크립트 파일의 경로에 따라 결정되는 지역(file-relative) 설정 파일이다.  
+.babelrc, .babelrc.js 파일과 바벨 설정이 있는 package.json 파일이 지역 설정 파일이다.  
+  
+1. package.json, .babelrc, .babelrc.js 파일을 만날 때까지 부모 폴더로 이동한다.  
+2. 프로젝트 루트의 babel.config.js 파일이 전체 설정 파일이다.  
+3. 전체 설정 파일과 지역 설정 파일을 병합한다.  
+
+-----
+
+# 바벨과 폴리필
+폴리필(polyfill)은 런타임에 기능을 주입하는 것을 말한다. (오래된 브라우저의 최신 문법 지원일 위함)  
+런타임에 기능이 존재하는지 검사해서 기능이 없는 경우에만 주입한다.  
+`바벨을 사용하더라도 폴리필에 대한 설정은 별도로 해야한다.`  
+async await 는 플리필로 추가할 수 없으며, 컴파일 타임에 코드 변환을 해야 한다.  
+
+- core-js 모듈의 모든 폴리필 사용하기  
+`core-js 는 바벨에서 폴리필을 위해 공식적으로 지원하는 패키지`다.  
+가장 간단한 사용법은 core-js 모듈을 자바스크립트 코드로 불러오는 것이다.  
+```javascript
+import 'core-js';
+```
+
+- core-js 에서 필요한 폴리필만 가져오기
+`core-js로 부터 직접 필요한 폴리필만 가져오면 번들 파일의 크기를 줄일 수 있다.`   
+```javascript
+import 'core-js/features/promise';
+import 'core-js/features/object/values';
+import 'core-js/features/array/includes';
+```
+
+- @babel/preset-env 프리렛 이용하기
+`@babel/preset-env 프리렛은 실행 환경에 대한 정보를 설정해 주면 자동으로 필요한 기능을 주입해 준다.`  
+예를 들어, babel.config.js 파일에 다음 내용을 입력하면 특정 버전의 브라우저를 위한 플러그인만 포함한다.    
+```javascript
+// babel.config.js
+const presets = [
+    [
+        '@babel/preset-env',
+        {
+            // 시장 점유일이 0.25% 이상이고 업데이트가 종료되지 않은 브라우저를 입력했음
+            // 브라우저 정보는 browserlist 라는 패키지의 문법을 사용
+            targets: '> 0.25%, not dead',
+        },
+    ],
+];
+
+module.export = { presets };
+```
+시장 점유율이 0.25% 이상이고 업데이트가 종료되지 않은 브라우저를 입력했다.  
+브라우저 정보는 browserslist 라는 패키지의 문법을 사용하므로, 자세한 설정은 해당 패키지의 공식 문서를 참조하기 바란다.  
+https://github.com/browserslist/browserslist#full-list  
+
+-----
 
 ## plugin
 babel이 무엇을 하게 하려면 plugin을 설치  
