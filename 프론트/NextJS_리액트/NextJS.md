@@ -1,3 +1,112 @@
+# Next.js 환경구축
+```
+$ npm install next react react-dom
+```
+
+넥스트에서 모든 페이지 컴포넌트는 pages 폴더 밑에 만들어야 한다.  
+
+## 넥스트의 번들 파일 분석하기
+`넥스트는 프로젝트 루트의 .next 폴더 밑에 번들 파일을 생성`한다.
+(참고로, 젠킨스 빌드시 해당 빌드 파일을 특정서버에 업로드(CDN) 필요한 경우, cp .next _next 명령으로 폴더 복사본을 만들고, 이를 업로드)  
+
+
+-----
+
+# 웹 서버 직접 띄우기
+```
+$ npm install express
+```
+
+server.js
+```javascript
+const express = require('express');
+const next = require('next');
+
+const port = 3000;
+const dev = process.env.NODE_ENV !== 'production';
+
+// 넥스트를 실행하기 위해 필요한 객체와 함수를 생성한다.
+const app = next({ dev });
+const handle = app.getRequestHandler();
+
+// 넥스트의 준비 과정이 끝나면 입력된 함수를 실행한다.
+app.prepare().then(() => {
+  const server = express();
+
+  server.get('/page/:id', (req, res) => {
+    res.redirect(`/page${req.params.id}`);
+  });
+  server.get('*', (req, res) => {
+    // 다른 모든 GET 요청은 handle 함수가 처리하도록 한다.
+    return handle(req, res);
+  });
+
+  server.listen(port, err => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});
+```
+
+운영(production)모드로 실행할 경우에는 먼저 빌드를 해야한다.
+```
+$ npx next build
+NODE_ENV=production node server.js
+```
+
+# 서버사이드 렌더링 캐싱하기
+```
+$ npm install lru-cache
+```
+
+server.js
+```javascript
+// ...
+const url = request('url');
+const lruCache = request('lru-cache'); // 서버사이드 렌더링 결과를 캐싱하기 위해 lru-cache 패키지를 이용한다.
+
+const ssrCache = new lruCache({
+  // 최대 100개의 항목을 저장하고 각 항목은 60초 동안 저장한다.
+  max: 100,
+  maxAge: 1000 * 60,
+});
+// ...
+app.prepare().then(() => {
+  // ...('/page/:id' 를 처리하는 코드)
+  server.get(/^\/page[1-9]/, (req, res) => {
+    // page1, page2, page* 요청에 대해 서버사이드 렌더링 결과를 캐싱한다.
+    return renderAndCache(req, res);
+  });
+});
+
+async function renderAndCache(req, res) {
+  const parseUrl = url.parse(req.url, true);
+  const cacheKey = parseUrl.path;
+
+  // 캐시가 존재하면 캐시에 저장된 값을 사용한다.
+  if (ssrCache.has(cacheKey)) {
+    console.log('캐시 사용');
+    res.send(ssrCache.get(cacheKey));
+    return;
+  }
+  
+  // 캐시가 없으면 넥스트의 renderToHTML 메서드를 호출하고, await 키워드를 사용해서 처리가 끝날 때까지 기다린다.
+  try {
+    const { query, pathname } = parseUrl;
+    const html = await app.renderToHTML(req, res, pathname, query);
+    if (res.statusCode === 200) {
+      // renderToHTML 함수가 정상적으로 처리됐으면 그 결과를 캐싱하다.
+      ssrCache.set(cacheKey, html);
+    } catch (err) {
+      app.renderError(err, req, res, pathname, query);
+    }
+  }
+}
+
+```
+
+-----
+
 ## Next.js 필요한 것만 빨리 배우기
 
 https://velog.io/@jakeseo_me/Next.js-%EB%B9%A8%EB%A6%AC-%EB%B0%B0%EC%9A%B0%EA%B8%B0-y0jz9oebn0
