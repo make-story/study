@@ -29,6 +29,8 @@ ESM으로 작성된 모둘 시스템을 commonJS로 변경하기 위해 @babel/p
 $ npm install webpack-node-externals
 ```
 서버 코드를 번들링할 때는 node_modules 폴더 밑에 있는 모듈까지 하나의 번들 파일로 만들 필요는 없다.
+
+- webpack.config.js
 ```javascript
 // webpack.config.js
 
