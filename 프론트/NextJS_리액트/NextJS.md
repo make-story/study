@@ -54,6 +54,31 @@ $ npx next build
 NODE_ENV=production node server.js
 ```
 
+# 웹팩 설정 변경하기
+넥스트에서는 정작 파일을 서비스하기 위해 프로젝트 루트의 static 폴더를 이용한다.  
+
+next.config.js
+```javascript
+module.exports = {
+  webpack: config => { // 웹팩 설정을 변경하기 위한 함수
+    config.module.rules.push({
+      test: /.(png|jpg)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]?[hash]', // 쿼리 파라미터 부분에 해시를 추가해서 파일의 내용이 변경될 때마다 파알의 경로도 수정되도록 한다.
+            emitFile: false, // 넥스트는 static 폴더의 정적 파일을 그대로 서비스하기 때문에 파일을 복사할 필요가 없다.
+            publicPath: '/', 
+          },
+        },
+      ],
+    });
+    return config;
+  },
+};
+```
+
 # 서버사이드 렌더링 캐싱하기
 ```
 $ npm install lru-cache
