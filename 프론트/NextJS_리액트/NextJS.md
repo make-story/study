@@ -1,23 +1,26 @@
 # Next.js 환경구축
+
 ```
 $ npm install next react react-dom
 ```
 
-넥스트에서 모든 페이지 컴포넌트는 pages 폴더 밑에 만들어야 한다.  
+넥스트에서 모든 페이지 컴포넌트는 pages 폴더 밑에 만들어야 한다.
 
 ## 넥스트의 번들 파일 분석하기
+
 `넥스트는 프로젝트 루트의 .next 폴더 밑에 번들 파일을 생성`한다.
-(참고로, 젠킨스 빌드시 해당 빌드 파일을 특정서버에 업로드(CDN) 필요한 경우, cp .next _next 명령으로 폴더 복사본을 만들고, 이를 업로드)  
+(참고로, 젠킨스 빌드시 해당 빌드 파일을 특정서버에 업로드(CDN) 필요한 경우, cp .next \_next 명령으로 폴더 복사본을 만들고, 이를 업로드)
 
-
------
+---
 
 # 웹 서버 직접 띄우기
+
 ```
 $ npm install express
 ```
 
 server.js
+
 ```javascript
 const express = require('express');
 const next = require('next');
@@ -49,18 +52,22 @@ app.prepare().then(() => {
 ```
 
 운영(production)모드로 실행할 경우에는 먼저 빌드를 해야한다.
+
 ```
 $ npx next build
 NODE_ENV=production node server.js
 ```
 
 # 웹팩 설정 변경하기
-넥스트에서는 정작 파일을 서비스하기 위해 프로젝트 루트의 static 폴더를 이용한다.  
+
+넥스트에서는 정작 파일을 서비스하기 위해 프로젝트 루트의 static 폴더를 이용한다.
 
 next.config.js
+
 ```javascript
 module.exports = {
-  webpack: config => { // 웹팩 설정을 변경하기 위한 함수
+  webpack: config => {
+    // 웹팩 설정을 변경하기 위한 함수
     config.module.rules.push({
       test: /.(png|jpg)$/,
       use: [
@@ -69,7 +76,7 @@ module.exports = {
           options: {
             name: '[path][name].[ext]?[hash]', // 쿼리 파라미터 부분에 해시를 추가해서 파일의 내용이 변경될 때마다 파알의 경로도 수정되도록 한다.
             emitFile: false, // 넥스트는 static 폴더의 정적 파일을 그대로 서비스하기 때문에 파일을 복사할 필요가 없다.
-            publicPath: '/', 
+            publicPath: '/',
           },
         },
       ],
@@ -80,11 +87,13 @@ module.exports = {
 ```
 
 # 서버사이드 렌더링 캐싱하기
+
 ```
 $ npm install lru-cache
 ```
 
 server.js
+
 ```javascript
 // ...
 const url = request('url');
@@ -114,7 +123,7 @@ async function renderAndCache(req, res) {
     res.send(ssrCache.get(cacheKey));
     return;
   }
-  
+
   // 캐시가 없으면 넥스트의 renderToHTML 메서드를 호출하고, await 키워드를 사용해서 처리가 끝날 때까지 기다린다.
   try {
     const { query, pathname } = parseUrl;
@@ -130,7 +139,7 @@ async function renderAndCache(req, res) {
 
 ```
 
------
+---
 
 ## Next.js 필요한 것만 빨리 배우기
 
@@ -350,13 +359,46 @@ export default function Home() {
 }
 ```
 
-----------
+---
 
 # NextJS 슈팅
-## 
+
+##
+
 `<Link />`로 동일화면 이동 시 Redux state는 rehydration 되는 데,  
 컴포넌트는 remount 되지 않아 화면진입 시 호출되던 dispatch 들이 실행되지 않는 문제  
-link에 shallow 옵션을 주면 rehydration이 되어 데이터가 소실되는 것을 막을 수 있음  
+link에 shallow 옵션을 주면 rehydration이 되어 데이터가 소실되는 것을 막을 수 있음
+
 ```javascript
 <Link href={urlMain} shallow={router.asPath.startsWith(urlMain)}>
 ```
+
+---
+
+# 이미지 자동 최적화
+
+https://nextjs.org/docs/basic-features/image-optimization
+
+next.js는 이미지 자동 최적화 기능이 구현되어 사이즈를 변경하거나 퀄리티를 수정하는 등 브라우저들이 지원하는 최신 포멧의 이미지를 제공할 수 있다.  
+따라서 큰 이미지라도 작은 뷰포트에서는 작게 리사이즈되어 서빙된다. 이미지 최적화 기능은 next.js 에서 Image컴포넌트를 import하여 <img> 엘리먼트를 사용하듯이 쓸 수 있다.
+
+```javascript
+import Image from 'next/image';
+<Image src='/logo.png' alt='Logo' width={500} height={500} />;
+```
+
+# 코드 스플리팅
+
+코드 스플리팅 기능을 적용하면 클라이언트 측 성능 확보를 위해 꼭 필요한 javascript만 보낼 수 있다.
+
+next.js는 두 가지의 코드 스플리팅 기능을 지원한다.
+
+1. 라우팅 경로 기반
+   next.js에 기본으로 적용되어 있으며. 사용자가 라우팅할 때 최초로 필요로 하는 코드들만 전송한다.  
+   나머지 코드들은 앱 내에서 페이지 이동을 할 때 추가적으로 전송한다.  
+   이는 파싱하고 컴파일 해야 하는 코드량을 줄여 페이지 로드 타임을 감소시킬 수 있다.
+
+2. 컴포넌트별
+   이 코드 스플리팅은 큰 컴포넌트를 여러 코드들로 나누어 필요할 때 다운로드받을 수 있도록 해 준다.  
+   next.js는 dynamic import() 를 통해 컴포넌트 코드 스플리팅을 지원한다.  
+   따라서 react컴포넌트 포함 필요한 javascript코드들을 분리하여 동적으로 로드할 수 있게 된다.
