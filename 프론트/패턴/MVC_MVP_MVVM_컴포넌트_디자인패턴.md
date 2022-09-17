@@ -1,5 +1,3 @@
--
-
 # 참고 자료
 
 https://blog.naver.com/jukrang/221597914483  
@@ -7,10 +5,12 @@ https://blog.naver.com/jukrang/221414570067
 https://blog.naver.com/jukrang/221597910488  
 http://makestory.net/media/#/view/493
 
+# 추천
+
 https://www.patterns.dev/posts/  
 https://patterns-dev-kr.github.io/
 
--
+---
 
 # 디자인패턴
 
@@ -40,7 +40,7 @@ https://patterns-dev-kr.github.io/
 디자인 패턴은 동일한 문제 해결을 위해 수백 번 반복 실행된 결과에서 추출되었다.
 디자인 패턴은 당신이 가지고 있는 문제에 대해 정확한 해결책이 아닐 수도 있지만 적어도 더 쉽게 해결책을 구현할 수 있도록 지침을 제공해줄 수 있다.
 
--
+---
 
 # 안티패턴
 
@@ -57,7 +57,7 @@ https://patterns-dev-kr.github.io/
 용암흐름 패턴은 프로젝트가 오래되면서 코드가 아직도 사용되는지 아무도 모르고 있는 코드를 말한다.
 개발자들은 코드가 어디선가 아직도 사용되고 있거나 언젠가 유용하게 사용될지도 모를 것을 걱정하기 때문에 코드를 섣불리 삭제하지 못한다.
 
--
+---
 
 # 모델 뷰 패턴의 역사
 
@@ -68,7 +68,7 @@ https://patterns-dev-kr.github.io/
 모델 뷰 컨트롤러(MVC, Model View Controller)패턴은 사람들이 인식하지 못했지만 오랫동안 사용돼 왔다.
 증명하기는 어렵지만, MVC는 제록스 팔로알토 연구소에서 일하던 노르웨이의 컴퓨터 과학자인 트링브 리엔스카우그(Trygve Reenskaug)가 1970년대 후반 처음 제안한 것으로 보인다. 1980년에 이 패턴은 스몰토크 애플리케이션에서 널리 사용되었다. 그러나 이 패턴은 1988년 크라스너(Krasner)와 포프(Pope)가 'MVC 사용자 인터페이스 쿡북(A cookbook for using the model-view-controller user interface paradigm)'이라는 글을 쓴 이후에야 비로소 정식으로 문서화되었다.
 
--
+---
 
 # MVC 패턴
 
@@ -101,86 +101,87 @@ MVC패턴의 일부 구현에서는 모델이 유효성 검사 규칙 같은 메
 > 비밀번호 유효성 검사의 논리적 오류로 인한 로그인 실패 -> 컨트롤러
 > 새로운 필드를 추가 -> 모든 계층(모델, 뷰, 컨트롤러)
 
--
-
 # MVC 코드
 
+```javascript
 // 뷰
-var CreateCastleView = (function() {
-function CreateCastleView(document, controller, model, validationResult) {
-this.document = document;
-this.controller = controller;
-this.model = model;
-this.validationResult = validationResult;
+var CreateCastleView = (function () {
+  function CreateCastleView(document, controller, model, validationResult) {
+    this.document = document;
+    this.controller = controller;
+    this.model = model;
+    this.validationResult = validationResult;
 
-    	var _this = this;
-    	this.document.getElementById("saveButton").addEventListener("click", function() { return _this.saveCastle(); });
-    	this.document.getElementById("castleName").value = model.name;
-    	this.document.getElementById("description").value = model.description;
-    	this.document.getElementById("outerWallThickness").value = model.outerWallThickness;
-    	this.document.getElementById("numberOfTowers").value = model.numberOfTowers;
-    	this.document.getElementById("moat").value = model.moat;
-    }
-    CreateCastleView.prototype.saveCastle = function() {
-    	var data = {
-    		name: this.document.getElementById("castleName").value,
-    		description: this.document.getElementById("description").value,
-    		outerWallThickness: this.document.getElementById("outerWallThickness").value,
-    		numberOfTowers: this.document.getElementById("numberOfTowers").value,
-    		moat: this.document.getElementById("moat").value
-    	};
-    	this.controller.saveCastle(date);
+    var _this = this;
+    this.document.getElementById('saveButton').addEventListener('click', function () {
+      return _this.saveCastle();
+    });
+    this.document.getElementById('castleName').value = model.name;
+    this.document.getElementById('description').value = model.description;
+    this.document.getElementById('outerWallThickness').value = model.outerWallThickness;
+    this.document.getElementById('numberOfTowers').value = model.numberOfTowers;
+    this.document.getElementById('moat').value = model.moat;
+  }
+  CreateCastleView.prototype.saveCastle = function () {
+    var data = {
+      name: this.document.getElementById('castleName').value,
+      description: this.document.getElementById('description').value,
+      outerWallThickness: this.document.getElementById('outerWallThickness').value,
+      numberOfTowers: this.document.getElementById('numberOfTowers').value,
+      moat: this.document.getElementById('moat').value,
     };
-    return CreateCastleView;
-
+    this.controller.saveCastle(date);
+  };
+  return CreateCastleView;
 })();
 
 // 컨트롤러
-var Controller = (function() {
-function Controller(document) {
-this.document = document;
-}
-Controller.prototype.createCastle = function() {
-this.setView(new CreateCastleView(this.document, this));
-};
-Controller.prototype.saveCastle = function(data) {
-var validationResult = this.validate(data);
-if(validationResult.isValid) {
-// castle을 저장장치에 저장
-this.saveCastleSuccess(data);
-}else {
-this.setView(new CreateCastleView(this.document, this, data, validationResult));
-}
-};
-Controller.prototype.saveCastleSuccess = function(data) {
-this.setView(new CreateCastleSuccess(this.document, this, data));
-};
-Controller.prototype.setView = function(view) {
-// 뷰를 브라우저에 전송
-};
-Controller.prototype.validate = function(model) {
-var validationResult = new validationResult();
-if(!model.name || model.name === '') {
-validationResult.isValid = false;
-validationResult.error.push("Name is Required");
-}
-};
-return Controller;
+var Controller = (function () {
+  function Controller(document) {
+    this.document = document;
+  }
+  Controller.prototype.createCastle = function () {
+    this.setView(new CreateCastleView(this.document, this));
+  };
+  Controller.prototype.saveCastle = function (data) {
+    var validationResult = this.validate(data);
+    if (validationResult.isValid) {
+      // castle을 저장장치에 저장
+      this.saveCastleSuccess(data);
+    } else {
+      this.setView(new CreateCastleView(this.document, this, data, validationResult));
+    }
+  };
+  Controller.prototype.saveCastleSuccess = function (data) {
+    this.setView(new CreateCastleSuccess(this.document, this, data));
+  };
+  Controller.prototype.setView = function (view) {
+    // 뷰를 브라우저에 전송
+  };
+  Controller.prototype.validate = function (model) {
+    var validationResult = new validationResult();
+    if (!model.name || model.name === '') {
+      validationResult.isValid = false;
+      validationResult.error.push('Name is Required');
+    }
+  };
+  return Controller;
 })();
 
 // 모델
-var CreateCastleModel = (function() {
-function CreateCastleModel(name, description, outerWallThickness, numberOfTowers, moat) {
-this.name = name;
-this.description = description;
-this.outerWallThickness = outerWallThickness;
-this.numberOfTowers = numberOfTowers;
-this.moat = moat;
-}
-return CreateCastleModel;
+var CreateCastleModel = (function () {
+  function CreateCastleModel(name, description, outerWallThickness, numberOfTowers, moat) {
+    this.name = name;
+    this.description = description;
+    this.outerWallThickness = outerWallThickness;
+    this.numberOfTowers = numberOfTowers;
+    this.moat = moat;
+  }
+  return CreateCastleModel;
 })();
+```
 
--
+---
 
 # MVP 패턴
 
@@ -204,116 +205,114 @@ MVP 패턴의 수동(passive)버전에서, 뷰는 프레젠터로 전달되는 �
 MVP 의 능동(active)버전은 웹 애블리케이션에서 유용하게 사용된다.
 이것은 뷰에 검증이나 간단한 로직의 추가를 허용하여 클라이언트에서 웹 서버로 전달해야 하는 요청의 수를 감소시켜준다.
 
--
-
 # MVP 코드
 
+```javascript
 // 뷰
 var CreateCastleView = (function() {
-function CreateCastleView(document, presenter) {
-this.document = document;
-this.presenter = presenter;
+	function CreateCastleView(document, presenter) {
+		this.document = document;
+		this.presenter = presenter;
 
-    	this.document.getElementById("saveButton").addEventListener("click", this.saveCastle);
-    }
-    CreateCastleView.prototype.setCastleName = function(name) {
-    	this.document.getElementById("castleName").value = name;
-    };
-    CreateCastleView.prototype.getCastleName = function() {
-    	return this.document.getElementById("castleName").value;
-    };
-    CreateCastleView.prototype.setDescription = function(description) {
-    	this.document.getElementById("description").value = description;
-    };
-    CreateCastleView.prototype.getDescription = function() {
-    	return this.document.getElementById("description").value;
-    };
-    CreateCastleView.prototype.setOuterWallThickness = function(outerWallThickness) {
-    	this.document.getElementById("outerWallThickness").value = outerWallThickness;
-    };
-    CreateCastleView.prototype.getOuterWallThickness = function() {
-    	return this.document.getElementById("outerWallThickness").value;
-    };
-    CreateCastleView.prototype.setNumberOfTowers = function(numberOfTowers) {
-    	this.document.getElementById("numberOfTowers").value = numberOfTowers;
-    };
-    CreateCastleView.prototype.getNumberOfTowers = function() {
-    	return this.document.getElementById("numberOfTowers").value;
-    };
-    CreateCastleView.prototype.setMoat = function(moat) {
-    	this.document.getElementById("moat") = moat;
-    };
-    CreateCastleView.prototype.getMoat = function() {
-    	return this.document.getElementById("moat").value;
-    };
-    CreateCastleView.prototype.setValid = function(validationResult) {
+		this.document.getElementById("saveButton").addEventListener("click", this.saveCastle);
+	}
+	CreateCastleView.prototype.setCastleName = function(name) {
+		this.document.getElementById("castleName").value = name;
+	};
+	CreateCastleView.prototype.getCastleName = function() {
+		return this.document.getElementById("castleName").value;
+	};
+	CreateCastleView.prototype.setDescription = function(description) {
+		this.document.getElementById("description").value = description;
+	};
+	CreateCastleView.prototype.getDescription = function() {
+		return this.document.getElementById("description").value;
+	};
+	CreateCastleView.prototype.setOuterWallThickness = function(outerWallThickness) {
+		this.document.getElementById("outerWallThickness").value = outerWallThickness;
+	};
+	CreateCastleView.prototype.getOuterWallThickness = function() {
+		return this.document.getElementById("outerWallThickness").value;
+	};
+	CreateCastleView.prototype.setNumberOfTowers = function(numberOfTowers) {
+		this.document.getElementById("numberOfTowers").value = numberOfTowers;
+	};
+	CreateCastleView.prototype.getNumberOfTowers = function() {
+		return this.document.getElementById("numberOfTowers").value;
+	};
+	CreateCastleView.prototype.setMoat = function(moat) {
+		this.document.getElementById("moat") = moat;
+	};
+	CreateCastleView.prototype.getMoat = function() {
+		return this.document.getElementById("moat").value;
+	};
+	CreateCastleView.prototype.setValid = function(validationResult) {
 
-    };
-    CreateCastleView.prototype.saveCastle = function() {
-    	this.presenter.saveCastle();
-    };
-    return CreateCastleView;
-
+	};
+	CreateCastleView.prototype.saveCastle = function() {
+		this.presenter.saveCastle();
+	};
+	return CreateCastleView;
 })();
 CastleDesign.CreateCastleView = CreateCastleView;
 
-/\*
+/*
 뷰의 생성자는 더 이상 모델에 대한 참조를 가지지 않는다.
 이는 MVP의 모델은 어떤 모델이 사용되는지 알지 못하기 때문이다.
 이 정보는 프레젠터에 의해 추상화돼 있다. 프레젠터에 대한 참조는 다시 프레젠터로 메시지를 보낼 수 있도록 생성자에 남아 있다.
 
 모델이 없기 때문에 공용 세터(setter)와 게터(getter) 메소드의 수가 증가한다. 이런 세터들은 프레젠터가 뷰의 상태를 업데이트할 수 있도록 해준다.
 게터는 뷰가 상태를 저장하고 프레젠터가 정보를 얻을 수 있는 방법을 제공하는 방식의 추상화를 제공한다.
-\*/
+*/
 
 // 프레젠터
 var CreateCastlePresenter = (function() {
-function CreateCastlePresenter(document) {
-this.document = document;
+	function CreateCastlePresenter(document) {
+		this.document = document;
 
-    	this.model = new CreateCastleModel();
-    	this.view = new CreateCastleView(document, this);
-    }
-    CreateCastlePresenter.prototype.saveCastle = function() {
-    	var data = {
-    		name: this.view.getCastleName(),
-    		description: this.view.getDescription(),
-    		outerWallThickness: this.view.getOuterWallThickness(),
-    		numberOfTowers: this.view.getNumberOfTowers(),
-    		moat: this.view.getMoat()
-    	};
+		this.model = new CreateCastleModel();
+		this.view = new CreateCastleView(document, this);
+	}
+	CreateCastlePresenter.prototype.saveCastle = function() {
+		var data = {
+			name: this.view.getCastleName(),
+			description: this.view.getDescription(),
+			outerWallThickness: this.view.getOuterWallThickness(),
+			numberOfTowers: this.view.getNumberOfTowers(),
+			moat: this.view.getMoat()
+		};
 
-    	var validationResult = this.validate(data);
-    	if(validationResult.isValid) {
-    		// 모델에 쓰기
-    		this.saveCastleSuccess(data);
-    	}else {
-    		this.view.setValid(validationResult);
-    	}
-    };
-    CreateCastlePresenter.prototype.saveCastleSuccess = function(data) {
-    	// 다른 프레젠터로 리디렉션
+		var validationResult = this.validate(data);
+		if(validationResult.isValid) {
+			// 모델에 쓰기
+			this.saveCastleSuccess(data);
+		}else {
+			this.view.setValid(validationResult);
+		}
+	};
+	CreateCastlePresenter.prototype.saveCastleSuccess = function(data) {
+		// 다른 프레젠터로 리디렉션
 
-    };
-    CreateCastlePresenter.prototype.validate = function(model) {
-    	var validationResult = new validationResult();
-    	if(!model.name || model.name === '') {
-    		validationResult.isValid = false;
-    		validationResult.error.push("Name is Required");
-    	}
-    };
-    return CreateCastlePresenter;
-
+	};
+	CreateCastlePresenter.prototype.validate = function(model) {
+		var validationResult = new validationResult();
+		if(!model.name || model.name === '') {
+			validationResult.isValid = false;
+			validationResult.error.push("Name is Required");
+		}
+	};
+	return CreateCastlePresenter;
 })();
 CastleDesign.CreateCastlePresenter = CreateCastlePresenter;
 
-/_
+/*
 MVP 패턴은 사용자 인터페이스 구축에 매우 유용한 패턴이다.
 뷰와 모델이 분리돼 변경에 대한 더 좋은 적응을 제공하면서 더욱 엄격한 API를 생성할 수 있다.
 그러나 이로 인해 더 많은 코드가 필요하다. 더 많은 코드는 더 많은 버그가 발생할 가능성이 커지게 만든다.
-_/
+*/
+```
 
--
+---
 
 # MVVM 패턴
 
@@ -330,129 +329,128 @@ MVVM에서 뷰는 뷰모델이 뷰라고 믿는다.
 마찬가지로 뷰모델의 변경은 한 번에 뷰에 반영돼야 한다.
 하나의 뷰는 여러 개의 뷰모델을 가질 수 있다. 이러한 뷰모델 각각은 뷰에 업데이트를 전달하거나 뷰를 통해 변화가 전달된다.
 
--
-
 # MVVM 코드
 
+```javascript
 // 뷰
 var CreateCastleView = (function() {
-function CreateCastleView(document, viewModel) {
-this.document = document;
-this.viewModel = viewModel;
+	function CreateCastleView(document, viewModel) {
+		this.document = document;
+		this.viewModel = viewModel;
 
-    	var _this = this;
-    	this.document.getElementById("saveButton").addEventListener("click", function() {
-    		return _this.saveCastle();
-    	});
-    	this.document.getElementById("name").addEventListener("change", this.nameChangedInView);
-    	this.document.getElementById("description").addEventListener("change", this.descriptionChangedInView);
-    	this.document.getElementById("outerWallThickness").addEventListener("change", this.outerWallThicknessChangedInView);
-    	this.document.getElementById("numberOfTowers").addEventListener("change", this.numberOfTowersChangedInView);
-    	this.document.getElementById("moat").addEventListener("change", this.moatChangedInView);
-    }
-    CreateCastleView.prototype.nameChangedInView = function(name) {
-    	this.viewModel.nameChangedInView(name);
-    };
-    CreateCastleView.prototype.nameChangedInViewModel = function(name) {
-    	this.document.getElementById("name").value = name;
-    };
-    CreateCastleView.prototype.descriptionChangedInView = function(description) {
-    	this.viewModel.descriptionChangedInView(description);
-    };
-    CreateCastleView.prototype.descriptionChangedInViewModel = function(description) {
-    	this.document.getElementById("description").value = description;
-    };
-    CreateCastleView.prototype.outerWallThicknessChangedInView = function(outerWallThickness) {
-    	this.viewModel.outerWallThicknessChangedInView(outerWallThickness);
-    };
-    CreateCastleView.prototype.outerWallThicknessChangedInViewModel = function(outerWallThickness) {
-    	this.document.getElementById("outerWallThickness").value = outerWallThickness;
-    };
-    CreateCastleView.prototype.numberOfTowersChangedInView = function(numberOfTowers) {
-    	this.viewModel.numberOfTowersChangedInView(numberOfTowers);
-    };
-    CreateCastleView.prototype.numberOfTowersChangedInViewModel = function(numberOfTowers) {
-    	this.document.getElementById("numberOfTowers").value = value;
-    };
-    CreateCastleView.prototype..moatChangedInView = function(moat) {
-    	this.viewModel.moatChangedInView(moat);
-    };
-    CreateCastleView.prototype.moatChangedInViewModel = function(moat) {
-    	this.document.getElementById("moat").value = moat;
-    };
-    CreateCastleView.prototype.isValidChangedInViewModel = function(validationResult) {
-    	this.document.getElementById("validationWarning").innerHtml = validationResult.errors;
-    	this.document.getElementById("validationWarning").className = "visible";
-    };
-    CreateCastleView.prototype.saveCastle = function() {
-    	this.viewModel.saveCastle();
-    };
-    return CreateCastleView;
-
+		var _this = this;
+		this.document.getElementById("saveButton").addEventListener("click", function() {
+			return _this.saveCastle();
+		});
+		this.document.getElementById("name").addEventListener("change", this.nameChangedInView);
+		this.document.getElementById("description").addEventListener("change", this.descriptionChangedInView);
+		this.document.getElementById("outerWallThickness").addEventListener("change", this.outerWallThicknessChangedInView);
+		this.document.getElementById("numberOfTowers").addEventListener("change", this.numberOfTowersChangedInView);
+		this.document.getElementById("moat").addEventListener("change", this.moatChangedInView);
+	}
+	CreateCastleView.prototype.nameChangedInView = function(name) {
+		this.viewModel.nameChangedInView(name);
+	};
+	CreateCastleView.prototype.nameChangedInViewModel = function(name) {
+		this.document.getElementById("name").value = name;
+	};
+	CreateCastleView.prototype.descriptionChangedInView = function(description) {
+		this.viewModel.descriptionChangedInView(description);
+	};
+	CreateCastleView.prototype.descriptionChangedInViewModel = function(description) {
+		this.document.getElementById("description").value = description;
+	};
+	CreateCastleView.prototype.outerWallThicknessChangedInView = function(outerWallThickness) {
+		this.viewModel.outerWallThicknessChangedInView(outerWallThickness);
+	};
+	CreateCastleView.prototype.outerWallThicknessChangedInViewModel = function(outerWallThickness) {
+		this.document.getElementById("outerWallThickness").value = outerWallThickness;
+	};
+	CreateCastleView.prototype.numberOfTowersChangedInView = function(numberOfTowers) {
+		this.viewModel.numberOfTowersChangedInView(numberOfTowers);
+	};
+	CreateCastleView.prototype.numberOfTowersChangedInViewModel = function(numberOfTowers) {
+		this.document.getElementById("numberOfTowers").value = value;
+	};
+	CreateCastleView.prototype..moatChangedInView = function(moat) {
+		this.viewModel.moatChangedInView(moat);
+	};
+	CreateCastleView.prototype.moatChangedInViewModel = function(moat) {
+		this.document.getElementById("moat").value = moat;
+	};
+	CreateCastleView.prototype.isValidChangedInViewModel = function(validationResult) {
+		this.document.getElementById("validationWarning").innerHtml = validationResult.errors;
+		this.document.getElementById("validationWarning").className = "visible";
+	};
+	CreateCastleView.prototype.saveCastle = function() {
+		this.viewModel.saveCastle();
+	};
+	return CreateCastleView;
 })();
 CastleDesign.CreateCastleView = CreateCastleView;
 
 // 뷰모델
 var CreateCastleViewModel = (function() {
-function CreateCastleViewModel(document) {
-this.document = document;
-this.model = new CreateCastleModel();
-this.view = new CreateCastleView(document, this);
-}
-CreateCastleViewModel.prototype.nameChangedInView = function(name) {
-this.name = name;
-};
-CreateCastleViewModel.prototype.nameChangedInViewModel = function(name) {
-this.view.nameChangedInViewModel(name);
-};
-CreateCastleViewModel.prototype.descriptionChangedInView = function(description) {
-this.description = description;
-};
-CreateCastleViewModel.prototype.descriptionChangedInViewModel = function(description) {
-this.view.descriptionChangedInViewModel(description);
-};
-CreateCastleViewModel.prototype.outerWallThicknessChangedInView = function(outerWallThickness) {
-this.outerWallThickness = outerWallThickness;
-};
-CreateCastleViewModel.prototype.outerWallThicknessChangedInViewModel = function(outerWallThickness) {
-this.view.outerWallThicknessChangedInViewModel(outerWallThickness);
-};
-CreateCastleViewModel.prototype.numberOfTowersChangedInView = function(numberOfTowers) {
-this.numberOfTowers = numberOfTowers;
-};
-CreateCastleViewModel.prototype.numberOfTowersChangedInViewModel = function(numberOfTowers) {
-this.view.numberOfTowersChangedInViewModel(numberOfTowers);
-};
-CreateCastleViewModel.prototype.moatChangedInView = function(moat) {
-this.moat = moat;
-};
-CreateCastleViewModel.prototype.moatChangedInViewModel = function(moat) {
-this.view.moatChangedInViewModel(moat);
-};
-CreateCastleViewModel.prototype.saveCastle = function() {
-var validationResult = this.validate();
-if(validationResult.isValid) {
-// 모델에 쓰기
-this.saveCastleSuccess();
-}else {
-this.view.isValidChangedInViewModel(validationResult);
-}
-};
-CreateCastleViewModel.prototype.saveCastleSuccess = function() {
-// 저장이 성공하면 필요한 작업을 수행
-// 뷰모델을 업데이트
-};
-CreateCastleViewModel.prototype.validate = function() {
-var validationResult = new validationResult();
-if(!this.name || this.name === '') {
-validationResult.isValid = false;
-validationResult.errors.push("Name is Required");
-}
-};
-return CreateCastleViewModel;
+	function CreateCastleViewModel(document) {
+		this.document = document;
+		this.model = new CreateCastleModel();
+		this.view = new CreateCastleView(document, this);
+	}
+	CreateCastleViewModel.prototype.nameChangedInView = function(name) {
+		this.name = name;
+	};
+	CreateCastleViewModel.prototype.nameChangedInViewModel = function(name) {
+		this.view.nameChangedInViewModel(name);
+	};
+	CreateCastleViewModel.prototype.descriptionChangedInView = function(description) {
+		this.description = description;
+	};
+	CreateCastleViewModel.prototype.descriptionChangedInViewModel = function(description) {
+		this.view.descriptionChangedInViewModel(description);
+	};
+	CreateCastleViewModel.prototype.outerWallThicknessChangedInView = function(outerWallThickness) {
+		this.outerWallThickness = outerWallThickness;
+	};
+	CreateCastleViewModel.prototype.outerWallThicknessChangedInViewModel = function(outerWallThickness) {
+		this.view.outerWallThicknessChangedInViewModel(outerWallThickness);
+	};
+	CreateCastleViewModel.prototype.numberOfTowersChangedInView = function(numberOfTowers) {
+		this.numberOfTowers = numberOfTowers;
+	};
+	CreateCastleViewModel.prototype.numberOfTowersChangedInViewModel = function(numberOfTowers) {
+		this.view.numberOfTowersChangedInViewModel(numberOfTowers);
+	};
+	CreateCastleViewModel.prototype.moatChangedInView = function(moat) {
+		this.moat = moat;
+	};
+	CreateCastleViewModel.prototype.moatChangedInViewModel = function(moat) {
+		this.view.moatChangedInViewModel(moat);
+	};
+	CreateCastleViewModel.prototype.saveCastle = function() {
+		var validationResult = this.validate();
+		if(validationResult.isValid) {
+			// 모델에 쓰기
+			this.saveCastleSuccess();
+		}else {
+			this.view.isValidChangedInViewModel(validationResult);
+		}
+	};
+	CreateCastleViewModel.prototype.saveCastleSuccess = function() {
+		// 저장이 성공하면 필요한 작업을 수행
+		// 뷰모델을 업데이트
+	};
+	CreateCastleViewModel.prototype.validate = function() {
+		var validationResult = new validationResult();
+		if(!this.name || this.name === '') {
+			validationResult.isValid = false;
+			validationResult.errors.push("Name is Required");
+		}
+	};
+	return CreateCastleViewModel;
 })();
+```
 
--
+---
 
 # 모델과 뷰 사이의 변화를 전송하는 더 좋은 방법
 
@@ -468,7 +466,7 @@ return CreateCastleViewModel;
 > 기존의 객체를 래핑하는 특별한 인터페이스가 제공된다. 따라서 객체의 변화를 직접 관할할 수 있다.
 > 기본적으로 이것은 감시자 패턴의 애플리케이션이지만, 동적으로 적용되기 때문에 아래에 있는 객체가 감시되고 있는 사실을 모른다. 스파이 패턴이라고 할 수 있겠다.
 
--
+---
 
 # 컴포넌트의 개념 ('리액트 프로그래밍 정석' 책 내용 중)
 
@@ -479,3 +477,5 @@ return CreateCastleViewModel;
 하지만 웹 사이트의 화면은 각 요소가 비슷하고 반복적으로 사용한 경우가 많습니다. 이점을 착안하여 컴포넌트가 등장하게 된 것이지요.  
 컴포넌트는 MVC의 뷰를 독립적으로 구성하여 재사용도 할 수 있고 컴포넌트를 통해 새로운 컴포넌트를 쉽게 만들 수도 있습니다.  
 다양한 모양의 블록을 조립한다고 상상하면 됩니다.
+
+---
