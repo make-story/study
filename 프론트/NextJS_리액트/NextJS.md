@@ -6,10 +6,9 @@ $ npm install next react react-dom
 
 넥스트에서 모든 페이지 컴포넌트는 pages 폴더 밑에 만들어야 한다.
 
-## 넥스트의 번들 파일 분석하기
+## Next.js 브라우저 지원
 
-`넥스트는 프로젝트 루트의 .next 폴더 밑에 번들 파일을 생성`한다.
-(참고로, 젠킨스 빌드시 해당 빌드 파일을 특정서버에 업로드(CDN) 필요한 경우, cp .next \_next 명령으로 폴더 복사본을 만들고, 이를 업로드)
+https://nextjs.org/docs/basic-features/supported-browsers-features
 
 ---
 
@@ -58,6 +57,46 @@ $ npx next build
 NODE_ENV=production node server.js
 ```
 
+---
+
+## 넥스트의 번들 파일 분석하기
+
+`넥스트는 프로젝트 루트의 .next 폴더 밑에 번들 파일을 생성`한다.
+(참고로, 젠킨스 빌드시 해당 빌드 파일을 특정서버에 업로드(CDN) 필요한 경우, cp .next \_next 명령으로 폴더 복사본을 만들고, 이를 업로드)
+
+## 기본 빌드 폴더 변경
+
+https://nextjs.org/docs/api-reference/next.config.js/setting-a-custom-build-directory
+
+```javascript
+module.exports = {
+  distDir: 'build',
+};
+```
+
+## CDN URL 프리픽스 설정
+
+https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
+
+```javascript
+const isProd = process.env.NODE_ENV === 'production';
+
+module.exports = {
+  // Use the CDN in production and localhost for development.
+  assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
+};
+```
+
+## 전역 스타일(.css 파일)
+
+https://nextjs.org/docs/basic-features/built-in-css-support#adding-a-global-stylesheet
+
+`pages/_app.js` 파일 위치에서 import  
+Next.js 9.5.4 부터 CSS 파일을 가져오는 것은 node_modules애플리케이션의 모든 위치에서 허용됩니다.  
+Next.js는 파일 명명 규칙 을 사용하여 CSS 모듈 을 지원합니다. ([name].module.css)
+
+---
+
 # 웹팩 설정 변경하기
 
 넥스트에서는 정작 파일을 서비스하기 위해 프로젝트 루트의 static 폴더를 이용한다.
@@ -84,59 +123,6 @@ module.exports = {
     return config;
   },
 };
-```
-
-# 서버사이드 렌더링 캐싱하기
-
-```
-$ npm install lru-cache
-```
-
-server.js
-
-```javascript
-// ...
-const url = request('url');
-const lruCache = request('lru-cache'); // 서버사이드 렌더링 결과를 캐싱하기 위해 lru-cache 패키지를 이용한다.
-
-const ssrCache = new lruCache({
-  // 최대 100개의 항목을 저장하고 각 항목은 60초 동안 저장한다.
-  max: 100,
-  maxAge: 1000 * 60,
-});
-// ...
-app.prepare().then(() => {
-  // ...('/page/:id' 를 처리하는 코드)
-  server.get(/^\/page[1-9]/, (req, res) => {
-    // page1, page2, page* 요청에 대해 서버사이드 렌더링 결과를 캐싱한다.
-    return renderAndCache(req, res);
-  });
-});
-
-async function renderAndCache(req, res) {
-  const parseUrl = url.parse(req.url, true);
-  const cacheKey = parseUrl.path;
-
-  // 캐시가 존재하면 캐시에 저장된 값을 사용한다.
-  if (ssrCache.has(cacheKey)) {
-    console.log('캐시 사용');
-    res.send(ssrCache.get(cacheKey));
-    return;
-  }
-
-  // 캐시가 없으면 넥스트의 renderToHTML 메서드를 호출하고, await 키워드를 사용해서 처리가 끝날 때까지 기다린다.
-  try {
-    const { query, pathname } = parseUrl;
-    const html = await app.renderToHTML(req, res, pathname, query);
-    if (res.statusCode === 200) {
-      // renderToHTML 함수가 정상적으로 처리됐으면 그 결과를 캐싱하다.
-      ssrCache.set(cacheKey, html);
-    } catch (err) {
-      app.renderError(err, req, res, pathname, query);
-    }
-  }
-}
-
 ```
 
 ---
@@ -361,9 +347,9 @@ export default function Home() {
 
 ---
 
-# NextJS 슈팅
+# NextJS 이슈 슈팅
 
-##
+## 현재 위치한 페이지 URL 로 Link 실행했을 때, 해당 페이지 일부 비동기 데이터 로드 안되는 문제
 
 `<Link />`로 동일화면 이동 시 Redux state는 rehydration 되는 데,  
 컴포넌트는 remount 되지 않아 화면진입 시 호출되던 dispatch 들이 실행되지 않는 문제  
@@ -375,7 +361,9 @@ link에 shallow 옵션을 주면 rehydration이 되어 데이터가 소실되는
 
 ---
 
-# 이미지 자동 최적화
+# 최적화
+
+## 이미지 자동 최적화
 
 https://nextjs.org/docs/basic-features/image-optimization
 
@@ -387,7 +375,7 @@ import Image from 'next/image';
 <Image src='/logo.png' alt='Logo' width={500} height={500} />;
 ```
 
-# 코드 스플리팅
+## 코드 스플리팅
 
 코드 스플리팅 기능을 적용하면 클라이언트 측 성능 확보를 위해 꼭 필요한 javascript만 보낼 수 있다.
 
@@ -402,3 +390,79 @@ next.js는 두 가지의 코드 스플리팅 기능을 지원한다.
    이 코드 스플리팅은 큰 컴포넌트를 여러 코드들로 나누어 필요할 때 다운로드받을 수 있도록 해 준다.  
    next.js는 dynamic import() 를 통해 컴포넌트 코드 스플리팅을 지원한다.  
    따라서 react컴포넌트 포함 필요한 javascript코드들을 분리하여 동적으로 로드할 수 있게 된다.
+
+## 서버사이드 렌더링 캐싱하기
+
+```
+$ npm install lru-cache
+```
+
+server.js
+
+```javascript
+// ...
+const url = request('url');
+const lruCache = request('lru-cache'); // 서버사이드 렌더링 결과를 캐싱하기 위해 lru-cache 패키지를 이용한다.
+
+const ssrCache = new lruCache({
+  // 최대 100개의 항목을 저장하고 각 항목은 60초 동안 저장한다.
+  max: 100,
+  maxAge: 1000 * 60,
+});
+// ...
+app.prepare().then(() => {
+  // ...('/page/:id' 를 처리하는 코드)
+  server.get(/^\/page[1-9]/, (req, res) => {
+    // page1, page2, page* 요청에 대해 서버사이드 렌더링 결과를 캐싱한다.
+    return renderAndCache(req, res);
+  });
+});
+
+async function renderAndCache(req, res) {
+  const parseUrl = url.parse(req.url, true);
+  const cacheKey = parseUrl.path;
+
+  // 캐시가 존재하면 캐시에 저장된 값을 사용한다.
+  if (ssrCache.has(cacheKey)) {
+    console.log('캐시 사용');
+    res.send(ssrCache.get(cacheKey));
+    return;
+  }
+
+  // 캐시가 없으면 넥스트의 renderToHTML 메서드를 호출하고, await 키워드를 사용해서 처리가 끝날 때까지 기다린다.
+  try {
+    const { query, pathname } = parseUrl;
+    const html = await app.renderToHTML(req, res, pathname, query);
+    if (res.statusCode === 200) {
+      // renderToHTML 함수가 정상적으로 처리됐으면 그 결과를 캐싱하다.
+      ssrCache.set(cacheKey, html);
+    } catch (err) {
+      app.renderError(err, req, res, pathname, query);
+    }
+  }
+}
+```
+
+## 기존적으로 압축(gzip) 제공
+
+기능 사용 안할 경우
+
+```javascript
+module.exports = {
+  compress: false,
+};
+```
+
+## ETag
+
+ETag(Entity Tag)는 브라우저의 캐시에 저장되어 있는 구성요소와 원본 서버의 구성요소가 일치하는지 판단하는 또 다른 방법이다.  
+구성요소를 나타내는 값을 따옴표의 고유한 문자열로 응답헤더의 ETag에 지정한다.
+
+https://nextjs.org/docs/api-reference/next.config.js/disabling-etag-generation
+
+Next.js는 기본적으로 모든 페이지에 대해 etag 를 생성합니다.  
+캐시 전략에 따라 HTML 페이지에 대한 etag 생성을 비활성화할 수 있습니다.
+
+## Keep-Alive
+
+Next.js는 자동으로 node-fetch 를 폴리필하고 기본적으로 HTTP Keep-Alive 를 활성화 합니다.
