@@ -62,7 +62,8 @@ NODE_ENV=production node server.js
 ## 넥스트의 번들 파일 분석하기
 
 `넥스트는 프로젝트 루트의 .next 폴더 밑에 번들 파일을 생성`한다.
-(참고로, 젠킨스 빌드시 해당 빌드 파일을 특정서버에 업로드(CDN) 필요한 경우, cp .next \_next 명령으로 폴더 복사본을 만들고, 이를 업로드)
+번들(빌드) 파일 CDN 분리 배포로 설정할 경우 `distDir`, `assetPrefix` next.config.js 설정 필요  
+
 
 ## 기본 빌드 폴더 변경
 
@@ -70,7 +71,7 @@ https://nextjs.org/docs/api-reference/next.config.js/setting-a-custom-build-dire
 
 ```javascript
 module.exports = {
-  distDir: 'build',
+  distDir: '_next',
 };
 ```
 
@@ -86,6 +87,7 @@ module.exports = {
   assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
 };
 ```
+위와 같이 설정할 경우, assetPrefix 설정 URL 하위로 /_next/ 경로가 설정됨  
 
 ## 전역 스타일(.css 파일)
 
