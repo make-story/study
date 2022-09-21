@@ -56,3 +56,24 @@ Bastion Host 란 보안을 위해 고안된 Host로 외부 네트워크와 내�
 -----
 
 
+# AWS 인스턴스명 확인하는 방법
+## 1
+AWS 접속 -> 
+EC2 클릭 -> 
+인스턴스 (실행중) 클릭 -> 
+검색어(돋보기 부분) 입력 (AWS NAME) -> 
+검색결과 중 선택 -> 
+하단 탭 중 ‘Tag’ 정보 확인
+
+## 2
+젠킨스 접속 -> 
+Deploy Job 설정 확인 -> 
+‘Deploy an application to AWS CodeDeploy’ 설정값 확인 -> 
+‘AWS CodeDeploy Application Name’ 항목 값 확인 -> 
+AWS 접속 -> 
+CodeDeploy 접속 -> 
+왼쪽 메뉴 중 ‘배포’ 펼침 -> 
+‘애플리케이션’ 항목 선택 -> 
+애플리케이션 검색어 입력 > 
+검색결과 중 선택 -> 
+확인
