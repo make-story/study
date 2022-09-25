@@ -30,3 +30,25 @@ $ yarn create playwright
 
 위 명령어를 입력하면, 대화형 설치진행  
 playwright, @playwright/test 등 설치
+
+# 실행
+
+https://playwright.dev/docs/cli
+
+npx
+
+```
+$ npx playwright test
+```
+
+package.json
+
+```javascript
+{
+    // ...
+    "scripts": {
+        "playwright": "playwright test"
+    }
+    // ...
+}
+```
