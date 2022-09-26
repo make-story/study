@@ -25,11 +25,21 @@ https://www.infoq.com/news/2020/01/playwright-browser-automation/
 # 설치
 
 ```
+$ npm init playwright@latest
+또는
 $ yarn create playwright
 ```
 
 위 명령어를 입력하면, 대화형 설치진행  
 playwright, @playwright/test 등 설치
+
+> 위 명령어 진행간 브라우저 다운로드 진행, 다운로드 이슈가 있을 경우
+
+```
+$ npx playwright install
+```
+
+직접 다운로드 진행
 
 # 실행
 
