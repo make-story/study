@@ -22,6 +22,8 @@ https://playwright.dev/docs/intro
 
 https://www.infoq.com/news/2020/01/playwright-browser-automation/
 
+---
+
 # 설치
 
 ```
@@ -41,17 +43,28 @@ $ npx playwright install
 
 직접 다운로드 진행
 
+## playwright, @playwright/test 차이
+
+`https://playwright.dev/docs/library`
+
+- playwright  
+  브라우저 실행 및 상호 작용 통합 테스트
+- @playwright/test  
+  각각의 테스트 (단위테스트)
+
+---
+
 # 실행
 
 https://playwright.dev/docs/cli
 
-npx
+## npx
 
 ```
 $ npx playwright test
 ```
 
-package.json
+## package.json script 명령
 
 ```javascript
 {
@@ -61,4 +74,39 @@ package.json
     }
     // ...
 }
+```
+
+## 특정 테스트 실행
+
+```
+$ npx playwright test landing-page.spec.ts
+```
+
+## 특정 테스트 폴더 실행
+
+```
+$ npx playwright test tests/todo-page/ tests/landing-page/
+```
+
+## 헤드리스 모드 테스트 실행
+
+```
+$ npx playwright test landing-page.spec.ts --headed
+```
+
+## 디버깅 모드로 테스트 실행
+
+```
+$ npx playwright test --debug
+$ npx playwright test example.spec.ts --debug
+```
+
+---
+
+# 테스트 코드 생성기
+
+https://playwright.dev/docs/codegen-intro
+
+```
+$ npx playwright codegen playwright.dev
 ```
