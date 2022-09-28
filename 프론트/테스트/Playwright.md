@@ -43,6 +43,12 @@ $ npx playwright install
 
 직접 다운로드 진행
 
+> 브라우저 설치 중 권한 문제 발생하는 경우
+```
+$ cd /Users/사용자/Library/Caches  
+$ sudo chown -R 사용자 ms-playwright
+```
+
 ## playwright, @playwright/test 차이
 
 `https://playwright.dev/docs/library`
