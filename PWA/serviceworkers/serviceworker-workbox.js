@@ -24,8 +24,10 @@ https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 
 
 -
-API 문서
-https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox
+API 문서 (Workbox Modules)
+https://developers.google.com/web/tools/workbox/reference-docs/latest/workbox  
+https://developer.chrome.com/docs/workbox/modules/  
+
 workbox
 workbox.backgroundSync
 workbox.broadcastUpdate
@@ -85,8 +87,11 @@ https://developers.google.com/web/tools/workbox/reference-docs/latest/module-wor
 페이지를 업데이트를 한다.
 */
 
-// 서비스워커에서의 ES 모듈 사용
+// 서비스워커에서의 ES 모듈 사용 (import ... from '...' 형태를 안정적으로 사용하려면 번들러 필요 - 22.09기준)
 // https://chromium.googlesource.com/chromium/src/+/refs/heads/main/content/browser/service_worker/es_modules.md
+
+// 번들러 없이 기본 사용
+// https://developer.chrome.com/docs/workbox/using-workbox-without-precaching/#without-a-bundler-using-workbox-sw
 
 // WorkBox 사용 - v4 와 v5 로직이 다르다.
 //importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
