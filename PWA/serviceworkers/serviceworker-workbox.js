@@ -18,10 +18,13 @@ https://developers.google.com/web/tools/workbox/reference-docs/v4/
 https://github.com/GoogleChrome/workbox/blob/master/LICENSE
 
 * npm 또는 yarn 으로 WorkBox 모듈을 설치해 사용하는 방식 참고
+https://developer.chrome.com/docs/workbox/modules/workbox-cli/#install-the-cli  
 
 * WorkBox-Webpack-Plugin
 https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 
+* Workbox 모듈 import
+https://developer.chrome.com/docs/workbox/modules/workbox-sw/  
 
 -
 API 문서 (Workbox Modules)
