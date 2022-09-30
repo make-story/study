@@ -75,6 +75,8 @@ pwa 를 ios 나 안드로이드에서 제대로 보여주기 위해서는 아이
 https://web.dev/twitter/  
 https://inoxoft.com/blog/benefits-of-progressive-web-apps-pwa-advantages-and-disadvantages/
 
+https://almanac.httparchive.org/en/2022/pwa
+
 ## PWA 스토어
 
 https://appsco.pe/
