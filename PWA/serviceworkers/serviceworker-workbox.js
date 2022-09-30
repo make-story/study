@@ -59,6 +59,7 @@ https://developers.google.com/web/fundamentals/performance/optimizing-content-ef
 
 -
 캐싱 전략 - strategies
+https://developer.chrome.com/docs/workbox/modules/workbox-strategies/
 https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook
 https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-strategies
 
@@ -83,6 +84,9 @@ https://developers.google.com/web/tools/workbox/reference-docs/latest/module-wor
 캐시된 데이터를 먼저 표시한 다음 네트워크 데이터가 도착하면 
 페이지를 업데이트를 한다.
 */
+
+// 서비스워커에서의 ES 모듈 사용
+// https://chromium.googlesource.com/chromium/src/+/refs/heads/main/content/browser/service_worker/es_modules.md
 
 // WorkBox 사용 - v4 와 v5 로직이 다르다.
 //importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
@@ -126,9 +130,9 @@ const setWorkBoxRun = workbox => {
 	//const { precaching, routing, strategies } = workbox;
 
 	// 설정 
-	/*workbox.setConfig({
+	workbox.setConfig({
 		debug: true
-	});*/
+	});
 	workbox.core.skipWaiting(); // 서비스 워커 즉시 활성화 - 업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성
 	workbox.core.clientsClaim(); // 서비스 워커 활성화되면, 현재 사용 가능한 클라이언트 요청
 
