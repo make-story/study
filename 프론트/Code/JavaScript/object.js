@@ -59,6 +59,16 @@
 	};
 })();
 
+/**
+ * 해체할당 통해 특정 값 제거
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+ */
+(() => {
+	const test = { a: 1, b: 2, c: 3 };
+	const { c, ...objWithoutC } = test;
+	console.log(objWithoutC); // { a: 1, b: 2 }
+})();
+
 
 /**
  * Map 으로 key-value 관리
