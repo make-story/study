@@ -175,7 +175,13 @@ https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b
 
 ## 버전규칙 참고
 
+package.json 의 version 은 Semantic Versioning 을 기준으로 명시  
 https://semver.org/lang/ko/
+
+npm 문서  
+https://docs.npmjs.com/cli/v8/commands/npm-version
+
+`<major>.<minor>.<patch>[-<pre-release>+<metadata>]`
 
 ## 버전변경
 
