@@ -173,6 +173,10 @@ https://outofbedlam.gitbooks.io/npm-handbook/content/cli/npm-version.html
 https://github.com/npm/node-semver#functions  
 https://kevinkreuzer.medium.com/publishing-a-beta-or-alpha-version-to-npm-46035b630dd7
 
+## 버전규칙 참고
+
+https://semver.org/lang/ko/
+
 ## 버전변경
 
 ### 1. package.json
