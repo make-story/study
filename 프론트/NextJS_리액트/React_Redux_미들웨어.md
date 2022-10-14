@@ -743,6 +743,53 @@ export default function createRequestSaga(actionType, reuqest) {
 }
 ```
 
+활용 예
+```javascript
+import { call, put } from 'redux-saga/effects';
+import { startLoading, finishLoading } from '../modules/loading';
+
+// API요청/응답 공통 Saga함수 (제너레이터 함수 생성하여 반환)
+function createRequestSaga(actionType: string, reuqest: any) {
+  //console.log(`createRequestSaga actionType: ${actionType}`); // actionType: 액션 타입(액션 이름)
+
+  // {해당액션타입}_SUCCESS 와 {해당액션타입}_FAILURE 타입이 있다는 전제
+  const SUCCESS = `${actionType}_SUCCESS`;
+  const FAILURE = `${actionType}_FAILURE`;
+
+  return function* (action: AnyAction) {
+    const { type, payload, apiManager } = action;
+
+    // 로딩 시작
+    yield put(startLoading(actionType));
+
+    try {
+      // call(비동기 실행함수, 함꼐 넘길 파라미터 값)
+      const data = yield call(reuqest, payload, apiManager);
+
+      // createAction 활용한 액션함수 사용 없이, type 지정 바로 호출!
+      yield put({
+        type: SUCCESS, // 액션 타입
+        payload: data, // 응답 데이터 값
+        meta: payload, // 호출정보 (파라미터 등)
+      });
+    } catch (e) {
+      // createAction 활용한 액션함수 사용 없이, type 지정 바로 호출!
+      yield put({
+        type: FAILURE, // 액션 타입
+        payload: e,
+        error: true, // 에러발생 여부
+      });
+    }
+
+    // 로딩 끝
+    yield put(finishLoading(actionType));
+  };
+}
+
+// 테스트
+//const getTest = createRequestSaga(GET_TEST, api.getTest);
+```
+
 API 
 ```javascript
 // lib/api/auth
