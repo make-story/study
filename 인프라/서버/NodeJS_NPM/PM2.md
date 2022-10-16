@@ -1,78 +1,99 @@
 # 참고
+
 https://velog.io/@jsi06138/PM2%EB%A1%9C-%EB%AC%B4%EC%A4%91%EB%8B%A8-%EB%B0%B0%ED%8F%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0  
 https://www.samsungsds.com/kr/insights/1256264_4627.html  
 https://pm2.keymetrics.io/docs/usage/quick-start/  
-https://nodejs.org/dist/latest-v6.x/docs/api/cluster.html#cluster_how_it_works  
+https://nodejs.org/dist/latest-v6.x/docs/api/cluster.html#cluster_how_it_works
 
 https://velog.io/@ckstn0777/Clustering-in-Action
 
------
+# forever / nodemon / pm2 / supervisor
+
+https://npmtrends.com/forever-vs-nodemon-vs-pm2-vs-supervisor  
+https://pixeljets.com/blog/using-supervisorctl-for-node-processes-common-gotchas/
+
+---
 
 # 설치
+
 ```
 $ npm install pm2@latest -g
 ```
 
 # 프로세스 관리
+
 ```
 $ pm2 restart app_name
 $ pm2 reload app_name
 $ pm2 stop app_name
 $ pm2 delete app_name
 ```
+
 - restart: 프로세스를 종료하고 다시 시작한다.
 - reload: 프로세스를 종료하지않고 다시 시작한다. (down time: 0)
 - stop: 프로세스를 종료한다.
 - delete: 작업 리스트에 올려진 모든 프로세스를 제거한다.
 
 # 모니터링
+
 ```
 $ pm2 monit
 ```
+
 실시간으로 로그를 확인할 수 있다.
 
 # 클러스터 모드
+
 ```
 $ pm2 start app.js -i max
 ```
+
 어플리케이션을 클러스터 모드로 실행
-i 옵션은 인스턴스의 개수를 의미한다. 
+i 옵션은 인스턴스의 개수를 의미한다.
 `-i 0은 cpu 코어 개수만큼 클러스터 하겠다는 뜻이다. 만약 -i -1로 하면 1개는 남겨놓는다. 사실 한개는 남겨놓는편이 좋다.`
 
-또는   
+또는
 
 환경 설정파일 생성
+
 ```
 $ pm2 ecosystem
 ```
-pm2 환경 설정 파일인 ecosystem.config.js 을 생성한다.  
+
+pm2 환경 설정 파일인 ecosystem.config.js 을 생성한다.
 
 환경 설정파일 작성
+
 ```javascript
 module.exports = {
-  apps: [{
-    name: 'app',
-    script: './app.js',
-    instances: 'max',
-    exec_mode: 'cluster',
-  }]
-}
+  apps: [
+    {
+      name: 'app',
+      script: './app.js',
+      instances: 'max',
+      exec_mode: 'cluster',
+    },
+  ],
+};
 ```
 
 환경 설정파일 실행
+
 ```
 $ pm2 start ecosystem.config.js
 ```
 
 # 재실행
+
 ```
 $ pm2 reload ecosystem.config.js
 ```
+
 reload 는 restart 와는 반대로 down-time 이 0초이다.  
 restart은 어플리케이션을 재실행하기 위해 프로세스를 종료하고 재시작하는 방식이지만, reload는 그렇지 않다.
 
 `reload 명령어만 수행해도 PM2가 별다른 문제없이 알아서 프로세스를 재시작할 테고, 따라서 서비스에 영향을 주지 않고 무중단 서비스를 운영할 수 있습니다.`  
-https://engineering.linecorp.com/ko/blog/pm2-nodejs/  
+https://engineering.linecorp.com/ko/blog/pm2-nodejs/
 
 # Node PM2 자동 재시작 메모리 설정
 
