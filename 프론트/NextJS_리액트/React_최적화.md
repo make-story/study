@@ -9,6 +9,8 @@
 
 - 평상시에는 성능 최적화를 고민하지 말고 편하게 코딩하기를 바란다. 대부분의 웹 페이지는 성능을 고민하지 않아도 문제없이 잘 돌아간다. 성능 이슈가 생기면 그때 고민해도 늦지 않다. (실전 리액트 프로그래밍 책 내용 중)
 
+---
+
 ## React.memo 로 렌더링 결과 재사용하기
 
 컴포넌트의 속성값이나 상태값이 변경되면 리액트는 그 컴포넌트를 다시 그릴 준비를 한다.  
@@ -25,18 +27,7 @@ prevProps.todos !== nextProps.todos;
 속성값을 불변 객체로 관리했다면 이전 이후 값의 단순 비교만으로 컴포넌트의 속성값이 변경되었는지 알 수 있다.  
 따라서 속성값을 불변 객체로 관리하면 렌더링 성능에 큰 도움이 된다.
 
----
-
-# React.lazy 및 Suspense를 사용한 코드 분할
-
-https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=lr
-
-# 라이브러리
-
-https://loadable-components.com/docs/getting-started/
-
-# React.memo
-
+### 공식 가이드 참고
 https://ko.reactjs.org/docs/react-api.html#reactmemo
 
 ```javascript
@@ -127,12 +118,12 @@ export const TestUseMemo = ({ value1, value2 }) => {
 
 > https://blog.woolta.com/categories/1/posts/200
 
-- 방법1) 독립 선언  
+- `방법1) 독립 선언`  
   각각의 값을 독립적으로 선언하게 되면 이에대한 상태변경여부를 파악할수 있어 상태가 최적화
 
 ```typescript
 const { gift, onlineProducts, loading } = useSelector(
-  ({ gift, dialog, loading /*각 스토어 - rootReducer.ts 참고*/ }: RootState) => ({
+  ({ gift, dialog, loading }: RootState) => ({
     gift,
     onlineProducts: gift?.onlineProducts,
     loading: loading[giftActionType.GET_ONLINE_PRODUCTS_REVIEW_TYPE],
@@ -153,7 +144,7 @@ const count = useSelector((state: RootState) => state.countReducer.count);
 const prevCount = useSelector((state: RootState) => state.countReducer.prevCount);
 ```
 
-- 방법2) equalityFn  
+- `방법2) equalityFn`  
   useSelector 에는 선택옵션으로 equalityFn 라는 파리미터가 존재  
   equalityFn 는 이전 값(prev)과 다음 값(next)을 비교하여 true가 나오면 다시 렌더링을 하지 않고 false가 나오면 렌더링을 진행
 
@@ -163,16 +154,19 @@ const { count, prevCount } = useSelector(
     count: state.countReducer.count,
     prevCount: state.countReducer.prevCount,
   }),
+  // 이전 값(prev)과 다음 값(next)을 비교
   (prev, next) => {
     return prev.count === next.count && prev.prevCount === next.prevCount;
   },
 );
 ```
 
-- 방법3) shallowEqual  
-  shallowEqual 는 selector로 선언한 값의 최상위 값들의 비교여부를 대신 작업
+- `방법3) shallowEqual`  
+  shallowEqual 함수는 selector로 선언한 값의 최상위 값들의 비교여부를 대신 작업
 
 ```typescript
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+
 const { count, prevCount } = useSelector(
   (state: RootState) => ({
     count: state.countReducer.count,
@@ -181,3 +175,17 @@ const { count, prevCount } = useSelector(
   shallowEqual,
 );
 ```
+
+useSelector 의 두번째 파라미터는 equalityFn  
+shallowEqual은 react-redux에 내장되어있는 함수로서, 객체 안의 가장 겉에 있는 값들을 모두 비교  
+
+---
+# React.lazy 및 Suspense를 사용한 코드 분할
+
+https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=lr
+
+# 라이브러리
+
+https://loadable-components.com/docs/getting-started/
+
+---
