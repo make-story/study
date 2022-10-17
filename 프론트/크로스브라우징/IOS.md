@@ -107,3 +107,24 @@ GPU를 활용하지 못하는 환경에서 애니메이션 최소화 (CPU 사용
 # 노치 제어 (하단바)
 https://wit.nts-corp.com/2019/10/24/5731  
 
+
+# safari target="_blank" 문제
+https://medium.com/sedeo/how-to-fix-target-blank-a-security-and-performance-issue-in-web-pages-2118eba1ce2f
+```html
+<a href=”https://sedeo.net” target=”_blank” rel=”noopener noreferrer”>이동</a>
+```
+
+https://developer.apple.com/documentation/safari_release_notes/safari_12_1_release_notes#3130296
+Updated the link behavior for "target=_blank" to include rel="noopener" implicitly.
+a 태그에 target 속성이 _blank면 암묵적으로 rel 속성을 noopener 로 세팅한다.  (보안패치)  
+rel 속성이 noopener면, 자식 창에서 window.opener를 참조하면 null 이 리턴된다.  
+해결을 위해선 주소 검색 팝업을 여는 부모 페이지 a 태그에 rel="opener"를 추가한다.  
+```html
+  <!-- 수정 전 -->
+  <a href="/search_address.html" target="_blank">주소 검색</a>
+  <!-- 수정 후 -->
+  <a href="/search_address.html" target="_blank" rel="opener">주소 검색</a>
+```
+
+rel 속성값 참고  
+https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types  
