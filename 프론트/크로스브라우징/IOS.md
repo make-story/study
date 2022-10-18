@@ -123,7 +123,7 @@ rel 속성이 noopener면, 자식 창에서 window.opener를 참조하면 null �
   <!-- 수정 전 -->
   <a href="/search_address.html" target="_blank">주소 검색</a>
   <!-- 수정 후 -->
-  <a href="/search_address.html" target="_blank" rel="opener">주소 검색</a>
+  <a href="/search_address.html" target="_blank" rel="opener noreferrer">주소 검색</a>
 ```
 
 rel 속성값 참고  
