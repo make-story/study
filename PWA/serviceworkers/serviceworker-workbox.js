@@ -96,16 +96,17 @@ https://developers.google.com/web/tools/workbox/reference-docs/latest/module-wor
 // 번들러 없이 기본 사용
 // https://developer.chrome.com/docs/workbox/using-workbox-without-precaching/#without-a-bundler-using-workbox-sw
 
-// WorkBox 사용 - v4 와 v5 로직이 다르다.
+// WorkBox 사용 - v4 와 v5 로직이 다르다. v6 부터는 workbox-sw.js 파일만 import 하면, 다른 모듈은 내부에서 자동 로드
 //importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 //importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 //importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
-importScripts('/workbox/5.1.2/workbox-sw.js');
-importScripts('/workbox/5.1.2/workbox-core.prod.js');
-importScripts('/workbox/5.1.2/workbox-precaching.prod.js');
-importScripts('/workbox/5.1.2/workbox-routing.prod.js');
-importScripts('/workbox/5.1.2/workbox-strategies.prod.js');
-importScripts('/workbox/5.1.2/workbox-expiration.prod.js');
+// importScripts('/workbox/5.1.2/workbox-sw.js');
+// importScripts('/workbox/5.1.2/workbox-core.prod.js');
+// importScripts('/workbox/5.1.2/workbox-precaching.prod.js');
+// importScripts('/workbox/5.1.2/workbox-routing.prod.js');
+// importScripts('/workbox/5.1.2/workbox-strategies.prod.js');
+// importScripts('/workbox/5.1.2/workbox-expiration.prod.js');
+importScripts('/workbox/6.5.4/workbox-sw.js');
 
 const setWorkBoxRun = workbox => {
 	// 캐시 이름 
@@ -127,7 +128,7 @@ const setWorkBoxRun = workbox => {
 	// pathname 확인 - 예: /unsafe/831x300/image.cjmall.net/public/confirm/assets/tdp_cate_cont/202007/03/2547319/e7360842c9200ed0140bf8dedda8b28bc7f02067.jpg
 	const isPathname = (context, pathname="") => (isContext(context) && context.url.pathname) ? context.url.pathname.includes(pathname) : false;
 	// 확장자 확인
-	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\.(?:${extension.join('|')})$`).test(context.request.url) : false;
+	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})$`).test(context.request.url) : false;
 
 	// 모듈 로드 (workbox-sw.js 모듈내부 추가 필요모듈 비동기 로그 실행코드가 있으나, 타이밍 차이 발생 방지, 안정성)
 	// 구글 CDN에서 모듈을 다운로드
@@ -249,7 +250,8 @@ const setWorkBoxRun = workbox => {
 		//context => isExtension(isContext(context), ['png', 'gif', 'jpg', 'jpeg', 'svg']),
 		//context => isContext(context) && (isHostname(context, 'image.cjmall.net') || isPathname(context, '/image.cjmall.net/')) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
 		//context => isContext(context) && (/\/\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/i.test(context.url.origin) || /\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/.test(context.url.pathname)) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
-		new RegExp('.*\.(?:png|gif|jpg|jpeg|svg)$'),
+		//new RegExp('.*\.(?:png|gif|jpg|jpeg|svg)$'),
+		({ request }) => request.destination === 'image',
 		new workbox.strategies.StaleWhileRevalidate({
 			cacheName: CACHE_NAME_IMAGE,
 			plugins: [
