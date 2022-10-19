@@ -18,6 +18,11 @@ https://web.dev/aem-with-workbox/
 # WorkBox 라이센스
 https://github.com/GoogleChrome/workbox/blob/master/LICENSE
 
+# WorkBox 파일(.js) 다운로드
+```
+$ npx workbox-cli copyLibraries public/workbox
+```
+
 # WorkBox-Webpack-Plugin
 https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 
