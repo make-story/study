@@ -101,12 +101,7 @@ https://developers.google.com/web/tools/workbox/reference-docs/latest/module-wor
 //importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");
 //importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
 //importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
-// importScripts('/workbox/5.1.2/workbox-sw.js');
-// importScripts('/workbox/5.1.2/workbox-core.prod.js');
-// importScripts('/workbox/5.1.2/workbox-precaching.prod.js');
-// importScripts('/workbox/5.1.2/workbox-routing.prod.js');
-// importScripts('/workbox/5.1.2/workbox-strategies.prod.js');
-// importScripts('/workbox/5.1.2/workbox-expiration.prod.js');
+//importScripts('/workbox/5.1.2/workbox-sw.js');
 importScripts('/workbox/6.5.4/workbox-sw.js');
 
 const setWorkBoxRun = workbox => {
@@ -140,10 +135,10 @@ const setWorkBoxRun = workbox => {
 
 	// 모듈 로드 (workbox-sw.js 모듈내부 추가 필요모듈 비동기 로그 실행코드가 있으나, 타이밍 차이 발생 방지, 안정성)
 	// 기본적으로는 구글 CDN에서 모듈을 다운로드
-	//workbox.loadModule("workbox-core");
-	//workbox.loadModule("workbox-routing");
-	//workbox.loadModule("workbox-strategies");
-	//workbox.loadModule("workbox-expiration");
+	workbox.loadModule('workbox-core');
+	workbox.loadModule('workbox-routing');
+	workbox.loadModule('workbox-strategies');
+	workbox.loadModule('workbox-expiration');
 	//const { precaching, routing, strategies } = workbox;
 
 	workbox.core.skipWaiting(); // 서비스 워커 즉시 활성화 - 업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성
