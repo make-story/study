@@ -128,7 +128,7 @@ const setWorkBoxRun = workbox => {
 	// pathname 확인 - 예: /unsafe/831x300/image.cjmall.net/public/confirm/assets/tdp_cate_cont/202007/03/2547319/e7360842c9200ed0140bf8dedda8b28bc7f02067.jpg
 	const isPathname = (context, pathname="") => (isContext(context) && context.url.pathname) ? context.url.pathname.includes(pathname) : false;
 	// 확장자 확인
-	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})$`).test(context.request.url) : false;
+	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})([\\?|#].*)$`).test(context.request.url) : false;
 
 	// 모듈 로드 (workbox-sw.js 모듈내부 추가 필요모듈 비동기 로그 실행코드가 있으나, 타이밍 차이 발생 방지, 안정성)
 	// 구글 CDN에서 모듈을 다운로드
