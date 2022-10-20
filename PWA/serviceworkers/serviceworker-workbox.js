@@ -1,4 +1,5 @@
 /*
+// 서비스워커 사용(등록)을 위해, 서비스페이지에 필요한 코드 예시 
 if('serviceWorker' in navigator) {
 	window.addEventListener('load', function() {
 		navigator.serviceWorker.register('/service-worker.js');
@@ -128,20 +129,23 @@ const setWorkBoxRun = workbox => {
 	// pathname 확인 - 예: /unsafe/831x300/image.cjmall.net/public/confirm/assets/tdp_cate_cont/202007/03/2547319/e7360842c9200ed0140bf8dedda8b28bc7f02067.jpg
 	const isPathname = (context, pathname="") => (isContext(context) && context.url.pathname) ? context.url.pathname.includes(pathname) : false;
 	// 확장자 확인
-	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})([\\?|#].*)$`).test(context.request.url) : false;
+	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})([\\?|#].*)?$`).test(context.request.url) : false;
+
+	// 설정 
+	workbox.setConfig({
+		debug: true,
+		// https://developer.chrome.com/docs/workbox/modules/workbox-sw/#using-local-workbox-files-instead-of-cdn
+		modulePathPrefix: '/workbox/6.5.4/',
+	});
 
 	// 모듈 로드 (workbox-sw.js 모듈내부 추가 필요모듈 비동기 로그 실행코드가 있으나, 타이밍 차이 발생 방지, 안정성)
-	// 구글 CDN에서 모듈을 다운로드
+	// 기본적으로는 구글 CDN에서 모듈을 다운로드
 	//workbox.loadModule("workbox-core");
 	//workbox.loadModule("workbox-routing");
 	//workbox.loadModule("workbox-strategies");
 	//workbox.loadModule("workbox-expiration");
 	//const { precaching, routing, strategies } = workbox;
 
-	// 설정 
-	workbox.setConfig({
-		debug: true
-	});
 	workbox.core.skipWaiting(); // 서비스 워커 즉시 활성화 - 업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성
 	workbox.core.clientsClaim(); // 서비스 워커 활성화되면, 현재 사용 가능한 클라이언트 요청
 
@@ -220,8 +224,8 @@ const setWorkBoxRun = workbox => {
 			*/
 			console.log('context', context);
 			console.log('hostname', context.url.hostname);
-			console.log(isHostname(context, 'localhost'));
 			console.log('accept', context.request.headers.get("accept"));
+			console.log(isHostname(context, 'localhost'));
 			return false;
 		}, 
 		new workbox.strategies.NetworkOnly()
@@ -236,7 +240,7 @@ const setWorkBoxRun = workbox => {
 	// 폰트 리소스 
 	workbox.routing.registerRoute(
 		new RegExp('.*\.(?:eot|woff2|woff|ttf)$'),
-		new workbox.strategies.StaleWhileRevalidate({
+		new workbox.strategies.CacheFirst({
 			cacheName: CACHE_NAME_FONT
 		})
 	);
@@ -258,7 +262,8 @@ const setWorkBoxRun = workbox => {
 				// 만료 관련 플러그인 
 				new workbox.expiration.ExpirationPlugin({
 					maxEntries: 60, // 캐시 할 최대 리소스 수
-					maxAgeSeconds: 1 * 24 * 60 * 60, // 1 Days - 86400 초 
+					//maxAgeSeconds: 1 * 24 * 60 * 60, // 1 Days - 86400 초 
+					maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
 				})
 			],
 			fetchOptions: {},
@@ -295,15 +300,8 @@ const setWorkBoxRun = workbox => {
 
 	// fallbacks
 	// https://developers.google.com/web/tools/workbox/guides/advanced-recipes#comprehensive_fallbacks
+	// https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
 	workbox.routing.setCatchHandler(({ event }) => {
-		// The FALLBACK_URL entries must be added to the cache ahead of time, either
-		// via runtime or precaching. If they are precached, then call
-		// `matchPrecache(FALLBACK_URL)` (from the `workbox-precaching` package)
-		// to get the response from the correct cache.
-		//
-		// Use event, request, and url to figure out how to respond.
-		// One approach would be to use request.destination, see
-		// https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
 		switch(event.request.destination) {
 			case 'document':
 				// If using precached URLs:
