@@ -13,6 +13,21 @@ n을 통해 올렸을 경우, 아래와 같은 문제가 발생할 수 있다.
 n, nvm으로 올리면 node로 명령어를 실행했을 경우와 /usr/local/bin/node 간의 명령어가 꼬이는 경우가 발생할 수 있다. 이 경우, EACCES 가 발생할 수 있다.
 `기존에 있던 node와 관련해 전부 지우고 curl로 node를 직접 받는 편이 좋다.`  
 
+```
+$ sudo npm uninstall npm -g
+
+$ sudo rm -rf /usr/local/lib/node /usr/local/lib/node_modules /var/db/receipts/org.nodejs.*
+$ sudo rm -rf /usr/local/include/node /Users/$USER/.npm
+
+$ sudo rm -rf /usr/local/bin/npm
+$ sudo rm -rf /usr/local/bin/node
+
+$ sudo rm /usr/local/share/man/man1/node.1
+$ sudo rm /usr/local/lib/dtrace/node.d
+
+$ brew uninstall node
+```
+
 -----
 
 # NPM
