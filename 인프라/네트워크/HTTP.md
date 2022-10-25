@@ -1,4 +1,4 @@
-그림으로 배우는 Http & Network Basic
+`그림으로 배우는 Http & Network Basic` 책 정리
 
 # 웹은 HTTP로 나타낸다
 
