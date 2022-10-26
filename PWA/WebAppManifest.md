@@ -72,4 +72,10 @@ https://web.dev/add-manifest/#screenshots
 - 스크린샷은 가로 세로 비율이 동일해야 합니다.
 - JPEG 및 PNG 이미지 형식만 지원됩니다.
 
+# Splash screens on mobile
+Chrome은 매니페스트 속성에서 스플래시 화면을 자동으로 생성  
+- name
+- background_color
+- icons
+
 ---
