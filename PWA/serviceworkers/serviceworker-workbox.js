@@ -112,7 +112,9 @@ const setWorkBoxRun = workbox => {
 	const CACHE_NAME_FONT = [CACHE_NAME, 'FONT'].join('_');
 	const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE'].join('_');
 
-	// context 유효 확인 
+	/**
+	 * context 유효 확인
+	 */
 	const isObject = (value) => value && typeof value === 'object';
 	const isContext = context => (isObject(context) && isObject(context.url) && isObject(context.request) && isObject(context.event)) ? context : false;
 	// MIME 유형 확인 (Content-Type응답 헤더)
@@ -126,15 +128,19 @@ const setWorkBoxRun = workbox => {
 	// 확장자 확인
 	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})([\\?|#].*)?$`).test(context.request.url) : false;
 
-	// 설정 
+	/**
+	 * workbox 설정 
+	 */
 	workbox.setConfig({
 		debug: true,
 		// https://developer.chrome.com/docs/workbox/modules/workbox-sw/#using-local-workbox-files-instead-of-cdn
 		modulePathPrefix: '/workbox/6.5.4/',
 	});
 
-	// 모듈 로드 (workbox-sw.js 모듈내부 추가 필요모듈 비동기 로그 실행코드가 있으나, 타이밍 차이 발생 방지, 안정성)
-	// 기본적으로는 구글 CDN에서 모듈을 다운로드
+	/**
+	 * workbox 모듈 로드 (workbox-sw.js 모듈내부 추가 필요모듈 비동기 로그 실행코드가 있으나, 타이밍 차이 발생 방지, 안정성)
+	 * 기본적으로는 구글 CDN에서 모듈을 다운로드
+	 */
 	workbox.loadModule('workbox-core');
 	workbox.loadModule('workbox-routing');
 	workbox.loadModule('workbox-strategies');
@@ -144,7 +150,9 @@ const setWorkBoxRun = workbox => {
 	workbox.core.skipWaiting(); // 서비스 워커 즉시 활성화 - 업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성
 	workbox.core.clientsClaim(); // 서비스 워커 활성화되면, 현재 사용 가능한 클라이언트 요청
 
-	// 프리로드 리스트 
+	/**
+	 * 프리로드 리스트 
+	 */
 	/*workbox.precaching.precacheAndRoute([
 		// 리소스 리스트
 		{url: '/index.html', revision: '383676' },
@@ -152,7 +160,9 @@ const setWorkBoxRun = workbox => {
 		'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css'
 	]);*/
 
-	// 라우트
+	/**
+	 * 라우트
+	 */
 	//registerRoute(capture, handler, method)
 	workbox.routing.registerRoute(
 		context => {
@@ -217,10 +227,14 @@ const setWorkBoxRun = workbox => {
 				type: "fetch"
 			}
 			*/
+			const { event = {}, request = {}, sameOrigin = null, url = {} } = context;
 			console.log('context', context);
-			console.log('hostname', context.url.hostname);
-			console.log('accept', context.request.headers.get("accept"));
-			console.log(isHostname(context, 'localhost'));
+			console.log('sameOrigin', sameOrigin);
+			console.log('destination', request?.destination);
+			console.log('method', request?.method); // GET, POST, ...
+			console.log('accept', request?.headers.get('accept'));
+			console.log('hostname', url?.hostname);
+			console.log('defaultImages', isPathname(context, 'defaultImages'));
 			return false;
 		}, 
 		new workbox.strategies.NetworkOnly()
@@ -241,8 +255,12 @@ const setWorkBoxRun = workbox => {
 	);
 
 	// 이미지 리소스
-	// //thumb.cjmall.net/unsafe/550x550/itemimage.cjmall.net/goods_images/63/590/63393590L.jpg?timestamp=20200327123009
-	// //thumb.cjmall.net/unsafe/831x300/image.cjmall.net/public/confirm/assets/tdp_cate_cont/202007/03/2547319/e7360842c9200ed0140bf8dedda8b28bc7f02067.jpg
+	workbox.routing.registerRoute(
+		context => context.request.destination === 'image' && isPathname(context, 'defaultImages'),
+		new workbox.strategies.CacheFirst({
+		  cacheName: CACHE_NAME_IMAGE_DEFAULT,
+		}),
+	  );
 	workbox.routing.registerRoute(
 		// https://bc.ad.daum.net 처럼 Accept 타입이 'image/webp,image/apng,image/*,*/*;q=0.8' 으로 request 되는 파일이 존재함 
 		//context => isAccept(isContext(context), 'image/'),
@@ -299,25 +317,21 @@ const setWorkBoxRun = workbox => {
 	workbox.routing.setCatchHandler(({ event }) => {
 		switch(event.request.destination) {
 			case 'document':
-				// If using precached URLs:
 				// return matchPrecache(FALLBACK_HTML_URL);
 				//return caches.match(FALLBACK_HTML_URL);
 			break;
 
 			case 'image':
-				// If using precached URLs:
 				// return matchPrecache(FALLBACK_IMAGE_URL);
 				//return caches.match(FALLBACK_IMAGE_URL);
 			break;
 		
 			case 'font':
-				// If using precached URLs:
 				// return matchPrecache(FALLBACK_FONT_URL);
 				//return caches.match(FALLBACK_FONT_URL);
 			break;
 		
 			default:
-				// If we don't have a fallback, just return an error response.
 				return Response.error();
 		}
 	});
