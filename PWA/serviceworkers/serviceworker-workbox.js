@@ -125,8 +125,17 @@ const setWorkBoxRun = workbox => {
 	const isOrigin = (context, origin="") => (isContext(context) && context.url.origin) ? context.url.origin.includes(origin) : false;
 	// pathname 확인 - 예: /unsafe/831x300/image.cjmall.net/public/confirm/assets/tdp_cate_cont/202007/03/2547319/e7360842c9200ed0140bf8dedda8b28bc7f02067.jpg
 	const isPathname = (context, pathname="") => (isContext(context) && context.url.pathname) ? context.url.pathname.includes(pathname) : false;
+	// 콘텐츠 유형 확인
+	const isDestination = (context, destination=[]) => (isContext(context) && context.request.destination) ? destination.includes(context.request.destination) : false;
 	// 확장자 확인
 	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})([\\?|#].*)?$`).test(context.request.url) : false;
+
+	/**
+	 * 기존 캐시 제거
+	*/
+	/*self.addEventListener('activate', function (event) {
+		caches.delete(CACHE_NAME_IMAGE);
+	});*/
 
 	/**
 	 * workbox 설정 
@@ -228,6 +237,8 @@ const setWorkBoxRun = workbox => {
 			}
 			*/
 			const { event = {}, request = {}, sameOrigin = null, url = {} } = context;
+			// https://developer.mozilla.org/en-US/docs/Web/API/Request
+    		// https://developer.mozilla.org/en-US/docs/Web/API/URL
 			console.log('context', context);
 			console.log('sameOrigin', sameOrigin);
 			console.log('destination', request?.destination);
