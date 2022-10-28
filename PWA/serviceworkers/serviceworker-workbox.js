@@ -107,8 +107,8 @@ importScripts('/workbox/6.5.4/workbox-sw.js');
 const setWorkBoxRun = workbox => {
 	// 캐시 이름 
 	const CACHE_NAME = 'TEST_CACHE';
-	const CACHE_NAME_JS = [CACHE_NAME, 'JS'].join('_');
-	const CACHE_NAME_CSS = [CACHE_NAME, 'CSS'].join('_');
+	const CACHE_NAME_SCRIPT = [CACHE_NAME, 'SCRIPT'].join('_');
+  	const CACHE_NAME_STYLE = [CACHE_NAME, 'STYLE'].join('_');
 	const CACHE_NAME_FONT = [CACHE_NAME, 'FONT'].join('_');
 	const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE'].join('_');
 
@@ -251,6 +251,13 @@ const setWorkBoxRun = workbox => {
 		new workbox.strategies.NetworkOnly()
 	);
 
+	// 공통 만료 설정
+	const expiration = new workbox.expiration.ExpirationPlugin({
+		//maxEntries: 500, // 캐시 할 최대 리소스 수
+		//maxAgeSeconds: 1 * 24 * 60 * 60, // 1 일 - 86400 초
+		maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
+	});
+
 	// HTML 파일은 무조건 네트워크
 	workbox.routing.registerRoute(
 		context => isAccept(isContext(context), 'text/html'),
@@ -271,7 +278,7 @@ const setWorkBoxRun = workbox => {
 		new workbox.strategies.CacheFirst({
 		  cacheName: CACHE_NAME_IMAGE_DEFAULT,
 		}),
-	  );
+	);
 	workbox.routing.registerRoute(
 		// https://bc.ad.daum.net 처럼 Accept 타입이 'image/webp,image/apng,image/*,*/*;q=0.8' 으로 request 되는 파일이 존재함 
 		//context => isAccept(isContext(context), 'image/'),
@@ -283,43 +290,36 @@ const setWorkBoxRun = workbox => {
 		new workbox.strategies.StaleWhileRevalidate({
 			cacheName: CACHE_NAME_IMAGE,
 			plugins: [
-				// 만료 관련 플러그인 
-				new workbox.expiration.ExpirationPlugin({
-					maxEntries: 60, // 캐시 할 최대 리소스 수
-					//maxAgeSeconds: 1 * 24 * 60 * 60, // 1 Days - 86400 초 
-					maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
-				})
+				// 만료 관련 플러그인
+				expiration,
 			],
 			fetchOptions: {},
 			matchOptions: {}
 		})
 	);
 
-	// 특정 URI css 파일 
-	/*workbox.routing.registerRoute(
-		context => isContext(context) && isHostname(context, 'localhost') && isAccept(context, 'text/css'),
-		new workbox.strategies.StaleWhileRevalidate({
-			cacheName: CACHE_NAME_CSS
-		})
-	);*/
-
-	// 특정 URI js 파일
-	/*workbox.routing.registerRoute(
-		// 'text/javascript' Accept 값으로 확인 할 경우, API 호출 데이터까지 범위에 들어 갈 수 있다.
-		context => isContext(context) && isHostname(context, 'localhost') && isExtension(context, ['js']),
-		new workbox.strategies.StaleWhileRevalidate({
-			cacheName: CACHE_NAME_JS
-		})
-	);*/
-
+	// css/js
+	// 'text/javascript' Accept 값으로 확인 할 경우, API 호출 데이터까지 범위에 들어 갈 수 있다.
 	// css/js
 	workbox.routing.registerRoute(
-		// 'text/javascript' Accept 값으로 확인 할 경우, API 호출 데이터까지 범위에 들어 갈 수 있다.
-		//context => isContext(context) && (isHostname(context, 'cjmall.net') || isHostname(context, 'cjmall.com')) && isExtension(context, ['css', 'js']),
-		context => isContext(context) && isExtension(context, ['css', 'js']),
+		context => isDestination(context, ['script']) && isExtension(context, ['js']) && isPathname(context, '_next'),
 		new workbox.strategies.StaleWhileRevalidate({
-			cacheName: CACHE_NAME
-		})
+			cacheName: CACHE_NAME_SCRIPT,
+			plugins: [
+				// 만료 관련 플러그인
+				expiration,
+			],
+		}),
+	);
+	workbox.routing.registerRoute(
+		context => isDestination(context, ['style']) && isExtension(context, ['css']),
+		new workbox.strategies.StaleWhileRevalidate({
+			cacheName: CACHE_NAME_STYLE,
+			plugins: [
+				// 만료 관련 플러그인
+				expiration,
+			],
+		}),
 	);
 
 	// fallbacks
