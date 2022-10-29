@@ -136,43 +136,6 @@ module.exports = {
 
 ---
 
-## Next.js 필요한 것만 빨리 배우기
-
-https://velog.io/@jakeseo_me/Next.js-%EB%B9%A8%EB%A6%AC-%EB%B0%B0%EC%9A%B0%EA%B8%B0-y0jz9oebn0
-
-## next-redux-wrapper가 필요한 이유
-
-https://simsimjae.medium.com/next-redux-wrapper%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C-%EC%9D%B4%EC%9C%A0-5d0176209d14
-
-## hydration
-
-https://helloinyong.tistory.com/315
-
-화면에 보여줄 document 페이지를 서버 단에서 먼저 렌더링 후 브라우저로 전송한 뒤,  
-이후에 해당 DOM 요소에 필요로 한 Script 코드들을 바로 브라우저로 전송한다.   
-그리고 각 DOM 요소와 Script 코드가 매칭이 되면서 정상적으로 웹 페이지가 동작하게 된다.  
-
-1. Next.js는 클라이언트에게 웹 페이지를 보내기 전에 Server Side 단에서 미리 웹 페이지를 Pre-Rendering 한다. 
-그리고 Pre-Redering으로 인해 생성된 HTML document를 클라이언트에게 전송한다.   
-현재 클라이언트가 받은 웹 페이지는 단순히 웹 화면만 보여주는 HTML일 뿐이고, 자바스크립트 요소들이 하나도 없는 상태이다.  
-
-2. Next.js Server에서는 Pre-Rendering된 웹 페이지를 클라이언트에게 보내고 나서, 바로 리액트가 번들링 된 자바스크립트 코드들을 클라이언트에게 전송한다.  
-그리고 이 자바스크립트 코드들이 이전에 보내진 HTML DOM 요소 위에서 한번 더 렌더링을 하면서, 각자 자기 자리를 찾아가며 매칭이 된다.  
-
-### hydration 스타일 이슈
-https://fourwingsy.medium.com/next-js-hydration-%EC%8A%A4%ED%83%80%EC%9D%BC-%EC%9D%B4%EC%8A%88-%ED%94%BC%ED%95%B4%EA%B0%80%EA%B8%B0-988ce0d939e7  
-
-### dehydrate와 hydrate
-
-https://seogeurim.tistory.com/19  
-서버 사이드에서 먼저 정적인 페이지(HTML)를 렌더링하고, 클라이언트에서 HTML을 받아오고, JS 코드가 모두 로드되면,  
-이 HTML에 이벤트 핸들러 등을 붙여 동적인 페이지를 만드는 과정을 hydration이라 말한다.
-hydration을 직역하면 '수분 공급'이라는 뜻인데, 즉 건조한 HTML에 수분(인터랙션, 이벤트 핸들러 등)을 공급하여 동적인 페이지를 만들어나가는 과정을 말한다.
-
-## Next.js pre-rendering 정리
-
-https://helloinyong.tistory.com/306
-
 ## Next.js 의 서버사이드 렌더링에 Redux 적용하기
 
 https://slog.website/post/14  
@@ -336,6 +299,19 @@ export default Page;
 https://nextjs.org/docs/basic-features/script  
 https://themarketer.tistory.com/82
 
+```javascript
+import Script from 'next/script'
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Script src="https://example.com/script.js" />
+      <Component {...pageProps} />
+    </>
+  )
+}
+```
+
 'next/script' 를 사용하면, 'strategy' 속성을 정의할 수 있고,  
 Next.js가 스크립트 로딩을 최적화합니다.
 
@@ -367,122 +343,3 @@ export default function Home() {
 
 ---
 
-# NextJS 이슈 슈팅
-
-## 현재 위치한 페이지 URL 로 Link 실행했을 때, 해당 페이지 일부 비동기 데이터 로드 안되는 문제
-
-`<Link />`로 동일화면 이동 시 Redux state는 rehydration 되는 데,  
-컴포넌트는 remount 되지 않아 화면진입 시 호출되던 dispatch 들이 실행되지 않는 문제  
-link에 shallow 옵션을 주면 rehydration이 되어 데이터가 소실되는 것을 막을 수 있음
-
-```javascript
-<Link href={urlMain} shallow={router.asPath.startsWith(urlMain)}>
-```
-
----
-
-# 최적화
-
-## 이미지 자동 최적화
-
-https://nextjs.org/docs/basic-features/image-optimization
-
-next.js는 이미지 자동 최적화 기능이 구현되어 사이즈를 변경하거나 퀄리티를 수정하는 등 브라우저들이 지원하는 최신 포멧의 이미지를 제공할 수 있다.  
-따라서 큰 이미지라도 작은 뷰포트에서는 작게 리사이즈되어 서빙된다. 이미지 최적화 기능은 next.js 에서 Image컴포넌트를 import하여 <img> 엘리먼트를 사용하듯이 쓸 수 있다.
-
-```javascript
-import Image from 'next/image';
-<Image src='/logo.png' alt='Logo' width={500} height={500} />;
-```
-
-## 코드 스플리팅
-
-코드 스플리팅 기능을 적용하면 클라이언트 측 성능 확보를 위해 꼭 필요한 javascript만 보낼 수 있다.
-
-next.js는 두 가지의 코드 스플리팅 기능을 지원한다.
-
-1. 라우팅 경로 기반
-   next.js에 기본으로 적용되어 있으며. 사용자가 라우팅할 때 최초로 필요로 하는 코드들만 전송한다.  
-   나머지 코드들은 앱 내에서 페이지 이동을 할 때 추가적으로 전송한다.  
-   이는 파싱하고 컴파일 해야 하는 코드량을 줄여 페이지 로드 타임을 감소시킬 수 있다.
-
-2. 컴포넌트별
-   이 코드 스플리팅은 큰 컴포넌트를 여러 코드들로 나누어 필요할 때 다운로드받을 수 있도록 해 준다.  
-   next.js는 dynamic import() 를 통해 컴포넌트 코드 스플리팅을 지원한다.  
-   따라서 react컴포넌트 포함 필요한 javascript코드들을 분리하여 동적으로 로드할 수 있게 된다.
-
-## 서버사이드 렌더링 캐싱하기
-
-```
-$ npm install lru-cache
-```
-
-server.js
-
-```javascript
-// ...
-const url = request('url');
-const lruCache = request('lru-cache'); // 서버사이드 렌더링 결과를 캐싱하기 위해 lru-cache 패키지를 이용한다.
-
-const ssrCache = new lruCache({
-  // 최대 100개의 항목을 저장하고 각 항목은 60초 동안 저장한다.
-  max: 100,
-  maxAge: 1000 * 60,
-});
-// ...
-app.prepare().then(() => {
-  // ...('/page/:id' 를 처리하는 코드)
-  server.get(/^\/page[1-9]/, (req, res) => {
-    // page1, page2, page* 요청에 대해 서버사이드 렌더링 결과를 캐싱한다.
-    return renderAndCache(req, res);
-  });
-});
-
-async function renderAndCache(req, res) {
-  const parseUrl = url.parse(req.url, true);
-  const cacheKey = parseUrl.path;
-
-  // 캐시가 존재하면 캐시에 저장된 값을 사용한다.
-  if (ssrCache.has(cacheKey)) {
-    console.log('캐시 사용');
-    res.send(ssrCache.get(cacheKey));
-    return;
-  }
-
-  // 캐시가 없으면 넥스트의 renderToHTML 메서드를 호출하고, await 키워드를 사용해서 처리가 끝날 때까지 기다린다.
-  try {
-    const { query, pathname } = parseUrl;
-    const html = await app.renderToHTML(req, res, pathname, query);
-    if (res.statusCode === 200) {
-      // renderToHTML 함수가 정상적으로 처리됐으면 그 결과를 캐싱하다.
-      ssrCache.set(cacheKey, html);
-    } catch (err) {
-      app.renderError(err, req, res, pathname, query);
-    }
-  }
-}
-```
-
-## 기존적으로 압축(gzip) 제공
-
-기능 사용 안할 경우
-
-```javascript
-module.exports = {
-  compress: false,
-};
-```
-
-## ETag
-
-ETag(Entity Tag)는 브라우저의 캐시에 저장되어 있는 구성요소와 원본 서버의 구성요소가 일치하는지 판단하는 또 다른 방법이다.  
-구성요소를 나타내는 값을 따옴표의 고유한 문자열로 응답헤더의 ETag에 지정한다.
-
-https://nextjs.org/docs/api-reference/next.config.js/disabling-etag-generation
-
-Next.js는 기본적으로 모든 페이지에 대해 etag 를 생성합니다.  
-캐시 전략에 따라 HTML 페이지에 대한 etag 생성을 비활성화할 수 있습니다.
-
-## Keep-Alive
-
-Next.js는 자동으로 node-fetch 를 폴리필하고 기본적으로 HTTP Keep-Alive 를 활성화 합니다.
