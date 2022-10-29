@@ -74,6 +74,13 @@ module.exports = {
 };
 ```
 
+## 빌드 번들파일 명
+- 개발모드
+```
+[name].js?ts=타임스탬프값  
+```
+예: _next/static/chunks/pages/display/%5Bpath%5D.js?ts=1667002436060
+
 ## CDN URL 프리픽스 설정 (번들 파일을 CDN에 업로드하여 로드할 경우)
 
 https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
@@ -139,10 +146,21 @@ https://simsimjae.medium.com/next-redux-wrapper%EA%B0%80-%ED%95%84%EC%9A%94%ED%9
 
 ## hydration
 
-https://wonit.tistory.com/362  
-initial load 에서 html 을 로드한 뒤 js 파일을 서버로부터 받아 html을 연결시키는 과정이다.  
-여기서 js랑 html이랑 연결한다.  
-해당 과정에서 react 컴포넌트는 초기화되고 사용자와 상호작용할 준비를 마친다.
+https://helloinyong.tistory.com/315
+
+화면에 보여줄 document 페이지를 서버 단에서 먼저 렌더링 후 브라우저로 전송한 뒤,  
+이후에 해당 DOM 요소에 필요로 한 Script 코드들을 바로 브라우저로 전송한다.   
+그리고 각 DOM 요소와 Script 코드가 매칭이 되면서 정상적으로 웹 페이지가 동작하게 된다.  
+
+1. Next.js는 클라이언트에게 웹 페이지를 보내기 전에 Server Side 단에서 미리 웹 페이지를 Pre-Rendering 한다. 
+그리고 Pre-Redering으로 인해 생성된 HTML document를 클라이언트에게 전송한다.   
+현재 클라이언트가 받은 웹 페이지는 단순히 웹 화면만 보여주는 HTML일 뿐이고, 자바스크립트 요소들이 하나도 없는 상태이다.  
+
+2. Next.js Server에서는 Pre-Rendering된 웹 페이지를 클라이언트에게 보내고 나서, 바로 리액트가 번들링 된 자바스크립트 코드들을 클라이언트에게 전송한다.  
+그리고 이 자바스크립트 코드들이 이전에 보내진 HTML DOM 요소 위에서 한번 더 렌더링을 하면서, 각자 자기 자리를 찾아가며 매칭이 된다.  
+
+### hydration 스타일 이슈
+https://fourwingsy.medium.com/next-js-hydration-%EC%8A%A4%ED%83%80%EC%9D%BC-%EC%9D%B4%EC%8A%88-%ED%94%BC%ED%95%B4%EA%B0%80%EA%B8%B0-988ce0d939e7  
 
 ### dehydrate와 hydrate
 
