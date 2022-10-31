@@ -10,6 +10,10 @@ $ npm install next react react-dom
 
 https://nextjs.org/docs/basic-features/supported-browsers-features
 
+## Next.js 업그레이드 가이드
+
+https://nextjs.org/docs/upgrading
+
 ---
 
 # 웹 서버 직접 띄우기
@@ -75,11 +79,14 @@ module.exports = {
 ```
 
 ## 빌드 번들파일 명
+
 - 개발모드
+
 ```
-[name].js?ts=타임스탬프값  
+[name].js?ts=타임스탬프값
 ```
-예: _next/static/chunks/pages/display/%5Bpath%5D.js?ts=1667002436060
+
+예: \_next/static/chunks/pages/display/%5Bpath%5D.js?ts=1667002436060
 
 ## CDN URL 프리픽스 설정 (번들 파일을 CDN에 업로드하여 로드할 경우)
 
@@ -300,15 +307,15 @@ https://nextjs.org/docs/basic-features/script
 https://themarketer.tistory.com/82
 
 ```javascript
-import Script from 'next/script'
+import Script from 'next/script';
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Script src="https://example.com/script.js" />
+      <Script src='https://example.com/script.js' />
       <Component {...pageProps} />
     </>
-  )
+  );
 }
 ```
 
@@ -342,4 +349,3 @@ export default function Home() {
 ```
 
 ---
-
