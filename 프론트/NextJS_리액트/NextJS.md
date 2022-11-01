@@ -63,6 +63,8 @@ NODE_ENV=production node server.js
 
 ---
 
+# 설정 (next.config.js)
+
 ## 넥스트의 번들 파일 분석하기
 
 `넥스트는 프로젝트 루트의 .next 폴더 밑에 번들 파일을 생성`한다.
@@ -103,17 +105,8 @@ module.exports = {
 
 위와 같이 설정할 경우, assetPrefix 설정 URL 하위로 /\_next/ 경로가 설정됨
 
-## 전역 스타일 (.css 파일 import)
 
-https://nextjs.org/docs/basic-features/built-in-css-support#adding-a-global-stylesheet
-
-`pages/_app.js` 파일 위치에서 import  
-Next.js 9.5.4 부터 CSS 파일을 가져오는 것은 node_modules애플리케이션의 모든 위치에서 허용됩니다.  
-Next.js는 파일 명명 규칙 을 사용하여 CSS 모듈 을 지원합니다. ([name].module.css)
-
----
-
-# 웹팩 설정 변경하기
+## 웹팩 설정 변경하기
 
 넥스트에서는 정작 파일을 서비스하기 위해 프로젝트 루트의 static 폴더를 이용한다.
 
@@ -140,6 +133,16 @@ module.exports = {
   },
 };
 ```
+
+---
+
+## 전역 스타일 (.css 파일 import)
+
+https://nextjs.org/docs/basic-features/built-in-css-support#adding-a-global-stylesheet
+
+`pages/_app.js` 파일 위치에서 import  
+Next.js 9.5.4 부터 CSS 파일을 가져오는 것은 node_modules애플리케이션의 모든 위치에서 허용됩니다.  
+Next.js는 파일 명명 규칙 을 사용하여 CSS 모듈 을 지원합니다. ([name].module.css)
 
 ---
 
@@ -250,6 +253,33 @@ export default wrapper;
 이 일을 해결하려면 server 모듈을 생성하여 HYDRATE 에서 store를 덮어 썼다면 state로 저장하고,  
 만약 이미 덮어 쓴 state가 있으면 `return { ...state }`를 활용하여 더 이상 덮어 쓰지 않도록 구성하면 최초 1회 만 HYDRATE 가 실행되는 효과를 볼 수 있습니다.
 
+## Redux 전역 상태
+
+https://react-redux.js.org/using-react-redux/accessing-store#using-reactreduxcontext-directly  
+
+```javascript
+import React, { useContext } from 'react';
+import { ReactReduxContext } from 'react-redux'
+
+// Somewhere inside of a <Provider>
+function MyConnectedComponent() {
+  const { store } = useContext(ReactReduxContext);
+
+  /*
+  return (
+    <ReactReduxContext.Consumer>
+      {({ store }) => {
+        // do something useful with the store, like passing it to a child
+        // component where it can be used in lifecycle methods
+      }}
+    </ReactReduxContext.Consumer>
+  )
+  */
+}
+```
+
+-----
+
 ## Server Side Generation (Static Generation)
 
 https://nextjs.org/docs/basic-features/pages#static-generation-recommended  
@@ -300,6 +330,8 @@ export async function getServerSideProps() {
 
 export default Page;
 ```
+
+-----
 
 ## Script 로드 우선순위
 
