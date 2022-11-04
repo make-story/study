@@ -71,7 +71,7 @@ const setWorkBoxRun = workbox => {
 	 * workbox 설정 
 	 */
 	workbox.setConfig({
-		debug: true,
+		debug: ['localhost'].includes(self.location.hostname),
 		// https://developer.chrome.com/docs/workbox/modules/workbox-sw/#using-local-workbox-files-instead-of-cdn
 		modulePathPrefix: '/workbox/6.5.4/',
 	});
