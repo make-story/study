@@ -31,6 +31,10 @@ https://www.w3.org/TR/service-workers/#service-worker-lifetime
 
 `install(설치) -> activate(활성화) 단계내에서 사용 시, 다음단계 실행을 promise 완료전까지 지연시킬 수 있음`
 
+https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API
+install 과 activate 이벤트 처리는 시간이 꽤 걸릴 수도 있기에, 서비스 워커 명세는 waitUntil() 메서드를 제공합니다.   
+install 이나 activate 에서 waitUntil() 을 호출하면서 매개변수로 프로미스를 제공하면, 성공적으로 이행하기 전까지는 기능 이벤트가 발생하지 않습니다.  
+
 ```javascript
 addEventListener('install', event => {
   const preCache = async () => {

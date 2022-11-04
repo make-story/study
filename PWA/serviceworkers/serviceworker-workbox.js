@@ -46,8 +46,11 @@ const setWorkBoxRun = workbox => {
 
 	/**
 	 * 기존 캐시 제거
-	*/
+	 */
 	self.addEventListener('activate', function (event) {
+		// https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API
+		// install 과 activate 이벤트 처리는 시간이 꽤 걸릴 수도 있기에, 서비스 워커 명세는 waitUntil() 메서드를 제공합니다. 
+		// install 이나 activate 에서 waitUntil() 을 호출하면서 매개변수로 프로미스를 제공하면, 성공적으로 이행하기 전까지는 기능 이벤트가 발생하지 않습니다.
 		event.waitUntil(
 			caches
 			.keys()
@@ -84,10 +87,12 @@ const setWorkBoxRun = workbox => {
 	workbox.loadModule('workbox-routing');
 	workbox.loadModule('workbox-strategies');
 	workbox.loadModule('workbox-expiration');
+	workbox.loadModule('workbox-cacheable-response');
 	//const { precaching, routing, strategies } = workbox;
 
-	workbox.core.skipWaiting(); // 서비스 워커 즉시 활성화 - 업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성
-	workbox.core.clientsClaim(); // 서비스 워커 활성화되면, 현재 사용 가능한 클라이언트 요청
+	//workbox.core.skipWaiting(); // v7 부터는 core 에서 제거됨
+	self.skipWaiting(); // 서비스 워커 즉시 활성화 - 업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성
+	//workbox.core.clientsClaim(); // 서비스 워커 활성화되면, 현재 사용 가능한 클라이언트 요청
 
 	/**
 	 * 프리로드 리스트 
@@ -181,75 +186,71 @@ const setWorkBoxRun = workbox => {
 		new workbox.strategies.NetworkOnly()
 	);
 
-	// 공통 만료 설정
-	const expiration = new workbox.expiration.ExpirationPlugin({
-		//maxEntries: 500, // 캐시 할 최대 리소스 수
-		//maxAgeSeconds: 1 * 24 * 60 * 60, // 1 일 - 86400 초
-		maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
-	});
-
 	// HTML 파일은 무조건 네트워크
 	workbox.routing.registerRoute(
 		context => isAccept(isContext(context), 'text/html'),
 		new workbox.strategies.NetworkOnly()
 	);
 
-	// 폰트 리소스 
-	workbox.routing.registerRoute(
-		new RegExp('.*\.(?:eot|woff2|woff|ttf)$'),
-		new workbox.strategies.CacheFirst({
-			cacheName: CACHE_NAME_FONT
-		})
-	);
-
-	// 이미지 리소스
-	workbox.routing.registerRoute(
-		context => context.request.destination === 'image' && isPathname(context, 'defaultImages'),
-		new workbox.strategies.CacheFirst({
-		  cacheName: CACHE_NAME_IMAGE_DEFAULT,
-		}),
-	);
-	workbox.routing.registerRoute(
-		// https://bc.ad.daum.net 처럼 Accept 타입이 'image/webp,image/apng,image/*,*/*;q=0.8' 으로 request 되는 파일이 존재함 
-		//context => isAccept(isContext(context), 'image/'),
-		//context => isExtension(isContext(context), ['png', 'gif', 'jpg', 'jpeg', 'svg']),
-		//context => isContext(context) && (isHostname(context, 'image.cjmall.net') || isPathname(context, '/image.cjmall.net/')) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
-		//context => isContext(context) && (/\/\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/i.test(context.url.origin) || /\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/.test(context.url.pathname)) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
-		//new RegExp('.*\.(?:png|gif|jpg|jpeg|svg)$'),
-		({ request }) => request.destination === 'image',
-		new workbox.strategies.StaleWhileRevalidate({
-			cacheName: CACHE_NAME_IMAGE,
-			plugins: [
-				// 만료 관련 플러그인
-				expiration,
-			],
-			fetchOptions: {},
-			matchOptions: {}
-		})
-	);
-
 	// css/js
 	// 'text/javascript' Accept 값으로 확인 할 경우, API 호출 데이터까지 범위에 들어 갈 수 있다.
-	// css/js
 	workbox.routing.registerRoute(
 		context => isDestination(context, ['script']) && isExtension(context, ['js']) && isPathname(context, '_next'),
 		new workbox.strategies.StaleWhileRevalidate({
 			cacheName: CACHE_NAME_SCRIPT,
-			plugins: [
-				// 만료 관련 플러그인
-				expiration,
-			],
+			plugins: [],
 		}),
 	);
 	workbox.routing.registerRoute(
 		context => isDestination(context, ['style']) && isExtension(context, ['css']),
 		new workbox.strategies.StaleWhileRevalidate({
 			cacheName: CACHE_NAME_STYLE,
-			plugins: [
-				// 만료 관련 플러그인
-				expiration,
-			],
+			plugins: [],
 		}),
+	);
+
+	// 폰트 리소스 
+	workbox.routing.registerRoute(
+		new RegExp('.*\.(?:eot|woff2|woff|ttf)$'),
+		new workbox.strategies.CacheFirst({
+			cacheName: CACHE_NAME_FONT,
+			plugins: [
+				// https://developer.chrome.com/docs/workbox/modules/workbox-expiration/
+				/*new workbox.expiration.ExpirationPlugin({
+					maxEntries: 10, // 캐시 할 최대 리소스 수
+					//maxAgeSeconds: 1 * 24 * 60 * 60, // 1 일 - 86400 초
+					maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
+				}),*/
+			],
+		})
+	);
+
+	// 이미지 리소스
+	/*workbox.routing.registerRoute(
+		context => context.request.destination === 'image' && isPathname(context, 'defaultImages'),
+		new workbox.strategies.CacheFirst({
+		  cacheName: CACHE_NAME_IMAGE_DEFAULT,
+		}),
+	);*/
+	workbox.routing.registerRoute(
+		// https://bc.ad.daum.net 처럼 Accept 타입이 'image/webp,image/apng,image/*,*/*;q=0.8' 으로 request 되는 파일이 존재함 
+		//context => isAccept(isContext(context), 'image/'),
+		//context => isDestination(context, ['image']) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg', 'svg']),
+		//context => isContext(context) && (isHostname(context, 'image.cjmall.net') || isPathname(context, '/image.cjmall.net/')) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
+		//context => isContext(context) && (/\/\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/i.test(context.url.origin) || /\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/.test(context.url.pathname)) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
+		//new RegExp('.*\.(?:png|gif|jpg|jpeg|svg)$'),
+		({ request }) => request.destination === 'image',
+		new workbox.strategies.CacheFirst({
+			cacheName: CACHE_NAME_IMAGE,
+			plugins: [
+				// https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response/#what-are-the-defaults
+				new workbox.cacheableResponse.CacheableResponsePlugin({
+					statuses: [0, 200],
+				}),
+			],
+			fetchOptions: {},
+			matchOptions: {}
+		})
 	);
 
 	// fallbacks
@@ -278,8 +279,13 @@ const setWorkBoxRun = workbox => {
 	});
 };
 
-// workbox 변수 존재 확인 
-if(workbox) {
-	console.log(`Workbox is loaded.`);
-	setWorkBoxRun(workbox);
-}
+// workbox 변수 존재 확인
+try {
+	if (workbox) {
+	  console.log('[Service Worker] Workbox is loaded.');
+	  setWorkBoxRun(workbox);
+	}
+  } catch (error) {
+	console.log('[Service Worker]', error);
+  }
+  
