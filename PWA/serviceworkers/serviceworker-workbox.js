@@ -17,7 +17,9 @@ if('serviceWorker' in navigator) {
 importScripts('/workbox/6.5.4/workbox-sw.js');
 
 const setWorkBoxRun = workbox => {
-	// 캐시 이름 
+	/**
+	 * 캐시 이름
+	 */
 	const CACHE_NAME = 'TEST_CACHE';
 	const CACHE_NAME_SCRIPT = [CACHE_NAME, 'SCRIPT'].join('_');
   	const CACHE_NAME_STYLE = [CACHE_NAME, 'STYLE'].join('_');
@@ -45,9 +47,25 @@ const setWorkBoxRun = workbox => {
 	/**
 	 * 기존 캐시 제거
 	*/
-	/*self.addEventListener('activate', function (event) {
-		caches.delete(CACHE_NAME_IMAGE);
-	});*/
+	self.addEventListener('activate', function (event) {
+		event.waitUntil(
+			caches
+			.keys()
+			.then(function (cacheList) {
+				console.log('[Service Worker] Cache Storage 정보', cacheList);
+				return Promise.all(
+					cacheList.map(function (cacheName) {
+						console.log('[Service Worker] cacheName', cacheName);
+						// 기존버전 제거
+						return caches.delete(cacheName);
+					}),
+				);
+			})
+			.catch(function (e) {
+				console.log('[Service Worker] activate error', e);
+			}),
+		);
+	});
 
 	/**
 	 * workbox 설정 
