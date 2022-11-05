@@ -9,6 +9,15 @@
 > PPT 발표자료
 > http://makestory.net/media/#/view/774
 
+https://medium.com/@mariusbongarts/will-web-components-replace-frontend-frameworks-535891d779ba
+
+https://medium.com/@mariusbongarts/the-complete-web-component-guide-part-1-custom-elements-a627af805df8
+
+https://javascript.plainenglish.io/
+
+> Betteridge's 법칙  
+> https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines
+
 ---
 
 > Template
