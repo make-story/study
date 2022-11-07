@@ -1,4 +1,8 @@
 {
+	"extends": "./config/base.json", /* 설정파일 상속(확장) */
+	"references": [ /* 디렉터리 별 tsconfig.json을 구성할 수 있음  */
+		{ "path": "../src/" } /* 참고 : https://stackoverflow.com/questions/51631786/how-to-use-project-references-in-typescript-3-0 */
+	],
 	"compilerOptions": {
 		/* 기본 옵션 */
 		// "incremental": true, /* 증분 컴파일 설정 여부 */
