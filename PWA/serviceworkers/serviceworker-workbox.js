@@ -16,15 +16,33 @@ if('serviceWorker' in navigator) {
 //importScripts('/workbox/5.1.2/workbox-sw.js');
 importScripts('/workbox/6.5.4/workbox-sw.js');
 
-const setWorkBoxRun = workbox => {
+// 날짜 시간
+const DATETIME = (() => {
+	let date = new Date();
+	let value = {
+		'year': '' + date.getFullYear(),
+		'month': ('0' + (date.getMonth()+1)).slice(-2),
+		'day': ('0' + date.getDate()).slice(-2),
+		'hour': ('0' + date.getHours()).slice(-2),
+		'minute': ('0' + date.getMinutes()).slice(-2),
+		'second': ('0' + date.getSeconds()).slice(-2),
+	};
+	return [
+		[value.year, value.month, value.day].join(''),
+		[value.hour].join(''),
+	].join('-');
+})();
+
+// 워크박스 실행
+const setWorkBoxRun = (workbox, datetime = '') => {
 	/**
 	 * 캐시 이름
 	 */
-	const CACHE_NAME = 'TEST_CACHE';
-	const CACHE_NAME_SCRIPT = [CACHE_NAME, 'SCRIPT'].join('_');
-  	const CACHE_NAME_STYLE = [CACHE_NAME, 'STYLE'].join('_');
-	const CACHE_NAME_FONT = [CACHE_NAME, 'FONT'].join('_');
-	const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE'].join('_');
+	const CACHE_NAME = 'TEST-CACHE';
+	const CACHE_NAME_SCRIPT = [CACHE_NAME, 'SCRIPT', datetime].join('-');
+	const CACHE_NAME_STYLE = [CACHE_NAME, 'STYLE', datetime].join('-');
+	const CACHE_NAME_FONT = [CACHE_NAME, 'FONT', datetime].join('-');
+	const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE', datetime].join('-');
 
 	/**
 	 * context 유효 확인
@@ -59,8 +77,15 @@ const setWorkBoxRun = workbox => {
 				return Promise.all(
 					cacheList.map(function (cacheName) {
 						console.log('[Service Worker] cacheName', cacheName);
-						// 기존버전 제거
-						return caches.delete(cacheName);
+						/**
+						 * 캐시 제거 (안전장치)
+						 * - 개발자 도구 '새로고침 시 업데이트' 체크가 해제된 경우 대비
+						 * - 서비스워커가 기존 설치된 사용자가 새로운 서비스워커 설치(업데이트)를 못받는 상황 대비
+						 */
+						 if(![CACHE_NAME_SCRIPT, CACHE_NAME_STYLE, CACHE_NAME_FONT, CACHE_NAME_IMAGE].includes(cacheName)) {
+							console.log(`[Service Worker] caches delete ${cacheName}`);
+							return caches.delete(cacheName);
+						}
 					}),
 				);
 			})
@@ -283,7 +308,7 @@ const setWorkBoxRun = workbox => {
 try {
 	if (workbox) {
 	  console.log('[Service Worker] Workbox is loaded.');
-	  setWorkBoxRun(workbox);
+	  setWorkBoxRun(workbox, DATETIME);
 	}
   } catch (error) {
 	console.log('[Service Worker]', error);
