@@ -11,6 +11,9 @@ let self = event.currentTarget; // event listener element (event 실행 element)
 let target = event.target || event.srcElement; // event 가 발생한 element
 let touch = event.touches; // touchstart
 
+`event.srcElement 비표준, 더 이상 사용되지 않음`  
+https://developer.mozilla.org/en-US/docs/Web/API/Event/srcElement
+
 
 # offsetLeft/offsetTop, offsetWidth/offsetHeight, offsetParent
 패딩과 보더 포함 (일반적으로 element 크기 등을 구할 떄 사용)
