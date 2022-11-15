@@ -64,6 +64,8 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 
 	/**
 	 * 기존 캐시 제거
+	 *
+	 * 개발자 도구에서 '새로고침 시 업데이트' 체크가 해제되어 있을 경우, 서비스워커 파일 업데이트가 발생하지 않으므로, activate 단계가 실행안됨
 	 */
 	self.addEventListener('activate', function (event) {
 		// https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API
@@ -99,7 +101,7 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 	 * workbox 설정 
 	 */
 	workbox.setConfig({
-		debug: ['localhost'].includes(self.location.hostname),
+		//debug: ['localhost'].includes(self.location.hostname),
 		// https://developer.chrome.com/docs/workbox/modules/workbox-sw/#using-local-workbox-files-instead-of-cdn
 		modulePathPrefix: '/workbox/6.5.4/',
 	});
@@ -264,7 +266,7 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 		//context => isContext(context) && (isHostname(context, 'image.cjmall.net') || isPathname(context, '/image.cjmall.net/')) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
 		//context => isContext(context) && (/\/\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/i.test(context.url.origin) || /\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/.test(context.url.pathname)) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
 		//new RegExp('.*\.(?:png|gif|jpg|jpeg|svg)$'),
-		({ request }) => request.destination === 'image',
+		({ request }) => request.destination === 'image' && isHostname(context, 'amoremall.com'),
 		new workbox.strategies.CacheFirst({
 			cacheName: CACHE_NAME_IMAGE,
 			plugins: [
