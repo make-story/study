@@ -18,10 +18,14 @@ navigator.serviceWorker.ready.then(registration => {
 });
 // 또는
 navigator.serviceWorker.getRegistrations().then(function(registrations) {
-	// 여러개 등록되어있을 경우
+	// 여러개 등록되어있을 경우 
+	const promises = [];
 	for(let registration of registrations) {
-		registration.unregister();
-	} 
+		promises.push(registration.unregister());
+	}
+	Promise.all(promises).then((values) => {
+		console.log(values);
+	});
 });
 // 또는
 navigator.serviceWorker.getRegistrations().then(function(registrations) { 
