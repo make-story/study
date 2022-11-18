@@ -5,6 +5,80 @@ if('serviceWorker' in navigator) {
 		navigator.serviceWorker.register('/service-worker.js');
 	});
 }
+
+// 서비스워커 등록 취소
+// https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/unregister
+navigator.serviceWorker.ready.then(registration => {
+	registration.unregister()
+	.then(() => {
+		window.location.reload();
+	}).catch(error => {
+        console.error(error.message);
+	});
+});
+// 또는
+navigator.serviceWorker.getRegistrations().then(function(registrations) {
+	// 여러개 등록되어있을 경우
+	for(let registration of registrations) {
+		registration.unregister();
+	} 
+});
+// 또는
+navigator.serviceWorker.getRegistrations().then(function(registrations) { 
+	for(let registration of registrations) { 
+		registration.unregister() 
+		.then(function() { 
+			return self.clients.matchAll(); 
+		}) 
+		.then(function(clients) { 
+			clients.forEach(client => { 
+				if (client.url && "navigate" in client) { 
+					client.navigate(client.url)); 
+				} 
+			}); 
+		}); 
+	}
+});
+
+// 캐시제거
+if ('caches' in window) {
+	caches.keys()
+	.then(function(keyList) {
+		return Promise.all(keyList.map(function(key) {
+			return caches.delete(key);
+		}));
+	});
+}
+
+// https://github.com/NekR/self-destroying-sw
+self.addEventListener('install', function(e) {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', function(e) {
+  self.registration.unregister()
+    .then(function() {
+      return self.clients.matchAll();
+    })
+    .then(function(clients) {
+      clients.forEach(client => client.navigate(client.url))
+    });
+});
+
+// https://love2dev.com/blog/how-to-uninstall-a-service-worker/
+self.addEventListener("activate", function(e) { 
+	self.registration.unregister() 
+	.then(function() { 
+		return self.clients.matchAll(); 
+	}) 
+	.then(function(clients) { 
+		clients.forEach(client => { 
+			if (client.url && "navigate" in client) { 
+				client.navigate(client.url)) 
+			} 
+		}); 
+	});
+}
 */
 // 서비스워커에서의 ES 모듈 사용 (import ... from '...' 형태를 안정적으로 사용하려면 번들러 필요 - 22.09기준)
 // https://chromium.googlesource.com/chromium/src/+/refs/heads/main/content/browser/service_worker/es_modules.md
