@@ -1,10 +1,34 @@
 /*
 // 서비스워커 사용(등록)을 위해, 서비스페이지에 필요한 코드 예시 
-if('serviceWorker' in navigator) {
-	window.addEventListener('load', function() {
-		navigator.serviceWorker.register('/service-worker.js');
+// 리소스 로드와 서비스워커 등록 후 fetch 가 동시에 일어나 버벅거리지 않도록, load 후 서비스워커 작업을 실행
+// https://developers.google.com/web/fundamentals/primers/service-workers/registration
+const onLoad = () => {
+	navigator.serviceWorker.getRegistrations().then(registrations => {
+		// 기존 서비스워커 등록취소
+		const promises = [];
+		for (const registration of registrations) {
+			promises.push(registration.unregister());
+		}
+		Promise.all(promises).then((values) => {
+			console.log('unregister', values);
+			// 신규 서비스워커 등록
+			navigator.serviceWorker.register(`/serviceworker-workbox.js?time=${new Date().getTime()}`).then(
+				function (registration) {
+					console.log('ServiceWorker registration successful with scope', registration?.scope);
+				},
+				function (error) {
+					console.log('ServiceWorker registration failed', error);
+				},
+			);
+		});
 	});
+};
+if ('serviceWorker' in navigator) {
+	//window.removeEventListener('load', onLoad);
+	window.addEventListener('load', onLoad);
 }
+
+// -----
 
 // 서비스워커 등록 취소
 // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/unregister
@@ -86,6 +110,9 @@ self.addEventListener("activate", function(e) {
 */
 // 서비스워커에서의 ES 모듈 사용 (import ... from '...' 형태를 안정적으로 사용하려면 번들러 필요 - 22.09기준)
 // https://chromium.googlesource.com/chromium/src/+/refs/heads/main/content/browser/service_worker/es_modules.md
+
+// 번들러 없이 기본 사용
+// https://developer.chrome.com/docs/workbox/using-workbox-without-precaching/#without-a-bundler-using-workbox-sw
 
 // WorkBox 사용 - v4 와 v5 로직이 다르다. v6 부터는 workbox-sw.js 파일만 import 하면, 다른 모듈은 내부에서 자동 로드
 //importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox-sw.js");

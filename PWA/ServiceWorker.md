@@ -39,6 +39,19 @@ https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
 
 https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope
 
+# 서비스워커 업데이트가 발생할 때
+
+> navigator.serviceWorker.register() 신규 호출
+> 브라우저에 의한 자동 Update - 기존 등록된 서비스워커와 다른 파일내부 변경이력, HTTP Header Cache-Control max-age(최대24시간), 개발자도구 Service Workers 탭의 'Update on Reload' 페이지 새로고침시 업데이트 체크 등
+> client request 처리시 - fetch
+> 24시간내(Cache-Control max-age) 업데이트 확인이 없는 상태에서 push 및 sync 이벤트 발생시
+> registration.update(), registration.unregister() 명시적 호출시
+
+https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
+https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching
+
+
 # 서비스워커는 프로미스 기반 동작 event.waitUntil(promise)
 
 ## waitUntil()

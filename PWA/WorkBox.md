@@ -4,6 +4,10 @@ https://developer.chrome.com/docs/workbox/
 https://developer.chrome.com/docs/workbox/reference/  
 https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-strategies
 
+
+- 적용사례
+https://web.dev/aem-with-workbox/
+
 # WorkBox
 
 https://github.com/GoogleChrome/workbox  
@@ -12,12 +16,6 @@ https://glitch.com/@philkrie/workbox-demos
 https://developers.google.com/web/tools/workbox/guides/get-started  
 https://developers.google.com/web/tools/workbox/reference-docs/latest  
 https://developers.google.com/web/tools/workbox/reference-docs/v4/
-
----
-
-# 적용사례 / 가이드
-
-https://web.dev/aem-with-workbox/
 
 # WorkBox 라이센스
 
@@ -64,18 +62,6 @@ workbox.strategies
 workbox.streams
 workbox~ModulePathCallback(moduleName, debug)
 ```
-
-# 서비스워커 업데이트가 발생할 때
-
-> navigator.serviceWorker.register() 신규 호출
-> 브라우저에 의한 자동 Update - 기존 등록된 서비스워커와 다른 파일내부 변경이력, HTTP Header Cache-Control max-age(최대24시간), 개발자도구 Service Workers 탭의 'Update on Reload' 페이지 새로고침시 업데이트 체크 등
-> client request 처리시 - fetch
-> 24시간내(Cache-Control max-age) 업데이트 확인이 없는 상태에서 push 및 sync 이벤트 발생시
-> registration.update(), registration.unregister() 명시적 호출시
-
-https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
-https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
-https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching
 
 # 캐싱 전략 - strategies
 
