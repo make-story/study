@@ -206,13 +206,15 @@
 
 // ----------
 
-
+/**
+ * 그룹, 그룹내 아이템
+ */
 const store = new Map();
 
 const initalGroupItem = {
-    groupCode: '',
-    text: '',
-    todoList: [],
+    groupCode: '', // 고유값
+    text: '', // 그룹명
+    todoList: [], // 할일 리스트
 };
 const initalTodoItem = {
     todoCode: '',  // 고유값
@@ -224,25 +226,25 @@ const initalTodoItem = {
     timer: false, // 타이머 작동여부
     done: false,  // 종료여부
 };
-const groupCode = '111111';
-const todoCode = '222222';
-store.set(groupCode, { ...initalGroupItem, groupCode });
-store.set(groupCode, { ...store.get(groupCode), text: 'TEST' });
+
+const groupCode = '111111'; // 그룹 고유값
+const todoCode = '222222'; // 할일 고유값
+store.set(groupCode, { ...initalGroupItem, groupCode }); // 그룹 생성
+store.set(groupCode, { ...store.get(groupCode), text: 'TEST' }); // 특정 그룹 정보 수정
 
 let groupData, todoData;
-groupData = store.get(groupCode);
-groupData.todoList = [ ...groupData.todoList, { ...initalTodoItem, todoCode } ];
-groupData = store.get(groupCode);
+groupData = store.get(groupCode); // 특정 그룹값 불러오기
+groupData.todoList = [ ...groupData.todoList, { ...initalTodoItem, todoCode } ]; // 특정 그룹에 신규 할일 추가
+groupData = store.get(groupCode); // 특정 그룹값 불러오기
 console.log(groupData);
 
-[ todoData ] = groupData.todoList.filter(value => value.todoCode === todoCode);
+[ todoData ] = groupData.todoList.filter(value => value.todoCode === todoCode); // 할일 리스트에서 특정 할일 불러오기
 let todoUpdate = {
     text: 'TEST',
 };
 for(const key in todoUpdate) {
-    todoData[key] = todoUpdate[key];
+    todoData[key] = todoUpdate[key]; // 특정 할일 정보 수정
 }
-
 groupData = store.get(groupCode);
 console.log(groupData);
 
@@ -308,3 +310,151 @@ export function extend(target = {}, ...sources) {
 	});
 	return extend(target, ...sources);
 }
+
+
+// -----
+
+/**
+ * 특정 JSON key 기준으로 값 추가
+ */
+// 방법 1
+// Merge List of JSON Objects on Same Key and Drop Un-merged Objects
+let arrObjA = [
+	{ "index": 114, "realName": 'kevin', "bucket": 'boss', "react_name": 'BossKevin' }, 
+	{ "index": 115, "realName": 'angela', "bucket": 'boss', "react_name": 'BossAngela' }, 
+	{ "index": 116, "realName": 'james', "bucket": 'janitor', "react_name": 'JanitorJames' }, 
+	{ "index": 117, "realName": 'arthur', "bucket": 'employee', "react_name": 'EmployeeArthur' }
+];
+let arrObjB = [
+	{ "boxName": "building", "realName": "angela", "boxValue": "2" }, 
+	{ "boxName": "building", "realName": "james", "boxValue": "false" }, 
+	{ "boxName": "building", "realName": "arthur", "boxValue": "0" },
+];
+let result = arrObjB.map(item => ({
+    ...arrObjA.find(({ realName }) => item.realName == realName),
+    ...item,
+}));
+console.log(result);
+
+// 방법 2
+// https://stackoverflow.com/questions/35903850/combine-json-arrays-by-key-javascript
+const json1 = [
+	{id:1, name:'aaa'}, 
+	{id:5, name:'ccc'}, 
+	{id:3, name:'bbb'},
+];
+const json2 = [
+	{id:3, parameter1:'x', parameter2:'y', parameter3:'z'},
+	{id:1, parameter1:'u', parameter2:'v', parameter3:'w'},
+	{id:5, parameter1:'q', parameter2:'w', parameter3:'e'},
+];
+const example = [
+	{id:3, name:'bbb', parameter1:'x', parameter2:'y', parameter3:'z'},
+	{id:1, name:'aaa', parameter1:'u', parameter2:'v', parameter3:'w'},
+	{id:5, name:'ccc', parameter1:'q', parameter2:'w', parameter3:'e'},
+];
+// lodash
+const merge1 = _(json1).concat(json2).groupBy('id').map(_.spread(_.assign)).value();
+// ES2015
+const merge2 = json2.map(x => Object.assign(x, json1.find(y => y.id == x.id)));
+
+
+/**
+ * key 기준으로 두 JSON 합치기 
+ * merge two json object based on key value in javascript
+ * https://stackoverflow.com/questions/30093561/merge-two-json-object-based-on-key-value-in-javascript
+ */
+// 방법 1
+const a = [ 
+	{ id: 36, name: 'AAA', goal: 'yes' },
+	{ id: 40, name: 'BBB', goal: 'yes' },
+	{ id: 57, name: 'CCC', goal: 'yes' },
+	{ id: 4, name: 'DDD', goal: 'yes' },
+	{ id: 39, name: 'EEE', goal: 'yes' },
+	{ id: 37, name: 'FFF', goal: 'yes' },
+	{ id: 59, name: 'GGG', goal: 'yes' },
+	{ id: 50, name: 'III', goal: 'yes' },
+	{ id: 43, name: 'HHH', goal: 'yes' },
+	{ id: 35, name: 'JJJ', goal: 'yes' } 
+];
+
+const b = [ 
+	{ id: 36, name: 'AAA', circle: 'yes' },
+	{ id: 40, name: 'BBB', circle: 'yes' },
+	{ id: 57, name: 'CCC', circle: 'yes' },
+	{ id: 42, name: 'ZZZ', circle: 'yes' },
+	{ id: 4, name: 'DDD', circle: 'yes' },
+	{ id: 39, name: 'EEE', circle: 'yes' },
+	{ id: 37, name: 'FFF', circle: 'yes' },
+	{ id: 59, name: 'GGG', circle: 'yes' },
+	{ id: 43, name: 'HHH', circle: 'yes' },
+	{ id: 35, name: 'JJJ', circle: 'yes' },
+	{ id: 100, name: 'JJJ', circle: 'yes' } 
+];
+
+function merge_object_arrays (arr1, arr2, match) {
+	return _.union(
+		_.map(arr1, function (obj1) {
+			const same = _.find(arr2, function (obj2) {
+				return obj1[match] === obj2[match];
+			});
+			return same ? _.extend(obj1, same) : obj1;
+		}),
+		_.reject(arr2, function (obj2) {
+			return _.find(arr1, function(obj1) {
+				return obj2[match] === obj1[match];
+			});
+		})
+	);
+}
+merge_object_arrays(a, b, 'id');
+
+
+// 방법 2
+const request1 = [
+	{
+		ObjId: 174864,
+		ObjMutationD: "2010-07-09T00:00:00.000Z",
+		ObjMitarbeiterS: "epf",
+		ObjAufId: 142
+	}, 
+	{
+		ObjId: 175999,
+		ObjMutationD: "2010-07-09T00:00:00.000Z",
+		ObjMitarbeiterS: "epf",
+		ObjAufId: 149
+	}
+];
+const request2 = [
+	{
+		ObjId: 174864,
+		MulPfadS: "M:\\Originalbilder\\FGS\\95nn",
+		MulDateiS: "9576.305-034-1",
+		MulExtentS: "jpg"
+	}, 
+	{
+		ObjId: 177791,
+		MulPfadS: "M:\\Originalbilder\\FGS\\95nn",
+		MulDateiS: "9576.305-035-1",
+		MulExtentS: "jpg"
+	}
+];
+
+const resultMerge = [
+	...[request1, request2].reduce(
+		(m, a) => (
+			a.forEach(o => 
+				m.has(o.ObjId) && Object.assign(m.get(o.ObjId), o) || m.set(o.ObjId, o)
+			), m), 
+		new Map
+	).values()
+];
+
+  console.log(result);
+
+
+/**
+ * 하나의 json 데이터 안에서 특정 key 값 기준 고유값 조립
+ */
+// lodash
+// _.uniqBy
