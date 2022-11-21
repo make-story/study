@@ -50,3 +50,8 @@ const load = () => {
         );
     });
 };
+
+if ('serviceWorker' in navigator) {
+	//window.removeEventListener('load', load);
+	window.addEventListener('load', load);
+}
