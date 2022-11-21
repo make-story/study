@@ -2,7 +2,7 @@
 // 서비스워커 사용(등록)을 위해, 서비스페이지에 필요한 코드 예시 
 // 리소스 로드와 서비스워커 등록 후 fetch 가 동시에 일어나 버벅거리지 않도록, load 후 서비스워커 작업을 실행
 // https://developers.google.com/web/fundamentals/primers/service-workers/registration
-const onLoad = () => {
+const load = () => {
 	navigator.serviceWorker.getRegistrations().then(registrations => {
 		// 기존 서비스워커 등록취소
 		const promises = [];
@@ -24,8 +24,8 @@ const onLoad = () => {
 	});
 };
 if ('serviceWorker' in navigator) {
-	//window.removeEventListener('load', onLoad);
-	window.addEventListener('load', onLoad);
+	//window.removeEventListener('load', load);
+	window.addEventListener('load', load);
 }
 
 // -----
@@ -168,8 +168,20 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 	const isExtension = (context, extension=[]) => (isContext(context) && context.request.url && Array.isArray(extension)) ? new RegExp(`.*\\.(?:${extension.join('|')})([\\?|#].*)?$`).test(context.request.url) : false;
 
 	/**
+	 * install
+	 */
+	self.addEventListener('install', event => {
+		// waiting 상태의 서비스 워커를 active 상태의 서비스 워커로 변경하도록 강제
+		// 기존 서비스워커 등록된 상태에서 새로 서버시워커를 등록할 경우, 'waiting' 상태에 있음
+		// skipWaiting 실행시 waiting 상태없이 바로 실행상태가 됨
+		// (업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성)
+		self.skipWaiting();
+	});
+
+	/**
+	 * activate
+	 * 
 	 * 기존 캐시 제거
-	 *
 	 * 개발자 도구에서 '새로고침 시 업데이트' 체크가 해제되어 있을 경우, 서비스워커 파일 업데이트가 발생하지 않으므로, activate 단계가 실행안됨
 	 */
 	self.addEventListener('activate', function (event) {
@@ -223,7 +235,6 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 	//const { precaching, routing, strategies } = workbox;
 
 	//workbox.core.skipWaiting(); // v7 부터는 core 에서 제거됨
-	self.skipWaiting(); // 서비스 워커 즉시 활성화 - 업데이트된 서비스워커를 브라우저 재시작(또는 탭 재시작)후 활성이 아닌, 업데이트된 즉시 활성
 	//workbox.core.clientsClaim(); // 서비스 워커 활성화되면, 현재 사용 가능한 클라이언트 요청
 
 	/**
@@ -378,6 +389,13 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 				// https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response/#what-are-the-defaults
 				new workbox.cacheableResponse.CacheableResponsePlugin({
 					statuses: [0, 200],
+				}),
+				// https://developer.chrome.com/docs/workbox/modules/workbox-expiration/
+				// https://developer.chrome.com/docs/workbox/reference/workbox-expiration/#type-ExpirationPlugin
+				new workbox.expiration.ExpirationPlugin({
+					//maxEntries: 10, // 캐시 할 최대 리소스 수
+					//maxAgeSeconds: 1 * 24 * 60 * 60, // 1 일 - 86400 초
+					maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
 				}),
 			],
 			fetchOptions: {},
