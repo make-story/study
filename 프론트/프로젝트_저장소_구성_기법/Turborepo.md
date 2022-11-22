@@ -20,6 +20,14 @@ $ yarn init
 $ yarn add turbo -W --dev
 ```
 
+`-W 옵션`
+https://classic.yarnpkg.com/lang/en/docs/cli/add/#toc-yarn-add-ignore-workspace-root-check-w 
+작업 공간 루트에 설치
+
+`--dev 옵션`
+https://classic.yarnpkg.com/lang/en/docs/cli/add/#toc-yarn-add-dev-d  
+devDependencies 에 추가됨
+
 ## 필요한 폴더 구축
 
 ```
