@@ -79,10 +79,31 @@ $ npm config get registry
 
 ## 패키지 그룹(또는 범위) '@'
 
-@tistory/\* 의 이름을 가진 패키지는 private npm 서버를 바라보도록 설정
+`범위(@)가 지정된 패키지는 기본적으로 비공개로 설정되어 있으므로, 배포시 플래그 --access=public 를 전달하여 이 패키지를 공개용으로 배포`  
+https://blog.npmjs.org/post/168978377570/new-package-moniker-rules.html
 
 ```
+$ npm publish --access=public
+```
+
+누구나 공개 범위 패키지를 npm 레지스트리(공용)에 게시할 수 있지만, `비공개 패키지를 게시하려면, NPM 유료 사용 필요함`  
+https://docs.npmjs.com/about-scopes
+
+참고자료
+https://docs.npmjs.com/creating-and-publishing-scoped-public-packages
+https://stackoverflow.com/questions/36667258/what-is-the-meaning-of-the-at-prefix-on-npm-packages
+
+예를 들어, @tistory/\* 의 이름을 가진 패키지는 private npm 서버를 바라보도록 설정
+
+```
+# 설정
 $ npm config set @tistory:registry http://localhost:4873
+
+# 설정확인
+$ npm config get @tistory:registry
+
+# 설정제거
+$ npm config rm @tistory:registry
 ```
 
 명령어를 입력하면 .npmrc 파일에 저장
