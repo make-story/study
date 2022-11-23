@@ -90,6 +90,18 @@ https://www.npmjs.com/package/validate-npm-package-name
 
 ## 패키지 그룹(또는 범위) '@'
 
+package.json
+
+```javascript
+{
+  // ...
+  "name": "@<그룹명>/<그룹 하위 네이밍>",
+  // ...
+}
+```
+
+`패시지명이 '@' 시작할 경우(그룹) '/' 뒤에 하위 네이밍을 붙여야 한다! (예: '@monorepo' 오류 -> '@monorepo/test' 수정시 정상)`
+
 `범위(@)가 지정된 패키지는 기본적으로 비공개로 설정되어 있으므로, 배포시 플래그 --access=public 를 전달하여 이 패키지를 공개용으로 배포`  
 https://blog.npmjs.org/post/168978377570/new-package-moniker-rules.html
 
