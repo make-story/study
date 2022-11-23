@@ -1,6 +1,15 @@
 # 사파리 버전 13.4 이상부터 replaceAll() 지원
 
 
+# Safari inline-flex
+https://stackoverflow.com/questions/21772825/display-inline-flex-property-not-working-in-safari-browser  
+
+```
+display: -webkit-inline-flex;
+display: -ms-inline-flexbox;
+display: inline-flex;
+```
+
 # Safari visibility 버그
 https://developer.apple.com/forums/thread/71979
 https://bugs.webkit.org/show_bug.cgi?id=45399
