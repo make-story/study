@@ -2,6 +2,25 @@
  * 서비스워커 사용(등록)을 위해, 서비스페이지에 필요한 코드 예시 
  */
 
+// 기존 서비스워커 업데이트
+const update = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                // 기존 서비스워커 업데이트
+                const promises = [];
+                for (const registration of registrations) {
+                    promises.push(registration.update());
+                }
+                Promise.all(promises).then(resolve, reject);
+            });
+        } catch (error) {
+            console.log(error);
+            reject(error);
+        }
+    });
+}
+
 // 기존 서비스워커 등록취소
 const unregister = () => {
     return new Promise((resolve, reject) => {
