@@ -38,6 +38,7 @@ const setUnregisterAll = () => {
 const load = async () => {
     const registration = await navigator?.serviceWorker?.getRegistration();
     if(registration) {
+        // 운영 캐시 갱신이 안되는 이슈가 있을 경우, setUnregisterAll 실행되도록 수정하여 배포!
         /*setUnregisterAll()
         .then(
             (value) => console.log('서비스워커 전체해제 성공!', value), 
