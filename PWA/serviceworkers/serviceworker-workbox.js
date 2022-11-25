@@ -142,12 +142,16 @@ const DATETIME = (() => {
 const setWorkBoxRun = (workbox, datetime = '') => {
 	/**
 	 * 캐시 이름
+	 *
+	 * 정각(매 0분) 단위로 캐시이름을 만들어, 1시간 단위 캐시회피 방법이 있으나, ExpirationPlugin 활용한 방법을 주로 사용함
 	 */
-	const CACHE_NAME = 'TEST-CACHE';
-	const CACHE_NAME_SCRIPT = [CACHE_NAME, 'SCRIPT', datetime].join('-');
-	const CACHE_NAME_STYLE = [CACHE_NAME, 'STYLE', datetime].join('-');
-	const CACHE_NAME_FONT = [CACHE_NAME, 'FONT', datetime].join('-');
-	const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE', datetime].join('-');
+	const CACHE_NAME = 'AMORE-CACHE';
+	const CACHE_NAME_SCRIPT = [CACHE_NAME, 'SCRIPT'].join('-');
+	const CACHE_NAME_STYLE = [CACHE_NAME, 'STYLE'].join('-');
+	//const CACHE_NAME_FONT = [CACHE_NAME, 'FONT', datetime].join('-');
+	//const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE', datetime].join('-');
+	const CACHE_NAME_FONT = [CACHE_NAME, 'FONT'].join('-');
+	const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE'].join('-');
 
 	/**
 	 * context 유효 확인
