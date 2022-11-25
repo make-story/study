@@ -2,7 +2,17 @@
  * 서비스워커 사용(등록)을 위해, 서비스페이지에 필요한 코드 예시 
  */
 
-// 기존 서비스워커 등록취소
+// 서비스워커 등록 또는 업데이트
+// https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
+const setRegister = () => {
+    return new Promise((resolve, reject) => {
+        navigator?.serviceWorker?.register(`/serviceworker-workbox.js?time=${new Date().getTime()}`)
+        .then(resolve, reject);
+    });
+};
+
+// 서비스워커 등록 취소
+// https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/unregister
 const setUnregisterAll = () => {
     return new Promise((resolve, reject) => {
         try {
@@ -28,8 +38,6 @@ const setUnregisterAll = () => {
 const load = async () => {
     const registration = await navigator?.serviceWorker?.getRegistration();
     if(registration) {
-        // 서비스워커 등록 취소
-        // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/unregister
         /*setUnregisterAll()
         .then(
             (value) => console.log('서비스워커 전체해제 성공!', value), 
@@ -44,12 +52,10 @@ const load = async () => {
             (error) => console.log('서비스워커 업데이트 실패!', error),
         );
     }else {
-        // 서비스워커 등록 또는 업데이트
-        // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
-        navigator?.serviceWorker?.register(`/serviceworker-workbox.js?time=${new Date().getTime()}`)
+        setRegister()
         .then(
-            (registration) => console.log('서비스워커 등록 성공!', registration?.scope),
-            (error) => console.log('서비스워커 등록 실패!', error),
+            registration => console.log('서비스워커 등록 성공!', registration),
+            error => console.log('서비스워커 등록 실패!', error),
         );
     }
     navigator.serviceWorker.ready
