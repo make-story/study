@@ -151,7 +151,8 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 	//const CACHE_NAME_FONT = [CACHE_NAME, 'FONT', datetime].join('-');
 	//const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE', datetime].join('-');
 	const CACHE_NAME_FONT = [CACHE_NAME, 'FONT'].join('-');
-	const CACHE_NAME_IMAGE = [CACHE_NAME, 'IMAGE'].join('-');
+	const CACHE_NAME_IMAGE_CDN_BE = [CACHE_NAME, 'IMAGE', 'CDN', 'BE'].join('-');
+	const CACHE_NAME_IMAGE_CDN_FE = [CACHE_NAME, 'IMAGE', 'CDN', 'FE'].join('-');
 
 	/**
 	 * context 유효 확인
@@ -161,7 +162,7 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 	// MIME 유형 확인 (Content-Type응답 헤더)
 	const isAccept = (context, mime="") => (isContext(context) && context.request.headers) ? context.request.headers.get("accept").includes(mime) : false;
 	// hostname 확인 - hostname 은 host 에서 포트번호를 제거한 부분 - 예: local-markup.cjmall.com
-	const isHostname = (context, hostname="") => (isContext(context) && context.url.hostname) ? context.url.hostname.includes(hostname) : false;
+	const isHostname = (context, hostname=[]) => (isContext(context) && context.url.hostname) ? hostname.includes(context.url.hostname) : false;
 	// origin 확인 - 예: https://local-markup.cjmall.com
 	const isOrigin = (context, origin="") => (isContext(context) && context.url.origin) ? context.url.origin.includes(origin) : false;
 	// pathname 확인 - 예: /unsafe/831x300/image.cjmall.net/public/confirm/assets/tdp_cate_cont/202007/03/2547319/e7360842c9200ed0140bf8dedda8b28bc7f02067.jpg
@@ -205,7 +206,7 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 						 * - 개발자 도구 '새로고침 시 업데이트' 체크가 해제된 경우 대비
 						 * - 서비스워커가 기존 설치된 사용자가 새로운 서비스워커 설치(업데이트)를 못받는 상황 대비
 						 */
-						 if(![CACHE_NAME_SCRIPT, CACHE_NAME_STYLE, CACHE_NAME_FONT, CACHE_NAME_IMAGE].includes(cacheName)) {
+						 if(![CACHE_NAME_SCRIPT, CACHE_NAME_STYLE, CACHE_NAME_FONT, CACHE_NAME_IMAGE_CDN_BE, CACHE_NAME_IMAGE_CDN_FE].includes(cacheName)) {
 							console.log(`[Service Worker] caches delete ${cacheName}`);
 							return caches.delete(cacheName);
 						}
@@ -386,9 +387,12 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 		//context => isContext(context) && (isHostname(context, 'image.cjmall.net') || isPathname(context, '/image.cjmall.net/')) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
 		//context => isContext(context) && (/\/\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/i.test(context.url.origin) || /\/(dev-image2|image)\.cjmall\.(net|com)\/public\/confirm\/assets/.test(context.url.pathname)) && isExtension(context, ['png', 'gif', 'jpg', 'jpeg']),
 		//new RegExp('.*\.(?:png|gif|jpg|jpeg|svg)$'),
-		({ request }) => request.destination === 'image' && isHostname(context, 'amoremall.com'),
+		context =>
+			isDestination(context, ['image']) &&
+			isExtension(context, ['png', 'gif', 'jpg', 'jpeg', 'svg']) &&
+			isHostname(context, ['stg-images-kr.amoremall.com', 'images-kr.amoremall.com']),
 		new workbox.strategies.CacheFirst({
-			cacheName: CACHE_NAME_IMAGE,
+			cacheName: CACHE_NAME_IMAGE_CDN_BE,
 			plugins: [
 				// https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response/#what-are-the-defaults
 				new workbox.cacheableResponse.CacheableResponsePlugin({
@@ -399,7 +403,8 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 				new workbox.expiration.ExpirationPlugin({
 					//maxEntries: 10, // 캐시 할 최대 리소스 수
 					//maxAgeSeconds: 1 * 24 * 60 * 60, // 1 일 - 86400 초
-					maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
+					//maxAgeSeconds: 1 * 60 * 60, // 1 시간 - 3600 초
+					maxAgeSeconds: 60 * 10, // 10분
 				}),
 			],
 			fetchOptions: {},
