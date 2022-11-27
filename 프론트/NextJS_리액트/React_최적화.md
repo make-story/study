@@ -1,4 +1,4 @@
-## 렌더링 속도를 올리기 위한 성능 최적화 방법 - 실전 리액트 프로그래밍 책 내용 중
+# 렌더링 속도를 올리기 위한 성능 최적화 방법 - 실전 리액트 프로그래밍 책 내용 중
 
 리액트에서 최초 렌더링 이후에는 데이터 변경 시 렌더링을 하는데,  
 이 때 다음과 같은 단계를 거친다.
@@ -11,14 +11,14 @@
 
 ---
 
-## React.memo 로 렌더링 결과 재사용하기
+# React.memo 로 렌더링 결과 재사용하기
 
 컴포넌트의 속성값이나 상태값이 변경되면 리액트는 그 컴포넌트를 다시 그릴 준비를 한다.  
 만약 React.memo 함수로 감싼 컴포넌트라면 속성값 비교 함수가 호출된다.  
 이 함수는 이전 이후 속성값을 매개변수로 받아서 참 또는 거짓을 반환한다.  
 참을 반환하면 렌더링을 멈추고, 거짓을 반환하면 컴포넌트 함수를 실행해서 가상 돔을 업데이트한 후 변경된 부분만 실제 돔에 반영한다.
 
-### 속성값을 불변 객체로 관리했을 때 변경 여부 확인하기
+## 속성값을 불변 객체로 관리했을 때 변경 여부 확인하기
 
 ```javascript
 prevProps.todos !== nextProps.todos;
@@ -27,7 +27,7 @@ prevProps.todos !== nextProps.todos;
 속성값을 불변 객체로 관리했다면 이전 이후 값의 단순 비교만으로 컴포넌트의 속성값이 변경되었는지 알 수 있다.  
 따라서 속성값을 불변 객체로 관리하면 렌더링 성능에 큰 도움이 된다.
 
-### 공식 가이드 참고
+## 공식 가이드 참고
 
 https://ko.reactjs.org/docs/react-api.html#reactmemo
 
@@ -197,6 +197,9 @@ Webpack이 이 구문을 만나게 되면 앱의 코드를 분할
 
 2. React.lazy 함수를 사용하면 동적 import를 사용해서 컴포넌트를 렌더링
 
+`Suspense는 아직 렌더링이 준비되지 않은 컴포넌트가 있을때, 로딩 화면을 보여주고 로딩이 완료되면 해당 컴포넌트를 보여주는 React에 내장되어 있는 기능`
+https://ko.reactjs.org/docs/react-api.html#reactsuspense
+
 ```javascript
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
 ```
@@ -252,6 +255,8 @@ const App = () => (
   </Router>
 );
 ```
+
+---
 
 # Next.js 스트리밍 및 서스펜스(Suspense)
 
@@ -324,8 +329,22 @@ function AsyncTest() {
 export default AsyncTest;
 ```
 
+---
+
 # loadable 라이브러리
 
 https://loadable-components.com/docs/getting-started/
+
+```javascript
+import loadable from '@loadable/component';
+const OtherComponent = loadable(() => import('./OtherComponent'));
+function MyComponent() {
+  return (
+    <div>
+      <OtherComponent />
+    </div>
+  );
+}
+```
 
 ---
