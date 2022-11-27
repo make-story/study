@@ -253,10 +253,76 @@ const App = () => (
 );
 ```
 
-# Next.js 스트리밍 및 서스펜스
+# Next.js 스트리밍 및 서스펜스(Suspense)
 
 https://beta.nextjs.org/docs/data-fetching/streaming-and-suspense
 https://beta.reactjs.org/apis/react/Suspense
+
+https://stackoverflow.com/questions/69433673/nextjs-reactdomserver-does-not-yet-support-suspense
+Next js 12 이하 버전에서는 Suspense를 지원하지 않음
+
+## `Error: ReactDOMServer does not yet support Suspense.` 에러 원인
+
+https://velog.io/@devstone/React-Error-ReactDOMServer-does-not-yet-support-Suspense
+React로 SSR을 구현하기 위해 사용한 ReactDOMServer.renderToString 에서 Suspense 컴포넌트를 지원하지 않았기 때문
+
+SSRCompatibleSuspense.jsx
+
+```javascript
+import React, { Suspense } from 'react';
+import useMounted from 'hooks/useMounted';
+
+export default function SSRCompatibleSuspense(props) {
+  const isMounted = useMounted();
+
+  if (isMounted) {
+    return <Suspense {...props} />;
+  }
+  return <>{props.fallback}</>;
+}
+```
+
+useMounted.js
+
+```javascript
+import React from 'react';
+
+function useMounted() {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return mounted;
+}
+
+export default useMounted;
+```
+
+AsyncTest.jsx
+
+```javascript
+import React, { useState } from 'react';
+import styles from './style.scss';
+import GetData from './components/GetData';
+import ErrorBoundary from './asyncHandler/ErrorBoundary';
+import ErrorComponent from './asyncHandler/ErrorComponent';
+import LoadingComponent from './asyncHandler/LoadingComponent';
+import SSRCompatibleSuspense from './asyncHandler/SSRCompatibleSuspense';
+
+function AsyncTest() {
+  return (
+    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />} resetKey={resetKey}>
+      <SSRCompatibleSuspense fallback={<LoadingComponent />}>
+        <GetData />
+      </SSRCompatibleSuspense>
+    </ErrorBoundary>
+  );
+}
+
+export default AsyncTest;
+```
 
 # loadable 라이브러리
 
