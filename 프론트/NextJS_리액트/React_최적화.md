@@ -28,6 +28,7 @@ prevProps.todos !== nextProps.todos;
 따라서 속성값을 불변 객체로 관리하면 렌더링 성능에 큰 도움이 된다.
 
 ### 공식 가이드 참고
+
 https://ko.reactjs.org/docs/react-api.html#reactmemo
 
 ```javascript
@@ -51,7 +52,7 @@ React.memo로 감싸진 함수 컴포넌트 구현에 useState, useReducer 또�
 컴포넌트가 렌더링될 때마다 `새로운 함수를 생성해서 자식 컴포넌트의 속성값으로 입력하는 경우`가 많다.  
 리액트 팀에서는 최근의 브라우저에서 함수 생성이 성능에 미치는 영향은 적다고 주장한다.(실전 리액트 프로그래밍 책 내용중)  
 그보다는 `속성값이 매번 변경되기 때문에 자식 컴포넌트에서 React.memo를 사용해도 불필요한 렌더링이 발생한다는 문제점`이 있다.  
-리액트에서는 `이 문제를 해결하기 위해 useCallback 훅을 제공`한다.  
+리액트에서는 `이 문제를 해결하기 위해 useCallback 훅을 제공`한다.
 
 ```javascript
 import React, { useCallback, useState } from 'react';
@@ -78,7 +79,7 @@ export const TestUseCallback = () => {
   // 따라서 UserEdit 컴포넌트에서 React.memo 를 사용해도 onSave 속성값이 항상 변경되고 그 때문에 불필요한 렌더링이 발생한다.
   // useCallback Hook 을 사용하면 불필요한 렌더링을 막을 수 있다.
   const onSave = useCallback(() => fetchServer(name, age), [name, age]);
-  
+
   return (
     <div>
       <p>{`name is ${name}`}</p>
@@ -122,13 +123,11 @@ export const TestUseMemo = ({ value1, value2 }) => {
   각각의 값을 독립적으로 선언하게 되면 이에대한 상태변경여부를 파악할수 있어 상태가 최적화
 
 ```typescript
-const { gift, onlineProducts, loading } = useSelector(
-  ({ gift, dialog, loading }: RootState) => ({
-    gift,
-    onlineProducts: gift?.onlineProducts,
-    loading: loading[giftActionType.GET_ONLINE_PRODUCTS_REVIEW_TYPE],
-  }),
-);
+const { gift, onlineProducts, loading } = useSelector(({ gift, dialog, loading }: RootState) => ({
+  gift,
+  onlineProducts: gift?.onlineProducts,
+  loading: loading[giftActionType.GET_ONLINE_PRODUCTS_REVIEW_TYPE],
+}));
 ```
 
 ```typescript
@@ -177,14 +176,89 @@ const { count, prevCount } = useSelector(
 ```
 
 useSelector 의 두번째 파라미터는 equalityFn  
-shallowEqual은 react-redux에 내장되어있는 함수로서, 객체 안의 가장 겉에 있는 값들을 모두 비교  
+shallowEqual은 react-redux에 내장되어있는 함수로서, 객체 안의 가장 겉에 있는 값들을 모두 비교
 
 ---
-# React.lazy 및 Suspense를 사용한 코드 분할
 
+# React.lazy 및 서스펜스(Suspense) 를 사용한 코드 분할
+
+https://ko.reactjs.org/docs/code-splitting.html
 https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=lr
 
-# 라이브러리
+1. 코드 분할을 도입하는 가장 좋은 방법은 동적 import() 문법을 사용하는 방법
+
+```javascript
+import('./math').then(math => {
+  console.log(math.add(16, 26));
+});
+```
+
+Webpack이 이 구문을 만나게 되면 앱의 코드를 분할
+
+2. React.lazy 함수를 사용하면 동적 import를 사용해서 컴포넌트를 렌더링
+
+```javascript
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+```
+
+```javascript
+import React, { Suspense } from 'react';
+import Tabs from './Tabs';
+import Glimmer from './Glimmer';
+
+const Comments = React.lazy(() => import('./Comments'));
+const Photos = React.lazy(() => import('./Photos'));
+
+function MyComponent() {
+  const [tab, setTab] = React.useState('photos');
+
+  function handleTabSelect(tab) {
+    setTab(tab);
+  }
+
+  return (
+    <div>
+      <Tabs onTabSelect={handleTabSelect} />
+      <Suspense fallback={<Glimmer />}>{tab === 'photos' ? <Photos /> : <Comments />}</Suspense>
+    </div>
+  );
+}
+```
+
+React.lazy는 동적 import()를 호출하는 함수를 인자로 가집니다.
+
+lazy 컴포넌트는 Suspense 컴포넌트 하위에서 렌더링되어야 하며,  
+Suspense는 lazy 컴포넌트가 로드되길 기다리는 동안 로딩 화면과 같은 예비 컨텐츠를 보여줄 수 있게 해줍니다.
+
+3. Route-based code splitting
+
+React.lazy를 React Router 라이브러리를 사용해서 애플리케이션에 라우트 기반 코드 분할을 설정하는 예시입니다.
+
+```javascript
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
+
+const App = () => (
+  <Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+      </Routes>
+    </Suspense>
+  </Router>
+);
+```
+
+# Next.js 스트리밍 및 서스펜스
+
+https://beta.nextjs.org/docs/data-fetching/streaming-and-suspense
+https://beta.reactjs.org/apis/react/Suspense
+
+# loadable 라이브러리
 
 https://loadable-components.com/docs/getting-started/
 
