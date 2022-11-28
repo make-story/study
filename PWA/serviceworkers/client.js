@@ -6,8 +6,13 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
 const setRegister = () => {
     return new Promise((resolve, reject) => {
-        navigator?.serviceWorker?.register(`/serviceworker-workbox.js?time=${new Date().getTime()}`)
-        .then(resolve, reject);
+        try {
+            navigator?.serviceWorker?.register(`/serviceworker-workbox.js?time=${new Date().getTime()}`)
+            .then(resolve, reject);
+        } catch (error) {
+            console.log(error);
+            reject(error);
+        }
     });
 };
 
@@ -36,31 +41,35 @@ const setUnregisterAll = () => {
 // https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
 // https://developers.google.com/web/fundamentals/primers/service-workers/registration
 const load = async () => {
-    const registration = await navigator?.serviceWorker?.getRegistration();
-    if(registration) {
-        // 운영 캐시 갱신이 안되는 이슈가 있을 경우, setUnregisterAll 실행되도록 수정하여 배포!
-        /*setUnregisterAll()
-        .then(
-            (value) => console.log('서비스워커 전체해제 성공!', value), 
-            (error) => console.log('서비스워커 전체해제 실패!', error),
-        );*/
-        
-        // 서비스워커 업데이트된 버전이 있는지 서버를 확인
-        // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/update
-        registration?.update()
-        .then(
-            (registration) => console.log('서비스워커 업데이트 성공!', registration?.scope), 
-            (error) => console.log('서비스워커 업데이트 실패!', error),
-        );
-    }else {
-        setRegister()
-        .then(
-            registration => console.log('서비스워커 등록 성공!', registration),
-            error => console.log('서비스워커 등록 실패!', error),
-        );
+    try {
+        const registration = await navigator?.serviceWorker?.getRegistration();
+        if(registration) {
+            // 운영 캐시 갱신이 안되는 이슈가 있을 경우, setUnregisterAll 실행되도록 수정하여 배포!
+            /*setUnregisterAll()
+            .then(
+                (value) => console.log('서비스워커 전체해제 성공!', value), 
+                (error) => console.log('서비스워커 전체해제 실패!', error),
+            );*/
+            
+            // 서비스워커 업데이트된 버전이 있는지 서버를 확인
+            // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/update
+            registration?.update()
+            .then(
+                (registration) => console.log('서비스워커 업데이트 성공!', registration?.scope), 
+                (error) => console.log('서비스워커 업데이트 실패!', error),
+            );
+        }else {
+            setRegister()
+            .then(
+                registration => console.log('서비스워커 등록 성공!', registration),
+                error => console.log('서비스워커 등록 실패!', error),
+            );
+        }
+        navigator?.serviceWorker?.ready
+        .then((registration) => console.log('서비스워커 활성화(active) 되었음!', registration.active));
+    }catch(error) {
+        console.log(error);
     }
-    navigator.serviceWorker.ready
-	.then((registration) => console.log('서비스워커 활성화(active) 되었음!', registration.active));
 };
 
 if ('serviceWorker' in navigator) {
