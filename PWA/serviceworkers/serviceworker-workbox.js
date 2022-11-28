@@ -320,6 +320,7 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 			}
 			*/
 			const { event = {}, request = {}, sameOrigin = null, url = {} } = context;
+			// 콘솔로그 확인을 위한 테스트용
 			// https://developer.mozilla.org/en-US/docs/Web/API/Request
     		// https://developer.mozilla.org/en-US/docs/Web/API/URL
 			console.log('context', context);
@@ -374,12 +375,6 @@ const setWorkBoxRun = (workbox, datetime = '') => {
 	);
 
 	// 이미지 리소스
-	/*workbox.routing.registerRoute(
-		context => context.request.destination === 'image' && isPathname(context, 'defaultImages'),
-		new workbox.strategies.CacheFirst({
-		  cacheName: CACHE_NAME_IMAGE_DEFAULT,
-		}),
-	);*/
 	workbox.routing.registerRoute(
 		// https://bc.ad.daum.net 처럼 Accept 타입이 'image/webp,image/apng,image/*,*/*;q=0.8' 으로 request 되는 파일이 존재함 
 		//context => isAccept(isContext(context), 'image/'),
