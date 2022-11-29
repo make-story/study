@@ -21,21 +21,23 @@ UI 데이터가 변경되면 화면을 다시 그려야 한다.
 ---
 
 # 리액트 요소와 가상 돔
+
 리액트 요소(element)는 리액트가 UI를 표현하는 수단이다.  
 보통 우리는 JSX 문법을 사용하기 때문에 리액트 요소의 존재를 잘 모른다.  
 하지만 리액트 요소를 이해한다면 리액트가 내부적으로 어떻게 동작하는지 알 수 있다.  
-(JSX문법으로 작성된 코드는 리액트의 createElement 함수로 변경된다. 이름에서 알 수 있듯이 createElement 함수는 리액트 요소를 반환한다.)  
+(JSX문법으로 작성된 코드는 리액트의 createElement 함수로 변경된다. 이름에서 알 수 있듯이 createElement 함수는 리액트 요소를 반환한다.)
 
 리액트는 렌더링 성능을 위해 가상돔을 활용한다.  
 브라우저에서 돔을 변경하는 것은 비교적 오래 걸리는 작업이다.  
 따라서 빠른 렌더링을 위해서는 돔 변경을 최소화 해야 한다.  
 그래서 `리액트는 메모리에 가상 돔을 올려 놓고 이전과 이후의 가상 돔을 비교해서 변경된 부분만 실제 돔에 반영하는 전략을 채택`했다.
 
-# 리액트 요소가 돔 요소로 만들어지는 과정  
+# 리액트 요소가 돔 요소로 만들어지는 과정
+
 리액트에서 데이터 변경에 의한 화면 업데이트는 렌더 단계(render phase, reconciliation phase라고도 불린다)와  
 커밋 단계(commit phase)를 거친다.  
 `렌더는 실제 돔에 반영할 변경 사항을 파악하는 단계이고, 커밋은 파악된 변경 사항을 실제 돔에 반영하는 단계`이다.  
-`렌더 단계에서는 변경사항을 파악하기 위해 가상 돔을 이용`한다.  
+`렌더 단계에서는 변경사항을 파악하기 위해 가상 돔을 이용`한다.
 
 ---
 
@@ -65,19 +67,19 @@ useRef 를 사용
 - 클래스 인스턴스 값
 - 스크롤 위치 값
 
-## && 연산자 사용 시 주의할 점
+# && 연산자 사용 시 주의할 점
 
 <div>
 	{!!value && <p>출력</p>}
 </div>
 
-## DOM 앨리먼트 (HTML 기본 속성 -> 리액트 사용법)
+# DOM 앨리먼트 (HTML 기본 속성 -> 리액트 사용법)
 
 - https://ko.reactjs.org/docs/dom-elements.html
 
 ---
 
-## 클래스형 컴포넌트와 함수형 컴포넌트
+# 클래스형 컴포넌트와 함수형 컴포넌트
 
 리액트 16.8 이전 버전의 함수형 컴포넌트가 할 수 없는 일은 다음과 같다.
 
@@ -87,7 +89,7 @@ useRef 를 사용
 
 ---
 
-## 렌더 프롭(render props)
+# 렌더 프롭(render props)
 
 ```javascript
 /*
@@ -131,7 +133,7 @@ export default function App() {
 
 ---
 
-## Create React App (CRA)
+# Create React App (CRA)
 
 https://create-react-app.dev/
 
@@ -178,13 +180,7 @@ react-scripts/scripts/start.js
 
 ---
 
-## 합성 이벤트 (SyntheticEvent)
-
-https://ko.reactjs.org/docs/events.html
-
----
-
-## 관심사 분리를 위한 프레젠테이션(Presentational), 컨테이너(Container) 컴포넌트 구분하기
+# 관심사 분리를 위한 프레젠테이션(Presentational), 컨테이너(Container) 컴포넌트 구분하기
 
 댄 아브라모프(Dan Abramov)의 블로그 포스트로 잘 알려진 컴포넌트 구분법이 있다.  
 UI 처리, API 호출, DB 관리 등의 코드가 같은 곳에 있으면 복잡하기 때문에 이들은 서로 관심사가 다르다로 보고 분리해서 관리하는 게 좋다.
@@ -218,7 +214,7 @@ export default function ShopProducts() {
 
 ---
 
-## 코드 스플리팅
+# 코드 스플리팅
 
 - dynamic import  
   import 를 상단에서 하지 않고 `import() 함수 형태로 메서드 안에서 사용`하면, 파일을 따로 분리시켜 저장합니다.  
@@ -441,7 +437,7 @@ React.PureComponent는 성능을 최적화하는 데 활용됩니다.
 
 ---
 
-## React 서버 렌더링
+# React 서버 렌더링
 
 ```
 $ yran create react-app ssr-recipe
@@ -503,38 +499,3 @@ module.exports = {
 코드 스플리팅 시 발생하는 깜박임 현상(2019년 4월 기준)
 
 ---
-
-## 쓰로들링(throttle) / 디바운싱(Debouncing) / XHR호출 재시도(Retrying XHR calls)
-
-https://mskims.github.io/redux-saga-in-korean/recipes/
-
----
-
-## 리액트 훅스 컴포넌트에서 setInterval 사용 시의 문제점
-
-https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%9B%85%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%97%90%EC%84%9C-setInterval-%EC%82%AC%EC%9A%A9-%EC%8B%9C%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90
-
-```javascript
-const savedCallback = useRef<any>();
-function callback() {
-	setStateOffset(stateOffset + 1);
-}
-useEffect(() => {
-	savedCallback.current = callback;
-});
-useEffect(() => {
-	const id = setInterval(tick, 10000);
-	function tick() {
-		savedCallback.current();
-	}
-	return () => clearInterval(id);
-}, []);
-useEffect(() => {
-	console.log('stateOffset', stateOffset);
-	dispatch(
-		getOnlineProductsReviewType({
-			offset: stateOffset,
-		}),
-	);
-}, [offset]);
-```
