@@ -379,3 +379,14 @@ const staff = [
 	}
 	return a.years - b.years; // 오름차순
 });
+
+
+
+/**
+ * 특정 아이템 값 변경
+ */
+var item = { id: 1 };
+var items = [{id:2}, {id:2}, {id:2}];
+ 
+var foundIndex = items.findIndex(x => x.id == item.id);
+items[foundIndex] = item;
