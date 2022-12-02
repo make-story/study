@@ -5,6 +5,32 @@ https://jakearchibald.com/2016/caching-best-practices/
 HTTP 캐시 신뢰성
 https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/  
 
+
+- Cache-Control: public
+public은 모든 캐시 (브라우저, CDN 등)로 리소스를 캐시 할 수 있음을 의미
+
+- Cache-Control: private
+private은 리소스가 브라우저에 의해서만 캐시 될 수 있음을 의미 (특정 사용자, 프록시 서버 저장안함)
+
+- Cache-Control: no-store
+브라우저가 항상 서버에서 리소스를 요청하도록 지시 (캐시 사용안함)
+
+- Cache-Control: no-cache
+이것은 브라우저에게 파일을 캐시하도록 지시하지만 최신 버전이 있는지 서버와 확인하기 전에는 파일을 사용하지 않습니다. 이 유효성 검사는 ETag 헤더로 수행됩니다. (효율적인 방법)
+
+- Cache-Control: max-age=60
+리소스를 캐시해야하는 시간을 초 단위로 지정하므로 max-age = 60 은 1 분 동안 캐시해야 함을 의미
+RFC 2616의 최대 값은 1 년을 초과하지 않아야합니다 ( max-age = 31536000 ).
+
+- Cache-Control: s-max-age=60
+CDN과 같은 중간 캐시에서만 사용
+
+- Cache-Control: must-revalidate
+리소스의 상태를 확인하여 만료 된 리소스는 사용해서는 안된다는 것을 캐시에 알립니다.
+
+- HTTP 1.1 은 다양한 지시자를 ,(콤마) 기준으로 다양하게 설정할 수 있습니다.
+Cache-Control: private, max-age=0, no-cache
+
 ## 불변 콘텐츠 + 최대 수명
 1년 동안 캐시
 ```
