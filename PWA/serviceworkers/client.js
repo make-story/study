@@ -41,10 +41,12 @@ const setUnregisterAll = () => {
 // https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
 // https://developers.google.com/web/fundamentals/primers/service-workers/registration
 const load = async () => {
+    //const notSupported = ['mobile safari', 'safari', ''].includes(browserName?.toLowerCase()) || -1 < browserName?.toLowerCase().indexOf('safari'); // IOS 최신 사파리에서 BFCache 이슈발생
+
     try {
         const registration = await navigator?.serviceWorker?.getRegistration();
         if(registration) {
-            // 운영 캐시 갱신이 안되는 이슈가 있을 경우, setUnregisterAll 실행되도록 수정하여 배포!
+            // 운영 캐시 갱신이 안되는 이슈가 있을 경우, setUnregisterAll 모든 환경에서 무조건 실행되도록 수정하여 배포!
             /*setUnregisterAll()
             .then(
                 (value) => console.log('서비스워커 전체해제 성공!', value), 
