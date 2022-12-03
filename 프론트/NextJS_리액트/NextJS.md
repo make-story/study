@@ -105,7 +105,6 @@ module.exports = {
 
 위와 같이 설정할 경우, assetPrefix 설정 URL 하위로 /\_next/ 경로가 설정됨
 
-
 ## 웹팩 설정 변경하기
 
 넥스트에서는 정작 파일을 서비스하기 위해 프로젝트 루트의 static 폴더를 이용한다.
@@ -255,11 +254,11 @@ export default wrapper;
 
 ## Redux 전역 상태
 
-https://react-redux.js.org/using-react-redux/accessing-store#using-reactreduxcontext-directly  
+https://react-redux.js.org/using-react-redux/accessing-store#using-reactreduxcontext-directly
 
 ```javascript
 import React, { useContext } from 'react';
-import { ReactReduxContext } from 'react-redux'
+import { ReactReduxContext } from 'react-redux';
 
 // Somewhere inside of a <Provider>
 function MyConnectedComponent() {
@@ -278,7 +277,7 @@ function MyConnectedComponent() {
 }
 ```
 
------
+---
 
 ## Server Side Generation (Static Generation)
 
@@ -331,7 +330,7 @@ export async function getServerSideProps() {
 export default Page;
 ```
 
------
+---
 
 ## Script 로드 우선순위
 
@@ -375,6 +374,41 @@ export default function Home() {
         src='https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js'
         strategy='beforeInteractive'
       />
+    </>
+  );
+}
+```
+
+## Next.js script load
+
+https://nextjs.org/docs/basic-features/script
+
+### 단일 경로에서 타사 스크립트를 로드
+
+```javascript
+import Script from 'next/script';
+
+export default function Dashboard() {
+  return (
+    <>
+      <Script src='https://example.com/script.js' />
+    </>
+  );
+}
+```
+
+### 모든 경로에 대한 타사 스크립트를 로드
+
+pages/\_app.js
+
+```javascript
+import Script from 'next/script';
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Script src='https://example.com/script.js' />
+      <Component {...pageProps} />
     </>
   );
 }
