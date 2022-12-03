@@ -9,26 +9,29 @@ https://caniuse.com/#feat=serviceworkers
 https://developers.google.com/web/fundamentals/primers/service-workers/
 https://developer.mozilla.org/ko/docs/Web/Progressive_web_apps/Offline_Service_workers
 
-# 브라우저별 스토리지 최대 허용 용량  
+# 브라우저별 스토리지 최대 허용 용량
 
-https://stackoverflow.com/questions/35242869/what-is-the-storage-limit-for-a-service-worker  
+https://stackoverflow.com/questions/35242869/what-is-the-storage-limit-for-a-service-worker
 
 https://developer.mozilla.org/en-US/docs/Web/API/Storage_API  
-https://developer.chrome.com/blog/estimating-available-storage-space/  
+https://developer.chrome.com/blog/estimating-available-storage-space/
 
-https://jakearchibald.com/2014/offline-cookbook/#cache-persistence  
+https://jakearchibald.com/2014/offline-cookbook/#cache-persistence
 
 ```javascript
 if ('storage' in navigator && 'estimate' in navigator.storage) {
-  navigator.storage.estimate().then(({usage, quota}) => {
-    console.log(`Using ${usage} out of ${quota} bytes.`);
-  }).catch(error => {
-    console.error('Loading storage estimate failed:');
-    console.log(error.stack);
-  });
+  navigator.storage
+    .estimate()
+    .then(({ usage, quota }) => {
+      console.log(`Using ${usage} out of ${quota} bytes.`);
+    })
+    .catch(error => {
+      console.error('Loading storage estimate failed:');
+      console.log(error.stack);
+    });
 } else {
   console.error('navigator.storage.estimate API unavailable.');
-} 
+}
 ```
 
 # 서비스워커 라이프사이클
@@ -51,7 +54,6 @@ https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
 https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
 https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching
 
-
 # 서비스워커는 프로미스 기반 동작 event.waitUntil(promise)
 
 ## waitUntil()
@@ -67,8 +69,8 @@ https://www.w3.org/TR/service-workers/#service-worker-lifetime
 `install(설치) -> activate(활성화) 단계내에서 사용 시, 다음단계 실행을 promise 완료전까지 지연시킬 수 있음`
 
 https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API
-install 과 activate 이벤트 처리는 시간이 꽤 걸릴 수도 있기에, 서비스 워커 명세는 waitUntil() 메서드를 제공합니다.   
-install 이나 activate 에서 waitUntil() 을 호출하면서 매개변수로 프로미스를 제공하면, 성공적으로 이행하기 전까지는 기능 이벤트가 발생하지 않습니다.  
+install 과 activate 이벤트 처리는 시간이 꽤 걸릴 수도 있기에, 서비스 워커 명세는 waitUntil() 메서드를 제공합니다.  
+install 이나 activate 에서 waitUntil() 을 호출하면서 매개변수로 프로미스를 제공하면, 성공적으로 이행하기 전까지는 기능 이벤트가 발생하지 않습니다.
 
 ```javascript
 addEventListener('install', event => {
@@ -113,14 +115,17 @@ Cache then network 방식
 ## cacheFirst 전략 사용시 일부 리소스 의도와 다르게 저장안되는 현상
 
 응답 상태(Response-Type) 값이 opaque(불투명) 값인 경우  
-https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses    
-https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#cross-origin_network_access  
+https://stackoverflow.com/questions/39109789/what-limitations-apply-to-opaque-responses  
+https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#cross-origin_network_access
 
-Cache Storage API 는 기본적으로 2XX 범위에 없는 상태코드는 모두 거부 
-https://fetch.spec.whatwg.org/#ok-status    
-
+Cache Storage API 는 기본적으로 2XX 범위에 없는 상태코드는 모두 거부
+https://fetch.spec.whatwg.org/#ok-status
 
 # Chrome 75 Webview에서 서비스워커의 fetch request 가 실패하는 문제
 
 UA 에 android, wv 값이 있는 경우 서비스워커를 설치하지 않을 뿐 아니라 설치된 서비스워커를 제거해주는 로직 필요
-Chrome 75.0.3770.67 ~ 75.0.3770.101 버전의 모든 안드로이드 웹뷰에서 서비스워커 설치를 차단, 이미 설치가 되어있다면 삭제  
+Chrome 75.0.3770.67 ~ 75.0.3770.101 버전의 모든 안드로이드 웹뷰에서 서비스워커 설치를 차단, 이미 설치가 되어있다면 삭제
+
+# 사파리 (safari)
+
+https://webkit.org/blog/8090/workers-at-your-service/
