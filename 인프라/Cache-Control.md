@@ -113,6 +113,8 @@ self.addEventListener('install', event => {
 
 https://stackoverflow.com/questions/42466473/if-you-are-using-service-workers-do-you-still-need-cache-control-headers
 
+https://jakearchibald.com/2016/caching-best-practices/
+
 서비스 워커 내부에서도 fetch 존재
 (서비스 워커 fetch HTTP 요청이 발생하면, Cache-Control 설정에 따른 HTTP 캐시사용)
 즉, HTTP 캐시는 네트워크와 서비스 워커 사이에 존재함
