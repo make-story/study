@@ -9,31 +9,6 @@ https://caniuse.com/#feat=serviceworkers
 https://developers.google.com/web/fundamentals/primers/service-workers/
 https://developer.mozilla.org/ko/docs/Web/Progressive_web_apps/Offline_Service_workers
 
-# 브라우저별 스토리지 최대 허용 용량
-
-https://stackoverflow.com/questions/35242869/what-is-the-storage-limit-for-a-service-worker
-
-https://developer.mozilla.org/en-US/docs/Web/API/Storage_API  
-https://developer.chrome.com/blog/estimating-available-storage-space/
-
-https://jakearchibald.com/2014/offline-cookbook/#cache-persistence
-
-```javascript
-if ('storage' in navigator && 'estimate' in navigator.storage) {
-  navigator.storage
-    .estimate()
-    .then(({ usage, quota }) => {
-      console.log(`Using ${usage} out of ${quota} bytes.`);
-    })
-    .catch(error => {
-      console.error('Loading storage estimate failed:');
-      console.log(error.stack);
-    });
-} else {
-  console.error('navigator.storage.estimate API unavailable.');
-}
-```
-
 # 서비스워커 라이프사이클
 
 https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle

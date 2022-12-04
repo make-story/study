@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<!-- saved from url=(0084)https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/ -->
+<html lang="en-US"><script type="text/javascript" async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/analytics.js"></script><script src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/660742068067366" async=""></script><script src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/495601705602455" async=""></script><script src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/sdk.js" async="" crossorigin="anonymous"></script><script type="text/javascript" async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/js"></script><script async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/fbevents.js"></script><script type="text/javascript" async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/insight.min.js"></script><script type="text/javascript" async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/hotjar-2145971.js"></script><script id="facebook-jssdk" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/sdk(1).js"></script><script async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/uwt.js"></script><script async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/gtm.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-title" content="Engineering at Meta - Engineering at Meta Blog">
+	<meta property="fb:app_id" content="1425766027653270">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://engineering.fb.com/xmlrpc.php">
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+		<script async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/optimize.min.js"></script>
+	
+	<!-- This site is optimized with the Yoast SEO Premium plugin v19.3 (Yoast SEO v19.8) - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Web performance: Cache efficiency exercise - Engineering at Meta</title>
+	<link rel="canonical" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Web performance: Cache efficiency exercise">
+	<meta property="og:description" content="Speed is a consideration for any website, whether it&#39;s for the local barbershop or Wikipedia, with its huge repository of knowledge. It&#39;s a feature that shouldn&#39;t be ignored. This is why caching is important — a great way to make websites faster is to save parts of them so they don&#39;t have to be calculated [...]Read More...">
+	<meta property="og:url" content="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/">
+	<meta property="og:site_name" content="Engineering at Meta">
+	<meta property="article:published_time" content="2015-04-13T15:11:42+00:00">
+	<meta property="article:modified_time" content="2018-06-26T20:17:47+00:00">
+	<meta property="og:image" content="https://engineering.fb.com/wp-content/uploads/2015/04/gns3qackp0zbzoefadh03u8aaaaabj0jaaab.jpg">
+	<meta property="og:image:width" content="897">
+	<meta property="og:image:height" content="475">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta name="author" content="Import User">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:label1" content="Written by">
+	<meta name="twitter:data1" content="Ryan Albrecht">
+	<meta name="twitter:label2" content="Est. reading time">
+	<meta name="twitter:data2" content="8 minutes">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#article","isPartOf":{"@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/"},"author":{"@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#author","name":"Ryan Albrecht"},"headline":"Web performance: Cache efficiency exercise","datePublished":"2015-04-13T15:11:42+00:00","dateModified":"2018-06-26T20:17:47+00:00","mainEntityOfPage":{"@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/"},"wordCount":1514,"commentCount":0,"publisher":{"@id":"https://engineering.fb.com/#organization"},"image":{"@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#primaryimage"},"thumbnailUrl":"https://engineering.fb.com/wp-content/uploads/2015/04/gns3qackp0zbzoefadh03u8aaaaabj0jaaab.jpg","keywords":["Caching","Front End"],"articleSection":["Production Engineering","Web"],"inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#respond"]}]},{"@type":"WebPage","@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/","url":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/","name":"Web performance: Cache efficiency exercise - Engineering at Meta","isPartOf":{"@id":"https://engineering.fb.com/#website"},"primaryImageOfPage":{"@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#primaryimage"},"image":{"@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#primaryimage"},"thumbnailUrl":"https://engineering.fb.com/wp-content/uploads/2015/04/gns3qackp0zbzoefadh03u8aaaaabj0jaaab.jpg","datePublished":"2015-04-13T15:11:42+00:00","dateModified":"2018-06-26T20:17:47+00:00","breadcrumb":{"@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#primaryimage","url":"https://engineering.fb.com/wp-content/uploads/2015/04/gns3qackp0zbzoefadh03u8aaaaabj0jaaab.jpg","contentUrl":"https://engineering.fb.com/wp-content/uploads/2015/04/gns3qackp0zbzoefadh03u8aaaaabj0jaaab.jpg","width":897,"height":475},{"@type":"BreadcrumbList","@id":"https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://engineering.fb.com/"},{"@type":"ListItem","position":2,"name":"Web performance: Cache efficiency exercise"}]},{"@type":"WebSite","@id":"https://engineering.fb.com/#website","url":"https://engineering.fb.com/","name":"Engineering at Meta","description":"Engineering at Meta Blog","publisher":{"@id":"https://engineering.fb.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://engineering.fb.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://engineering.fb.com/#organization","name":"Meta","url":"https://engineering.fb.com/","sameAs":[],"logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://engineering.fb.com/#/schema/logo/image/","url":"https://engineering.fb.com/wp-content/uploads/2021/11/Engineering_at_Meta.jpg","contentUrl":"https://engineering.fb.com/wp-content/uploads/2021/11/Engineering_at_Meta.jpg","width":1200,"height":630,"caption":"Meta"},"image":{"@id":"https://engineering.fb.com/#/schema/logo/image/"}},[]]}</script>
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel="dns-prefetch" href="https://secure.gravatar.com/">
+<link rel="dns-prefetch" href="https://v0.wordpress.com/">
+<link rel="alternate" type="application/rss+xml" title="Engineering at Meta » Feed" href="https://engineering.fb.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Engineering at Meta » Comments Feed" href="https://engineering.fb.com/comments/feed/">
+	<script async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/optimize.js" onerror="dataLayer.hide.end &amp;&amp; dataLayer.hide.end()"></script>
+	<link rel="alternate" type="application/rss+xml" title="Engineering at Meta » Web performance: Cache efficiency exercise Comments Feed" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/feed/">
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/engineering.fb.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.1.1"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(p&&p.fillText)switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script><script src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="all-css-0" href="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/saved_resource" type="text/css" media="all">
+<style id="wp-block-library-inline-css">
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id="global-styles-inline-css">
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="all-css-2" href="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/saved_resource(1)" type="text/css" media="all">
+<script type="text/javascript" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/saved_resource(2)"></script><link rel="https://api.w.org/" href="https://engineering.fb.com/wp-json/"><link rel="alternate" type="application/json" href="https://engineering.fb.com/wp-json/wp/v2/posts/342"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://engineering.fb.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://engineering.fb.com/wp-includes/wlwmanifest.xml">
+<meta name="generator" content="WordPress 6.1.1">
+<link rel="shortlink" href="https://wp.me/pa0Lhq-5w">
+<link rel="alternate" type="application/json+oembed" href="https://engineering.fb.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fengineering.fb.com%2F2015%2F04%2F13%2Fweb%2Fweb-performance-cache-efficiency-exercise%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://engineering.fb.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fengineering.fb.com%2F2015%2F04%2F13%2Fweb%2Fweb-performance-cache-efficiency-exercise%2F&amp;format=xml">
+	<style>img#wpstats{display:none}</style>
+		<link rel="preload" href="https://engineering.fb.com/wp-content/themes/code-fb-com/fonts/FacebookReader-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="https://engineering.fb.com/wp-content/themes/code-fb-com/fonts/FacebookReader-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preload" href="https://engineering.fb.com/wp-content/themes/code-fb-com/fonts/Optimistic_Display_W_Md.woff2" as="font" type="font/woff2" crossorigin="anonymous">	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KZRLGZ8');</script>
+	<!-- End Google Tag Manager -->
+		<!-- Facebook Pixel Code -->
+	<script type="text/javascript">
+	if (window.gdprSafeTrack) {
+			window.gdprSafeTrack(function() {
+				!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+				n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+				n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+				t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+				document,'script','https://connect.facebook.net/en_US/fbevents.js');
+			});
+			window.gdprSafeTrack(function() {
+				fbq('init', '660742068067366', [], {
+					"agent": "wordpress-5.5-1.8.0"
+				});
+				fbq('track', 'PageView', []);
+			})
+		}
+	</script>
+	<!-- End Facebook Pixel Code -->
+	
+	<link rel="shortcut icon" href="https://engineering.fb.com/wp-content/themes/code-fb-com/favicon.ico">
+<script async="" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/modules.90de377b639fd5b933d2.js" charset="utf-8"></script><style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style><style type="text/css" data-fbcssmodules="css:fb.css.base css:fb.css.dialog css:fb.css.iframewidget css:fb.css.customer_chat_plugin_iframe">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:'lucida grande', tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:'lucida grande', tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://connect.facebook.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://connect.facebook.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://connect.facebook.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://connect.facebook.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://connect.facebook.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://connect.facebook.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://connect.facebook.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+.fb_mpn_mobile_landing_page_slide_out{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_out_from_left{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out_from_left;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_up{animation-duration:500ms;animation-name:fb_mpn_landing_page_slide_up;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_in{animation-duration:300ms;animation-name:fb_mpn_bounce_in;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out{animation-duration:300ms;animation-name:fb_mpn_bounce_out;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out_v2{animation-duration:300ms;animation-name:fb_mpn_fade_out;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_from_left{animation-duration:300ms;animation-name:fb_bounce_in_from_left;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_from_left{animation-duration:300ms;animation-name:fb_bounce_out_from_left;transition-timing-function:ease-in}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}@keyframes fb_mpn_landing_page_slide_out{0%{margin:0 12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;margin:0 24px;width:60px}}@keyframes fb_mpn_landing_page_slide_out_from_left{0%{left:12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;left:12px;width:60px}}@keyframes fb_mpn_landing_page_slide_up{0%{bottom:0;opacity:0}100%{bottom:24px;opacity:1}}@keyframes fb_mpn_bounce_in{0%{opacity:.5;top:100%}100%{opacity:1;top:0}}@keyframes fb_mpn_fade_out{0%{bottom:30px;opacity:1}100%{bottom:0;opacity:0}}@keyframes fb_mpn_bounce_out{0%{opacity:1;top:0}100%{opacity:.5;top:100%}}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_from_left{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}50%{transform:scale(1.03, 1.03);transform-origin:bottom left}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_from_left{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}}@keyframes slideInFromBottom{0%{opacity:.1;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}@keyframes slideInFromBottomDelay{0%{opacity:0;transform:translateY(100%)}97%{opacity:0;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}</style></head>
+
+<body class="post-template-default single single-post postid-342 single-format-standard group-blog">
+	<!-- Facebook Pixel Code -->
+	<noscript>
+	<img height="1" width="1" style="display:none" alt="fbpx"
+	src="https://www.facebook.com/tr?id=660742068067366&ev=PageView&noscript=1" />
+	</noscript>
+	<!-- End Facebook Pixel Code -->
+	
+<div class="hfeed site" id="page">
+
+<!-- ******************* The Navbar Area ******************* -->
+<div class="wrapper-fluid wrapper-navbar" id="wrapper-navbar">
+	<a class="skip-link screen-reader-text sr-only" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#content">
+	Skip to content	</a>
+
+	<nav class="navbar navbar-expand-std">
+
+			<div class="nav-container">
+	
+
+				<!-- Your site title as branding in the menu -->
+
+	<div class="nav-top-row">
+	
+		<h1 class="navbar-brand mb-0">
+			<a rel="home" href="https://engineering.fb.com/" title="Engineering at Meta">
+				<img class="navbar-brand-logo" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/logo-meta.svg" alt="Engineering at Meta" width="215" height="40" loading="lazy">
+			</a>
+		</h1>
+
+	<!-- end custom logo -->
+				<label for="search" class="screen-reader-text">Search this site</label>
+				<input type="text" id="search" name="search" class="form-control-lg navbar-search" autocomplete="off">
+
+				<button class="navbar-toggler navbar-searchbar-toggler" type="button" data-toggle="collapse" data-target="#searchbarDropdown" aria-controls="searchbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/icon-search.svg" class="navbar-mobile-search-icon" loading="lazy" width="24" height="25">
+				</button>
+
+				<!-- desktop language menu (mobile language menu is implemented via jQuery)-->
+				<div class="notranslate nice-select navbar-language form-control">
+				</div>
+
+				<button class="navbar-toggler collapsed navbar-menu-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+			</div>
+
+			<div class="navbar-border"></div>
+
+			<!-- The WordPress Menu goes here -->
+	<div id="navbarNavDropdown" class="collapse navbar-collapse"><ul id="main-menu" class="navbar-nav"><li id="menu-item-60" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nav-item menu-item-60 dropdown"><a title="Open Source" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#" data-toggle="dropdown" class="nav-link dropdown-toggle">Open Source <span class="caret"></span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="12px" height="15px">
+							<polyline points="40 50 80 90 120 50" stroke="#adb1b8" stroke-width="10" stroke-linecap="butt" fill="none" stroke-linejoin="miter"></polyline>
+						  </svg></a>
+<ul class=" dropdown-menu" role="menu">
+	<li id="menu-item-12330" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-12330"><a title="Open Source" href="https://engineering.fb.com/category/open-source/" class="nav-link">Open Source</a></li>
+	<li id="menu-item-12331" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-12331"><a title="Meta Open Source" href="https://opensource.fb.com/" class="nav-link" target="_blank" rel="noopener">Meta Open Source</a></li>
+</ul>
+</li>
+<li id="menu-item-2686" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nav-item menu-item-2686 dropdown"><a title="Platforms" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#" data-toggle="dropdown" class="nav-link dropdown-toggle">Platforms <span class="caret"></span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="12px" height="15px">
+							<polyline points="40 50 80 90 120 50" stroke="#adb1b8" stroke-width="10" stroke-linecap="butt" fill="none" stroke-linejoin="miter"></polyline>
+						  </svg></a>
+<ul class=" dropdown-menu" role="menu">
+	<li id="menu-item-65" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-65"><a title="Android" href="https://engineering.fb.com/category/android/" class="nav-link">Android</a></li>
+	<li id="menu-item-66" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-66"><a title="iOS" href="https://engineering.fb.com/category/ios/" class="nav-link">iOS</a></li>
+	<li id="menu-item-67" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent nav-item menu-item-67"><a title="Web" href="https://engineering.fb.com/category/web/" class="nav-link">Web</a></li>
+</ul>
+</li>
+<li id="menu-item-2682" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nav-item menu-item-2682 dropdown"><a title="Infrastructure Systems" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#" data-toggle="dropdown" class="nav-link dropdown-toggle">Infrastructure Systems <span class="caret"></span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="12px" height="15px">
+							<polyline points="40 50 80 90 120 50" stroke="#adb1b8" stroke-width="10" stroke-linecap="butt" fill="none" stroke-linejoin="miter"></polyline>
+						  </svg></a>
+<ul class=" dropdown-menu" role="menu">
+	<li id="menu-item-218" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-218"><a title="Core Data" href="https://engineering.fb.com/category/core-data/" class="nav-link">Core Data</a></li>
+	<li id="menu-item-219" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-219"><a title="Data Infrastructure" href="https://engineering.fb.com/category/data-infrastructure/" class="nav-link">Data Infrastructure</a></li>
+	<li id="menu-item-220" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-220"><a title="DevInfra" href="https://engineering.fb.com/category/developer-tools/" class="nav-link">DevInfra</a></li>
+	<li id="menu-item-226" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent nav-item menu-item-226"><a title="Production Engineering" href="https://engineering.fb.com/category/production-engineering/" class="nav-link">Production Engineering</a></li>
+	<li id="menu-item-227" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-227"><a title="Security" href="https://engineering.fb.com/category/security/" class="nav-link">Security</a></li>
+	<li id="menu-item-18607" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-18607"><a title="Research Publications" href="https://research.facebook.com/publications/research-areas/systems-infrastructure/" class="nav-link" target="_blank" rel="noopener">Research Publications</a></li>
+</ul>
+</li>
+<li id="menu-item-2683" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nav-item menu-item-2683 dropdown"><a title="Physical Infrastructure" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#" data-toggle="dropdown" class="nav-link dropdown-toggle">Physical Infrastructure <span class="caret"></span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="12px" height="15px">
+							<polyline points="40 50 80 90 120 50" stroke="#adb1b8" stroke-width="10" stroke-linecap="butt" fill="none" stroke-linejoin="miter"></polyline>
+						  </svg></a>
+<ul class=" dropdown-menu" role="menu">
+	<li id="menu-item-215" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-215"><a title="Connectivity" href="https://engineering.fb.com/category/connectivity/" class="nav-link">Connectivity</a></li>
+	<li id="menu-item-216" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-216"><a title="Data Center Engineering" href="https://engineering.fb.com/category/data-center-engineering/" class="nav-link">Data Center Engineering</a></li>
+	<li id="menu-item-217" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-217"><a title="Networking &amp; Traffic" href="https://engineering.fb.com/category/networking-traffic/" class="nav-link">Networking &amp; Traffic</a></li>
+	<li id="menu-item-18608" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-18608"><a title="Research Publications" href="https://research.facebook.com/publications/research-areas/networking-connectivity/" class="nav-link" target="_blank" rel="noopener">Research Publications</a></li>
+</ul>
+</li>
+<li id="menu-item-2684" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nav-item menu-item-2684 dropdown"><a title="Video Engineering &amp; AR/VR" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#" data-toggle="dropdown" class="nav-link dropdown-toggle">Video Engineering &amp; AR/VR <span class="caret"></span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="12px" height="15px">
+							<polyline points="40 50 80 90 120 50" stroke="#adb1b8" stroke-width="10" stroke-linecap="butt" fill="none" stroke-linejoin="miter"></polyline>
+						  </svg></a>
+<ul class=" dropdown-menu" role="menu">
+	<li id="menu-item-225" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-225"><a title="Video Engineering" href="https://engineering.fb.com/category/video-engineering/" class="nav-link">Video Engineering</a></li>
+	<li id="menu-item-223" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-223"><a title="Virtual Reality" href="https://engineering.fb.com/category/virtual-reality/" class="nav-link">Virtual Reality</a></li>
+	<li id="menu-item-13388" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-13388"><a title="Research Publications" href="https://research.facebook.com/publications/research-areas/augmented-reality-virtual-reality/" class="nav-link" target="_blank" rel="noopener">Research Publications</a></li>
+</ul>
+</li>
+<li id="menu-item-2685" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nav-item menu-item-2685 dropdown"><a title="Artificial Intelligence" href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/#" data-toggle="dropdown" class="nav-link dropdown-toggle">Artificial Intelligence <span class="caret"></span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="12px" height="15px">
+							<polyline points="40 50 80 90 120 50" stroke="#adb1b8" stroke-width="10" stroke-linecap="butt" fill="none" stroke-linejoin="miter"></polyline>
+						  </svg></a>
+<ul class=" dropdown-menu" role="menu">
+	<li id="menu-item-222" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-222"><a title="ML Applications" href="https://engineering.fb.com/category/ml-applications/" class="nav-link">ML Applications</a></li>
+	<li id="menu-item-221" class="menu-item menu-item-type-taxonomy menu-item-object-category nav-item menu-item-221"><a title="AI Research" href="https://engineering.fb.com/category/ai-research/" class="nav-link">AI Research</a></li>
+	<li id="menu-item-13387" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-13387"><a title="Research Publications" href="https://ai.facebook.com/results/?content_types%5B0%5D=publication" class="nav-link" target="_blank" rel="noopener">Research Publications</a></li>
+</ul>
+</li>
+<li id="menu-item-228" class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-228"><a title="Watch Videos" href="https://engineering.fb.com/videos" class="nav-link">Watch Videos</a></li>
+</ul></div>		</div><!-- .container -->
+	
+		<div class="search-container collapse" id="searchbarDropdown">
+			<div class="searchbar-search">
+				<div class="searchbar-container">
+
+					<div class="navbar-mobile-search-margin"></div>
+					<input type="text" name="search" placeholder="Search" class="form-control-lg navbar-mobile-search" autofocus="" autocomplete="off">
+					<button class="searchbar-clear">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</nav><!-- .site-navigation -->
+
+</div><!-- .wrapper-navbar end -->
+
+<div class="wrapper" id="single-wrapper">
+
+	<div class="single-container row" id="content" tabindex="-1">
+
+		<!-- Do the left sidebar check. -->
+		
+
+
+<div class="content-area col-lg-8_75" id="primary">
+		<main class="site-main" id="main">
+
+			
+				
+<article class="post-342 post type-post status-publish format-standard has-post-thumbnail hentry category-production-engineering category-web tag-caching tag-frontend" id="post-342">
+
+	<header class="entry-header">
+		<div class="entry-meta">
+			POSTED ON <span class="posted-on entry-date"><time class="published updated" datetime="2015-04-13">APRIL 13, 2015</time></span> TO <span class="cat-links"><a href="https://engineering.fb.com/category/production-engineering/" rel="category tag">Production Engineering</a>, <a href="https://engineering.fb.com/category/web/" rel="category tag">Web</a></span>
+			<h1 class="entry-title"><div>Web performance: Cache efficiency exercise</div></h1>		</div><!-- .entry-meta -->
+
+	</header><!-- .entry-header -->
+
+			<figure id="post-feat-image-container">
+				<img width="897" height="475" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/gns3qackp0zbzoefadh03u8aaaaabj0jaaab.jpg" class="wp-post-image" alt="" loading="lazy" title="GNS3qACkP0ZBzoEFADH03U8AAAAAbj0JAAAB">						</figure>
+		
+	<div class="entry-authors-social">
+					<div class="entry-authors">
+				By <a href="https://engineering.fb.com/author/ryan-albrecht/" title="Posts by Ryan Albrecht" class="author url fn" rel="author">Ryan Albrecht</a>			</div>
+				<div class="entry-social">
+			<div class="entry-facebook">
+				<button onclick="return fbShare()" aria-label="Share this post on Facebook">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+				</button>
+			</div>
+			<div class="entry-twitter">
+				<button onclick="return twitterSharePopup(&#39;https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/&#39;)" aria-label="Share this post on Twitter">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
+				</button>
+			</div>
+			<div class="entry-hacker-news">
+				<button onclick="return shareHackerNews(&#39;https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/&#39;)" aria-label="Share this post on Hacker News">
+					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M13.693 14.659L21.507 0h-3.29l-4.612 9.165c-.47.94-.901 1.841-1.293 2.703l-1.234-2.703L6.525 0H3l7.726 14.482V24h2.967v-9.341z" fill-rule="nonzero"></path></svg>
+				</button>
+			</div>
+		</div>
+	</div>
+
+			<div class="entry-paragraph">
+									</div>
+	
+	<div class="entry-content">
+
+		
+<p>Speed is a consideration for any website, whether it's for the local barbershop or Wikipedia, with its huge repository of knowledge. It's a feature that shouldn't be ignored. This is why caching is important — a great way to make websites faster is to save parts of them so they don't have to be calculated or downloaded again on the next visit. </p>
+<p>My team was recently having a discussion about the parts of facebook.com that are currently uncached, and the question came up: What is the efficiency of the cache since, at Facebook, we release new code twice a day? Are we releasing new code too often to benefit from having resources in the browser cache? In searching for an answer, we found a study on <a href="http://yuiblog.com/blog/2007/01/04/performance-research-part-2/" target="_blank" rel="noopener">Yahoo's Performance Research blog </a> that looked at the impact of the browser cache on webpage performance.</p>
+<p>We were surprised and saddened to see the results: 20% of all page views were coming in with an empty cache. But then again, this study was done more than eight years ago. That was before browsers could show traffic in things like the network waterfall screengrab you see at the top of this post. We're talking just a few months after IE7 and jQuery were first released. Let that sink in for a minute. jQuery 1.0 — yeah, the old-old-old days. With a grain of salt in hand, we decided to run our own numbers and see if things have gotten better since that study was published. </p>
+<h2>Re-creating the study</h2>
+<p> In the original study, Yahoo created a new image that was served with a special set of headers. These headers tell the browser that when that same image is requested a second time, instead of doing a normal request do a conditional GET request if the image has changed. This type of GET request passes the Last-Modified header back to the server, and if it hasn't been too long since the image has been modified, the reply can be 304 Not Modified instead of 200 Success. Yahoo then looked at its server logs to do the analysis. </p>
+<p> Similar to that, we created a PHP endpoint that could both deliver the image and also log requests to a database.The image was sent with HTTP headers to control the browser cache and any intermediate proxy caches, and we logged all the headers that were sent as part of the request. The headers we sent in our response were: </p>
+<p></p><pre>Cache-Control: no-cache, private, max-age=0
+ETag: abcde
+Expires: Thu, 15 Apr 2014 20:00:00 GMT
+Pragma: private
+Last-Modified: $now // RFC1123 format</pre>
+<p></p>
+<p>But for IE7 and IE8, we tweaked two headers to get around some known bugs and instead sent:</p>
+<p></p><pre>Cache-Control: private, max-age=0
+Pragma: no-cache</pre>
+<p></p>
+<p>When the browser makes the request for an image, one of two things will be sent along with it to our server:</p>
+<ol>
+<li>No extra headers, because the browser hasn't seen the image before. We reply with a <code>Status: 200 Success</code> and send the <a href="http://probablyprogramming.com/2009/03/15/the-tiniest-gif-ever" target="_blank" rel="noopener">image data</a> so the browser has something to cache. The <code>Last-Modified</code> date and <code>ETag</code> values are saved by the browser for next time.</li>
+<li>One or both of the <code>if-none-match</code> or <code>if-modified-since</code> headers, which indicate that the browser has seen the image before. We respond with a <code>Status: 304 Not Modified</code> and no image data. We also set the <code>Last-Modified</code> header in the response to be <code>$header['if-modified-since']</code> instead of <code>$now</code> so the browser gets the same response each time. </li>
+</ol>
+<p>The final decision in the setup was where and when to make the image request. We decided to include an <code>img</code> tag next to the Facebook search bar, which is rendered every time Facebook reloads. During a full-page reload, resources are unloaded from memory, and the browser, depending on the cache headers, will re-request CSS, JavaScript, and our image. So it's the best place to measure if the cache is working or not.</p>
+<p> After we had the endpoint ready to log requests and the <code>img</code> tag ready to make those requests, we were ready to start..</p>
+<h2>Study Results </h2>
+<p>After a few weeks of collecting data and letting caches fill up, we looked back over the past seven days' worth of data. The initial results were surprising to us: 25.5% of all logged requests were missing the cache. We split the data by interface, desktop and mobile, and still saw the same breakdown: 24.8% of desktop requests and 26.9% of mobile were missing the cached image. Not what we expected, so we dug in more.</p>
+<p> Splitting the desktop numbers by browser made the story much clearer. </p>
+<p><img decoding="async" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/GNK3qABnG67oaesCAApsugQAAAAAbj0JAAAD.png" class="aligncenter size-full" width="1140" height="600" style="margin-bottom: 1rem;"></p>
+<p>Above we can see the hit rate for desktop browsers over the course of a week. People using Chrome and Opera appeared to be benefiting from their browser cache. You may notice that Firefox is absent from the chart, though, and with good reason. Firefox v31 and earlier have an 80% cache hit rate with our method, but the hit rates for v32 and later dropped significantly. The <a href="https://www.mozilla.org/en-US/firefox/32.0/releasenotes/" target="_blank" rel="noopener">release notes for v32</a> explain there's a new cache backend, which <a href="http://www.janbambas.cz/new-firefox-http-cache-enabled/" target="_blank" rel="noopener">remembers and reuses recent response headers</a>. If they're reusing responses, then our endpoint won't receive requests and we can't log anything. This would skew our results and make Firefox look like it performs much worse than it actually does. People are still getting local cache hits; we just don't get the information. To account for this, we removed Firefox from our calculations.</p>
+<p> Let's take a look at the mobile story.</p>
+<p><img decoding="async" loading="lazy" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/GMG3qAAVeiyd2jcDAPMgxBcAAAAAbj0JAAAD.png" class="aligncenter size-full" width="1145" height="600" style="margin-bottom: 1rem;"></p>
+<p>There are a few bands up at the 68% and 84% range for cache hits, right in line with what we saw before. There's much more variability in the mobile landscape, though — many different <a href="https://engineering.fb.com/posts/307478339448736/year-class-a-classification-system-for-android/">year class </a> devices are hitting the mobile site, and each has a range of possible browser versions. These numbers are a touch lower but otherwise line up with what we saw for desktop. </p>
+<p>We can also look at what percentage of users are getting an empty cache. </p>
+<p><img decoding="async" loading="lazy" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/GEkrrgDTLWIDUYcCANt2BlsAAAAAbj0JAAAD.png" class="aligncenter size-full" width="2113" height="1485" style="margin-bottom: 1rem;"></p>
+<p> On average, 44.6% of users are getting an empty cache. That's right about where Yahoo was in 2007 with its per-user hit rates. </p>
+<h2>Taking it further</h2>
+<p>We're not done yet though. At Facebook, we like to move fast and have twice-daily releases to ship all the great new features that are being developed every day. This led us to ask the question: How long do browser caches stay populated? We can answer that by looking at the <code>if-modified-since</code> request header and subtracting the current time from it. This will give us the length of time that this person's cache has been primed and serving hits. </p>
+<p> So we dived back into the data. Still looking across the last week of data, we generated a histogram to illustrate the distribution of cache duration values across desktop requests that hit the cache (requests that returned a 304). In other words, how long has it been since that user got the image for the first time?</p>
+<p><img decoding="async" loading="lazy" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/GHK3qAAdJQScSaYBAIRa5XIAAAAAbj0JAAAD.png" class="aligncenter size-full" width="932" height="594" style="margin-bottom: 1rem;"></p>
+<p>The <em>duration</em> axis across the bottom is measured in hours, and the vertical <em>p50</em>, <em>mean</em>, and <em>p75</em> lines indicate how old the cache was for a given percentage of requests. For example, the <em>p50</em> shows us that 50% of these requests arrived with a cache that was set at most 47 hours ago. Similarly the <em>p75</em> tells us that 25% of requests have a cache that's at least 260 hours old. Running the same analysis on mobile hits shows there is a 50% chance that a request will have a cache that is at most 12 hours old. </p>
+<h2> Practical applications</h2>
+<p>Overall our cache hit rate looks like it has improved since 2007. If we ignore Firefox v32 and newer (where we cannot log some cache hits), then the cache hit rate goes to 84.1%, up from about 80% in 2007. On the other hand, caches don't stay populated for very long. Based on our study, there is a 42% chance that any request will have a cache that is, at most, 47 hours old on the desktop. This is a new dimension, and it might have more impact for some sites than others. </p>
+<p>It's easy to understand why caches don't last long in general. Look at how Internet delivery and <a href="http://www.webperformancetoday.com/2013/06/05/web-page-growth-2010-2013/" target="_blank" rel="noopener"> webpage </a><a href="http://www.websiteoptimization.com/speed/tweak/average-web-page/" target="_blank" rel="noopener">size</a> have changed between 2007 and today. In 2007, we had 2.5Mbps cable modems (at home), and the Yahoo homepage weighed in at 168.1KB. Today, I get 8Mbps downstream via LTE on my cellphone, and the Yahoo homepage is 768KB. The average webpage is over 1MB today, creating more pressure on our browsers to perform better. </p>
+<p>Thus utilizing the browser cache continues to be important and has the potential to give us more impact than it did eight years ago. The best practices tell us to use external styles and scripts, include Cache-Control and ETag headers, compress data on the wire, use URLs to expire cached resources, and separate frequently updated resources from long-lived ones. All of these techniques work together on any website, not just one at Facebook scale. We were worried that our release process might be negatively impacting our cache performance, but it turns out to be not the case. In fact, we are using this data to focus on doing a better job of utilizing the cache for everyone visiting <a href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/www.facebook.com">www.facebook.com</a>. Happy cache-hacking. </p>
+<h2>Further Reading: </h2>
+<ul>
+<li><a href="http://www.stevesouders.com/blog/2012/03/22/cache-them-if-you-can" target="_blank" rel="noopener">Steve Sounders' YUI study follow-up</a></li>
+<li><a href="http://techcrunch.com/2012/08/03/facebook-doubles-release-speed-will-roll-new-code-twice-a-day" target="_blank" rel="noopener"> Facebook code push schedule</a></li>
+<li><a href="https://plus.google.com/+WilliamChanPanda/posts/XRekvZgdnBb" target="_blank" rel="noopener"> Chromium cache metrics</a></li>
+<li><a href="http://blogs.msdn.com/b/ie/archive/2011/03/17/internet-explorer-9-network-performance-improvements.aspx" target="_blank" rel="noopener"> IE9 Cache Enhancements </a></li>
+</ul><p></p>
+
+		
+	</div><!-- .entry-content -->
+
+
+</article><!-- #post-## -->
+
+<footer class="entry-footer">
+
+	<div>TAGS: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://engineering.fb.com/tag/caching/" rel="tag">Caching</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://engineering.fb.com/tag/frontend/" rel="tag">Front End</a></div>
+</footer><!-- .entry-footer -->
+
+<div class="fb-like fb_iframe_widget" data-href="https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=904&amp;href=https%3A%2F%2Fengineering.fb.com%2F2015%2F04%2F13%2Fweb%2Fweb-performance-cache-efficiency-exercise%2F&amp;layout=standard&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;size=small&amp;width="><span style="vertical-align: bottom; width: 450px; height: 28px;"><iframe name="f19bd75135d467c" width="1000px" height="1000px" data-testid="fb:like Facebook Social Plugin" title="fb:like Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/like.html" style="border: none; visibility: visible; width: 450px; height: 28px;" class=""></iframe></span></div>
+
+
+<div class="more-articles"><a class="prev" aria-label="View the previous article: Updating Our Open Source Patent Grant" href="https://engineering.fb.com/2015/04/10/open-source/updating-our-open-source-patent-grant/"><div class="prev__thumb-wrapper"><img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/gbm4qaa-ikovzo4eajw6qseaaaaabj0jaaad.png" width="580" height="315" alt="Updating Our Open Source Patent Grant" class="prev__thumb"></div><div class="prev__details"><span class="prev__details__btn">Prev</span><br><span class="prev__details__title">Updating Our Open Source Patent Grant</span></div></a><a class="next" aria-label="View the next article: HHVM adoption news" href="https://engineering.fb.com/2015/04/17/data-center-engineering/hhvm-adoption-news/"><div class="next__thumb-wrapper"><img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/gdc4qadq4bhr6eicaks-a0gaaaaabj0jaaad.png" width="580" height="326" alt="HHVM adoption news" class="next__thumb"></div><div class="next__details"><span class="next__details__btn">Next</span><br><span class="next__details__title">HHVM adoption news</span></div></a></div><div class="related-articles">
+	<div class="related-articles__header">
+		<h3 class="related-articles__header__headline">Read More in Production Engineering</h3>
+		<a aria-label="View all articles in this Production Engineering" class="related-articles__header__link" href="https://engineering.fb.com/category/production-engineering/">
+			View All		</a>
+	</div>
+
+	<div class="article-grids related-articles__grid">
+		<div class="row">
+							<div class="article-grid col-12 col-md-4">
+					
+<article class="post post-342 type-post status-publish format-standard has-post-thumbnail hentry category-production-engineering category-web tag-caching tag-frontend" id="post-19680">
+	<img width="580" height="326" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/Precision-Time-Protocol-Hero.jpg" class="attachment-thumbnail size-thumbnail" alt="PTP" loading="lazy" title="Precision Time Protocol Hero">
+<header class="entry-header">
+		<div class="entry-header__top">
+			<span class="posted-on">
+				<time class="entry-date published" datetime="2022-11-21T06:00:26-08:00">
+					NOV 21, 2022				</time>
+			</span>
+		</div>
+
+		<div class="entry-title">
+			<div>
+				<a href="https://engineering.fb.com/2022/11/21/production-engineering/future-computing-ptp/" rel="bookmark" aria-label="Read More about PTP: Timing accuracy and precision for the future of computing">
+					PTP: Timing accuracy and precision for the future of computing				</a>
+			</div>
+		</div>
+
+	</header><!-- .entry-header -->
+
+</article><!-- #post-## -->
+				</div><!-- /.article-grid -->
+							<div class="article-grid col-12 col-md-4">
+					
+<article class="post post-342 type-post status-publish format-standard has-post-thumbnail hentry category-production-engineering category-web tag-caching tag-frontend" id="post-19686">
+	<img width="580" height="326" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/CD22-717-Eng-PTP-DeepDive-Hero-02.jpg" class="attachment-thumbnail size-thumbnail" alt="" loading="lazy" title="CD22-717-Eng-PTP-DeepDive-Hero-02">
+<header class="entry-header">
+		<div class="entry-header__top">
+			<span class="posted-on">
+				<time class="entry-date published" datetime="2022-11-21T05:59:34-08:00">
+					NOV 21, 2022				</time>
+			</span>
+		</div>
+
+		<div class="entry-title">
+			<div>
+				<a href="https://engineering.fb.com/2022/11/21/production-engineering/precision-time-protocol-at-meta/" rel="bookmark" aria-label="Read More about How Precision Time Protocol is being deployed at Meta">
+					How Precision Time Protocol is being deployed at Meta				</a>
+			</div>
+		</div>
+
+	</header><!-- .entry-header -->
+
+</article><!-- #post-## -->
+				</div><!-- /.article-grid -->
+							<div class="article-grid col-12 col-md-4">
+					
+<article class="post post-342 type-post status-publish format-standard has-post-thumbnail hentry category-production-engineering category-web tag-caching tag-frontend" id="post-19615">
+	<img width="580" height="326" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/Binary-Abstract-Hero_wide.jpg" class="attachment-thumbnail size-thumbnail" alt="" loading="lazy" title="Binary Abstract Hero_wide">
+<header class="entry-header">
+		<div class="entry-header__top">
+			<span class="posted-on">
+				<time class="entry-date published" datetime="2022-11-09T09:30:42-08:00">
+					NOV 9, 2022				</time>
+			</span>
+		</div>
+
+		<div class="entry-title">
+			<div>
+				<a href="https://engineering.fb.com/2022/11/09/developer-tools/tulip-schematizing-metas-data-platform/" rel="bookmark" aria-label="Read More about Tulip: Schematizing Meta’s data platform">
+					Tulip: Schematizing Meta’s data platform				</a>
+			</div>
+		</div>
+
+	</header><!-- .entry-header -->
+
+</article><!-- #post-## -->
+				</div><!-- /.article-grid -->
+							<div class="article-grid col-12 col-md-4">
+					
+<article class="post post-342 type-post status-publish format-standard has-post-thumbnail hentry category-production-engineering category-web tag-caching tag-frontend" id="post-19293">
+	<img width="580" height="326" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/Global-Capacity-Management-HERO.png" class="attachment-thumbnail size-thumbnail" alt="" loading="lazy" title="Global Capacity Management - HERO">
+<header class="entry-header">
+		<div class="entry-header__top">
+			<span class="posted-on">
+				<time class="entry-date published" datetime="2022-09-06T09:00:53-07:00">
+					SEP 6, 2022				</time>
+			</span>
+		</div>
+
+		<div class="entry-title">
+			<div>
+				<a href="https://engineering.fb.com/2022/09/06/data-center-engineering/viewing-the-world-as-a-computer-global-capacity-management/" rel="bookmark" aria-label="Read More about Viewing the world as a computer: Global capacity management">
+					Viewing the world as a computer: Global capacity management				</a>
+			</div>
+		</div>
+
+	</header><!-- .entry-header -->
+
+</article><!-- #post-## -->
+				</div><!-- /.article-grid -->
+							<div class="article-grid col-12 col-md-4">
+					
+<article class="post post-342 type-post status-publish format-standard has-post-thumbnail hentry category-production-engineering category-web tag-caching tag-frontend" id="post-19195">
+	<img width="580" height="326" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/Eng-Blog-Self-Serve-Hero-Images-DATACENTERS-501-Blue.jpg" class="attachment-thumbnail size-thumbnail" alt="" loading="lazy" title="Eng-Blog-Self-Serve-Hero-Images-DATACENTERS-501-Blue">
+<header class="entry-header">
+		<div class="entry-header__top">
+			<span class="posted-on">
+				<time class="entry-date published" datetime="2022-08-29T09:32:07-07:00">
+					AUG 29, 2022				</time>
+			</span>
+		</div>
+
+		<div class="entry-title">
+			<div>
+				<a href="https://engineering.fb.com/2022/08/29/developer-tools/improving-metas-slo-workflows-with-data-annotations/" rel="bookmark" aria-label="Read More about Improving Meta’s SLO workflows with data annotations">
+					Improving Meta’s SLO workflows with data annotations				</a>
+			</div>
+		</div>
+
+	</header><!-- .entry-header -->
+
+</article><!-- #post-## -->
+				</div><!-- /.article-grid -->
+							<div class="article-grid col-12 col-md-4">
+					
+<article class="post post-342 type-post status-publish format-standard has-post-thumbnail hentry category-production-engineering category-web tag-caching tag-frontend" id="post-19052">
+	<img width="580" height="326" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/CD22_475-Eng-Blog-Metas-Position-on-the-Leap-Second_Hero_Static2.jpg" class="attachment-thumbnail size-thumbnail" alt="" loading="lazy" title="CD22_475 Eng Blog-Meta&#39;s Position on the Leap Second_Hero_Static2">
+<header class="entry-header">
+		<div class="entry-header__top">
+			<span class="posted-on">
+				<time class="entry-date published" datetime="2022-07-25T09:00:07-07:00">
+					JUL 25, 2022				</time>
+			</span>
+		</div>
+
+		<div class="entry-title">
+			<div>
+				<a href="https://engineering.fb.com/2022/07/25/production-engineering/its-time-to-leave-the-leap-second-in-the-past/" rel="bookmark" aria-label="Read More about It’s time to leave the leap second in the past">
+					It’s time to leave the leap second in the past				</a>
+			</div>
+		</div>
+
+	</header><!-- .entry-header -->
+
+</article><!-- #post-## -->
+				</div><!-- /.article-grid -->
+					</div><!-- /.row -->
+	</div><!--/.article-grids -->
+
+</div><!-- /.related-articles -->
+
+					
+	 <!-- include the carousel nav here. -->
+
+		
+				
+<div class="comments-area" id="comments">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3><p class="must-log-in">You must be <a href="https://engineering.fb.com/wp-login.php?redirect_to=https%3A%2F%2Fengineering.fb.com%2F2015%2F04%2F13%2Fweb%2Fweb-performance-cache-efficiency-exercise%2F">logged in</a> to post a comment.</p>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+			
+		</main><!-- #main -->
+
+	</div><!-- #primary -->
+
+		<!-- Do the right sidebar check. -->
+	
+
+
+  
+<div class="widget-area col-lg-3 offset-lg-0_25" id="right-sidebar" role="complementary">
+	<aside id="fb_related_post_widget-4" class="widget widget_fb_related_post_widget"><h3 class="widget-title">Related Posts</h3><hr></aside><aside id="wpb_widget-3" class="widget widget_wpb_widget"><h3 class="widget-title">Related Positions</h3><hr><ul class="available-positions-list"><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			MENLO PARK, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			SEATTLE, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			NEW YORK, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			REMOTE, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/747933916471441/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Engineering Manager,  Security Infrastructure
+                      		</div>
+                      		<div class="job-location">
+                      			MENLO PARK, US
+                      		</div>
+                          </a>
+                      	</li>		</ul>
+		<a href="https://www.metacareers.com/" target="_blank" rel="noopener">
+			<div class="btn available-positions-btn">
+				See All Jobs			</div>
+		</a>
+		</aside>
+</div><!-- #secondary -->
+
+
+
+	<!-- <php get_template_part('content-single-side-bar'); ?> -->
+
+	<!-- Do the right sidebar check. -->
+	
+</div><!-- Container end -->
+
+</div><!-- Wrapper end -->
+
+</div>
+
+	<!-- ******************* The Footer Full-width Widget Area ******************* -->
+
+	<div class="wrapper wrapper-community-outer">
+		<div class="wrapper-community">
+
+			<div class="community" tabindex="-1">
+
+				<div class="row">
+					<!-- community section is generated through WordPress widget -->
+					<div id="wpb_widget-2" class="footer-widget widget_wpb_widget widget-count-3 col-md-4"><h3 class="widget-title">Available Positions</h3><hr><ul class="available-positions-list"><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			MENLO PARK, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			SEATTLE, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			NEW YORK, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/819926862481466/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Data Engineering Manager - Enterprise Finance Products
+                      		</div>
+                      		<div class="job-location">
+                      			REMOTE, US
+                      		</div>
+                          </a>
+                      	</li><li class="available-positions-item">
+                          <a href="https://www.metacareers.com/jobs/747933916471441/" target="_blank" rel="noopener">
+                      		<div class="job-description">
+                      			Engineering Manager,  Security Infrastructure
+                      		</div>
+                      		<div class="job-location">
+                      			MENLO PARK, US
+                      		</div>
+                          </a>
+                      	</li>		</ul>
+		<a href="https://www.metacareers.com/" target="_blank" rel="noopener">
+			<div class="btn available-positions-btn">
+				See All Jobs			</div>
+		</a>
+		</div><!-- .footer-widget --><div id="custom_html-2" class="widget_text footer-widget widget_custom_html widget-count-3 col-md-4"><h3 class="widget-title">Stay Connected</h3><div class="textwidget custom-html-widget"><ul class="stay-connected-lists">
+	<li class="stay-connected-item">
+		<img class="footer-fb-engineering stay-connected-item-left" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/datahallway_thumb.jpg" alt="footer-fb-engineering" loading="lazy" width="70" height="70">
+		<div class="stay-connected-item-right">
+			<div class="stay-connected-label">
+				Engineering at Meta	
+			</div>
+			<a href="https://www.facebook.com/Engineering/" target="_blank" rel="noopener">
+			<button class="btn stay-connected-btn">
+				Like
+			</button>
+			</a>
+		</div>
+	</li>
+	<li class="stay-connected-item">
+		<img class="stay-connected-item-left" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/fbopensource.png" alt="footer-fbopensource" loading="lazy" width="70" height="70">
+		<div class="stay-connected-item-right">
+			<div class="stay-connected-label">
+				Meta Open Source
+			</div>
+			<a onclick="return twitterFollow(&quot;metaOpenSource&quot;)" target="_blank" rel="noopener">
+			<button class="btn stay-connected-btn">
+				Follow
+				</button>
+			</a>
+		</div>
+	</li>
+	<li class="stay-connected-item">
+		<img class="stay-connected-item-left facebook-research" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/meta_logo.png" alt="footer-research" loading="lazy" width="70" height="70">
+		<div class="stay-connected-item-right">
+			<div class="stay-connected-label">
+				Meta Research
+			</div>
+			<a href="https://www.facebook.com/MetaResearch" target="_blank" rel="noopener">
+			<button class="btn stay-connected-btn">
+				Like
+			</button>
+			</a>
+		</div>
+	</li>
+	<li class="stay-connected-item">
+		<img class="stay-connected-item-left facebook-developers" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/facebook-developers.png" alt="footer-developers" loading="lazy" width="70" height="70">
+		<div class="stay-connected-item-right">
+			<div class="stay-connected-label">
+				Meta for Developers
+			</div>
+			<a href="https://www.facebook.com/MetaforDevelopers" target="_blank" rel="noopener">
+			<button class="btn stay-connected-btn">
+				Like
+			</button>
+			</a>
+		</div>
+	</li>
+	<li class="stay-connected-item">
+		<img class="stay-connected-item-left" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/rss.png" alt="footer-rss" loading="lazy" width="70" height="70">
+		<div class="stay-connected-item-right">
+			<div class="stay-connected-label">
+				RSS
+			</div>
+			<a href="https://code.facebook.com/posts/rss/" target="_blank" rel="noopener">
+			<button class="btn stay-connected-btn">
+				Subscribe
+			</button>
+			</a>
+		</div>
+	</li>
+</ul></div></div><!-- .footer-widget --><div id="custom_html-3" class="widget_text footer-widget widget_custom_html widget-count-3 col-md-4"><h3 class="widget-title">Open Source</h3><div class="textwidget custom-html-widget"><p class="opensource-desc">
+	Meta believes in building community through open source technology. Explore our latest projects in Artificial Intelligence, Data Infrastructure, Development Tools, Front End, Languages, Platforms, Security, Virtual Reality, and more.
+</p>
+<ul class="opensource-cats">
+	<li class="opensource-cat">
+		<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/android.png" alt="android" loading="lazy" width="50" height="59">
+		<div class="opensource-cap">
+			ANDROID
+		</div>
+	</li>
+	<li class="opensource-cat">
+		<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/ios.png" alt="ios" loading="lazy" width="48" height="58">
+		<div class="opensource-cap">
+			iOS
+		</div>
+	</li>
+	<li class="opensource-cat">
+		<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/web.png" alt="web" loading="lazy" width="55" height="49">
+		<div class="opensource-cap">		
+			WEB
+		</div>
+	</li>
+	<li class="opensource-cat">
+		<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/backend.png" alt="backend" loading="lazy" width="56" height="51">
+		<div class="opensource-cap">
+			BACKEND
+		</div>
+	</li>
+	<li class="opensource-cat">
+		<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/hardware.png" alt="hardware" loading="lazy" width="55" height="44">
+		<div class="opensource-cap">
+			HARDWARE
+		</div>
+	</li>
+</ul>
+
+<button class="btn opensource-btn" onclick="window.location.href=&#39;https://opensource.fb.com/&#39;">
+	Learn More
+</button>
+
+</div></div><!-- .footer-widget -->
+				</div>
+
+			</div>
+			</div>
+
+	</div><!-- #wrapper-footer-full -->
+
+
+<div class="wrapper-footer" id="wrapper-footer">
+	<div class="inner-container">
+		<div class="footer">
+			<div class="row">
+				<div class="col-md-12">
+					<footer class="meta-footer" id="meta-footer">
+						<div class="site-info row justify-content-between">
+							<div class="col-md-5 meta-logo-container">
+								<a href="https://about.facebook.com/" target="_blank" rel="noopener">
+									<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/meta_logo_full.svg" width="89" height="18" alt="Meta">
+								</a>
+								<div id="text-2" class="widget widget_text">			<div class="textwidget"><p>Engineering at Meta is a technical news resource for engineers interested in how we solve large-scale technical challenges at Meta.</p>
+</div>
+		</div>							</div>
+							<div class="col-md-6 footer-meta-links-container">
+														<ul class="meta-footer-links">
+									<li class="footer-link"><a href="https://engineering.fb.com/">Home</a></li><li class="footer-link"><a href="https://about.facebook.com/" target="_blank" rel="noopener">Company Info</a></li><li class="footer-link"><a href="https://facebookcareers.com/" target="_blank" rel="noopener">Careers</a></li>								</ul>
+							</div>
+						</div>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div class="footer">
+			<div class="row">
+
+				<div class="col-md-12">
+
+					<footer class="site-footer" id="colophon">
+						<div class="inner-container">
+							<div class="site-info row justify-content-between">
+
+								<div class="col-md-4 copyright-container">
+									<div class="copyright"> © 2022 Meta</div>
+								</div>
+
+								<!-- static footer -->
+								<div class="col-md-7 footer-links-container">
+									<ul class="footer-links">
+										<li class="footer-link"><a href="https://www.facebook.com/policies" target="_blank" rel="noopener">Terms</a></li><li class="footer-link"><a href="https://www.facebook.com/about/privacy" target="_blank" rel="noopener">Privacy</a></li><li class="footer-link"><a href="https://www.facebook.com/help/cookies" target="_blank" rel="noopener">Cookies</a></li><li class="footer-link"><a href="https://www.facebook.com/help" target="_blank" rel="noopener">Help</a></li>									</ul>
+								</div>
+							</div>
+						</div><!-- .site-info -->
+
+					</footer><!-- #colophon -->
+
+				</div><!--col end -->
+
+			</div><!-- row end -->
+
+	</div><!-- //.inner-container -->
+</div><!-- wrapper end -->
+
+<!-- #page we need this extra closing tag here -->
+
+  <div class="gdprconsent-container" id="GDPRConsentBar" style="display: none;" data-_current-display="block">
+    <div class="gdprconsent-wrapper">
+      <div class="gdprconsent-content">
+        <p>To help personalize content, tailor and measure ads, and provide a safer experience, we use cookies. By clicking or navigating the site, you agree to allow our collection of information on and off Facebook through cookies. Learn more, including about available controls: <a href="https://www.facebook.com/policies/cookies/" target="_blank" rel="noopener">Cookies Policy</a></p>
+                <div class="gdprconsent-button">
+          <button type="button" data-gdpr-accept="">I Agree</button>
+        </div>
+              </div>
+    </div>
+  </div>
+  	<!-- Twitter universal website tag code -->
+	<script>
+	!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+	},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
+	a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+	// Insert Twitter Pixel ID and Standard Event data below
+	twq('init','o31u0');
+	twq('track','PageView');
+	</script>
+	<!-- End Twitter universal website tag code -->
+	<script id="child-understrap-scripts-js-extra">
+var loadmore_params = {"restfulURL":"https:\/\/engineering.fb.com\/wp-json\/fb\/v1\/loadmore","searchText":"","posts":"{\"page\":0,\"year\":2015,\"monthnum\":4,\"day\":13,\"name\":\"web-performance-cache-efficiency-exercise\",\"category_name\":\"web\",\"error\":\"\",\"m\":\"\",\"p\":0,\"post_parent\":\"\",\"subpost\":\"\",\"subpost_id\":\"\",\"attachment\":\"\",\"attachment_id\":0,\"pagename\":\"\",\"page_id\":0,\"second\":\"\",\"minute\":\"\",\"hour\":\"\",\"w\":0,\"tag\":\"\",\"cat\":\"\",\"tag_id\":\"\",\"author\":\"\",\"author_name\":\"\",\"feed\":\"\",\"tb\":\"\",\"paged\":0,\"meta_key\":\"\",\"meta_value\":\"\",\"preview\":\"\",\"s\":\"\",\"sentence\":\"\",\"title\":\"\",\"fields\":\"\",\"menu_order\":\"\",\"embed\":\"\",\"category__in\":[],\"category__not_in\":[],\"category__and\":[],\"post__in\":[],\"post__not_in\":[],\"post_name__in\":[],\"tag__in\":[],\"tag__not_in\":[],\"tag__and\":[],\"tag_slug__in\":[],\"tag_slug__and\":[],\"post_parent__in\":[],\"post_parent__not_in\":[],\"author__in\":[],\"author__not_in\":[],\"ignore_sticky_posts\":false,\"suppress_filters\":false,\"cache_results\":true,\"update_post_term_cache\":true,\"update_menu_item_cache\":false,\"lazy_load_term_meta\":true,\"update_post_meta_cache\":true,\"post_type\":\"\",\"posts_per_page\":12,\"nopaging\":false,\"comments_per_page\":\"50\",\"no_found_rows\":false,\"order\":\"DESC\"}","current_page":"1","max_page":"0","post_type":"post"};
+var search_params = {"ajaxurl":"https:\/\/engineering.fb.com\/wp-admin\/admin-ajax.php","posts":"{\"page\":0,\"year\":2015,\"monthnum\":4,\"day\":13,\"name\":\"web-performance-cache-efficiency-exercise\",\"category_name\":\"web\",\"error\":\"\",\"m\":\"\",\"p\":0,\"post_parent\":\"\",\"subpost\":\"\",\"subpost_id\":\"\",\"attachment\":\"\",\"attachment_id\":0,\"pagename\":\"\",\"page_id\":0,\"second\":\"\",\"minute\":\"\",\"hour\":\"\",\"w\":0,\"tag\":\"\",\"cat\":\"\",\"tag_id\":\"\",\"author\":\"\",\"author_name\":\"\",\"feed\":\"\",\"tb\":\"\",\"paged\":0,\"meta_key\":\"\",\"meta_value\":\"\",\"preview\":\"\",\"s\":\"\",\"sentence\":\"\",\"title\":\"\",\"fields\":\"\",\"menu_order\":\"\",\"embed\":\"\",\"category__in\":[],\"category__not_in\":[],\"category__and\":[],\"post__in\":[],\"post__not_in\":[],\"post_name__in\":[],\"tag__in\":[],\"tag__not_in\":[],\"tag__and\":[],\"tag_slug__in\":[],\"tag_slug__and\":[],\"post_parent__in\":[],\"post_parent__not_in\":[],\"author__in\":[],\"author__not_in\":[],\"ignore_sticky_posts\":false,\"suppress_filters\":false,\"cache_results\":true,\"update_post_term_cache\":true,\"update_menu_item_cache\":false,\"lazy_load_term_meta\":true,\"update_post_meta_cache\":true,\"post_type\":\"\",\"posts_per_page\":12,\"nopaging\":false,\"comments_per_page\":\"50\",\"no_found_rows\":false,\"order\":\"DESC\"}","current_page":"1","max_page":"0","article_filter":"bd01ea2269"};
+var more_articles = {"next_article":{"label":"Next","permalink":"https:\/\/engineering.fb.com\/2015\/04\/17\/data-center-engineering\/hhvm-adoption-news\/","title":"HHVM adoption news","thumbnail":["https:\/\/engineering.fb.com\/wp-content\/uploads\/2015\/04\/gdc4qadq4bhr6eicaks-a0gaaaaabj0jaaad.png?w=580&h=326&crop=1","580","326",true]},"prev_article":{"label":"Prev","permalink":"https:\/\/engineering.fb.com\/2015\/04\/10\/open-source\/updating-our-open-source-patent-grant\/","title":"Updating Our Open Source Patent Grant","thumbnail":["https:\/\/engineering.fb.com\/wp-content\/uploads\/2015\/04\/gbm4qaa-ikovzo4eajw6qseaaaaabj0jaaad.png?w=580&h=315&crop=1",580,315,true]}};
+</script>
+<script type="text/javascript" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/saved_resource(3)"></script>	<script src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/e-202248.js" defer=""></script>
+	<script>
+		_stq = window._stq || [];
+		_stq.push([ 'view', {v:'ext',blog:'147945108',post:'342',tz:'-8',srv:'engineering.fb.com',hp:'vip',j:'1:11.5.1'} ]);
+		_stq.push([ 'clickTrackerInit', '147945108', '342' ]);
+	</script>
+
+
+
+<img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/g.gif" alt="" width="6" height="5" id="wpstats"><img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/adsct" height="1" width="1" style="display: none;"><img src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/adsct(1)" height="1" width="1" style="display: none;">
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","495601705602455");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=495601705602455&amp;ev=PageView&amp;noscript=1"></noscript>
+<script type="text/javascript" id="">window.addEventListener("beforeunload",function(){window.dataLayer.push({event:"beforeunload"})});</script><script type="text/javascript" id="">(function(){var b=document.querySelectorAll('a[href*\x3d"facebook.com/careers/department"]'),c="?utm_source\x3dfb_engineering\x26utm_medium\x3dhomepage_feed\x26utm_campaign\x3davailable_positions";b.forEach(function(a){var d=a.getAttribute("href");a.setAttribute("href",d+c)})})();</script><iframe id="_hjSafeContext_48374756" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/saved_resource.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="./Web performance_ Cache efficiency exercise - Engineering at Meta_files/box-5e66f98b4ee957db209dc6f63e3d59dd.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div></body></html>
