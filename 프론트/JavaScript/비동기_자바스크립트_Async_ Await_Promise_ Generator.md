@@ -138,17 +138,18 @@ p.then(data => {
 - return 키워드 깜빡하지 않기
 
   then 메서드 내부 함수에서 return 키워드를 입력하는 것을 깜빡히기 쉽다.  
-  return 키워드를 사용하지 않으면 프로미스 객체의 데이터는 undefined 가 된다.  
+  return 키워드를 사용하지 않으면 프로미스 객체의 데이터는 undefined 가 된다.
+
 ```javascript
 Promise.resolve(10)
-.then(data => {
-  console.log(data);
-  // return 키워드가 없는 경우
-  Promise.resolve(20);
-})
-.then(data => {
-  console.log(data); // undefined
-});
+  .then(data => {
+    console.log(data);
+    // return 키워드가 없는 경우
+    Promise.resolve(20);
+  })
+  .then(data => {
+    console.log(data); // undefined
+  });
 ```
 
 - 프로미스는 불변 객체라는 사실 명심하기
@@ -183,7 +184,8 @@ requestData().then(v => {
 
 - 프로미스를 중첩해서 사용하지 않기
 
-프로미스를 중첩해서 사용하면 콜백 패턴처럼 코드가 복잡해지므로 사용을 권장하지 않는다.  
+프로미스를 중첩해서 사용하면 콜백 패턴처럼 코드가 복잡해지므로 사용을 권장하지 않는다.
+
 ```javascript
 requestData1().then(result1 => {
   requestData2(result1).then(result2 => {
@@ -464,6 +466,18 @@ async function getFirstUser() {
   let users = await callbackToPromise(getUsers);
   return users[0].name;
 }
+```
+
+---
+
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/await
+
+await 연산자는 Promise 를 기다리기 위해 사용
+
+```javascript
+await new Promise(resolve => {
+  setTimeout(resolve, 3000);
+});
 ```
 
 ---
