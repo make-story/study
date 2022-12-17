@@ -18,6 +18,9 @@ const findItemIndex = [].findIndex((item, index, list) => {
 const fillItems = [].fill((value/*배열을 채울 값*/, start/*시작 인덱스*/, end/*끝 인덱스*/) => {
 
 });
+
+// some : 조건 중 하나라도 맞으면 참
+// every : 조건에 다 맞아야 참
 const someBool = [].some((item, index, list) => {
 	// 배열 안의 어떤 요소라도 주어진 판별 함수를 통과하는지 테스트
 	// callback이 참(불린으로 변환했을 때 true가 되는 값)을 반환하는 요소를 찾을 때까지 배열에 있는 각 요소에 대해 한 번씩 callback 함수를 실행
@@ -54,6 +57,9 @@ const posts = [ ...Array(40).keys() ].map(i => ({
 }));
 
 
+/**
+ * 채우기
+ */
 // 시작 인덱스 부터 끝 인덱스 이전까지 값 채움
 const array1 = [1, 2, 3, 4];
 console.log(array1.fill(0, 2, 4));
@@ -64,6 +70,9 @@ console.log(array1.fill(6));
 // expected output: [6, 6, 6, 6]
 
 
+/**
+ * 중첩 배열 구조를 평탄화
+ */
 // 지정한 하위 깊이 까지 하나로 이어붙인 배열 만들기
 const arr1 = [1, 2, [3, 4]];
 arr1.flat();
