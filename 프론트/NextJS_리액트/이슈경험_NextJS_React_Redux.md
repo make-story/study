@@ -1,4 +1,3 @@
-
 # NextJS 이슈 슈팅
 
 ## 현재 위치한 페이지 URL 로 Link 실행했을 때, 해당 페이지 일부 비동기 데이터 로드 안되는 문제
@@ -11,33 +10,38 @@ link에 shallow 옵션을 주면 rehydration이 되어 데이터가 소실되는
 <Link href={urlMain} shallow={router.asPath.startsWith(urlMain)}>
 ```
 
-
-
 # The ref value containerRef.current will likely have changed by the time this effect cleanup function runs.
-https://stackoverflow.com/questions/67069827/cleanup-ref-issues-in-react 
+
+https://stackoverflow.com/questions/67069827/cleanup-ref-issues-in-react
 
 ```javascript
 useEffect(() => {
-    let element: any = null;
-    const ready = (event: any) => {
-      console.log('!!!!', event);
-    };
-    if (refLottiePlayer?.current) {
-      refLottiePlayer?.current?.addEventListener('ready', ready);
-      element = refLottiePlayer?.current;
+  let element: any = null;
+  const ready = (event: any) => {
+    console.log('!!!!', event);
+  };
+  if (refLottiePlayer?.current) {
+    refLottiePlayer?.current?.addEventListener('ready', ready);
+    element = refLottiePlayer?.current;
+  }
+  return () => {
+    if (element) {
+      element?.removeEventListener('ready', ready);
     }
-    return () => {
-      if (element) {
-        element?.removeEventListener('ready', ready);
-      }
-    };
+  };
 }, [refLottiePlayer]);
 ```
 
------
+---
+
+# React
+
+---
 
 # Redux
+
 ## 리덕스 상태값 JOSN 형태에서 값이 undefined 인 필드(key)는 결과값에서 제외될 수 있음
+
 ```javascript
 const initialState = {
   gnbLogo: null,
