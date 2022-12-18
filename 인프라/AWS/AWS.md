@@ -60,6 +60,10 @@ Bastion Host 란 보안을 위해 고안된 Host로 외부 네트워크와 내�
 
 이렇게 관리할 경우, Bastion Host에서 특정 IP로의 접근만 허용하거나, 통신 로그를 일괄적으로 관리할 수 있는 편리함이 보장된다.
 
+# CloudFront
+
+https://inpa.tistory.com/entry/AWS-%F0%9F%93%9A-CloudFront-%EA%B0%9C%EB%85%90-%EC%9B%90%EB%A6%AC-%EC%82%AC%EC%9A%A9-%EC%84%B8%ED%8C%85-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC
+
 ---
 
 # AWS 인스턴스명 확인하는 방법
