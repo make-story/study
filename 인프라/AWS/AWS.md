@@ -31,12 +31,16 @@ PaaS 모델은 애플리케이션 개발에 필요한 모든 소프트웨어 기
 
 # 웹 서버를 구축하고 싶을 때 (AWS 서비스명 기준)
 
+- 클라우드 계정 : IAM
+- 로드 밸런서 : ELB(ALB, NLB, CLB)
 - 서버 : EC2
 - 서버 OS : AMI
 - IP 주소 : Elastic IP
 - 스토리지 : S3
 - 도메인 : Route 53
 - DB 서버 : RDS
+- 로그 : CloudWatch
+- 관리콘솔 : EC2 대시보드, S3 대시보드
 
 # 중간규모 EC 사이트 예
 
