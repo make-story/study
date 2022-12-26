@@ -42,6 +42,10 @@ PaaS 모델은 애플리케이션 개발에 필요한 모든 소프트웨어 기
 - 로그 : CloudWatch
 - 관리콘솔 : EC2 대시보드, S3 대시보드
 
+ALB : Application Load Balancer
+EC2 : Amazon Elastic Compute Cloud (Elastic 탄력있는)
+S3 : Amazon Simple Storage Service
+
 # 중간규모 EC 사이트 예
 
 VPC(가상 네트워크) - ELB(로그 밸런서) - EC2(웹 서버)
