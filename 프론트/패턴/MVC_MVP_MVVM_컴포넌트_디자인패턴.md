@@ -10,6 +10,11 @@ http://makestory.net/media/#/view/493
 https://www.patterns.dev/posts/  
 https://patterns-dev-kr.github.io/
 
+# 요약
+
+MVC : backbone.js (SPA 렌더링방식에서 Router 가 컨트롤러 역할)
+MVVM : React, Vue, Angaulr (데이터 변경시 템플릿 방식으로 HTML을 작성)
+
 ---
 
 # 디자인패턴
