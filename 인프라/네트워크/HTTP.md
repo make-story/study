@@ -1,4 +1,8 @@
-`그림으로 배우는 Http & Network Basic` 책 정리
+# HTTP MDN
+
+https://developer.mozilla.org/ko/docs/Web/HTTP/Overview
+
+# `그림으로 배우는 Http & Network Basic` 책 정리
 
 # 웹은 HTTP로 나타낸다
 
