@@ -1,6 +1,8 @@
 > 참고페이지  
 > https://typescript-kr.github.io/
 
+https://evan-moon.github.io/2021/08/22/tsconfig-compiler-options-modules/
+
 - 핸드북  
   https://joshua1988.github.io/ts/guide/enums.html#%EB%AC%B8%EC%9E%90%ED%98%95-%EC%9D%B4%EB%84%98  
   https://typescript-kr.github.io/pages/tutorials/typescript-in-5-minutes.html
