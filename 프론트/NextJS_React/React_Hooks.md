@@ -49,101 +49,105 @@ setState({ ...state, name: 'a' });
 setState({ ...state, age: 1 });
 ```
 
------
+---
 
 ## 컴포넌트에서 부수 효과 처리하기 : useEffect
+
 함수 실행 시 함수 외부의 상태를 변경하는 연산을 부수 효과라고 부른다.  
 특별한 이유가 없다면 모든 부수 효과는 useEffect 훅에서 처리하는 게 좋다.  
-API를 호출하는 것과 이벤트 처리 함수를 등록하고 해제하는 것 등이 부수 효과의 구체적인 예다.  
+API를 호출하는 것과 이벤트 처리 함수를 등록하고 해제하는 것 등이 부수 효과의 구체적인 예다.
 
 `useEffect 훅에 입력하는 함수를 부수 효과 함수라고 한다. 부수 효과 함수는 렌더링 결과가 실제 돔에 반영된 후 호출되고, 컴포넌트가 사라지기 직전에 마지막으로 호출된다.`
 
 ### useEffect 함수에서 API를 호출하는 경우
-의존성 배열로 API호출 횟수를 최적화하기
-```javascript
-const [ user, setUser ] = useState();
-useEffect(() => {
-    // userId 가 변경될 때만 fetchUser 함수 호출
-    fetchUser(userId)
-    .then(data => setUser(data));
-    return () => {
-        // abort 를 해주는 것이 좋다!
 
-    };
+의존성 배열로 API호출 횟수를 최적화하기
+
+```javascript
+const [user, setUser] = useState();
+useEffect(() => {
+  // userId 가 변경될 때만 fetchUser 함수 호출
+  fetchUser(userId).then(data => setUser(data));
+  return () => {
+    // abort 를 해주는 것이 좋다!
+  };
 }, [userId]);
 ```
 
 의존성 배열을 잘못 관리한 경우
+
 ```javascript
-const [ needDetail, setNeedDetail ] = useState(false);
+const [needDetail, setNeedDetail] = useState(false);
 useEffect(() => {
-    // needDetail 를 함수 내부에서 사용 중이다. needDetail 을 의존성 배열에 추가하지 않으면 문제가 발생한다.
-    fetchUser(userId, needDetail)
-    .then(data => setUser(data));
+  // needDetail 를 함수 내부에서 사용 중이다. needDetail 을 의존성 배열에 추가하지 않으면 문제가 발생한다.
+  fetchUser(userId, needDetail).then(data => setUser(data));
 }, [userId]);
 ```
+
 `리액트 팀에서는 이러한 문제를 해결하기 위해 eslint 에서 사용할 수 있는 exhaustive-deps 규칙을 만들어서 제공`한다.  
-exhaustive-deps 는 잘못 사용된 의존성 배열을 찾아서 알려 준다.  
+exhaustive-deps 는 잘못 사용된 의존성 배열을 찾아서 알려 준다.
 
 ### useEffect 훅에서 async await 함수 사용하기
+
 useEffect 훅에서 async await 함수를 사용하기 위해 부수 효과 함수를 async await 함수로 만들면 에러가 난다.  
-useEffect 사용의 함수 반환값은 항상 함수 타입이어야 하기 때문이다. (프로미스 객체 반환 안됨)  
+useEffect 사용의 함수 반환값은 항상 함수 타입이어야 하기 때문이다. (프로미스 객체 반환 안됨)
 
 ```javascript
 useEffect(() => {
-    async function fetchAndSetUser() {
-        const data = await fetchUser(userId);
-        setUser(data);
-    }
-    fetchAndSetUser();
+  async function fetchAndSetUser() {
+    const data = await fetchUser(userId);
+    setUser(data);
+  }
+  fetchAndSetUser();
 }, [userId]);
 ```
 
 ```javascript
 // fetchAndSetUser 함수 재사용하기
 function Profile({ userId }) {
-    const [user, setUser] = useState();
-    async function fetchAndSetUser(needDetail) {
-        const data = await fetchUser(userId, needDetail);
-        setUser(data);
-    }
-    useEffect(() => {
-        fetchAndSetUser(false);
-    }, [fetchAndSetUser]);
-    // ...
+  const [user, setUser] = useState();
+  async function fetchAndSetUser(needDetail) {
+    const data = await fetchUser(userId, needDetail);
+    setUser(data);
+  }
+  useEffect(() => {
+    fetchAndSetUser(false);
+  }, [fetchAndSetUser]);
+  // ...
 
-    // 위와 같이 구성할 경우,
-    // fetchAndSetUser 함수는 렌더링을 할 때마다 갱신되므로 결과적으로 fetchAndSetUser 함수는 렌더링을 할 때마다 호출된다.  
-    // 이 문제를 해결하려면 fetchAndSetUser 함수가 필요할 때만 갱신되도록 만들어야 한다.
+  // 위와 같이 구성할 경우,
+  // fetchAndSetUser 함수는 렌더링을 할 때마다 갱신되므로 결과적으로 fetchAndSetUser 함수는 렌더링을 할 때마다 호출된다.
+  // 이 문제를 해결하려면 fetchAndSetUser 함수가 필요할 때만 갱신되도록 만들어야 한다.
 }
 ```
 
 ```javascript
 // userId 가 변경될 때만 fetchAndSetUser 함수 갱신
-// useCallback 훅을 이용해서 userId 가 변경될 때만 fetchAndSetUser 함수가 갱신된다.  
+// useCallback 훅을 이용해서 userId 가 변경될 때만 fetchAndSetUser 함수가 갱신된다.
 function Profile({ userId }) {
-    const [user, setUser] = useState();
-    // fetchAndSetUser 함수는 userId 가 변경될 때만 호출된다.
-    const fetchAndSetUser = useCallback(
-        async needDetail => {
-            const data = await fetchUser(userId, needDetail);
-            setUser(data);
-        },
-        [userId]
-    );
-    useEffect(() => {
-        fetchAndSetUser(false);
-    }, [fetchAndSetUser]);
-    // ...
+  const [user, setUser] = useState();
+  // fetchAndSetUser 함수는 userId 가 변경될 때만 호출된다.
+  const fetchAndSetUser = useCallback(
+    async needDetail => {
+      const data = await fetchUser(userId, needDetail);
+      setUser(data);
+    },
+    [userId],
+  );
+  useEffect(() => {
+    fetchAndSetUser(false);
+  }, [fetchAndSetUser]);
+  // ...
 }
 ```
 
------
+---
 
 ## 렌더링과 무관한 값 저장히기 : useRef
+
 useRef 훅은 자식 요소에 접근하는 것 외에도 중요한 용도가 한 가지 더 있다.  
 컴포넌트 내부에서 생성되는 값 중에는 렌더링과 무관한 값도 있는데, 이 값을 저장할 때 useRef 훅을 사용한다.  
-예를 들어, setTimeout 이 반환하는 값은 어딘가에 저장해 두었다가 적절한 시점에서 clearTimeout을 호출할 때 사용해야 한다.  
+예를 들어, setTimeout 이 반환하는 값은 어딘가에 저장해 두었다가 적절한 시점에서 clearTimeout을 호출할 때 사용해야 한다.
 
 `돔 요소 접근`
 
@@ -283,77 +287,141 @@ function MyComponent({ onClick }) {
 }
 ```
 
+## 상태 변경 -> 컴포넌트 재 랜더링
+
+React 컴포넌트는 기본적으로 내부 상태(state)가 변할 때 마다 다시 랜더링(rendering)이 됩니다.
+
+```javascript
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  console.log(`랜더링... count: ${count}`);
+
+  return (
+    <>
+      <p>{count}번 클릭하셨습니다.</p>
+      <button onClick={() => setCount(count + 1)}>클릭</button>
+    </>
+  );
+}
+```
+
+브라우저 콘솔을 확인해보면, 5번의 로그가 찍히는 것을 볼 수 있는데요.
+이를 통해, `<Counter/>` 컴포넌트 함수는 count 상태가 바뀔 때 마다 호출되는 것을 알 수 있습니다.
+
+```
+랜더링... count: 1
+랜더링... count: 2
+랜더링... count: 3
+랜더링... count: 4
+랜더링... count: 5
+```
+
+## 다시 랜더링 되어도 동일한 참조값을 유지하려면?
+
+우리는 대부분의 경우, 위와 같이 상태가 변할 때 마다 React 컴포넌트 함수가 호출되어 화면이 갱신되기를 바랍니다.  
+하지만 그에 따른 부작용으로 함수 내부의 변수들이 기존에 저장하고 있는 값들을 잃어버리고 초기화되는데요.  
+간혹 `다시 랜더링이 되더라도 기존에 참조하고 있던 컴포넌트 함수 내의 값이 그대로 보존되야 하는 경우`가 있습니다.
+
+useRef 함수는 current 속성을 가지고 있는 객체를 반환하는데, 인자로 넘어온 초기값을 current 속성에 할당합니다.  
+이 `current 속성은 값을 변경해도 상태를 변경할 때 처럼 React 컴포넌트가 다시 랜더링되지 않습니다.`  
+`React 컴포넌트가 다시 랜더링될 때도 마찬가지로 이 current 속성의 값이 유실되지 않습니다.`
+
+```javascript
+import React, { useState, useRef } from 'react';
+
+function ManualCounter() {
+  const [count, setCount] = useState(0);
+  const intervalId = useRef(null);
+  console.log(`랜더링... count: ${count}`);
+
+  const startCounter = () => {
+    intervalId.current = setInterval(() => setCount(count => count + 1), 1000);
+    console.log(`시작... intervalId: ${intervalId.current}`);
+  };
+
+  const stopCounter = () => {
+    clearInterval(intervalId.current);
+    console.log(`정지... intervalId: ${intervalId.current}`);
+  };
+
+  return (
+    <>
+      <p>자동 카운트: {count}</p>
+      <button onClick={startCounter}>시작</button>
+      <button onClick={stopCounter}>정지</button>
+    </>
+  );
+}
+```
+
 ---
 
-
 ## 컴포넌트의 상태값을 리덕스 처럼 관리하기 : useReducer
+
 ```javascript
 import React, { useReducer } from 'react';
 
 const INITIAL_STATE = { name: 'empty', age: 0 };
 function reducer(state, action) {
-    switch(action.type) {
-        case 'setName':
-            return { ...state, name: action.name };
-        case 'setAge':
-            return { ...state, age: action.age };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case 'setName':
+      return { ...state, name: action.name };
+    case 'setAge':
+      return { ...state, age: action.age };
+    default:
+      return state;
+  }
 }
 
 function Profile() {
-    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-    return (
-        <div>
-            <p>{`name is ${state.name}`}</p>
-            <p>{`age is ${state.age}`}</p>
-            <input
-                type="text"
-                value={state.name}
-                onChange={e => dispatch({ type: 'setAge', age: e.currentTarget.value })}
-            />
-        </div>
-    );
+  return (
+    <div>
+      <p>{`name is ${state.name}`}</p>
+      <p>{`age is ${state.age}`}</p>
+      <input type='text' value={state.name} onChange={e => dispatch({ type: 'setAge', age: e.currentTarget.value })} />
+    </div>
+  );
 }
 ```
 
-`트리의 깊은 곳으로 이벤트 처리 함수 전달하기` 
+`트리의 깊은 곳으로 이벤트 처리 함수 전달하기`
 보통 상위 컴포넌트에서 다수의 상태값을 관리한다.  
 이때 자식 컴포넌트로 부터 발생한 이벤트에서 상위 컴포넌트의 상탯값을 변경해야 하는 경우가 많다.  
 이를 위해 상위 컴포넌트에서 트리의 깊은 곳까지 이벤트 처리 함수를 전달한다.  
-이 작업은 상당히 손이 많이 가고, 코드의 가독성도 떨어진다.  
+이 작업은 상당히 손이 많이 가고, 코드의 가독성도 떨어진다.
 
-useReducer 훅과 콘텍스트 API를 이용하면 다음과 같이 상위 컴포넌트에서 트리의 깊은 곳으로 이벤트 처리 함수를 쉽게 전달할 수 있다.  
+useReducer 훅과 콘텍스트 API를 이용하면 다음과 같이 상위 컴포넌트에서 트리의 깊은 곳으로 이벤트 처리 함수를 쉽게 전달할 수 있다.
 
 ```javascript
 // ...
 export const ProfileDispatch = React.createContext(null); // dispatch 함수를 전달해 주는 콘텍스트 객체를 생성한다.
 // ...
 function Profile() {
-    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-    return (
-        <div>
-            <p>{`name is ${state.name}`}</p>
-            <p>{`age is ${state.age}`}</p>
-            {/* Provider 를 통해서 dispatch 함수를 데이터로 전달한다. SomeComponent 하위에 있는 모든 컴포넌트에서는 콘텍스트를 통해서 dispatch 함수를 호출할 수 있다. */}
-            <ProfileDispatch.Provider value={dispatch}>
-                <SomeComponent />
-            </ProfileDispatch.Provider>
-        </div>
-    );
+  return (
+    <div>
+      <p>{`name is ${state.name}`}</p>
+      <p>{`age is ${state.age}`}</p>
+      {/* Provider 를 통해서 dispatch 함수를 데이터로 전달한다. SomeComponent 하위에 있는 모든 컴포넌트에서는 콘텍스트를 통해서 dispatch 함수를 호출할 수 있다. */}
+      <ProfileDispatch.Provider value={dispatch}>
+        <SomeComponent />
+      </ProfileDispatch.Provider>
+    </div>
+  );
 }
-
 ```
 
------
-
+---
 
 ## 훅 사용 시 지켜야 할 규칙
-- 규칙 1 : 하나의 컴포넌트에서 훅을 호출하는 순서는 항상 같아야 한다.  
-- 규칙 2 : 훅은 함수형 컴포넌트 또는 커스텀 훅 안에서만 호출되어야 한다.  
+
+- 규칙 1 : 하나의 컴포넌트에서 훅을 호출하는 순서는 항상 같아야 한다.
+- 규칙 2 : 훅은 함수형 컴포넌트 또는 커스텀 훅 안에서만 호출되어야 한다.
 
 ```javascript
 // 커스텀 Hooks
