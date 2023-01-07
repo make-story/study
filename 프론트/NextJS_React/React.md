@@ -2,6 +2,75 @@
 
 https://ko.reactjs.org/docs/hello-world.html
 
+# 상태 변경 -> 컴포넌트 재 랜더링
+
+React 컴포넌트는 기본적으로 내부 상태(state)가 변할 때 마다 다시 랜더링(rendering)이 됩니다.
+
+```javascript
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  console.log(`랜더링... count: ${count}`);
+
+  return (
+    <>
+      <p>{count}번 클릭하셨습니다.</p>
+      <button onClick={() => setCount(count + 1)}>클릭</button>
+    </>
+  );
+}
+```
+
+브라우저 콘솔을 확인해보면, 5번의 로그가 찍히는 것을 볼 수 있는데요.
+이를 통해, `<Counter/>` 컴포넌트 함수는 count 상태가 바뀔 때 마다 호출되는 것을 알 수 있습니다.
+
+```
+랜더링... count: 1
+랜더링... count: 2
+랜더링... count: 3
+랜더링... count: 4
+랜더링... count: 5
+```
+
+# 다시 랜더링 되어도 동일한 참조값을 유지하려면?
+
+우리는 대부분의 경우, 위와 같이 상태가 변할 때 마다 React 컴포넌트 함수가 호출되어 화면이 갱신되기를 바랍니다.  
+하지만 그에 따른 부작용으로 함수 내부의 변수들이 기존에 저장하고 있는 값들을 잃어버리고 초기화되는데요.  
+간혹 `다시 랜더링이 되더라도 기존에 참조하고 있던 컴포넌트 함수 내의 값이 그대로 보존되야 하는 경우`가 있습니다.
+
+useRef 함수는 current 속성을 가지고 있는 객체를 반환하는데, 인자로 넘어온 초기값을 current 속성에 할당합니다.  
+이 `current 속성은 값을 변경해도 상태를 변경할 때 처럼 React 컴포넌트가 다시 랜더링되지 않습니다.`  
+`React 컴포넌트가 다시 랜더링될 때도 마찬가지로 이 current 속성의 값이 유실되지 않습니다.`
+
+```javascript
+import React, { useState, useRef } from 'react';
+
+function ManualCounter() {
+  const [count, setCount] = useState(0);
+  const intervalId = useRef(null);
+  console.log(`랜더링... count: ${count}`);
+
+  const startCounter = () => {
+    intervalId.current = setInterval(() => setCount(count => count + 1), 1000);
+    console.log(`시작... intervalId: ${intervalId.current}`);
+  };
+
+  const stopCounter = () => {
+    clearInterval(intervalId.current);
+    console.log(`정지... intervalId: ${intervalId.current}`);
+  };
+
+  return (
+    <>
+      <p>자동 카운트: {count}</p>
+      <button onClick={startCounter}>시작</button>
+      <button onClick={stopCounter}>정지</button>
+    </>
+  );
+}
+```
+
 ---
 
 `실전 리액트 프로그래밍` 책 내용 중
