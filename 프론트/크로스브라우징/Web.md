@@ -195,6 +195,31 @@ https://github.com/ionic-team/cordova-plugin-ionic-webview/issues/49
 https://webkit.org/blog/7929/designing-websites-for-iphone-x/  
 
 
+# CSS : 텍스트 셀렉트, 모바일 도구상자 노출방지
+
+```css
+.select-none {
+	outline: none;
+
+	/* PC에서의 셀렉트, mobile에서의 복사/붙여넣기 툴팁 사용정지 */
+	-khtml-user-select: none; 
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none; /* 텍스트 선택 불가 */
+
+	-webkit-touch-callout: none; /* 기본 팝업창(툴팁, 도구) 차단하기 */
+	-webkit-touch-select: none; /* 복사막기 */
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 링크를 터치했을때 나오는 기본 영역의 색상을 제어, 레이어 영역 터치했을 때 회색으로 변경되는 것 방지 */
+	-webkit-tap-highlight-color: transparent;
+}
+```
+
+레이어 내부 컨텐츠에 적용할 경우, 레이어 바닥에 엤는 컨텐츠(body) 가 IOS 일부 사파리에서 선택될 수 있다.
+이 경우 레이어를 열 때 body 에 셀렉트가 잡히지 않는 클래스를 넣고, 레이어를 닫을 때 빼주는 class 토글을 해주는 것으로 해결가능하다.  
+
+-----
 
 # JavaScript -> CSS 로 구현 가능한 것 (기능구현, 이슈처리 등)
 ## 랜더링 성능을 향상 시키는 새로운 CSS 속성 content-visibility  
