@@ -22,3 +22,15 @@ https://wit.nts-corp.com/2017/08/08/4818
 - 목록
 - 글자
 - 테이블
+
+---
+
+# details
+
+보이기/숨기기 토글(Toggle) HTML  
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+
+# dialog
+
+커스텀 alert / confirm HTML  
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
