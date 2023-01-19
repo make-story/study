@@ -315,3 +315,123 @@ function ItemList(props) {
 }
 ```
 
+---
+
+# useState Hell 해결 방법
+
+https://www.builder.io/blog/use-reducer
+
+해결과제
+```javascript
+import { useState } from 'react'
+
+function EditCalendarEvent() {
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState();
+  const [attendees, setAttendees] = useState([]);
+
+  return (
+    <>
+      <input value={title} onChange={e => setTitle(e.target.value)} />
+      {/* ... */}
+    </>
+  );
+}
+```
+
+방법 (`useReducer 활용`)
+```javascript
+import { useReducer } from 'react'
+
+function EditCalendarEvent() {
+  const [event, updateEvent] = useReducer(
+    (prev, next) => {
+      return { ...prev, ...next };
+    },
+    { title: '', description: '', attendees: [] },
+  );
+
+  return (
+    <>
+      <input value={event.title} onChange={e => updateEvent({ title: e.target.value })} />
+      {/* ... */}
+    </>
+  );
+}
+```
+
+```javascript
+import { useReducer } from "react";
+
+function EditCalendarEvent() {
+  const [event, updateEvent] = useReducer(
+    (prev, next) => {
+      const newEvent = { ...prev, ...next };
+
+      // Ensure that the start date is never after the end date
+      if (newEvent.startDate > newEvent.endDate) {
+        newEvent.endDate = newEvent.startDate;
+      }
+
+      // Ensure that the title is never more than 100 chars
+      if (newEvent.title.length > 100) {
+        newEvent.title = newEvent.title.substring(0, 100);
+      }
+      return newEvent;
+    },
+    { title: '', description: '', attendees: [] },
+  );
+
+  return (
+    <>
+      <input value={event.title} onChange={e => updateEvent({ title: e.target.value })} />
+      {/* ... */}
+    </>
+  );
+}
+```
+
+```javascript
+import { useReducer } from 'react'
+
+function Counter() {
+  const [count, setCount] = useReducer((prev, next) => Math.min(next, 10), 0);
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count is {count}
+    </button>
+  );
+}
+```
+
+```javascript
+import { useReducer } from 'react'
+
+function EditCalendarEvent() {
+  const [event, updateEvent] = useReducer(
+    (state, action) => {
+      const newEvent = { ...state };
+
+      switch (action.type) {
+        case 'updateTitle':
+          newEvent.title = action.title;
+          break;
+        // More actions...
+      }
+      return newEvent;
+    },
+    { title: '', description: '', attendees: [] },
+  );
+
+  return (
+    <>
+      <input value={event.title} onChange={e => updateEvent({ type: 'updateTitle', title: 'Hello' })} />
+      {/* ... */}
+    </>
+  );
+}
+```
