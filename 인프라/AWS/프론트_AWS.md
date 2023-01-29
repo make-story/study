@@ -5,6 +5,8 @@
 
 # 프론트 AWS 구성
 
+- ELB, ALB
+
 - EC2 클라우드 가상서버
   EC2 (Amazon Elastic Compute Cloud) 인스턴스  
   c5.xlarge 서버 성능 서비스형태 선택  
@@ -16,6 +18,7 @@
 - CloudFront  
   S3의 내용을 세계에 분포되있는 엣지 서버에 캐싱 (CDN)  
   Amazon CloudFront를 사용하면 사용자의 요청을 Edge Location에서 캐시 값을 검사하여 24시간 동안에는 사용자에게 다시 파일을 제공하지 않고 캐시 된 값을 빠르게 제공(서비스의 종류에 따라 다름)
+  엣지 로케이션 - 오리진
 
 - CodeDeploy
   코드 배포 자동화  
