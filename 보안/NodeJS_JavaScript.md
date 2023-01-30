@@ -1,5 +1,7 @@
 # 보안
 
+http://makestory.net/media/#/view/877
+
 ## AWS
 
 ### WAF  
