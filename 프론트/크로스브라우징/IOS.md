@@ -137,3 +137,22 @@ rel 속성이 noopener면, 자식 창에서 window.opener를 참조하면 null �
 
 rel 속성값 참고  
 https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types  
+
+
+# IOS 15 대응 - 주소창 하단 이동
+
+https://channel.io/ko/blog/cross_browsing_ios15  
+
+
+# Safari CSS transition 관련 문제
+
+https://kimbiyam.me/posts/front-end/safari-css-transition-problem  
+https://milooy.wordpress.com/2015/09/09/css-transition-flickering-error-in-safari/  
+
+safari transition bug 혹은 safari transition flicker 등으로 검색
+> -webkit-backface-visibility 속성을 hidden 으로 설정
+> -webkit-transform 속성을 translate3d(0, 0, 0) 으로 설정(강제로 하드웨어 가속을 사용)
+> will-change 속성을 지정
+> all 형태(transition: .8s;)가 아니라 명확하게 지정(transition: transform .8s, opacity .8s, top .8s;)
+
+transform: translate3d(0, 0, 1px); 요게 추가가되었는데 3D CSS로 z축을 올려서 버그를 수정
