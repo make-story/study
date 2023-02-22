@@ -155,4 +155,6 @@ safari transition bug 혹은 safari transition flicker 등으로 검색
 > will-change 속성을 지정
 > all 형태(transition: .8s;)가 아니라 명확하게 지정(transition: transform .8s, opacity .8s, top .8s;)
 
+## transition 으로 열리는 레이어(div) 내부 overflow scroll 영역에서, 일부 이미지 미노출 현상도 동일문제
+
 transform: translate3d(0, 0, 1px); 요게 추가가되었는데 3D CSS로 z축을 올려서 버그를 수정
