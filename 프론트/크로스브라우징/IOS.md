@@ -157,4 +157,12 @@ safari transition bug 혹은 safari transition flicker 등으로 검색
 
 ## transition 으로 열리는 레이어(div) 내부 overflow scroll 영역에서, 일부 이미지 미노출 현상도 동일문제
 
-transform: translate3d(0, 0, 1px); 요게 추가가되었는데 3D CSS로 z축을 올려서 버그를 수정
+- backface-visibility 추가  
+요소의 뒷쪽에서 앞면이 보이게 할지 정하는 속성입니다.
+
+- 가상요소 제거  
+:after : before 요소 제거
+
+- transform: translate3d(0, 0, 0); 추가  
+translate3d(tx, ty, tz)는 x y z 축 속성을 줄 수 있고 z축에 1px 추가 값을 줬습니다.
+예시  : transform: translate3d(0, 0, 1px);
