@@ -12,6 +12,24 @@ https://wit.nts-corp.com/2017/08/08/4818
 
 ---
 
+# 마크업
+
+태그를 사용하여 텍스트 내용과 이미지, 멀티미지어 콘텐츠를 HTML 문서로 표현하는 것을 마크업(Markup) 한다고 합니다.  
+그래서 HTML 은 하이퍼텍스트(Hypertext)를 마크업(Makerup) 하는 언어(Language) 가 된는 것 입니다.
+
+---
+
+# HTML5
+
+- HTML5 표준에서는 "<head>" 태그 안에 반드시 와야 했던 CSS 정의가 꼭 "<head>" 태그 안에 오지 않아도 되는 것으로 변경됨.
+- 문서 인코딩 관련 정보 표시가 필수사항으로 변경
+
+```html
+<meta charset="utf-8" />
+```
+
+- Self-Closing, 시작태그와 종료태그가 함께 있는 단독태그의 경우, 태그 끝 부분에 "/"를 표시하지 않아도 됨. (선택적)
+
 # Self-Closing, void-element
 
 https://html.spec.whatwg.org/multipage/syntax.html#void-elements  
@@ -51,6 +69,54 @@ HTML5에 self-closing 태그의 전체 목록은 다음과 같다.
 
 recommend to always add the slash. Because, it provides a visual clue of non-closing tags.
 `항상 슬래시를 추가하는 것이 좋다. 왜냐하면 non-closing 태그는 시각적으로 가독성을 높여준다.`
+
+---
+
+# "HTML은 사용하기가 까다롭지 않고 유연합니다."
+
+예를 들어, 페이지에 <ysm></ysm>를 선언하면 브라우저가 이를 완전히 수락합니다.   
+비표준 태그가 작동하는 이유는 HTML 사양이 이를 허용하기 때문입니다.   
+사양에 정의되지 않은 요소는 HTMLUnknownElement로 파싱됩니다.
+
+# 사용자정의 요소 생성 관련 규칙
+
+1. 사용자정의 요소의 이름에는 대시(-)가 포함되어야 합니다. 
+<x-tags>, <my-element> 및 <my-awesome-app>은 모두 유효한 이름이지만, <tabs> 및 <foo_bar>는 그렇지 않습니다.  
+이러한 요구사항은 HTML 파서가 일반 요소와 사용자설정 요소를 구별할 수 있도록 합니다.   
+또한 새로운 태그가 HTML에 추가될 때 다음 버전과의 호환성도 보장되도록 합니다.
+
+2. 동일한 태그를 두 번 이상 정의(요소확장/요소업그레이드)할 수 없습니다. 
+중복 정의 시 DOMException이 발생합니다.   
+새로운 태그(사용자 요소)에 대해 브라우저에 알리고 나면 그걸로 끝입니다. 취소할 수 없습니다.
+
+3. HTML은 몇 가지 요소만 스스로 닫도록 허용하므로 사용자설정 요소는 스스로 닫을 수 없습니다. 
+항상 닫는 태그를 작성해야 합니다. (예를 들어 <app-drawer></app-drawer>)
+
+---
+
+# 시멘틱 태그
+
+검색 엔진은 시맨틱 태그를 기준으로 웹 페이지의 내용을 판단하고 인덱싱을 합니다.
+
+시멘틱 태그로 분류되는 태그들은 다음과 같습니다.
+
+```html
+<article></article>
+<aside></aside>
+<details></details>
+<figcaption></figcaption>
+<figure></figure>
+<footer></footer>
+<header></header>
+<main></main>
+<mark></mark>
+<nav></nav>
+<section></section>
+<summary></summary>
+<time></time>
+```
+
+http://makestory.net/media/#/view/73
 
 ---
 

@@ -78,6 +78,16 @@ CSS 변수를 최상위 엘리먼트에 정의해놓으면 마치 전역 변수�
 
 # JavaScript로 사용자 속성값을 사용
 
+자바스크립트로 변수 값을 변경하는 경우 HTML 태그에 직접 "style" 속성으로 CSS가 선언되기 때문에  
+`"<style></style>" 태그 또는 별도의 CSS 파일로 선언된 CSS 속성보다 우선 순위가 있게 됩니다.`
+
+```javascript
+let theme = document.querySelector(':root');
+let style = getComputedStyle(theme);
+console.log(style.getPropertyValue('--hover')); // 변수 값 얻기
+theme.style.setProperty('--hover', 'green'); // 변수 값 변경
+```
+
 ```javascript
 // 인라인 스타일에서 변수 얻기
 element.style.getPropertyValue('--my-var');
