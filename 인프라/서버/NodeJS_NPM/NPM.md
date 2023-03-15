@@ -17,6 +17,27 @@ npm 은 자바스크립트 프로그래밍 언어를 위한 패키지 관리자
 노드 프로젝트에 대한 정보, 설정, 사용중인 패키지를 기록하는 파일  
 패키지에 대한 정보(의존성 등)를 명시
 
+https://docs.npmjs.com/cli/v9/configuring-npm/package-json#dependencies
+
+```json
+{
+  "dependencies": {
+    "foo": "1.0.0 - 2.9999.9999",
+    "bar": ">=1.0.2 <2.1.2",
+    "baz": ">1.0.2 <=2.3.4",
+    "boo": "2.0.1",
+    "qux": "<1.0.0 || >=2.3.1 <2.4.5 || >=2.5.2 <3.0.0",
+    "asd": "http://asdf.com/asdf.tar.gz",
+    "til": "~1.2",
+    "elf": "~1.2.3",
+    "two": "2.x",
+    "thr": "3.3.x",
+    "lat": "latest",
+    "dyl": "file:../dyl"
+  }
+}
+```
+
 ## package-lock.json
 
 노드 패키지 간의 의존 관계를 고정시켜둔 파일  
