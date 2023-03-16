@@ -22,3 +22,9 @@ https://wit.nts-corp.com/2017/07/25/4675
 오버플로우 시 줄바꿈 옵션
 
 # overflow-wrap
+
+# box-sizing
+
+max-width: 100%
+가로 스크롤바가 표시된다면,
+box-sizing: border-box;
