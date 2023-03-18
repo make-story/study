@@ -12,6 +12,8 @@ https://news.hada.io/topic?id=5660
 
 그래서 나온 개념이 Headless UI Component로 `기능은 있지만 스타일이 없는 컴포넌트를 의미`한다.
 
+`기능과 스타일의 관심사 분리`
+
 ## Component 기반 UI 라이브러리 vs Headless UI 라이브러리
 
 ### Component 기반 UI 라이브러리
