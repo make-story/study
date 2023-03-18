@@ -1,4 +1,4 @@
-# Headless 컴포넌트
+# Headless 컴포넌트 (헤드리스 UI)
 
 https://www.howdy-mj.me/design/headless-components
 
@@ -6,19 +6,20 @@ https://news.hada.io/topic?id=5660
 
 ## Headless UI 란?
 
-외부 UI 라이브러리를 사용할 경우, 유스케이스에 맞게 기능을 새로 추가하거나 변경하고 싶어도 그에 맞게 디자인이나 기능을 수정하기가 매우 어렵다.  
+`외부 UI 라이브러리를 사용할 경우, 유스케이스에 맞게 기능을 새로 추가하거나 변경하고 싶어도 그에 맞게 디자인이나 기능을 수정하기가 매우 어렵다.`  
 더 나아가 해당 라이브러리에 심각한 버그가 있거나, 유지보수를 종료한다고 하면 언젠가는 바꿔야 한다.  
 그러다 결국 '그냥 컴포넌트를 만들까?'라는 생각을 문뜩 들게 한다.
 
 그래서 나온 개념이 Headless UI Component로 `기능은 있지만 스타일이 없는 컴포넌트를 의미`한다.
 
-`스타일이 적용되어 있지 않은 UI 컴포넌트`
-
 ## Component 기반 UI 라이브러리 vs Headless UI 라이브러리
 
 ### Component 기반 UI 라이브러리
 
-Component 기반 UI 라이브러리는 기능과 스타일이 존재하는 라이브러리를 말하며, 대표적으로 Material UI, Ant Design가 있다.
+Component 기반 UI 라이브러리는 `기능과 스타일이 존재하는 라이브러리`를 말하며, 대표적으로 Material UI, Ant Design가 있다.
+
+https://mui.com/
+https://ant.design/
 
 장점
 
@@ -33,7 +34,11 @@ Component 기반 UI 라이브러리는 기능과 스타일이 존재하는 라�
 
 ### Headless UI 라이브러리
 
-Headless는 기능은 있지만 스타일이 없는 라이브러리로, Headless UI, Radix UI, Reach UI 등이 있다.
+Headless는 `기능은 있지만 스타일이 없는 라이브러리`로, Headless UI, Radix UI, Reach UI 등이 있다.
+
+https://headlessui.dev/
+https://www.radix-ui.com/  
+https://github.com/reach/reach-ui
 
 장점
 
