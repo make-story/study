@@ -3,6 +3,9 @@
 https://studiomeal.com/archives/197
 https://heropy.blog/2018/11/24/css-flexible-box/
 
+flexbox로 만들 수 있는 10가지 레이아웃  
+https://wit.nts-corp.com/2018/07/27/5274
+
 https://d2.naver.com/helloworld/8540176  
 https://css-tricks.com/snippets/css/a-guide-to-flexbox/  
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Typical_Use_Cases_of_Flexbox
