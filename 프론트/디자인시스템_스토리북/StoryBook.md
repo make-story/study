@@ -80,3 +80,51 @@ package.json
 .storybook/config.js 파일을 열고,  
 src 디렉터리 내부에 \*.stories.js 로 끝나는 모든 파일이 Story 로 인식되도록 설정해줍니다.  
 (기본 설정은 src/stories 디렉터리 하위만 탐색하므로 주석 처리가 하거나 삭제합니다.)
+
+---
+
+# React 18 환경 이슈
+
+```
+ERROR in ./node_modules/@storybook/react/dist/esm/client/preview/render.js
+Module not found: Error: Can't resolve 'react-dom/client' ...
+```
+
+또는
+
+```
+ERROR in ./src/index.tsx
+webpack compiled with 1 error
+Module not found: Error: Can't resolve 'react-dom/client'
+
+Uncaught Error: Cannot find module 'react-dom/client'
+```
+
+react-dom/client 모듈을 찾을 수 없기 때문에 발생한 문제  
+react-dom/client 는 v18에서 새로 생긴 모듈  
+React v18 버전부터는 이 모듈을 이용해 DOM을 렌더링
+
+React v18 이전 버전은 다른 모듈(react-dom)을 사용
+
+```javascript
+// import ReactDOM from 'react-dom/client'; // react v18 버전용
+import ReactDOM from 'react-dom'; // react v17 버전용
+```
+
+```javascript
+// react v 18 버전 용
+// const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+// root.render(
+//   <React.StrictMode>
+//         <App />
+//   </React.StrictMode>
+// );
+
+// react v 17 버전용
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root'),
+);
+```
