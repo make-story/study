@@ -72,10 +72,11 @@ package.json
 
 ### Storybook 설정
 
-.storybook 디렉터리를 열어보시면 Storybook 관련 2개의 설정 파일이 있을 것입니다.  
-addons.js파일은 Storybook 애드온을 추가할 때 사용하고,  
-config.js 파일은 그 밖에 다른 설정을 할 때 사용됩니다.
+.storybook 디렉터리를 열어보시면 Storybook 관련 2개의 설정 파일이 있을 것입니다.
+
+- addons.js 파일은 Storybook 애드온을 추가할 때 사용하고,
+- config.js 파일은 그 밖에 다른 설정을 할 때 사용됩니다.
 
 .storybook/config.js 파일을 열고,  
-src 디렉터리 내부에 stories.js로 끝나는 모든 파일이 Story로 인식되도록 설정해줍니다.  
+src 디렉터리 내부에 \*.stories.js 로 끝나는 모든 파일이 Story 로 인식되도록 설정해줍니다.  
 (기본 설정은 src/stories 디렉터리 하위만 탐색하므로 주석 처리가 하거나 삭제합니다.)
