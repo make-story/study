@@ -139,11 +139,12 @@ https://react-redux.js.org/using-react-redux/accessing-store#using-reactreduxcon
 
 ```javascript
 import React, { useContext } from 'react';
-import { ReactReduxContext } from 'react-redux';
+import { useStore, ReactReduxContext } from 'react-redux';
 
 // Somewhere inside of a <Provider>
 function MyConnectedComponent() {
-  const { store } = useContext(ReactReduxContext);
+  const store = useStore();
+  //const { store } = useContext(ReactReduxContext); // 권장하지 않는 방식
 
   /*
   return (
