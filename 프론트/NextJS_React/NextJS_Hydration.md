@@ -23,6 +23,12 @@ JS 코드가 모두 로드되면,
 이 HTML에 이벤트 핸들러 등을 붙여 동적인 페이지를 만드는 과정을 hydration 이라 말한다.
 hydration을 직역하면 '수분 공급'이라는 뜻인데, 즉 건조한 HTML에 수분(인터랙션, 이벤트 핸들러 등)을 공급하여 동적인 페이지를 만들어나가는 과정을 말한다.
 
+# hydrate 시 redux state 초기화
+
+https://hoons-up.tistory.com/68
+
+---
+
 # Next.js pre-rendering 정리
 
 https://nextjs.org/docs/basic-features/pages#pre-rendering
