@@ -145,7 +145,9 @@ Next.js는 파일 명명 규칙 을 사용하여 CSS 모듈 을 지원합니다.
 
 ---
 
-## Server Side Generation (Static Generation)
+## Server Side Generation (Static Generation, SSG)
+
+https://doqtqu.tistory.com/343
 
 https://nextjs.org/docs/basic-features/pages#static-generation-recommended  
 `getStaticProps`
