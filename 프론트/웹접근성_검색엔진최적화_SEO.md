@@ -18,10 +18,6 @@ http://validator.kldp.org/checklink
 
 https://nuli.navercorp.com/
 
-# 네이버 제공 검색엔진 최적화 진단
-
-https://searchadvisor.naver.com/
-
 # 한국 웹접근성 그룹
 
 http://kwag.net
@@ -75,6 +71,24 @@ https://www.wah.or.kr:444/Participation/guide.asp
 
 https://developer.mozilla.org/ko/docs/Web/HTTP/Status/301
 
+## H1 태그
+
+H1, H2, H3 등의 html 태그는 글의 구조를 나타내기 위한 heading 태그
+
+H1 태그는 페이지내 하나만 있어야 하는가, 구글엔지니어 답변  
+https://www.youtube.com/watch?v=zyqJJXWk0gk
+
+영상 30초 부근에, 다음과 같이 설명하고 있다.  
+"Our system don't have a problem when it comes to multiple h1 headings(tags) on a page.". 번역하면 다음과 같다.  
+"우리의 시스템은 한 페이지에 여러 h1 헤딩(태그)이 있는 것에 관하여 문제가 없다." 뒤이어, 이는 웹에서 매우 일반적이며, heading 태그를 맥락을 이해하는 데 활용한다고 설명한다.  
+더욱 중요한 것은, heading 태그를 '구조화된 형식으로' 사용하는 것이 사용자가 이해하기 용이한 페이지 구조이며, 이 문제에 관해서는 SEO 가 아닌 사용자의 관점에서 생각해야 한다고 지적한다.
+
+---
+
+## 네이버 제공 검색엔진 최적화 진단
+
+https://searchadvisor.naver.com/
+
 ## 페이스북 도구 (공유 디버거)
 
 https://developers.facebook.com/tools/debug  
@@ -90,6 +104,8 @@ https://developers.facebook.com/webmaster/
 ## 구글 웹마스터 도구
 
 https://search.google.com/search-console
+
+---
 
 ## JSON-LD, 구조화된 데이터
 
