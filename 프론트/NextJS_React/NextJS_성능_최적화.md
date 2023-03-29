@@ -2,6 +2,8 @@
 
 ## 이미지 자동 최적화
 
+https://fe-developers.kakaoent.com/2022/220714-next-image/
+
 https://nextjs.org/docs/basic-features/image-optimization
 
 next.js는 이미지 자동 최적화 기능이 구현되어 사이즈를 변경하거나 퀄리티를 수정하는 등 브라우저들이 지원하는 최신 포멧의 이미지를 제공할 수 있다.  
