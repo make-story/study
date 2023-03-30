@@ -39,7 +39,7 @@ https://helloinyong.tistory.com/306
 
 # 이슈
 
-## Router 통해 이동 시 Hydrate가 첫번째 렌더링 후에 실행되는 문제
+## Router 통해 이동 시 Hydrate가 첫번째 렌더링 후에 실행되는 문제 - next-redux-wrapper
 
 next-redux-wrapper v6에는 [컴포넌트가 마운트 된 후 hydrate action이 발생하는 문제](https://github.com/kirill-konshin/next-redux-wrapper/issues/280)를 가지고 있다.
 
