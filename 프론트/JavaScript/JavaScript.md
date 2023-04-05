@@ -11,6 +11,8 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript
 
 # 기본형 데이터, 참조형 데이터
 
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Data_structures
+
 # window.open
 
 Mac 환경에서, 크롬 브라우저 전체화면 모드에서는 window.open 이 '새탭'으로 열린다.  
