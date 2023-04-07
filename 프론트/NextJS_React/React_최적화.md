@@ -13,6 +13,8 @@
 
 # React.memo 로 렌더링 결과 재사용하기
 
+https://ko.reactjs.org/docs/react-api.html#reactmemo
+
 컴포넌트의 속성값이나 상태값이 변경되면 리액트는 그 컴포넌트를 다시 그릴 준비를 한다.  
 만약 React.memo 함수로 감싼 컴포넌트라면 속성값 비교 함수가 호출된다.  
 이 함수는 이전 이후 속성값을 매개변수로 받아서 참 또는 거짓을 반환한다.  

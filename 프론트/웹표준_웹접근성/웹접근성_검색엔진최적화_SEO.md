@@ -111,7 +111,37 @@ https://accessibility.naver.com/acc/guide_04
 
 # 검색엔진 최적화 SEO (Search Engine Optimization)
 
-## 관련 태그(tag) - title, meta, Open Graph
+## 카카오 SEO 개선 사례
+
+https://fe-developers.kakaoent.com/2022/221208-basic-seo-guide/
+
+## 네이버 제공 검색엔진 최적화 진단
+
+https://searchadvisor.naver.com/
+
+## 페이스북 도구 (공유 디버거)
+
+https://developers.facebook.com/tools/debug  
+https://developers.facebook.com/webmaster/
+
+## 구글 웹마스터 도구
+
+https://search.google.com/search-console
+
+### 구글 인증 메타 태그
+
+```html
+<!-- 구글 검색엔진 노출을 위해 메타태그에 구글 소유자 인증 코드를 삽입 //-->
+<meta name="google-site-verification" content="n-Z2dE2FJr4Zf9LYV2NsVVNbk-Nf9aqWaVEggT9AUrs" />
+```
+
+## MS 웹마스터
+
+https://www.bing.com/webmasters/about
+
+---
+
+## SEO 대응 관련 태그(tag) - title, meta, Open Graph
 
 https://www.w3schools.com/tags/tag_meta.asp
 
@@ -200,36 +230,6 @@ Applinks 태그는 2014년 페이스북 개발자 컨퍼런스인 F8에서 처�
   <link rel="alternate" href="android-app://com.example.android/example/gizmos" />
 </head>
 ```
-
----
-
-## 카카오 SEO 개선 사례
-
-https://fe-developers.kakaoent.com/2022/221208-basic-seo-guide/
-
-## 네이버 제공 검색엔진 최적화 진단
-
-https://searchadvisor.naver.com/
-
-## 페이스북 도구 (공유 디버거)
-
-https://developers.facebook.com/tools/debug  
-https://developers.facebook.com/webmaster/
-
-## 구글 인증 메타 태그
-
-```html
-<!-- 구글 검색엔진 노출을 위해 메타태그에 구글 소유자 인증 코드를 삽입 //-->
-<meta name="google-site-verification" content="n-Z2dE2FJr4Zf9LYV2NsVVNbk-Nf9aqWaVEggT9AUrs" />
-```
-
-## 구글 웹마스터 도구
-
-https://search.google.com/search-console
-
-## MS 웹마스터
-
-https://www.bing.com/webmasters/about
 
 ---
 
