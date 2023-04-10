@@ -57,6 +57,10 @@ addEventListener('install', event => {
 });
 ```
 
+# Speed up service worker with navigation preloads
+
+https://web.dev/navigation-preload/
+
 # 서비스워커 코드 또는 버전 변경, 재설치 후 테스트 할 때
 
 테스트하려는 브라우저는 종료 후(탭 등에서 사이트 작동되고 있을 가능성 있음) 테스트 하는 것이 좋다.
