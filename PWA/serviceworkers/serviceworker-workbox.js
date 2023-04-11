@@ -181,8 +181,8 @@ const setServiceWorkerRun = () => {
         .keys()
         .then(function (cacheList) {
           console.log('[Service Worker] Cache Storage 정보', cacheList);
-          return Promise.all(
-            cacheList.map(function (cacheName) {
+          return Promise.all([
+            ...cacheList.map(function (cacheName) {
               console.log('[Service Worker] cacheName', cacheName);
               /**
                * 캐시 이름과 다르게 저장되어 있는 캐시 제거 (안전장치)
@@ -202,7 +202,11 @@ const setServiceWorkerRun = () => {
                 return caches.delete(cacheName);
               }
             }),
-          );
+            // https://web.dev/navigation-preload/
+            self.registration && self.registration.navigationPreload
+              ? self.registration.navigationPreload.enable()
+              : null,
+          ]);
         })
         .catch(function (e) {
           console.log('[Service Worker] activate error', e);
@@ -215,8 +219,11 @@ const setServiceWorkerRun = () => {
  * 워크박스 실행
  */
 const setWorkBoxRun = workbox => {
-  if (!workbox) {
+  if (typeof workbox !== 'object') {
+    console.log('[Service Worker] Workbox 실패!');
     return;
+  } else {
+    console.log('[Service Worker] Workbox 실행!');
   }
 
   /**
@@ -358,6 +365,7 @@ const setWorkBoxRun = workbox => {
     //console.log('isPathname defaultImages', isPathname(context, 'defaultImages'));
     return false;
   }, new workbox.strategies.NetworkOnly());
+  workbox.routing.registerRoute(new workbox.routing.NavigationRoute(new workbox.strategies.NetworkOnly()));
 
   // HTML 파일은 무조건 네트워크
   workbox.routing.registerRoute(
@@ -469,11 +477,8 @@ try {
   // 서비스워커 실행(설치)
   setServiceWorkerRun();
 
-  // workbox 변수 존재 확인
-  if (workbox) {
-    console.log('[Service Worker] Workbox is loaded.');
-    setWorkBoxRun(workbox);
-  }
+  // workbox 실행
+  setWorkBoxRun(typeof workbox === 'object' ? workbox : undefined);
 } catch (error) {
   console.log('[Service Worker]', error);
 }

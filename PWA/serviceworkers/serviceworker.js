@@ -216,6 +216,7 @@ self.addEventListener('activate', function (event) {
 });
 /*self.addEventListener('activate', event => {
   // https://web.dev/navigation-preload/
+  // https://github.com/GoogleChrome/workbox/issues/2178
   event.waitUntil(
     (async function () {
       // Feature-detect
@@ -382,6 +383,7 @@ self.addEventListener('fetch', function (event) {
 });
 /*self.addEventListener('fetch', event => {
   // https://web.dev/navigation-preload/
+  // https://github.com/GoogleChrome/workbox/issues/2178
   event.respondWith(
     (async function () {
       // Respond from the cache if we can
