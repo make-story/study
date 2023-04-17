@@ -2,6 +2,8 @@
 
 https://swc.rs/docs/getting-started
 
+https://fe-developers.kakaoent.com/2022/220217-learn-babel-terser-swc/
+
 SWC는 자바스크립트 프로젝트의 컴파일과 번들링 모두에 사용될 수 있는, Rust라는 언어로 제작된 빌드 툴
 
 `Next.js에서는 SWC를 기반으로 개발한 컴파일러를 통해 기존 빌드에 활용하던 바벨과 Terser를 대체 (Next.js 12 버전부터 정식으로 도입된 SWC)`  
