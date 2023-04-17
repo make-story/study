@@ -2,13 +2,15 @@
 
 https://graphql.org/code/#javascript
 
-Node.js 환경에서 GraphQL을 실행하도록 설계된 GraphQL
-
+Node.js 환경에서 GraphQL을 실행하도록 설계된 GraphQL  
 graphql은 Facebook에서 제공하는 패키지
 
 https://zinirun.github.io/2020/10/27/graphql-crud-sample/
-https://medium.com/@rlatla626/graphql-express-%EC%82%AC%EC%9A%A9%EB%B2%95-1-8a28df28596a
 https://morioh.com/p/689c60cf95c8
+
+---
+
+https://medium.com/@rlatla626/graphql-express-%EC%82%AC%EC%9A%A9%EB%B2%95-1-8a28df28596a
 
 ```
 $ npm install graphql
@@ -50,4 +52,19 @@ apollo-server는 Apollo에서 제공하는 패키지
 $ npm install @apollo/server graphql
 ```
 
-## graphql-yoga
+---
+
+## '실전에서 바로 쓰는 Next.js' 책의 그래프QA 설명
+
+### GraphQL API 사용하기
+
+GraphQL 은 API 에서 사용할 수 있는 질의 언어로, REST 나 SOAP 같은 방식과는 다른 새로운 관점으로 API 데이터를 다룹니다.  
+GraphQL 을 사용하면 꼭 필요한 데이터만 불러오도록 지정할 수 있으며 / 한 번의 요청으로 여러 곳의 데이터를 불러올 수 있습니다.
+
+```
+$ yarn add @apollo/client graphql isomorphic-unfetch
+```
+
+Apollo 는 널리 사용되는 GraphQL 클라이언트로, 리액트와 Next.js 를 기본으로 지원합니다.  
+`ApolloClient 가 브라우저의 fetch API 를 사용해서 HTTP 요청을 처리`하므로
+`서버에서도 같은 기능을 사용할 수 있는 폴리필인 isomorphic-unfetch 를 추가`합니다.

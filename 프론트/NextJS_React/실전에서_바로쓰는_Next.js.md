@@ -1,4 +1,4 @@
-# 실무에서 바로쓰는 Next.js 책 정리
+# 실전에서 바로쓰는 Next.js 책 정리
 
 Next.js 기본철학 Convention-Over-Configuration, 개발자가 해야 할 결정의 수를 줄이면서도 유연성은 잃지 않도록 하는 소프트웨어 설계 패러다임
 
@@ -83,7 +83,8 @@ $ yarn add @apollo/client graphql isomorphic-unfetch
 ```
 
 Apollo 는 널리 사용되는 GraphQL 클라이언트로, 리액트와 Next.js 를 기본으로 지원합니다.
-ApolloClient 가 브라우저의 fetch API 를 사용해서 HTTP 요청을 처리하므로 / 서버에서도 같은 기능을 사용할 수 있는 폴리필인 isomorphic-unfetch 를 추가합니다.
+ApolloClient 가 브라우저의 fetch API 를 사용해서 HTTP 요청을 처리하므로  
+서버에서도 같은 기능을 사용할 수 있는 폴리필인 isomorphic-unfetch 를 추가합니다.
 
 # 테스트
 
