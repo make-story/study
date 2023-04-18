@@ -10,6 +10,12 @@ https://morioh.com/p/689c60cf95c8
 
 ---
 
+## Next.js + GqaphQL
+
+https://www.apollographql.com/blog/apollo-client/next-js/building-a-next-js-app-with-slash-graphql/
+
+---
+
 https://medium.com/@rlatla626/graphql-express-%EC%82%AC%EC%9A%A9%EB%B2%95-1-8a28df28596a
 
 ```
