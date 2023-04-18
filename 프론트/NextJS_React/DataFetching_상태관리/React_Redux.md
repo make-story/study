@@ -1,4 +1,12 @@
-# 리덕스(Redux) 정리
+# 리덕스(Redux) - 상태관리 라이브러리 (Global State Management Library)
+
+## 리덕스 기본원칙
+
+https://redux.js.org/understanding/thinking-in-redux/three-principles
+
+기본 원칙을 충족하기 위해서 Redux를 사용하는데는 장황한 Boilerplate 코드가 요구됩니다.  
+이러한 이슈를 해결하기 위한 redux-toolkit의 등장 이후 Boilerplate 코드가 많이 줄어들었음에도 불구하고  
+Redux로 비동기 데이터를 관리하는 일에는 여전히 불필요하게 느껴지는 반복되는 Boilerplate 코드가 필요합니다.
 
 ## FSA(Flux Standard Action)
 
