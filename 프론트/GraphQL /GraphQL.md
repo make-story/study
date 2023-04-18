@@ -54,7 +54,7 @@ $ npm install @apollo/server graphql
 
 ---
 
-## '실전에서 바로 쓰는 Next.js' 책의 그래프QA 설명
+## '실전에서 바로 쓰는 Next.js' 책의 그래프QL 설명
 
 ### GraphQL API 사용하기
 
