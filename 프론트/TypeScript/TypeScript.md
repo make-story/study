@@ -497,6 +497,49 @@ const fullName: IFullName = {
 };
 ```
 
+---
+
+## typeof
+
+```typescript
+const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
+const code = 'a';
+
+test[code as keyof typeof test];
+```
+
+```typescript
+const object = {
+  a: 1,
+  b: 2,
+  c: 3,
+};
+
+type objectShape = typeof object;
+// objectShape는 아래와 같을 것
+/*type objectShape = {
+  a: number
+  b: number
+  c: number
+}*/
+```
+
+```typescript
+const object = {
+  a: 1,
+  b: 2,
+  c: 3,
+} as const;
+
+type objectShape = typeof object;
+// objectShape는 아래와 같을 것
+/*type objectShape = {
+  readonly a: 1
+  readonly b: 2
+  readonly c: 3
+}*/
+```
+
 ## keyof - 속성 이름을 타입으로 사용
 
 `인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`
