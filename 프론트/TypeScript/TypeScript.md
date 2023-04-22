@@ -96,45 +96,6 @@ $ yarn add eslint eslint-plugin-import @typescript-eslint/parser
 
 ---
 
-## DOM Type
-
-https://typescript-kr.github.io/pages/tutorials/dom-manipulation.html
-
-https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html
-
-## Element Type
-
-https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelement.html
-
-```typescript
-const content: HTMLElement = document.querySelector('#content');
-```
-
-# 유틸리티
-
-https://www.typescriptlang.org/docs/handbook/utility-types.html
-
-> TypeScript는 공통 타입 변환을 용이하게 하기 위해 몇 가지 유틸리티 타입을 제공
-
-- `Partial<T>` : T의 모든 프로퍼티를 선택적으로 만드는 타입을 구성
-- `Readonly<T>` : T의 모든 프로퍼티를 읽기 전용(readonly)으로 설정한 타입을 구성
-- `Record<K,T>` : 타입 T의 프로퍼티의 집합 K로 타입을 구성
-- `Pick<T,K>` : T에서 프로퍼티 K의 집합을 선택해 타입을 구성
-- `Omit<T,K>` : T에서 모든 프로퍼티를 선택한 다음 K를 제거한 타입을 구성
-- `Exclude<T,U>` : T에서 U에 할당할 수 있는 모든 속성을 제외한 타입을 구성
-- `Extract<T,U>` : T에서 U에 할당 할 수 있는 모든 속성을 추출하여 타입을 구성
-- `NonNullable<T>` : T에서 null 과 undefined를 제외한 타입을 구성
-- `Parameters<T>` : 함수 타입 T의 매개변수 타입들의 튜플 타입을 구성
-- `ConstructorParameters<T>`
-- `ReturnType<T>`
-- `InstanceType<T>`
-- `Required<T>`
-- `ThisParameterType`
-- `OmitThisParameter`
-- `ThisType<T>`
-
----
-
 ## 타입스크립트 참고
 
 - intersectionobserver TypeScript 의 기본 타입을 재정의할 경우 에러
@@ -147,235 +108,6 @@ https://www.typescriptlang.org/docs/handbook/utility-types.html
 
 ```
 tsc --noemit
-```
-
----
-
-## 타입주석 - 타입선언
-
-타입스크립트는 자바스크립트 변수 선언문을 확장해 다음과 같은 형태로 `타입을 명시`할 수 있습니다.  
-이를 `타입주석(type annoration)`이라고 합니다.
-
-```
-let 변수이름: 타입 [= 초깃값]
-const 변수이름: 타입 = 초깃값
-```
-
-```typescript
-// 불린: Boolean
-let isBoolean: boolean;
-let isDone: boolean = false;
-
-// 숫자: Number
-let num: number;
-let integer: number = 6;
-let float: number = 3.14;
-let hex: number = 0xf00d; // 61453
-let binary: number = 0b1010; // 10
-let octal: number = 0o744; // 484
-let infinity: number = Infinity;
-let nan: number = NaN;
-
-// 문자열: String
-let str: string;
-let red: string = 'Red';
-let green: string = 'Green';
-let myColor: string = `My color is ${red}.`;
-let yourColor: string = 'Your color is' + green;
-
-// Array
-let arr1: number[] = [1, 2, 3];
-// 또는
-let arr2: Array<number> = [1, 2, 3];
-
-// Tuple
-// (튜플은 배열의 길이가 고정되고 각 요소의 타입이 지정되어 있는 배열 형식을 의미)
-let tuple: [string, number] = ['hi', 10];
-
-// Void
-// (변수에는 undefined와 null만 할당하고, 함수에는 반환 값을 설정할 수 없는 타입)
-let unuseful: void = undefined;
-function notuse(): void {
-  console.log('sth');
-}
-
-// Element
-const content: HTMLElement = document.querySelector('#content');
-```
-
----
-
-## 타입추론
-
-`명시적으로 타입 선언이 되어있지 않은 경우, 타입스크립트는 타입을 추론해 제공`  
-타입스크립트는 `자바스크립트와 호환성을 위해 타입 주석 부분을 생략`할 수 있습니다.  
-타입스크립트 컴파일러는 다음과 같은 코드를 만나면 대입 연산자 = 오른쪽 값에 따라 변수의 타입을 지정합니다.  
-이를 `타입 추론(type inference)`이라고 합니다.
-
-```typescript
-let n = 1; // n의 타입을 number로 판단
-let b = true; // b의 타입을 boolean으로 판단
-let s = 'hello'; // s의 타입을 string으로 판단
-let o = {}; // o의 타입을 object로 판단
-```
-
-```typescript
-// 변수 num을 초기화하면서 숫자 12를 할당해 Number 타입으로 추론되었고,
-let num = 12;
-// 따라서 'Hello type!'이라는 String 타입의 값은 할당할 수 없기 때문에 에러가 발생
-num = 'Hello type!'; // TS2322: Type '"Hello type!"' is not assignable to type 'number'.
-```
-
-`타입스크립트가 타입을 추론하는 경우`
-
-- 초기화된 변수
-- 기본값이 설정된 매개 변수
-- 반환 값이 있는 함수
-
-타입 추론이 엄격하지 않은 타입 선언을 의미하는 것은 아닙니다.  
-따라서 이를 활용해 모든 곳에 타입을 명시할 필요는 없으며, 많은 경우 더 좋은 코드 가독성을 제공할 수 있습니다.
-
-## 타입변환 (타입스크립트는 '타입단언'이라는 용어로 사용)
-
-`타입 추론을 통해 판단할 수 있는 타입의 범주를 넘는 경우, 더 이상 추론하지 않도록 지시할 수 있음`  
-타입이 있는 언어들은 특정 타입의 변숫값을 `다른 타입의 값으로 변환할 수 있는 기능`을 제공합니다.  
-이를 `타입변환(type conversion)`이라고 합니다.
-
-```typescript
-let person: object = { name: 'test' };
-console.log(person.name); // 'object' 형식에 'name' 속성이 없습니다. 에러!
-```
-
-```typescript
-function someFunc(val: string | number, isNumber: boolean) {
-  // some logics
-  if (isNumber) {
-    // 1. '변수 as 타입' 방식
-    (val as number).toFixed(2);
-    // 2. '<타입>변수' 방식
-    // (<number>val).toFixed(2);
-  }
-}
-```
-
-인터페이스 사용을 추천
-
-```typescript
-interface personObject {
-  name: string;
-}
-let person: personObject = { name: 'test' };
-console.log(person.name);
-```
-
-타입변환 방식
-
-```typescript
-let person: object = { name: 'test' };
-(<{ name: string }>person).name;
-```
-
-`타입스크립트는 독특하게 타입 변환이 아닌 타입 단언(type assertion)이라는 용어를 사용`합니다.
-
-```
-(<타입>객체)
-또는
-(객체 as 타입)
-```
-
-이들은 모두 ES5 자바스크립트 구문이 아닙니다.  
-따라서 `자바스크립트의 타입 변환 구문과 구분하기 위해 타입 단언이라는 용어를 사용`합니다.
-
-```typescript
-interface INameable {
-  name: string;
-}
-let obj: object = { name: 'YSM' };
-let name1 = (<INameable>obj).name;
-let name2 = (obj as INameable).name;
-console.log(name1, name2); // YSM YSM
-```
-
-## Non-null 단언 연산자 - 특히 컴파일 환경에서 체크하기 어려운 DOM 사용에서 유용
-
-`!`를 사용하는 Non-null 단언 연산자(Non-null assertion operator)를 통해  
-피연산자가 `Nullish(null이나 undefined) 값이 아님을 단언`할 수 있는데,  
-변수나 속성에서 간단하게 사용할 수 있기 때문에 유용
-
-```typescript
-// Error - TS2533: Object is possibly 'null' or 'undefined'.
-function fnA(x: number | null | undefined) {
-  return x.toFixed(2);
-}
-
-// if statement
-function fnD(x: number | null | undefined) {
-  if (x) {
-    return x.toFixed(2);
-  }
-}
-
-// Type assertion
-function fnB(x: number | null | undefined) {
-  return (x as number).toFixed(2);
-}
-function fnC(x: number | null | undefined) {
-  return (<number>x).toFixed(2);
-}
-
-// Non-null assertion operator
-function fnE(x: number | null | undefined) {
-  return x!.toFixed(2);
-}
-```
-
-```typescript
-// Error - TS2531: Object is possibly 'null'.
-document.querySelector('.menu-item').innerHTML;
-
-// Type assertion
-(document.querySelector('.menu-item') as HTMLDivElement).innerHTML;
-(<HTMLDivElement>document.querySelector('.menu-item')).innerHTML;
-
-// Non-null assertion operator
-document.querySelector('.menu-item')!.innerHTML;
-```
-
-## 타입 가드 (Guards) - 타입 단언을 여러 번 사용하게 되는 경우 유용
-
-`타입 가드는 NAME is TYPE 형태의 타입 술부(Predicate)를 반환 타입으로 명시한 함수`
-
-```typescript
-// 일반적 타입 단언 사용 방식
-function someFunc(val: string | number, isNumber: boolean) {
-  if (isNumber) {
-    (val as number).toFixed(2);
-    isNaN(val as number);
-  } else {
-    (val as string).split('');
-    (val as string).toUpperCase();
-    (val as string).length;
-  }
-}
-```
-
-```typescript
-// 타입 가드 함수 사용 방식
-function isNumber(val: string | number): val is number {
-  // 타입 가드 함수
-  // typeof, in 그리고 instanceof 연산자 등 사용
-  return typeof val === 'number';
-}
-function someFunc(val: string | number) {
-  if (isNumber(val)) {
-    val.toFixed(2);
-    isNaN(val);
-  } else {
-    val.split('');
-    val.toUpperCase();
-    val.length;
-  }
-}
 ```
 
 ---
@@ -447,21 +179,6 @@ export default function getItems(user: IUser): Result {
     };
   }
 }
-```
-
-# `<Type>` 과 `as Type`
-
-> 타입 단언, 타입 캐스팅, 다운 캐스팅, 강제형변환  
-> 타입 단언 문법은 `<Type>` 과 `as Type` 으로 두 종류  
-> JSX 를 사용하는 경우 `<Type>` 키워드는 JSX 의 문법과 겹치기 때문에 불편
-
-```typescript
-let hello: number = 1;
-
-(hello as unknown as string).substr(1, 2);
-// (<string>hello).substr(1, 2);
-// hello의 타입을 string으로 바꾸고 substr 메소드를 실행한다.
-// unknown : number와 string은 명확히 다른 타입이기 때문에 unknown을 생략할 수 없다.
 ```
 
 ## array
@@ -780,9 +497,9 @@ const fullName: IFullName = {
 };
 ```
 
-## keyof
+## keyof - 속성 이름을 타입으로 사용
 
-`인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`  
+`인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`
 인덱싱 가능 타입의 속성 이름들이 유니온 타입으로 적용
 
 ```typescript
@@ -792,14 +509,50 @@ interface ICountries {
   CP: '중국';
 }
 // key 로 접근
-let country1: keyof ICountries; // 'KR' | 'US' | 'CP'
+type TKeys = keyof ICountries; // 'KR' | 'US' | 'CP'
+let country1: TKeys;
 country1 = 'KR'; // ok
 country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
 
 // value 로 접근
-let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+type TValues = ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+let country2: TValues;
 country2 = '대한민국';
 country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
+```
+
+`const - readonly`
+
+```typescript
+export const TAB = {
+  HOME: 'home', // 홈
+  INTRODUCE: 'introduce', // 소개
+  RESERVE: 'reserve', // 예약
+  NOTICE: 'notice', // 소식
+} as const;
+
+// object 로 접근
+export type TTab = typeof TAB;
+
+// key 로 접근
+export type TTabKey = keyof typeof TAB; // TAB 의 key
+
+// value 로 접근
+export type TTab = typeof TAB[keyof typeof TAB]; // TAB 의 key 의 value
+```
+
+`enum`
+
+```typescript
+enum sample_keys {
+  TypeScript,
+  JavaScript,
+  ExpressJS,
+  NodeJS,
+  NextJS,
+}
+
+type keyofEnum = keyof typeof sample_keys;
 ```
 
 ---
@@ -1041,109 +794,6 @@ console.log(kitten);
 
 ---
 
-## 제네릭 방식 타입 - 타입을 인수로 받아서 사용
-
-`사용 시점에 타입을 선언할 수 있는 방법을 제공`  
-타입을 `T 와 같은 일종의 변수(타입 변수)로 취급하는 것`을 `제네릭(generics)타입`이라고 합니다.
-
-> <u>컴파일러는 T 의 의미를 알 수 있어야 합니다.  
-> 즉, T 가 타입 변수(type variable)라고 알려줘야 합니다.</u>  
-> const 함수이름 = `<타입변수>`(매개변수: 타입변수): 타입변수 => {};
-
-> T 는 Type의 약자로 다른 언어에서도 제네릭을 선언할 때 관용적으로 많이 사용된다.  
-> 이 부분에는 식별자로 사용할 수 있는 것이라면 무엇이든 들어갈 수 있다. 이를테면 $나 \_도 가능하다는 의미다.  
-> 하지만 대개의 경우 T를 사용한다. 여기에서 T를 타입 변수(Type variables)라고 한다.
-
-```typescript
-function toArray<T>(a: T, b: T): T[] {
-  return [a, b];
-}
-
-toArray<number>(1, 2);
-toArray<string>('1', '2');
-toArray<string | number>(1, '2');
-toArray<number>(1, '2'); // Error
-```
-
-`타입 추론을 활용해, 사용 시점에 타입을 제공하지 않을 수 있음`
-
-```typescript
-const arrayLength = <T>(array: T[]): number => array.length;
-const isEmpty = <T>(array: T[]): boolean => arrayLength<T>(array) == 0;
-
-let numArray: number[] = [1, 2, 3];
-let strArray: string[] = ['Hello', 'World'];
-
-arrayLength(numArray); // 타입 추론
-isEmpty([]); // 타입 추론
-```
-
-> 두 개 이상의 타입 변수  
-> 제네릭 함수나 클래스에서는 두 개 이상의 타입 변수도 사용할 수 있다.
-
-```typescript
-function toPair<T, U>(a: T, b: U): [T, U] {
-  return [a, b];
-}
-toPair<string, number>('1', 1); // [ '1', 1 ]
-```
-
-<br>
-
-## 제네릭 함수의 타입 추론
-
-`제네릭 형태로 구현된 함수는 원칙적으로는 타입변수를 명시`해줘야 합니다.
-
-```typescript
-const identoty = <T>(n: T): T => n;
-console.log(identoty<boolean>(true)); // true - 타입 변수 명시
-console.log(identoty(true)); // true - 타입 추론 방식
-```
-
-하지만 이런 코드는 번거로워서 `타입스크립트는 타입 변수 부분을 생략할 수 있게 합니다.`  
-타입스크립트는 타입 변수가 생략된 제네릭 함수를 만나면 타입 추론을 통해 생략된 타입을 찾아냅니다.  
-<br>
-
-## 제네릭 함수의 함수 시그니처
-
-타입스크립트는 어떤 경우 `함수 시그니처의 매개변수 부분에 변수 이름을 기입하라고 요구`합니다.
-
-```typescript
-// callback 라는 이름의 매개변수에 함수 시그니처를 사용
-const func = (callback: (a: number, number?) => number): void => {}; // 오류발생! - 타입만 있고 변수명은 없음!
-```
-
-이런 오류가 발생하면 타입스크립트가 해석하지 못하는 부분에 변수를 삽입하고 이 변수에 타입을 명시해 해결합니다.
-
-```typescript
-const func = (callback: (a: number, i?: number) => number): void => {};
-```
-
-```typescript
-const func = <T>(callback: (arg: T, i?: number) => number): void => {};
-```
-
-```typescript
-// function 키워드 (함수선언식)
-function g1<T>(a: T): void {}
-function g2<T, Q>(a: T, b: Q): void {}
-```
-
-```typescript
-// 화살표 함수
-const g3 = <T>(a: T): void => {};
-const g4 = <T, Q>(a: T, b: Q): void => {};
-```
-
-```typescript
-// 타입 별칭(type-alias)
-type Type1Func<T> = (T) => void;
-type Type2Func<T, Q> = (T, Q) = > void;
-type Type3Func<T, Q, R> = (T, Q) => R; // T와 Q타입 값을 입력 받아 R타입 값을 반환
-```
-
----
-
 ## infer
 
 `infer 키워드를 사용해 타입 변수의 타입 추론(Inference) 여부를 확인할 수 있음`  
@@ -1159,13 +809,6 @@ const a: MyType<number> = 123;
 
 ============================================================
 
-## 타입추론
-
-```typescript
-let hello = 'world'; // let hello: string
-const hello = 'world'; // const hello: 'world'
-```
-
 ## Never
 
 Never은 절대 발생하지 않을 값을 나타내며, 어떠한 타입도 적용할 수 없습니다.
@@ -1177,234 +820,6 @@ never.push(3); // Error - TS2345: Argument of type '3' is not assignable to para
 ```
 
 ---
-
-https://iancoding.tistory.com/160
-
-# 타입단언
-
-```
-// 타입 단언에는 두 가지 종류가 있다.
-1: <Fish>pet
-2: (pet as Fish)
-```
-
-1 번은 런타임과 컴파일 단계에서 모두 돌아가고  
-2 번은 컴파일 때만 돌아간다.  
-리액트로 개발할 시 꺽쇠(<>)로 타입캐스팅 하는 것은 TSX 태그 문법이랑 비슷하기 때문에 as 를 추천한다.
-
-## as - 타입단언
-
-`as 를 사용해 최종적으로 확실하게 타입을 단언`  
-https://heropy.blog/2020/01/27/typescript/
-
-```typescript
-let val = 0;
-(val as number).toFixed(2);
-
-// <타입>변수
-// JSX를 사용하는 경우 특정 구문 파싱에서 문제가 발생할 수 있으며, 결과적으로 .tsx 파일에서는 전혀 사용할 수 없습니다.
-(<number>val).toFixed(2);
-```
-
-```typescript
-//let div = document.querySelector('div'); // let div: HTMLDivElement | null
-// 타입을 지정해주기 전 div는 HTMLDivElement | null 일수 가 있어 오류가 생길수 있다.
-
-// 타입 단언
-let div = document.querySelector('div') as HTMLDivElement;
-```
-
-## let, const 선언의 타입 추론
-
-```typescript
-// Type assertion
-// TypeScript 3.4에 추가된 const assertion 기능을 사용하면, let 변수에 대해서도 const 변수를 사용할 때와 같은 타입 추론 규칙을 적용할 수 있습니다.
-let user = {
-  name: 'Neo',
-  age: 36,
-} as const;
-user.age = 85; // Error
-user.name = 'Evan'; // Error
-```
-
-```typescript
-const Product = {
-  bgImg: `/public/images/@temp_img_discount.png`,
-  title: '헤라 루즈 홀릭 런칭',
-  tags: '#NEW CLASSIC #NEW COLOR',
-  prodImg: `/public/images/@temp_img_prod_s.png`,
-  isSoldout: false,
-  brandName: '헤라',
-  prodName: '헤라 루즈 홀릭 매트 립',
-  discountPrice: 38000,
-  originalPrice: 50000,
-  discountRate: 10,
-  prodLink: 'naver.com',
-};
-const Mock = {
-  products: [] as typeof Product[],
-};
-```
-
-## is - 타입가드
-
-```
-typeof 같은 걸로 타입 따져서 분기 처리 하는 역할을 TS 에선 is 이다.
-
-if (isFish(Fish 타입 인 애)) { // isFish에서 Fish 타입이면 타입 가드에 의해서 조건문 통과
-  console.log(Fish 타입인 애); // OK
-  console.log(Bird 타입인 애); // Error
-} else { // Bird 타입인 애가 들어가면 여기로!
-  console.log(Fish 타입); // Error
-  console.log(Bird 타입); // OK
-}
-```
-
-```typescript
-interface Dev {
-  name: string;
-  skill: string;
-}
-interface Person {
-  name: string;
-  age: number;
-}
-
-function introduce(): Dev | Person {
-  return { name: 'd', age: 33, skill: 'c' };
-}
-const tony = introduce(); // Dev | Person 으로 공통된 속성만 사용가능. 즉, tony.skill 불가
-
-// skill을 빼고 싶다면? -> type assertion으로 사용 가능
-if ((tony as Dev).skill) {
-  console.log((tony as Dev).skill);
-} else if ((tony as Person).age) {
-  console.log((tony as Person).age);
-}
-// 너무 assertion을 많이 씀으로 타입 가드 함수를 만든다.
-
-// 타입 가드 정의
-// target is Dev -> 넘겨 받은 파라미터가 해당 타입인지를 확인
-function isDev(target: Dev | Person): target is Dev {
-  // skill이 있다면 Dev이다
-  return (target as Dev).skill !== undefined;
-}
-if (isDev(tony)) {
-  // name, skill 사용 가능
-  console.log(tony.skill);
-} else {
-  // name, age 사용 가능
-  console.log(tony.age);
-}
-```
-
-```javascript
-function isNumber(x: any): x is number {
-  return typeof x === "number";
-}
-
-function isString(x: any): x is string {
-  return typeof x === "string";
-}
-```
-
-## typeof - 타입가드 (typeof type guards)
-
-```typescript
-const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
-const code = 'a';
-
-test[code as keyof typeof test];
-```
-
-```typescript
-const object = {
-  a: 1,
-  b: 2,
-  c: 3,
-};
-
-type objectShape = typeof object;
-// objectShape는 아래와 같을 것
-/*type objectShape = {
-  a: number
-  b: number
-  c: number
-}*/
-```
-
-```typescript
-const object = {
-  a: 1,
-  b: 2,
-  c: 3,
-} as const;
-
-type objectShape = typeof object;
-// objectShape는 아래와 같을 것
-/*type objectShape = {
-  readonly a: 1
-  readonly b: 2
-  readonly c: 3
-}*/
-```
-
-## keyof - 속성 이름을 타입으로 사용
-
-`인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`
-
-```typescript
-interface ICountries {
-  KR: '대한민국';
-  US: '미국';
-  CP: '중국';
-}
-// key 로 접근
-type TKeys = keyof ICountries; // 'KR' | 'US' | 'CP'
-let country1: TKeys;
-country1 = 'KR'; // ok
-country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
-
-// value 로 접근
-type TValues = ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
-let country2: TValues;
-country2 = '대한민국';
-country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
-```
-
-`const - readonly`
-
-```typescript
-export const TAB = {
-  HOME: 'home', // 홈
-  INTRODUCE: 'introduce', // 소개
-  RESERVE: 'reserve', // 예약
-  NOTICE: 'notice', // 소식
-} as const;
-
-// object 로 접근
-export type TTab = typeof TAB;
-
-// key 로 접근
-export type TTabKey = keyof typeof TAB; // TAB 의 key
-
-// value 로 접근
-export type TTab = typeof TAB[keyof typeof TAB]; // TAB 의 key 의 value
-```
-
-`enum`
-
-```typescript
-enum sample_keys {
-  TypeScript,
-  JavaScript,
-  ExpressJS,
-  NodeJS,
-  NextJS,
-}
-
-type keyofEnum = keyof typeof sample_keys;
-```
 
 ## value! - Non-null 단언 연산자
 
@@ -1579,75 +994,3 @@ type Capt = Person & Developer;
 ```
 
 ---
-
-## 제네릭(Generic)
-
-```typescript
-function toArray<T>(a: T, b: T): T[] {
-  return [a, b];
-}
-
-toArray<number>(1, 2);
-toArray<string>('1', '2');
-toArray<string | number>(1, '2');
-toArray<number>(1, '2'); // Error
-
-// 타입 추론을 활용해, 사용 시점에 타입을 제공하지 않을 수 있습니다.
-toArray(1, 2);
-toArray('1', '2');
-toArray(1, '2'); // Error
-```
-
-## 제약 조건(Constraints)
-
-인터페이스나 타입 별칭을 사용하는 제네릭을 작성할 수도 있습니다.
-
-```typescript
-interface MyType<T> {
-  name: string;
-  value: T;
-}
-
-const dataA: MyType<string> = {
-  name: 'Data A',
-  value: 'Hello world',
-};
-const dataB: MyType<number> = {
-  name: 'Data B',
-  value: 1234,
-};
-const dataC: MyType<boolean> = {
-  name: 'Data C',
-  value: true,
-};
-const dataD: MyType<number[]> = {
-  name: 'Data D',
-  value: [1, 2, 3, 4],
-};
-```
-
-```typescript
-interface MyType<T extends string | number> {
-  name: string;
-  value: T;
-}
-
-const dataA: MyType<string> = {
-  name: 'Data A',
-  value: 'Hello world',
-};
-const dataB: MyType<number> = {
-  name: 'Data B',
-  value: 1234,
-};
-const dataC: MyType<boolean> = {
-  // TS2344: Type 'boolean' does not satisfy the constraint 'string | number'.
-  name: 'Data C',
-  value: true,
-};
-const dataD: MyType<number[]> = {
-  // TS2344: Type 'number[]' does not satisfy the constraint 'string | number'.
-  name: 'Data D',
-  value: [1, 2, 3, 4],
-};
-```
