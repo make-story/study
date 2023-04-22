@@ -521,9 +521,8 @@ country2 = '대한민국';
 country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
 ```
 
-`const - readonly`
-
 ```typescript
+// const - readonly
 export const TAB = {
   HOME: 'home', // 홈
   INTRODUCE: 'introduce', // 소개
@@ -553,6 +552,45 @@ enum sample_keys {
 }
 
 type keyofEnum = keyof typeof sample_keys;
+```
+
+- typeof 연산자
+  typeof A → A(변수/함수등)의 type을 반환
+
+```typescript
+let str = 'hello';
+let str2: typeof str = 'hi';
+// === let str2: string ="hi"
+```
+
+- keyof 연산자
+  keyof A → A의 모든 프로퍼티의 키값을 union 형태로 반환
+
+```typescript
+interface Todo {
+  id: number;
+  text: string;
+}
+
+type Keys = keyof Todo;
+// === type Keys = 'id' | 'text'
+
+let a: Keys = 'id';
+a = 'text';
+a = 'ids'; // ERROR!
+a = 'id' | 'text'; // ERROR!
+```
+
+- Mapped Type (in 연산자)
+  기존 타입을 새로운 타입으로 변환
+
+```typescript
+type Test = 'A' | 'B' | 'C';
+type MappedTest = {
+  [key in Test]: number;
+};
+const data: MappedTest = { A: 1, B: 2, C: 3 };
+const data1: MappedTest = { A: 1, B: 2 }; // ERROR!
 ```
 
 ---
