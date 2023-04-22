@@ -35,8 +35,17 @@ https://stackoverflow.com/questions/71842787/next-js-typescript-error-you-do-not
 $ npm install -g typescript
 $ mkdir <프로젝트명>
 $ cd <프로젝트명>
+```
+
+## tsconfig.json
+
+tsconfig.json 은 타입스크립트 컴파일러 설정이 담겨 있는 파일 입니다.
+
+```bash
 $ tsc --init
 ```
+
+tsc --init 은 새로운 tsconfig.json 을 생성하라는 명령입니다.
 
 ## Webpack
 
@@ -233,10 +242,12 @@ console.log(item2[1]); // false
 console.log(item2[2]); // [1, 2, 3]
 ```
 
-## Tuple
+## 튜플 (Tuple)
 
 Tuple 타입은 배열과 매우 유사  
 차이점이라면 `정해진 타입의 고정된 길이(length) 배열을 표현`
+
+요소의 개수가 고정된 배열 타입!
 
 ```typescript
 let tuple: [string, number];
@@ -351,7 +362,7 @@ console.log(Color.Red); // red
 console.log(Color['Green']); // green
 ```
 
-## Void
+## Void - 반환값 없는 함수
 
 `Void는 일반적으로 값을 반환하지 않는 함수에서 사용`
 
@@ -375,6 +386,8 @@ function error(message: string): never {
 
 ## 유니온 (Union) - 'OR' - '|'
 
+유니온 타입(Union Type)이란 자바스크립트의 OR 연산자(||)와 같이 'A' 이거나 'B'이다 라는 의미의 타입이다.
+
 `2개 이상의 타입을 허용하는 경우`
 
 ```typescript
@@ -384,7 +397,33 @@ union = 123;
 union = false; // Error - TS2322: Type 'false' is not assignable to type 'string | number'.
 ```
 
+```typescript
+function logText(text: string | number) {
+  // ...
+}
+```
+
+주의점
+
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+interface Developer {
+  name: string;
+  skill: string;
+}
+function introduce(someone: Person | Developer) {
+  someone.name; // O 정상 동작
+  someone.age; // X 타입 오류
+  someone.skill; // X 타입 오류
+}
+```
+
 ## 인터섹션 (Intersection) - 'AND' - '&'
+
+인터섹션 타입(Intersection Type)은 여러 타입을 모두 만족하는 하나의 타입을 의미한다.
 
 ` 2개 이상의 타입을 조합` (자주 사용하는 방법은 아님)
 
@@ -402,6 +441,20 @@ const neo: IUser & IValidation = {
   age: 85,
   isValid: true,
 };
+```
+
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface Developer {
+  name: string;
+  skill: number;
+}
+
+type Capt = Person & Developer;
 ```
 
 ---
@@ -499,7 +552,7 @@ const fullName: IFullName = {
 
 ---
 
-## typeof
+## typeof 키워드 또는 타입 (typeof 연산자와 다름)
 
 ```typescript
 const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
@@ -540,7 +593,7 @@ type objectShape = typeof object;
 }*/
 ```
 
-## keyof - 속성 이름을 타입으로 사용
+## keyof 키워드 또는 타입 - 속성 이름을 타입으로 사용
 
 `인덱싱 가능 타입에서 keyof를 사용하면 속성 이름을 타입으로 사용`
 인덱싱 가능 타입의 속성 이름들이 유니온 타입으로 적용
@@ -597,7 +650,7 @@ enum sample_keys {
 type keyofEnum = keyof typeof sample_keys;
 ```
 
-- typeof 연산자
+- typeof
   typeof A → A(변수/함수등)의 type을 반환
 
 ```typescript
@@ -606,7 +659,7 @@ let str2: typeof str = 'hi';
 // === let str2: string ="hi"
 ```
 
-- keyof 연산자
+- keyof
   keyof A → A의 모든 프로퍼티의 키값을 union 형태로 반환
 
 ```typescript
@@ -902,41 +955,6 @@ never.push(3); // Error - TS2345: Argument of type '3' is not assignable to para
 
 ---
 
-## value! - Non-null 단언 연산자
-
-https://heropy.blog/2020/01/27/typescript/  
-`변수!.`를 사용하는 Non-null 단언 연산자(Non-null assertion operator)를 통해 피연산자가 Nullish(null이나 undefined) 값이 아님을 단언할 수 있는데,  
-변수나 속성에서 간단하게 사용할 수 있기 때문에 유용
-
-```typescript
-// Error - TS2533: Object is possibly 'null' or 'undefined'.
-function fnA(x: number | null | undefined) {
-  return x.toFixed(2);
-}
-
-// if statement
-function fnD(x: number | null | undefined) {
-  if (x) {
-    return x.toFixed(2);
-  }
-}
-
-// Type assertion
-function fnB(x: number | null | undefined) {
-  return (x as number).toFixed(2);
-}
-function fnC(x: number | null | undefined) {
-  return (<number>x).toFixed(2);
-}
-
-// Non-null assertion operator
-function fnE(x: number | null | undefined) {
-  return x!.toFixed(2);
-}
-```
-
----
-
 ## unknown과 any의 차이, 그리고 never
 
 unknown은 TypeScript의 탑 타입(Top Type)입니다.  
@@ -1028,50 +1046,10 @@ type MOBILE_OS = typeof MOBILE_OS[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
 
 ---
 
-## Union Type
-
-유니온 타입(Union Type)이란 자바스크립트의 OR 연산자(||)와 같이 'A' 이거나 'B'이다 라는 의미의 타입이다.
+# 템플릿 리터럴 타입
 
 ```typescript
-function logText(text: string | number) {
-  // ...
+function getHelloStr(): `Hello, ${string}!` {
+  return 'Hello, world!';
 }
 ```
-
-주의점
-
-```typescript
-interface Person {
-  name: string;
-  age: number;
-}
-interface Developer {
-  name: string;
-  skill: string;
-}
-function introduce(someone: Person | Developer) {
-  someone.name; // O 정상 동작
-  someone.age; // X 타입 오류
-  someone.skill; // X 타입 오류
-}
-```
-
-## Intersection Type
-
-인터섹션 타입(Intersection Type)은 여러 타입을 모두 만족하는 하나의 타입을 의미한다.
-
-```typescript
-interface Person {
-  name: string;
-  age: number;
-}
-
-interface Developer {
-  name: string;
-  skill: number;
-}
-
-type Capt = Person & Developer;
-```
-
----
