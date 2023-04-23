@@ -60,6 +60,13 @@ $ npm install @apollo/server graphql
 
 ---
 
+# Apollo
+
+Apollo는 GraphQL을 편하게 사용할 수 있도록 도와주는 라이브러리  
+Apollo는 client와 server 모두에서 사용이 가능
+
+---
+
 ## '실전에서 바로 쓰는 Next.js' 책의 그래프QL 설명
 
 ### GraphQL API 사용하기
@@ -74,3 +81,9 @@ $ yarn add @apollo/client graphql isomorphic-unfetch
 Apollo 는 널리 사용되는 GraphQL 클라이언트로, 리액트와 Next.js 를 기본으로 지원합니다.  
 `ApolloClient 가 브라우저의 fetch API 를 사용해서 HTTP 요청을 처리`하므로
 `서버에서도 같은 기능을 사용할 수 있는 폴리필인 isomorphic-unfetch 를 추가`합니다.
+
+---
+
+# 테스트 환경 구축
+
+https://hwasurr.io/api/graphql-example/
