@@ -22,3 +22,23 @@ package.json 파일에 type 항목을 module로 설정하면 바로 활용 가�
   //...
 }
 ```
+
+# NodeJS 에서 바벨횔용 ES6 코드 실행
+
+```
+$ yarn add @babel/core @babel/cli @babel/preset-env @babel/node
+$ npx babel-node --presets @babel/env index.js
+```
+
+- @babel/cli
+  바벨 커맨드 라인 실행 도구
+
+- @babel/preset-env
+  프리셋은 미리 준비된 묶음
+  env 프리셋은 ES2015 이상의 최신 자바스크립트 문법으로 작성된 코드를 해석
+
+- @babel/node
+  babel-node 커맨드는 @babel/node 패키지를 설치하면 사용할 수 있음
+
+- 명령에서 '--presets' 욥션 제거방법
+  .babelrc 또는 babel.config.js 바벨 설정 파일에 `"presets": ["@babel/env"],` 형태 설정 추가
