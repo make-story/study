@@ -3,7 +3,14 @@
 Context API 는 리액트 프로젝트에서 전역적으로 사용할 데이터가 있을 때 유용한 기능입니다.  
 (Context API 는 리액트 v16.3 부터 사용하기 쉽게 많이 개선되었습니다.)
 
-- 새 Context 만들기
+2018년 공개된 리액트 버전 16.3 부터는 콘텍스트 API 를 공식적을 사용할 수 있습니다.
+
+`리액트를 다루는 기술 책`
+
+## 1. 새 Context 만들기 (Context, Provider)
+
+Context : 기본 상태 지정
+Provider : Context 상태값 수정
 
 ```javascript
 // contexts/color.js
@@ -48,8 +55,9 @@ export { ColorProvider, ColorConsumer };
 export default ColorContext;
 ```
 
-- Consumer 사용하기  
-  Context 를 사용할 컴포넌트
+## 2. Consumer 사용하기
+
+Context 를 사용할 컴포넌트
 
 ```javascript
 // components/ColorBox.js
@@ -117,8 +125,9 @@ const SelectColors = () => {
 export default SelectColors;
 ```
 
-- Provider  
-  Context 의 값 변경
+## 3. Provider
+
+Context 의 값 변경
 
 ```javascript
 // App.js
