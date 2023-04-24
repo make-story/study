@@ -8,6 +8,10 @@ graphql은 Facebook에서 제공하는 패키지
 https://zinirun.github.io/2020/10/27/graphql-crud-sample/
 https://morioh.com/p/689c60cf95c8
 
+## GraphQL 스키마 시각화
+
+https://studio.apollographql.com/sandbox/explorer
+
 ---
 
 ## Next.js + GqaphQL
@@ -81,6 +85,11 @@ $ yarn add @apollo/client graphql isomorphic-unfetch
 Apollo 는 널리 사용되는 GraphQL 클라이언트로, 리액트와 Next.js 를 기본으로 지원합니다.  
 `ApolloClient 가 브라우저의 fetch API 를 사용해서 HTTP 요청을 처리`하므로
 `서버에서도 같은 기능을 사용할 수 있는 폴리필인 isomorphic-unfetch 를 추가`합니다.
+
+## Next.js + Apollo Client(GraphQL)
+
+https://velog.io/@aeong98/Next.js-%EC%97%90%EC%84%9C-Apollo-ClientGraphQL-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+https://velog.io/@2ast/Next-Next%EC%97%90%EC%84%9C-Apollo-Client-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
 
 ---
 
