@@ -14,7 +14,10 @@ https://studio.apollographql.com/sandbox/explorer
 
 ---
 
-## Next.js + GqaphQL
+## Next.js + GqaphQL (Apollo Client)
+
+https://velog.io/@2ast/Next-Next%EC%97%90%EC%84%9C-Apollo-Client-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0  
+https://velog.io/@aeong98/Next.js-%EC%97%90%EC%84%9C-Apollo-ClientGraphQL-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
 
 https://www.apollographql.com/blog/apollo-client/next-js/building-a-next-js-app-with-slash-graphql/
 
