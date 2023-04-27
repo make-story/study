@@ -61,6 +61,8 @@ https://developer.chrome.com/docs/workbox/modules/workbox-strategies/
 
 nextjs 환경에서 pwa를 적용해줄 수 있는 라이브러리
 
+https://www.npmjs.com/package/next-pwa
+
 # pwa-asset-generator
 
 pwa 를 ios 나 안드로이드에서 제대로 보여주기 위해서는 아이콘과 splash이미지를 잘 준비해야 함  
