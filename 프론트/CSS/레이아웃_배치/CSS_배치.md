@@ -1,275 +1,118 @@
-# inline-block 공백 버그
+# 컨테이닝 블록, Containing Block, CB
 
-- 아이템 태그의 줄 바꿈을 다르게 하기
-- 주석문으로 공백 제거하기
-- (추천) 글꼴 크기를 0px 로 지정해서 공백을 업애기
+https://www.w3.org/TR/CSS2/visudet.html#containing-block-details  
+https://developer.mozilla.org/ko/docs/Web/CSS/Containing_block
+https://medium.com/%EC%98%A4%EB%8A%98%EC%9D%98-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/css-position-%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B3%B4%EC%95%98%EB%8B%A4-8514107d7fa5
 
-```html
-<style>
-  .fone-zero {
-    font-size: 0;
-  }
-  .font-zero li {
-    font-size: 1rem;
-  }
-</style>
-<ul>
-  <li>one</li>
-  <li>two</li>
-  <li>three</li>
-</ul>
-```
+요소의 크기와 위치는 컨테이닝 블록의 영향을 자주 받습니다.
+
+CSS 에서 말하는 Containing Block, CB 는 특정한 가상의 영역을 가리키는데, 이는 어떤 엘리먼트의 자식 엘리먼트들이 위치나 크기 등을 결정지을 때 기준으로 사용할 참고 지표가 된다.
+즉, 흔히 말하는 `부모 엘리먼트를 의미`한다.
+
+## fixed
+
+항상 viewport 의 CB 를 참조
+
+## absolute
+
+부모 엘리먼트부터 최상위 root 엘리먼트 중 현재 엘리먼트에서 position 이 static 이 아닌 가장 가까운 엘리먼트의 CB 를 참조
+
+## relative
+
+현재 엘리먼트가 속한 DOM flow 의 흐름에서, 자기 자신의 CB 의 왼쪽 상단 꼭지점을 (0, 0) 좌표로 인식
+
+## sticky
+
+부모 엘리먼트 중 scroll 이 있는 엘리먼트의 CB 를 참조
+
+## 컨테이닝 블록 식별
+
+컨테이닝 블록의 식별 과정은 `position 속성`에 따라 완전히 달라집니다.
+
+position 속성이 `static, relative, sticky` 중 하나이면,  
+컨테이닝 블록은 가장 가까운 조상 블록 컨테이너(inline-block, block, list-item 등의 요소),  
+또는 가장 가까우면서 서식 맥락을 형성하는 조상 요소(table, flex, grid, 아니면 블록 컨테이너 자기 자신)의 콘텐츠 영역 경계를 따라 형성됩니다.
+
+position 속성이 `absolute`인 경우,  
+컨테이닝 블록은 position 속성 값이 static이 아닌(fixed, absolute, relative, sticky) 가장 가까운 조상의 내부 여백 영역입니다.
+
+position 속성이 `fixed` 인 경우,  
+컨테이닝 블록은 뷰포트나 페이지 영역(페이지로 나뉘는 매체인 경우)입니다.
+
+position 속성이 `absolute나 fixed` 인 경우,  
+다음 조건 중 하나를 만족하는 가장 가까운 조상의 내부 여백 영역이 컨테이닝 블록이 될 수도 있습니다.
+
+- transform이나 perspective (en-US) 속성이 none이 아님.
+- will-change 속성이 transform이나 perspective임.
+- filter 속성이 none임. (Firefox에선 will-change가 filter일 때도 적용)
+- contain 속성이 paint임.
 
 ---
 
-# 영역의 중간에 배치하기
+# position: sticky
+
+스크롤 시에도 적용(설정)된 위치에 고정됨
+
+---
+
+# float
+
+## clip-path, shape-outside
+
+```html
+<img id="clip-path" src="http://resrc.devdic.com/img/bysize/below_200/01.png" />
+<p>
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+  standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+  type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining
+  essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+  passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+</p>
+```
 
 ```css
-.prev,
-.next {
+#clip-path {
+  clip-path: circle(50%);
+  shape-outside: circle(50%);
+  float: left;
+}
+```
+
+clip-path 기능은 원하는 이미지같은 요소의 주변을 다양한 형태로 가려주는 기능
+
+shape-outside 기능은 주변 요소(텍스트)가 주변을 감싸게 됨
+
+## display: flow-root;
+
+https://jihyehwang09.github.io/2019/02/03/css-layout-float/
+
+flow-root 는 가장 최상위 요소처럼 보여지게 하라는 뜻
+
+float 된 요소랑 float 되지 않은 요소랑 독립되게 하려면, 자식 요소에  
+display: flow-root; 를 준다.
+
+```html
+<style>
+  /* .ex{display: flow-root;} */
+  .cf::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+</style>
+<ul class="ex cf"></ul>
+```
+
+- 익스플로러 대응
+
+```css
+::after {
+  content: ””;
   display: block;
-  position: absolute;
-  top: 50%; /* 영역 기준 상단 50% 이동 */
-  transform: translateY(-50%); /* 대상의 높이 기준 위로 50% 이동 */
+  clear: both;
 }
 ```
 
-# 가로 중간에 배치하기
+자식 요소 중 마지막 요소의 다음에 content가 “”(비어있는) block 요소를 만들고, clear:both를 사용해서 float를 left 또는 right 상관없이 초기화해야 한다.
 
-- auto 마진을 이용 방법
-
-```css
-#wrapper {
-  width: 720px;
-  margin: 0 auto;
-}
-```
-
-- 포지셔닝과 음수 마진값 이용 방법
-  먼저 래퍼 엘리먼트에 너비 폭을 지정합니다.  
-  그 대음 position 속성값을 relative 로 지정하고, left 속성에 50%로 지정합니다.
-
-```css
-#wrapper {
-  width: 720px;
-  position: relative;
-  left: 50%;
-  margin-left: -360px; /* width 사이즈 절반 값 */
-}
-```
-
-# Layer 화면 중앙정렬 방법
-
-https://wit.nts-corp.com/2017/02/06/4123
-
-1. position:absolute와 margin 마이너스값을 이용한 중앙 정렬  
-   장점:  
-   IE7 이상 모든 브라우저에서 지원 가능합니다.  
-   단점:  
-   width와 height값이 고정사이즈인 상태에서만 사용할 수 있습니다.
-
-```html
-<div class="layer">Layer Contents</div>
-```
-
-```css
-.layer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  background: #f00;
-  margin: -50px 0 0 -50px;
-}
-```
-
-2. position:absolute와 margin:auto를 이용한 중앙 정렬  
-   장점:  
-   IE8 이상 모든 브라우저에서 지원 가능합니다.  
-   margin 마이너스 값과 달리 margin값에 대한 추가적 연산이 필요 없습니다.  
-   단점:  
-   width와 height값이 고정사이즈인 상태에서만 사용할 수 있습니다.
-
-```html
-<div class="layer">
-  <span class="content">Layer Contents</span>
-</div>
-```
-
-```css
-.layer {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100px;
-  height: 100px;
-  background: #f00;
-  margin: auto;
-}
-```
-
-3. position:absolute와 inline-block을 이용한 중앙 정렬  
-   장점:  
-   IE7 이상 모든 브라우저에서 지원 가능합니다.  
-   layer 안의 content 영역이 고정값이 아니라 가변이어도 자동으로 중앙정렬이 됩니다.  
-   단점:  
-   불필요한 span 태그가 하나 더 필요합니다. (IE8이상의 환경에서는 :after로 대체 가능)
-
-```html
-<div class="layer">
-  <span class="content">Layer Contents</span>
-  <span class="blank"></span>
-</div>
-```
-
-```css
-.layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-}
-.layer .content {
-  display: inline-block;
-  background: #f00;
-  vertical-align: middle;
-}
-.layer .blank {
-  display: inline-block;
-  width: 0;
-  height: 100%;
-  vertical-align: middle;
-}
-```
-
-4. position:absolute와 tabel-cell을 이용한 중앙 정렬  
-   장점:  
-   IE8 이상 모든 브라우저에서 지원 가능합니다.  
-   layer 안의 content 영역이 고정값이 아니라 가변이어도 자동으로 중앙정렬이 됩니다.  
-   단점:  
-   코드 중첩이 여러번 되어야 합니다.
-
-```html
-<div class="layer">
-  <div class="layer_inner">
-    <div class="content">Layer Contents</div>
-  </div>
-</div>
-```
-
-```css
-.layer {
-  position: absolute;
-  display: table;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.layer .layer_inner {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-}
-.layer .content {
-  display: inline-block;
-  background: #f00;
-}
-```
-
-5. `position:absolute와 transform을 이용한 중앙 정렬`  
-   장점:  
-   IE9 이상 모든 브라우저에서 지원 가능합니다. (모바일 작업시 적합)  
-   layer 안의 content 영역이 고정값이 아니라 가변이어도 자동으로 중앙정렬이 됩니다.  
-   transform 속성은 GPU가속이 가능해서 속도향상에 도움이 됩니다.  
-   짧은 소스로 간결하게 만들수 있습니다.  
-   단점:  
-   모바일에서 사용시 기기별로 버그가 생길 가능성이 있습니다. (폰트가 희미하게 번져보이는 버그)
-
-```html
-<div class="layer">Layer Contents</div>
-```
-
-```css
-.layer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background: #f00;
-  transform: translate(-50%, -50%);
-}
-```
-
-6. `position:absolute와 flex를 이용한 중앙 정렬`  
-   장점:  
-   IE10 이상 모든 브라우저에서 지원 가능합니다. (모바일 작업시 적합)  
-   layer 안의 content 영역이 고정값이 아니라 가변이어도 자동으로 중앙정렬이 됩니다.  
-   짧은 소스로 간결하게 만들수 있습니다.  
-   단점:  
-   구버전 브라우저에서는 display:box와 병행해야 합니다.
-
-```html
-<div class="layer">
-  <span class="content">Layer Contents</span>
-</div>
-```
-
-```css
-.layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: -webkit-flex;
-  -webkit-align-item: center;
-  -webkit-justify-content: center;
-}
-.layer .content {
-  background: #f00;
-}
-```
-
-7. position:absolute와 box를 이용한 중앙 정렬
-
-```html
-<div class="layer">
-  <span class="content">Layer Contents</span>
-</div>
-```
-
-```css
-.layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-justify-content: center;
-  -webkit-box-pack: center;
-  -webkit-box-align: center;
-  -moz-box-pack: center;
-  -moz-box-align: center;
-  -ms-box-pack: center;
-  -ms-box-align: center;
-}
-.layer .content {
-  background: #f00;
-}
-```
+- iOS 사파리 12 버전 이하에서 지원하지 않는다.
