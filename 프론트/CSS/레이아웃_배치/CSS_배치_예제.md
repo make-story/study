@@ -249,3 +249,87 @@ https://wit.nts-corp.com/2017/02/06/4123
   background: #f00;
 }
 ```
+
+---
+
+# 양쪽 사이드바
+
+https://jihyehwang09.github.io/2019/02/03/css-layout-float/
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>float로 사이드바 만들기</title>
+    <style>
+      p {
+        margin: 0;
+      }
+
+      body {
+        background-color: #ddd;
+        color: dodgerblue;
+      }
+
+      .wrapper {
+        width: 800px;
+        margin: 50px auto;
+        background-color: white;
+        display: flow-root;
+      }
+
+      .sidebar {
+        background-color: #c7e1fd;
+        float: left;
+        /* float가 적용되면, 왼쪽이든 오른쪽이든 컨텐츠가 붙어야하니까 
+        contents 크기만큼 크기가 줄어버림 */
+        /* sidebar랑 contents는 시작점이 같음
+        sidebar랑 contents랑 겹치면 안되니까 contents가 오른쪽으로 밀린 것임  
+         */
+        width: 100px;
+        height: 300px;
+        /* 보통, height는 사이즈르 주지 않는 게 좋다. */
+      }
+
+      .contents {
+        /* 1) 부모요소인 sidebar에 margin-right: 20px를 주면 된다.
+          margin-left: 100px;(비추천!)
+
+
+2) 유지보수를 위해서는 자식 요소인 contents에 margin-left: 100px을 주면 된다. 
+-> 좋은 방법은 X (sidebar의 너비를 모르면 사용할 수 X)
+3) flow-root는 가장 최상위 요소처럼 보여지게 하라는 뜻
+float된 요소랑 float되지 않은 요소랑 독립되게 하려면, 자식 요소인 contents에
+display: flow-root;를 준다.
+*/
+        display: flow-root;
+        /* 장점: sidebar의 너비가 줄거나 늘어나도, 
+    wrapper의 너비가 줄거나 늘어나도
+    수정할 게 X
+     */
+
+        border: 5px solid mediumpurple;
+        padding: 20px;
+      }
+      .sidebar.right {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">Sidebar</div>
+      <div class="sidebar right">Sidebar</div>
+      <p class="contents">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+        nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
+        aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
+        felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
+        ele
+      </p>
+      <!-- <div class="sidebar right">Sidebar</div> -->
+    </div>
+  </body>
+</html>
+```
