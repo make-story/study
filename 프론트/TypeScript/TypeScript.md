@@ -3,6 +3,9 @@
 
 https://evan-moon.github.io/2021/08/22/tsconfig-compiler-options-modules/
 
+- TypeScript Playground
+  https://www.typescriptlang.org/play
+
 - 핸드북  
   https://joshua1988.github.io/ts/guide/enums.html#%EB%AC%B8%EC%9E%90%ED%98%95-%EC%9D%B4%EB%84%98  
   https://typescript-kr.github.io/pages/tutorials/typescript-in-5-minutes.html
@@ -633,7 +636,7 @@ export type TTab = typeof TAB;
 export type TTabKey = keyof typeof TAB; // TAB 의 key
 
 // value 로 접근
-export type TTab = typeof TAB[keyof typeof TAB]; // TAB 의 key 의 value
+export type TTab = (typeof TAB)[keyof typeof TAB]; // TAB 의 key 의 value
 ```
 
 `enum`
@@ -926,21 +929,6 @@ const kitten = makeKitten(Cat, 'Lucy');
 console.log(kitten);
 ```
 
----
-
-## infer
-
-`infer 키워드를 사용해 타입 변수의 타입 추론(Inference) 여부를 확인할 수 있음`  
-U가 추론 가능한 타입이면 참, 아니면 거짓 `T extends infer U ? X : Y`
-
-```typescript
-// 타입 변수 R은 MyType<number>에서 받은 타입 number가 되고 infer 키워드를 통해 타입 추론이 가능한지 확인
-// number 타입은 당연히 타입 추론이 가능하니 R을 반환하게 됩니다.(만약 R을 타입 추론할 수 없다면 null이 반환됩니다)
-// 결과적으로 MyType<number>는 number를 반환하고 변수 a는 123을 할당할 수 있습니다.
-type MyType<T> = T extends infer R ? R : null;
-const a: MyType<number> = 123;
-```
-
 ============================================================
 
 ## Never
@@ -1041,7 +1029,7 @@ const MOBILE_OS = {
   IOS: 'iOS',
   Android: 'Android',
 } as const;
-type MOBILE_OS = typeof MOBILE_OS[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
+type MOBILE_OS = (typeof MOBILE_OS)[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
 ```
 
 ---
