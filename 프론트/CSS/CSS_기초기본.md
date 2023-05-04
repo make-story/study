@@ -30,3 +30,8 @@ https://wit.nts-corp.com/2017/07/25/4675
 max-width: 100%
 가로 스크롤바가 표시된다면,
 box-sizing: border-box;
+
+# text-indent
+
+들여쓰기와 내어쓰기는 text-indent 속성으로 만듭니다.  
+값이 양수이면 들여쓰기, 값이 음수이면 내어쓰기가 됩니다.

@@ -24,6 +24,18 @@
   position: absolute;
   left: -5000px;
 }
+
+.screen-reader {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  text-indent: -9999px;
+}
 ```
 
 # 웹접근성용 글자 화면 미노출하기
