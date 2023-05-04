@@ -1,3 +1,22 @@
+# @charset
+
+어떤 인코딩을 사용하는지 정의합니다.
+
+```css
+@charset "utf-8";
+```
+
+@charset 규칙을 여러 개 사용하면 첫 번째 선언만 적용됩니다.  
+`이 규칙은 반드시 스타일시트의 첫 번째 행에 있어야 하며`,  
+어떤 문자도 이 규칙의 앞에 올 수 없습니다.  
+문서에 포함된 스타일시트에는 @charset 을 사용할 수 없습니다.
+
+# @import
+
+다른 스타일시트의 스타일을 가져올 수 있습니다.  
+@import 규칙은 여러 개 사용할 수 있습니다.  
+@import 규칙은 반드시 @charset 을 제외한 어떤 규칙보다 앞에 있어야 합니다.
+
 # @supports
 
 https://developer.mozilla.org/ko/docs/Web/CSS/@supports

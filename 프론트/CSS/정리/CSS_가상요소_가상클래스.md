@@ -48,6 +48,18 @@ HTML 요소 앞/뒤에 새로운 요소를 추가하 수 있는 가상요소 선
 
 링크 요소의 다양한 상태를 표현하는데 사용하는 가상 클래스
 
+# :target
+
+현재 페이지에 접근할 때 사용된 URI 의 해시 식별자 부분과 일치하는 요소를 선택합니다.  
+예를 들어 http://www.w3c.org/TR/css3-selectors/#target-pseudo 에 방문했다면,  
+id 가 target-pseudo 인 요소가 이 선택자에 일치하며 선언된 스타일이 적용될 것 입니다.
+
+```css
+:target {
+  background: #ee0;
+}
+```
+
 # :checked
 
 체크 박스 또는 라디오 박스 체크 속성을 위한 전용 가상 클래스
@@ -55,6 +67,25 @@ HTML 요소 앞/뒤에 새로운 요소를 추가하 수 있는 가상요소 선
 # :not(한정자)
 
 다른 가상요소 선택자와 달리 콜론(:) 1개만 사용합니다.
+
+# :empty
+
+자식요소 또는 컨텐츠 노드가 없는 요소에 일치합니다.
+이 가상 클래스는 br, img, imput 등 원래 비어있는 요소에는 적용되지 않습니다.
+
+```css
+p:empty {
+  padding: 1em;
+  background: red;
+}
+div:not(:empty) {
+  border: 1px solid;
+  padding: 1ch;
+}
+li:empty {
+  display: none;
+}
+```
 
 # :first-child, :last-child
 
@@ -83,5 +114,32 @@ HTML 요소 앞/뒤에 새로운 요소를 추가하 수 있는 가상요소 선
 /* 6번째 요소부터 숨기기 */
 .list .accordion:nth-of-type(n + 6) {
   display: none;
+}
+```
+
+# :only-child
+
+부모 요소의 유일한 자식인 요소에 일치합니다.
+
+```css
+a img:only-child {
+  border: 0;
+}
+table div:only-child {
+  margin: 5px;
+}
+```
+
+# :only-of-type
+
+부모 요소의 유일한 자식이면서 해당 타입에 속하는 요소에 일치합니다.
+
+# :root
+
+문서의 루트 요소에 일치하며 HTML 에서는 항상 html 요소 입니다.
+
+```css
+:root > * {
+  margin: 1.5em 0;
 }
 ```

@@ -21,6 +21,22 @@ http://www.css-validator.org/validator.html.ko
 
 ---
 
+# 공통값
+
+- inherit  
+  프로퍼티 값을 부모 요소에서 강제로 상속합니다.  
+  부모 요소에서 값을 복사한다고 생각해도 됩니다.
+
+- initial  
+  `프로퍼티 값을 관련 CSS 모듈에서 정의하는 초깃값으로 정합니다.`
+
+- unset
+  inherit 와 initial 의 효과를 섞습니다.  
+  color 처럼 상속되는 프로퍼티에서 unset 은 initial 와 같은 의미 입니다,  
+  background-image 처럼 상속되지 않는 프로퍼티에서 unset 의 효과는 initial 과 같습니다.
+
+---
+
 # 셀렉터
 
 ## 단순 셀렉터
