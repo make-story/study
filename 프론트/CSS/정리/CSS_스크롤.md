@@ -4,11 +4,65 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap/Basic_concepts
 
+```html
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test</title>
+    <style>
+      .container {
+        overflow: auto;
+        /* 
+        부모 요소에서 scroll-snap-type 속성을 설정해서 어느 위치에서 스크롤할 것인지 축을 설정합니다. 
+        항상 스크롤 스냅이 동작하도록 설정(mandatory)을 추가혀면 현재 표시되는 영역이나 다음 영역 등 어느 한 부분만이 표시됩니다. 
+        */
+        scroll-snap-type: y mandatory;
+        height: 100vh;
+      }
+      .container section {
+        width: 100vw;
+        height: 100vh;
+        /*
+        부모 요소의 어느 위치에서 멈출지 결정(scroll-snap-align)
+        영역 시작점(start) 입력하면 시작점에서 스크롤을 멈춥니다.
+        */
+        scroll-snap-align: start;
+      }
+      .container .hero {
+        background-color: darkcyan;
+      }
+      .container .menu {
+        background-color: darkolivegreen;
+      }
+      .container .content {
+        /*
+        부모 요소의 어느 위치에서 멈출지 결정(scroll-snap-align)
+        영역 종료 지점(end) 입력하면 영역이 끝나는 지점에서 스크롤이 멈춥니다.
+        */
+        scroll-snap-align: end;
+        background-color: maroon;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scroll">
+      <h2>scroll</h2>
+      <div class="container">
+        <section class="hero"></section>
+        <section class="menu"></section>
+        <section class="content"></section>
+      </div>
+    </div>
+  </body>
+</html>
+```
+
 ## scroll-snap-type
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type
 
-##
+## scroll-snap-stop
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-stop
 
