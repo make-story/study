@@ -56,3 +56,5 @@ const TestComponent = ({ data }: IProps) {
 
 export default withLoggedIn(TestComponent);
 ```
+
+## 참고: 'front-next-build-template.git' 저장소 또는 'front-next-test.git' 저장소 참고
