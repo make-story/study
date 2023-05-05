@@ -1,11 +1,11 @@
-# `완성된 웹사이트로 배우는 HTML & CSS 웹 디자인` 책 내용중
+`완성된 웹사이트로 배우는 HTML & CSS 웹 디자인` 책 내용중
 
 ## 풀사이즈 배경 이미지
 
 ```css
 section {
   height: 100vh;
-  background-size: cover;
+  background-size: cover; /* 이미지 비율을 유지하면서 전체 화면으로 표시 */
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -16,7 +16,7 @@ section {
 ```css
 body {
   background-image: url(images/bg1.png), url(images/bg2.png);
-  background-position: left top, right top;
+  background-position: left top, right top; /* 이미자가 표시되는 위치 조정 */
   background-repeat: no-repeat;
 }
 ```

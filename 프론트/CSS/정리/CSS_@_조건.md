@@ -63,3 +63,39 @@ https://mong-blog.tistory.com/entry/CSS-Container-%EC%BF%BC%EB%A6%AC%ED%8A%B9%EC
 
 - container 쿼리는 viewport기준이 아닌, 특정 요소의 크기에 따라 반응적으로 스타일링이 가능하다.
 - container 쿼리를 사용하기 위해선 container-name, container-type 지정이 필요하다.
+
+# @font-face
+
+https://developer.mozilla.org/ko/docs/Web/CSS/@font-face
+
+@font-face 를 사용하여 `웹페이지 제작자가 원하는 폰트를 사용할 수 있게함으로써, 컴퓨터에 설치된 폰트만을 사용해야했던 제약이 없어지게되었다.`
+
+문법
+
+```css
+@font-face {
+    font-family: <a-remote-font-name>
+    src: <source> [, <source>]*;
+    [font-weight: <weight>];
+    [font-style: <style>];
+}
+```
+
+- <a-remote-font-name> : font 속성에서 폰트명(font face)으로 지정될 이름을 설정한다.
+- <source> : 원격 폰트(remote font) 파일의 위치를 나타내는 URL 값을 지정하거나, 사용자 컴퓨터에 설치된 폰트명을 local("Font Name")형식으로 지정하는 속성이다.
+- <weight> : 폰트의 굵기(font weight) 값.
+- <style> : 폰트 스타일(font style) 값.
+
+아이콘 폰트 사용 예
+
+```css
+@font-face {
+  font-family: 'font-icon';
+  src: url('../../font/font-icon.eot');
+  src: url('../../font/font-icon.eot?#iefix') format('eot'), url('../../font/font-icon.woff2') format('woff2'),
+    url('../../font/font-icon.woff') format('woff'), url('../../font/font-icon.ttf') format('truetype'),
+    url('../../font/font-icon.svg#font-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+```
