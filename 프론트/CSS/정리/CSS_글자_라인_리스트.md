@@ -38,20 +38,16 @@ list-style-position: outside; /* 마커가 `li` 태그 바깥에 위치 */
 
 ---
 
-# shape-outside
+# 제목에 형광펜을 칠한 효과 넣기
 
 `완성된 웹사이트로 배우는 HTML & CSS 웹 디자인` 책 내용중
-
-텍스트를 원형 이미지에 맞춰 배치하기
 
 ```html
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <title>HTML Live Test</title>
-    <link rel="stylesheet" href="../reset.css" />
-    <link rel="stylesheet" href="../common.css" />
+    <title>Test</title>
     <style>
       /* 제목에 형광펜을 칠한 효과 넣기 */
       #text h2 {
@@ -64,7 +60,29 @@ list-style-position: outside; /* 마커가 `li` 태그 바깥에 위치 */
         /* padding-bottom 을 추가하면 글자 베이스라인보다 조금 아래에 선을 그릴 수 있습니다. */
         padding-bottom: 0.25rem;
       }
+    </style>
+  </head>
+  <body>
+    <div id="text">
+      <h2>text</h2>
+    </div>
+  </body>
+</html>
+```
 
+# 텍스트를 원형 이미지에 맞춰 배치하기
+
+`완성된 웹사이트로 배우는 HTML & CSS 웹 디자인` 책 내용중
+
+shape-outside
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test</title>
+    <style>
       #text .clip-path {
         clip-path: circle(50%);
         shape-outside: circle(50%);
