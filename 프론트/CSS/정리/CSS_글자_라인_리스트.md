@@ -35,3 +35,56 @@ list-style-position 속성의 값으로 inside를 줘서 마커가 li 태그 안
 list-style-position: inside; /* 마커가 `li` 태그 안에 위치 */
 list-style-position: outside; /* 마커가 `li` 태그 바깥에 위치 */
 ```
+
+---
+
+# shape-outside
+
+`완성된 웹사이트로 배우는 HTML & CSS 웹 디자인` 책 내용중
+
+텍스트를 원형 이미지에 맞춰 배치하기
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML Live Test</title>
+    <link rel="stylesheet" href="../reset.css" />
+    <link rel="stylesheet" href="../common.css" />
+    <style>
+      /* 제목에 형광펜을 칠한 효과 넣기 */
+      #text h2 {
+        font-size: 2rem;
+        font-family: sans-serif;
+        font-weight: bold;
+        display: inline-block;
+        /* CSS 그라데이션 기능을 사용 */
+        background-image: linear-gradient(transparent 50%, #ff6 50%);
+        /* padding-bottom 을 추가하면 글자 베이스라인보다 조금 아래에 선을 그릴 수 있습니다. */
+        padding-bottom: 0.25rem;
+      }
+
+      #text .clip-path {
+        clip-path: circle(50%);
+        shape-outside: circle(50%);
+        float: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="text">
+      <h2>text</h2>
+      <img class="clip-path" src="http://resrc.devdic.com/img/bysize/below_200/01.png" />
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+    </div>
+  </body>
+</html>
+```
