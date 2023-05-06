@@ -12,6 +12,66 @@ https://morioh.com/p/689c60cf95c8
 
 https://studio.apollographql.com/sandbox/explorer
 
+## 흐름
+
+### 서버
+
+1. 스키마(schema) 정의
+   GraphQL 의 타입 및 데이터에 대한 표현 정보를 담고 있는 schema
+2. 리졸버(resolve) 함수 정의
+   GraphQL 쿼리 요청이 들어온 경우 실행 될 resolve 함수
+3. 서버 실행
+   Node.js + Express ('express-graphql' NPM 모듈 등) 실행
+
+### 클라이언트
+
+- 'fetch', 'axios' 등 Data Fetching 도구를 활용, GraphQL 쿼리로 데이터 호출
+
+```javascript
+// 쿼리
+const apiUri = 'http://localhost:3000/graphql';
+function getProduct() {
+  axios
+    .get(apiUri, {
+      params: {
+        query: `{getProduct(id : ${pid.value}) {id price name description}}`,
+      },
+    })
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+```
+
+```javascript
+// 뮤테이션 (추가, 수정, 삭제 등)
+function postProduct(e) {
+  axios
+    .post(apiUri, {
+      query: 'mutation addProduct($input: ProductInput) { addProduct(input: $input)}',
+      variables: {
+        input: {
+          price: parseInt(this.price.value),
+          name: String(this.name.value),
+          description: String(this.description.value),
+        },
+      },
+      operationName: null,
+    })
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+```
+
+- 'apollo/client' gql 을 클라이언트에서 사용할 수 있도록 여러 기능을 제공하는 라이브러리 활용
+
 ---
 
 ## Next.js + GqaphQL (Apollo Client)
