@@ -1,6 +1,87 @@
-# overflow-wrap
+# text-transform
 
-오버플로우가 일어날 때 단어 내 줄바꿈 처리
+텍스트를 대소 문자 또는 전각 문자로 변환한다.
+
+# text-indent
+
+들여쓰기와 내어쓰기는 text-indent 속성으로 만듭니다.  
+값이 양수이면 들여쓰기, 값이 음수이면 내어쓰기가 됩니다.
+
+`웹접근성을 위한 화면 미노출 문구에 활용 가능`
+
+```css
+.screen-reader {
+  position: absolute;
+  /*left: -5000px;*/
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  text-indent: -9999px;
+}
+```
+
+---
+
+# line-height
+
+https://mygumi.tistory.com/366
+
+line-height 속성은 line-box 의 높이를 지정한다.  
+주로 텍스트간의 줄 간격을 조절할 때 사용한다.
+
+---
+
+# letter-spacing
+
+글자 사이의 간격
+
+# word-spacing
+
+단어 사이의 간격
+
+---
+
+# white-space
+
+공백문자를 어떻게 할 것인지 설정 (띄어쓰기나 줄바꿈, 탭으로 인한 공백 부분 등등)
+
+white-space 속성이 normal (기본값)로 설정된 요소 안에서는  
+연속된 띄어쓰기, 들여쓰기 그리고 줄바꿈 문자가 모두 무시  
+뿐만 아니라 normal 속성값은 텍스트가 너무 길어서 부모 요소의 가로폭을 넘어갈 때는 자동으로 줄바꿈
+
+- `텍스트가 길어서 부모 요소 안의 가로폭을 넘어가더라도 자동으로 줄바꿈이 일어나게 하고 싶지 않은 경우 white-space 속성을 nowrap 으로 설정`
+- `텍스트에 포함된 연속된 띄어쓰기, 들여쓰기, 줄바꿈과 같은 공백 문자들이 HTML 문서 안에 붙여넣은 그대로 나타나게 하고 싶다면 white-space 속성을 pre 로 설정`
+- pre-wrap 속성값은 pre 속성값과 동일하게 연속된 띄어쓰기와 들여쓰기, 줄바꿈을 있는 그대로 보존해주는데요. 유일한 차이점은 텍스트 안에 긴 행이 있을 때 해당 행에서 자동으로 줄바꿈
+- pre-line 속성값은 말 그대로 라인(line), 즉 줄바꿈 문자만 있는 그대로 처리해주고 연속된 띄어쓰기와 들여쓰기는 무시하고 모두 띄어쓰기 한 번으로 처리
+
+# word-break, word-wrap
+
+텍스트가 들어가는 블록요소의 가로 사이즈에 맞춰 줄바꿈 설정 (강제줄바꿈 방지, 텍스트 길이제한)
+
+https://wit.nts-corp.com/2017/07/25/4675  
+https://ahribori.com/article/5a0994626c9eef13d882e379
+
+- word-break : 아래 예제와 같이 단어의 분리를 어떻게 할 것인지 결정한다.
+  (공백/띄어쓰기) 날씨가·좋아요  
+  (음절) 날·씨·가·좋·아·요·
+  `word-break 속성은 단어의 분리를 결정하여 줄 바꿈에 관여`
+
+- word-wrap : 박스의 가로 영역을 넘친 단어 내에서 임의의 분리 여부를 결정한다.  
+  단어의 길이가 길어서 영역을 벗어난 텍스트의 처리 방법을 정의 apple, banana 등은 단어의 길이가 짧지만 asdkfjaklsdjfklasdjfklasjdfkljasdlfjsadlfdsaklfjfklsadjf 같은 단어는 길이가 매우 길다.  
+  `word-wrap 속성은 박스의 가로 영역을 넘친 단어 내에서 임의의 분리 여부를 결정하여 줄바꿈에 관여`
+
+# overflow-wrap ( = word-wrap)
+
+https://developer.mozilla.org/ko/docs/Web/CSS/overflow-wrap
+
+overflow-wrap 속성은 인라인(inline) 요소에 적용되며,  
+텍스트가 박스 요소를 넘치지 않도록 문자열 내에 줄바꿈을 삽입해야 하는지의 여부를 설정한다.
+
+다시 말해, 공백이 없는 긴 문자열이 텍스트박스를 넘어갈 경우, 그냥 넘어가게 둘 것인지, 아니면 해당 문자열을 자르고 줄바꿈을 할 것인지 결정한다.
 
 ```html
 <div class="example-container">
@@ -13,6 +94,54 @@
 ```css
 overflow-wrap: normal; /* 기본 */
 overflow-wrap: break-word; /* 오버플로우가 일어나면 단어를 쪼개서 줄바꿈 */
+```
+
+# text-overflow
+
+요소에서 삐져나간(자동줄바꿈이 되지 않은) 텍스트의 처리 방법을 정의. 이 속성을 사용하려면 몇 가지 조건이 충족되어야 함.
+
+- white-space: nowrap
+  (자동줄바꿈이 되지 않은 텍스트에 대해서 정의하는 속성이기 때문에)
+- width 가 지정되어야 함  
+  (즉, display 속성은 block or inline-block 이어야 함)
+- overflow 속성이 visible 말고 다른 속성으로 지정되어야 함  
+  (hidden, scroll, auto, ...등등)
+
+위의 조건들을 충족하면 text-overflow 속성이 적용된다.
+
+- clip : 영역을 벗어난 텍스트를 표시하지 않음 (기본값)
+- ellipsis : 영역을 벗어난 텍스트를 표시하지 않고 말줄임표(...)를 뒤에 표시한다
+
+# 텍스트 한줄 말줄임
+
+```html
+<p class="title">단 3일 주말특가 - 데일리 피부관리의 완결템! 크림 특집!</p>
+```
+
+```css
+.title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
+
+# 텍스트 여러줄 말줄임
+
+```css
+.title {
+  font-size: 12px;
+  /*white-space: inherit;*/
+
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 15px;
+  max-height: 30px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 ```
 
 ---

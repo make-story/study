@@ -25,114 +25,17 @@
   color 처럼 상속되는 프로퍼티에서 unset 은 initial 와 같은 의미 입니다,  
   background-image 처럼 상속되지 않는 프로퍼티에서 unset 의 효과는 initial 과 같습니다.
 
-# line-height
+# 자동 마진(예: margin-left: auto)을 사용한 배치
 
-https://mygumi.tistory.com/366
+같은 줄에 있는 플렉스 아이템 중 하나만 다른 방식으로 배치하고 싶을 때가 있는데, 바로 자동 마진을 사용
 
-line-height 속성은 line-box 의 높이를 지정한다.  
-주로 텍스트간의 줄 간격을 조절할 때 사용한다.
+`자동 마진을 사용하면 1개의 플랙스 아이템만 오른쪽 끝에 배치할 수 있습니다.`
 
-# letter-spacing
-
-글자 사이의 간격
-
-# word-spacing
-
-단어 사이의 간격
-
-# white-space
-
-# word-break, word-wrap
-
-https://wit.nts-corp.com/2017/07/25/4675
-
-오버플로우 시 줄바꿈 옵션
-
-# overflow-wrap
-
-# box-sizing
-
-```html
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <title>CSS</title>
-    <style>
-      body {
-        margin: 0px;
-      }
-      div {
-        margin: 20px;
-        padding: 20px;
-        border: 20px solid #dddddd;
-        width: 500px;
-      }
-      .cb {
-        /* 
-        width: 500px; border: 20px solid #dddddd; 의 경우, 
-        콘텐트 영역이 500px이고 테두리를 포함한 크기는 580px 
-        */
-        box-sizing: content-box;
-      }
-      .bb {
-        /* 
-        width: 500px; border: 20px solid #dddddd; 의 경우, 
-        테두리를 포함한 크기가 500px 이고, 콘텐트 영역의 크기는 420px 
-        */
-        box-sizing: border-box;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="cb">
-      <p>content-box</p>
-    </div>
-    <div class="bb">
-      <p>border-box</p>
-    </div>
-  </body>
-</html>
+```css
+.cards {
+  display: flex;
+}
+.cards li:last-child {
+  margin-left: auto;
+}
 ```
-
-브라우저 전체 100%
-
-```html
-<style>
-  .container1 {
-    width: 300px;
-    border: 5px solid black;
-    background-color: white;
-  }
-  .container1 > div {
-    padding: 20px;
-    background-color: #ddd;
-    margin-bottom: 20px;
-    border: 3px solid #2e88b5;
-  }
-  .container1 .child1 {
-    width: 100%; /* 문제! */
-  }
-  .container1 .child2 {
-    width: 100%;
-    box-sizing: border-box; /* 해결방법 1 */
-  }
-  .container1 .child3 {
-    width: auto; /* 해결방법 2 */
-  }
-  .container1 .child4 {
-    /* width의 기본 값: auto */
-  }
-</style>
-<div class="container1">
-  <div class="child1"></div>
-  <div class="child2"></div>
-  <div class="child3"></div>
-  <div class="child4"></div>
-</div>
-```
-
-# text-indent
-
-들여쓰기와 내어쓰기는 text-indent 속성으로 만듭니다.  
-값이 양수이면 들여쓰기, 값이 음수이면 내어쓰기가 됩니다.
