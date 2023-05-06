@@ -8,7 +8,63 @@ https://channel.io/ko/blog/cross_browsing_ios15
 
 ---
 
-# 스크롤 영역 지정
+# 사파리 버전 13.4 이상부터 replaceAll() 지원
+
+# 사파리(Safari) Date 에러 (Invalid Date)
+
+```javascript
+// 아래와 같이 String 포맷을 Date에 넣었을 경우 에러 발생
+new Date('2021-11-15T01:00:00+0900');
+new Date('2022-03-25T02:00:59.999+0900');
+
+// 아래와 같이 해줘야 한다.
+new Date('2021-11-15T01:00:00+09:00');
+new Date('2022-03-25T02:00:59.999+09:00');
+```
+
+# ios body 스크롤 막는 방법
+
+https://im-developer.tistory.com/201
+
+UI에서 대부분 모달(팝업이라고도 부른다)이 뜨면  
+모달 뒤에 body 영역을 반투명한 검정색 레이어로 덮어서 모달의 컨텐츠가 더 도드라지게 만든다.  
+이 반투명한 검정색 영역을 주로 Dim 영역이라고 부른다.
+
+보통 팝업창 내에 컨텐츠가 길어서 스크롤이 있는 경우에는  
+팝업 내부에만 스크롤이 잘 되게 하기 위해서 Dim 영역 뒤에 있는 body의 scroll은 막는 경우가 많다.
+
+```javascript
+export const withScrollLock = <P extends {}>(
+  Feature: React.FC<P>,
+): React.FC<P> => (props: P) => {
+    const body = document.querySelector('body') as HTMLElement;
+    const scrollPosition = window.pageYOffset;
+
+    useEffect(() => {
+      body.style.overflow = 'hidden'; // 일반적으로 많이 사용되는 방식이나 IOS에서 해결안됨
+      body.style.pointerEvents = 'none';
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollPosition}px`;
+      body.style.left = '0';
+      body.style.right= '0';
+
+      return () => {
+        body.style.removeProperty('overflow');
+        body.style.removeProperty('pointer-events');
+        body.style.removeProperty('position');
+        body.style.removeProperty('top');
+        body.style.removeProperty('left');
+        body.style.removeProperty('right');
+
+        window.scrollTo(0, scrollPosition);
+      };
+    }, []);
+
+    return <Feature { ...props } />;
+  };
+```
+
+# ios 스크롤 영역 지정
 
 스크롤이 부드럽지 못하고 뚝뚝 끊기는 느낌
 
@@ -24,9 +80,9 @@ https://channel.io/ko/blog/cross_browsing_ios15
 }
 ```
 
-# 사파리 버전 13.4 이상부터 replaceAll() 지원
+# safearea, Safe Area, 노치 제어 (하단바)
 
-# safearea, Safe Area
+https://wit.nts-corp.com/2019/10/24/5731
 
 safe-area-inset-top이 노치, bottom이 하단영역입니다.
 padding과 calc 속성을 잘 섞어서 사용하는게 좋을듯합니다.
@@ -49,6 +105,31 @@ env(safe-area-inset-left)
   padding-bottom: calc(env(safe-area-inset-bottom) + 10px);
 }
 ```
+
+# visualViewport의 resize이벤트
+
+https://channel.io/ko/blog/cross_browsing_ios15
+
+```javascript
+let prevVisualViewport = 0;
+
+function handleVisualViewportResize() {
+  const currentVisualViewport = window.visualViewport.height;
+
+  if (prevVisualViewport - 30 > currentVisualViewport && prevVisualViewport - 100 < currentVisualViewport) {
+    const scrollHeight = window.document.scrollingElement.scrollHeight;
+    const scrollTop = scrollHeight - window.visualViewport.height;
+
+    window.scrollTo(0, scrollTop); // 입력창이 키보드에 가려지지 않도록 조절
+  }
+
+  prevVisualViewport = window.visualViewport.height;
+}
+
+window.visualViewport.onresize = handleVisualViewportResize;
+```
+
+window.visualViewport의 onresize에 handler를 등록하면 visualViewport가 변경될 때마다 handler가 호출됩니다. 이 handler안에서 입력창이 키보드에 가려지지 않도록 처리했습니다.
 
 # Safari inline-flex
 
@@ -170,10 +251,6 @@ WKWebView - JavaScript를 비동기 적으로 처리 : JavaScript와 네이티�
 IntersectionObserver, visibility(hidden/visible) 활용
 
 GPU를 활용하지 못하는 환경에서 애니메이션 최소화 (CPU 사용 최소화)
-
-# 노치 제어 (하단바)
-
-https://wit.nts-corp.com/2019/10/24/5731
 
 # safari target="\_blank" 문제
 
