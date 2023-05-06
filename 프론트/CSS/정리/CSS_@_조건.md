@@ -57,6 +57,13 @@ https://developer.mozilla.org/ko/docs/Web/CSS/@supports
 }
 ```
 
+iOS 대응 등
+
+```css
+@supports (-webkit-touch-callout: none) {
+}
+```
+
 # @container
 
 https://mong-blog.tistory.com/entry/CSS-Container-%EC%BF%BC%EB%A6%AC%ED%8A%B9%EC%A0%95-%EC%9A%94%EC%86%8C-%ED%81%AC%EA%B8%B0%EC%97%90-%EB%94%B0%EB%9D%BC-%EC%8A%A4%ED%83%80%EC%9D%BC%EB%A7%81%ED%95%98%EA%B8%B0
