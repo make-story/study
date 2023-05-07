@@ -11,6 +11,21 @@ https://velog.io/@hiro2474/understandfor-await-of
 
 https://helloworldjavascript.net/pages/285-async.html
 
+## 비동기 코드와 동기 코드의 차이점
+
+https://www.pluralsight.com/guides/introduction-to-asynchronous-javascript
+
+피터 올슨(Peter Olson) 글 참고
+
+`자바스크립트 코딩의 기술` 책 내용 중(p312)  
+자바스크립트는 비동기 언어입니다.  
+비동기 언어의 가치는 지연된 정보를 기다리는 동안 이 정보가 필요하지 않는 다른 코드를 실행할 수 있다는 점에 있습니다.  
+API 응답을 기다리는 동안 여전히 다른 요소의 클릭 메서드에 응답하거나  
+다른 데이터 원본에 있는 값을 계산할 수 있습니다.  
+지연된 정보를 기다리는 동안 코드가 멈춰버리지 않지요.
+
+콜백함수 -> 프라미스 -> async/await
+
 ---
 
 # Promise
