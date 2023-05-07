@@ -1,3 +1,5 @@
+참고: 'appearance: none' - 기본 스타일 삭제
+
 # radio 커스터마이징
 
 radio tag 디자인 커스터마이징
