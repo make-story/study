@@ -38,3 +38,14 @@ body {
 ```
 
 예시 코드처럼 작성하면 브라우저에 따라 이미지가 표시되지 않습니다.
+
+---
+
+# 배경 필터
+
+```css
+header {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+```

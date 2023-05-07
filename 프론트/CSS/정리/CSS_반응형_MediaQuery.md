@@ -93,15 +93,16 @@ const sizePercent = function (target, content) {
   // 공식(%) : target / content = result
   // 예제1 : 60(구하고자하는 크기) / 320(기준, 최소 해상도) = 0.1875 -> 18.75%
   // 예제2 : 10(구하고자하는 크기) / 320(기준, 최소 해상도) = 0.03125 -> 3.125%
-  // 공식(rem) : 사용하려는 값 / 최상단 부모값 = rem 값
-  // 부모요소 10px : 그럼 1rem은 10, 2rem은 20
+
+  // 공식(rem) : 사용하려는 값(target) / 최상단 부모값(content) = rem 값
+  // 부모요소 10px : 그럼 1rem 은 10, 2rem 은 20
   // 부모요소 10px, 구하고자하는 크기 11px : 11 / 10 = 1.1rem
   target = Number(target);
   content = Number(content);
   return (target / content) * 100;
 };
 
-// 비율
+// 비율 (동영상 비율)
 const getAspectRatio = function (width, height) {
   const result = {};
   const getGCD = function (a, b) {
