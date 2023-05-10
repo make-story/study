@@ -23,6 +23,10 @@ flexbox의 장점을 한 마디로 표현하면 '복잡한 계산 없이 요소�
 }
 ```
 
+- `justify-content` 는 메인축 방향으로 정렬
+- `align-items` 은 수직축 방향으로 정렬
+- `align-content` 여러 행 정렬 (flex-wrap: wrap; 이 설정된 상태에서, 아이템들의 행이 2줄 이상 되었을 때의 수직축 방향 정렬을 결정하는 속성)
+
 ## 부모 요소와 자식 요소에 정의하는 속성 구분
 
 flexbox 에서 사용하는 속성은 부모 요소인 flex container 에 정의하는 속성과 자식 요소인 flex item 에 정의하는 속성으로 나누어진다.  

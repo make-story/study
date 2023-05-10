@@ -1,6 +1,6 @@
 `새로운 CSS 레이아웃` 책 내용 중
 
-justify-content 속성은 주축(main axis),
+`justify-content 속성은 주축(main axis)`,
 즉 `flex-direction 이 row 라면 가로 줄, flex-direction 이 column 이라면 칼럼상에서 동작`합니다.
 
 justify-content 의 초기값은 flex-start 입니다.  
@@ -16,6 +16,7 @@ justify-content 의 초기값은 flex-start 입니다.
 ## 아이템 주변 혹은 사이에 간격 주기
 
 주축을 따라 `플렉스 아이템을 일정한 간격으로 배치할 때도 justify-content 속성을 사용`합니다.
+
 이 속성의 값을 `space-between 로 설정하면 아이템 사이의 공간을 똑같은 크기로 표시`하고,  
 `space-around 로 설정하면 모든 아이템 양쪽에 똑같은 크기의 마진을 부여`합니다.
 `space-evenly 는 모든 공백을 균등하게 배분`합니다. 따라서 아이템-아이템 사이의 간격과 컨테이너-아이템 사이의 간격은 크기가 동일합니다.

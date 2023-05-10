@@ -1,14 +1,27 @@
 # 강제 형변환
+
 특정 타입에서 에러
+
 ```typescript
 import { IncomingMessage, ServerResponse } from 'http';
 
 const test = (req: IncomingMessage, res: ServerResponse) => {
-    // express cookie-parser 미들웨어 활용 중 쿠키접근
-    (req as any).cookies?.test || '';
+  // express cookie-parser 미들웨어 활용 중 쿠키접근
+  (req as any).cookies?.test || '';
 };
 ```
 
+```typescript
+export interface ITestState {
+  isMobile: null | boolean;
+  isTablet: null | boolean;
+  isPC: null | boolean;
+  isPreview: null | boolean;
+}
+
+let test = true;
+const isPreview = test as ITestState['isPreview'];
+```
 
 # keyof - 속성 이름을 타입으로 사용
 
@@ -50,7 +63,7 @@ export type TTab = typeof TAB;
 export type TTabKey = keyof typeof TAB; // TAB 의 key
 
 // value 로 접근
-export type TTab = typeof TAB[keyof typeof TAB]; // TAB 의 key 의 value
+export type TTab = (typeof TAB)[keyof typeof TAB]; // TAB 의 key 의 value
 ```
 
 `enum`

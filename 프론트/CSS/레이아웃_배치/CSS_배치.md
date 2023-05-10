@@ -15,7 +15,7 @@ CSS 에서 말하는 Containing Block, CB 는 특정한 가상의 영역을 가�
 
 ## absolute
 
-부모 엘리먼트부터 최상위 root 엘리먼트 중 현재 엘리먼트에서 position 이 static 이 아닌 가장 가까운 엘리먼트의 CB 를 참조
+`부모 엘리먼트부터 최상위 root 엘리먼트 중 현재 엘리먼트에서 position 이 static 이 아닌 가장 가까운 엘리먼트의 CB 를 참조`
 
 ## relative
 
