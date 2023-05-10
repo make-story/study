@@ -112,6 +112,9 @@ main().catch(error => console.error(error));
 - 많은 기능을 가지는 서버의 경우 스키마가 하나의 방대한 덩어리가 됩니다. 이를 해결하기 위한 기술을 따로 구성하여야 합니다.
 - 스키마를 여러 파일에 나누어 모듈화하는 작업이 코드 주도 접근법에 비해 상대적으로 더 어렵습니다.  
   (graphql-import, graphql-modules 와 같은 외부 라이브러리를 통하거나 Apollo Federation 과 같은 시스템을 구성해 구현 가능합니다.)
+https://the-guild.dev/graphql/modules/docs/essentials/type-definitions  
+https://the-guild.dev/graphql/tools/docs/schema-merging  
+
 
 # 코드 주도 방식
 
