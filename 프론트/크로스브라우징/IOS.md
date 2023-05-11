@@ -10,6 +10,23 @@ https://channel.io/ko/blog/cross_browsing_ios15
 
 # 사파리 버전 13.4 이상부터 replaceAll() 지원
 
+# 사파리가 SVG를 처리하는데 있어서 부분적으로 완벽하지 않음
+
+https://stackoverflow.com/questions/27245673/svg-image-element-not-displaying-in-safari
+
+```html
+<object type="image/svg+xml" data="assets/images/icon/summary.svg">
+  <img src="assets/images/icon/summary.svg" alt="Summary Icon" />
+</object>
+```
+
+이를 해결하기 위해서는 object 또는 iframe을 사용하면 됨
+
+참고 :  
+object 태그는 click 이벤트가 무시되는 문제  
+별도의 div 태그를 추가하여 object 에서 보여주는 이미지 크기와 위치를 동일하게 만들어서 object 태그보다 높은 레이어로 배치  
+해당 div 태그에 click 이벤트를 추가하여 본 문제를 해결
+
 # 사파리(Safari) Date 에러 (Invalid Date)
 
 ```javascript
