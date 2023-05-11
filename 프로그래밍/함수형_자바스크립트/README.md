@@ -2,7 +2,7 @@
 
 # 클로저
 
-함수가 생성되는 시점의 스코프 체인을 기억하고 접근가능한 함수 - 내부함수
+`함수가 생성되는 시점의 스코프 체인을 기억하고 접근가능한 함수` - 내부함수
 
 ```javascript
 const instructors = [
@@ -34,7 +34,7 @@ const librarian = instructors.find(findByLibrary('미디어교육정보 도서�
 
 https://velog.io/@wltnrms0629/BEB-Section-1-JS-%EA%B3%A0%EC%B0%A8%ED%95%A8%EC%88%98-map-filter-reduce-%EB%A9%94%EC%84%9C%EB%93%9C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0
 
-고차 함수(Higher order function)는 함수를 인자로 전달받거나 함수를 결과로 반환하는 함수
+고차 함수(Higher order function)는 `함수를 인자로 전달받거나 함수를 결과로 반환하는 함수`
 
 ## 활용 1
 
