@@ -1,11 +1,19 @@
-
 # 하이라키 (Hierarchy) 구조
 
-Hierarchy의 사전적 의미는 '계층'을 뜻하며 UI/UX에서는 보통 계층 구조라고 이해를 합니다.   
+https://kdpidd.tistory.com/50
+
+`Hierarchy 의 사전적 의미는 '계층'을 뜻하며 UI/UX 에서는 보통 계층 구조라고 이해`를 합니다.  
+Hierarchy (이하 계층 구조)는 UI 에서 굉장히 중요한데, 보통 Typography 와 많이 연관됩니다.
+
+예를 들어,  
+각 페이지나 컴포넌트를 대표하는 텍스트는 대표스럽게 보이면 되고,  
+덜 중요해 보이는 텍스트는 덜 중요해 보이면 되는 겁니다.  
+`쉽게 말해서 각 요소들의 서열을 정리해주는걸 계층 구조를 정리한다고 생각하면 쉽습니다.`
 
 Typography에서 계층 구조를 정리하는 요소로는  
 폰트의 크기(size), 굵기(weight), 색상(color), 불투명도(opacity), 위치(position) 등이 있으며,  
 그룹화를 위해서는 간격(spacing)이 있을 수 있습니다.  
+그룹화와 관련하여 간단하게 하나만 짚고 넘어가면 단순하게 배경이나 경계선으로 그룹화를 할 수도 있겠지만  
+디자인마다 허용될 수도 있고 안될 수도 있기 때문에 허용이 되지 않는다면 텍스트 간의 간격만으로 그룹화를 어느 정도 정리해야 합니다.
 
-https://oldkong.tistory.com/6  
-https://kdpidd.tistory.com/50
+https://oldkong.tistory.com/6
