@@ -32,3 +32,26 @@ console.log(memoryUsage());
 //  arrayBuffers: 9386
 // }
 ```
+
+---
+
+# nede 서버 디버깅 모드 실행
+
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Memory_Management#node.js
+
+```
+$ node --expose-gc --inspect index.js
+```
+
+```
+$ node --inspect=9191 server.js
+```
+
+## V8 프로파일러 덤프를 분석하기 위해 크롬 developer 툴을 사용
+
+- 여러 힙 메모리 스냅샷을 두고 비교! (두 개의 스냅샷 찍기)
+- 페이지를 새로고침하고, Take Heap Snapshot을 수행, 그리고, 버튼을 누른 다음에 좀 기다린 후에 두번 째 스냅샷을 생성
+
+```
+chrome://inspect
+```
