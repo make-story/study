@@ -1,17 +1,25 @@
 https://nextjs.org/docs/api-reference/next.config.js/rewrites#header-cookie-and-query-matching
 
------
+---
+
+# Next.js 공통 실행 코드
+
+---
 
 # Next.js 미들웨어(middleware)
 
+https://nextjs.org/docs/pages/building-your-application/routing/middleware
+
 https://www.showwcase.com/show/15545/how-to-deploy-the-nextjs-project-with-multiple-subdomains-using-pm2-nginx-cloudflare
 
- .env.local
+.env.local
+
 ```
 APP_DOMAIN=fleezyform.com
 ```
 
-pages/_middleware.tsx
+pages/\_middleware.tsx
+
 ```javascript
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -48,6 +56,7 @@ export function middleware(req: NextRequest): NextResponse | Response {
 ```
 
 pages/store/[subdomain]/index.tsx
+
 ```javascript
 import type { NextPageContext } from 'next';
 
@@ -60,22 +69,19 @@ interface StoreProps {
 function Store({ storeName }: StoreProps) {
   return (
     <PlainLayout>
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
+      <main className='flex w-full flex-1 flex-col items-center justify-center px-20 text-center'>
+        <h1 className='text-6xl font-bold'>
           <div>Welcome to</div>
-          <a className="text-blue-600" href="https:/extjs.org">
+          <a className='text-blue-600' href='https:/extjs.org'>
             &quot;{storeName.replaceAll('-', ' ')}&quot;
           </a>
         </h1>
 
-        <div className="mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-4 sm:w-full">
+        <div className='mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-4 sm:w-full'>
           {Array(4)
             .fill({})
             .map((_, idx) => (
-              <div
-                className="flex h-[100px] w-[100px] items-center justify-center rounded-md border"
-                key={idx}
-              >
+              <div className='flex h-[100px] w-[100px] items-center justify-center rounded-md border' key={idx}>
                 Product {idx + 1}
               </div>
             ))}
@@ -89,9 +95,7 @@ Store.getInitialProps = async ({ req }: NextPageContext) => {
   const subdomain = req?.headers?.host?.split('.')[0];
 
   // you can add logic or validation here to check subdomain to database using API request
-  const storeName = subdomain
-    ? subdomain.charAt(0).toUpperCase() + subdomain.slice(1)
-    : '';
+  const storeName = subdomain ? subdomain.charAt(0).toUpperCase() + subdomain.slice(1) : '';
 
   return { storeName };
 };
