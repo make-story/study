@@ -24,7 +24,7 @@
   position: absolute;
   left: -5000px;
 }
-
+/* 또는 */
 .screen-reader {
   overflow: hidden;
   position: absolute;
@@ -33,6 +33,16 @@
   width: 0;
   height: 0;
   font-size: 0;
+  line-height: 0;
+  text-indent: -9999px;
+}
+/* 또는 */
+/* https://mail.daum.net/login?url=https%3A%2F%2Fmail.daum.net%2F */
+.screen_out {
+  overflow: hidden;
+  position: fixed;
+  width: 0;
+  height: 0;
   line-height: 0;
   text-indent: -9999px;
 }
