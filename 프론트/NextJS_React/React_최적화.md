@@ -115,6 +115,10 @@ export const TestUseMemo = ({ value1, value2 }) => {
 };
 ```
 
+# useCallback + React.memo 를 사용해야 할 때
+
+https://yceffort.kr/2022/04/best-practice-useCallback-useMemo
+
 ---
 
 # useSelector 최적화

@@ -77,4 +77,8 @@ https://ko.reactjs.org/docs/events.html
 리렌더? this?  
 별로 차이가 없을 것 같은데.. 증명해봐야 겠다!
 
+과거 리액트 공식 가이드 사이트 - 일반 함수를 사용!
 https://legacy.reactjs.org/docs/hooks-rules.html#explanation
+
+현재 리액트 공식 가이드 사이트 - 익명 함수를 사용!
+https://react.dev/reference/react/useCallback
