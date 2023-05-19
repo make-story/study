@@ -71,3 +71,10 @@ useEffect(() => {
 # 합성 이벤트 (SyntheticEvent)
 
 https://ko.reactjs.org/docs/events.html
+
+# Hook 익명함수(arrow function) 사용하지 않는 이유
+
+리렌더? this?  
+별로 차이가 없을 것 같은데.. 증명해봐야 겠다!
+
+https://legacy.reactjs.org/docs/hooks-rules.html#explanation
