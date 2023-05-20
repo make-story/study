@@ -25,7 +25,7 @@ https://www.npmjs.com/package/react-scripts/v/3.4.4?activeTab=versions
 
 ```
 $ yarn global remove create-react-app
-$ yarn create react-app ./apps/client --scripts-version 3.4.4 --template typescript
+$ yarn create react-app ./apps/client --scripts-version 4.0.1 --template typescript
 ```
 
 ---
