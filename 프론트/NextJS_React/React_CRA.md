@@ -1,6 +1,8 @@
 # Create React App (CRA) - 2016년 Create React App을 출시
 
 https://create-react-app.dev/  
+https://create-react-app.dev/docs/getting-started
+
 https://github.com/facebook/create-react-app
 
 create-react-app은 React App의 개발 환경을 한 줄의 커맨드로 구성해주는 boilerplate이다.  
@@ -16,6 +18,17 @@ React와 함께 facebook에서 만들었고 npm과 yarn 패키지로 제공된�
 ```
 $ yarn create react-app <<프로젝트 폴더명>>
 ```
+
+## CRA 버전 지정 설치
+
+https://www.npmjs.com/package/react-scripts/v/3.4.4?activeTab=versions
+
+```
+$ yarn global remove create-react-app
+$ yarn create react-app ./apps/client --scripts-version 3.4.4 --template typescript
+```
+
+---
 
 ## 리액트 프레임워크의 부상 `신규 리액트 공식 사이트에서는 CRA 가이드를 하지 않음`
 
