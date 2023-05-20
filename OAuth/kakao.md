@@ -26,7 +26,7 @@ https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api
 토큰은 사용자의 카카오 로그인 인증 및 인가 정보를 담은 권한 증명으로, 카카오 API 호출에 사용됩니다.  
 카카오 로그인은 `OAuth 2.0 표준 규격에 따라 액세스 토큰(Access token), 리프레시 토큰(Refresh token) 두 종류의 토큰을 발급`합니다.
 
-## 액세스 토큰 (Access token)
+## 액세스 토큰 (Access token) - 23.05 기준
 
 사용자 인증, 카카오 API 호출 권한 부여
 
@@ -35,7 +35,7 @@ https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api
   JavaScript: 2 시간  
   REST API : 6시간
 
-## 리프레시 토큰 (Refresh token)
+## 리프레시 토큰 (Refresh token) - 23.05 기준
 
 액세스 토큰 재발급에 사용  
 유효한 리프레시 토큰이 있다면 사용자가 매번 카카오계정 정보를 입력하거나 카카오톡으로 로그인하는 인증 절차를 거치지 않아도 액세스 토큰 재발급 가능
@@ -44,7 +44,7 @@ https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api
   2달  
   만료 시간 1달 남은 시점부터 갱신 가능
 
-## ID 토큰 (ID token)
+## ID 토큰 (ID token) - 23.05 기준
 
 카카오 로그인 사용자의 인증 정보를 제공하는 토큰
 
