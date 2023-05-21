@@ -184,6 +184,48 @@ const { count, prevCount } = useSelector(
 useSelector 의 두번째 파라미터는 equalityFn  
 shallowEqual은 react-redux에 내장되어있는 함수로서, 객체 안의 가장 겉에 있는 값들을 모두 비교
 
+# 리덕스 dispatch 와 리렌더(render)
+
+https://velog.io/@dev-mish-mash/%EB%A6%AC%EB%8D%95%EC%8A%A4-dispatch%EC%99%80-render%EC%9D%98-%EA%B4%80%EA%B3%84
+
+## useSelector 로 object 가 아닌 값(value)을 return 하는 경우
+
+```typescript
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+export const CounterComponent = () => {
+  const counter = useSelector(state => state.counter);
+  return <div>{counter}</div>;
+};
+```
+
+이 경우에 counter는 number 값이며,  
+state.counter의 값이 바뀌지 않았다고 하면 === operator로 비교했을 때 true 일 것이므로,  
+리렌더링 되지 않음.
+
+## useSelector 로 object 를 return 하는 경우
+
+```typescript
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+export const CounterComponent = () => {
+  const { counter } = useSelector(state => ({ counter: state.counter }));
+  return <div>{counter}</div>;
+};
+```
+
+이 경우에 useSelector 의 인자로 들어간 함수가 반환하는 값은 항상 새로운 object 이며,  
+이 경우 === operator 로 비교했을 때 false 일 것이므로  
+state.counter 가 변경되지 않았다고 할지라도 리렌더링을 유발함
+
+# dispatch 최적화에 대해
+
+- 한 dispatch에 여러 액션이 동시에 수행되도록 batching 하기
+- 다만, 간단한 CRUD 앱의 경우 굳이 이런 공수를 들여 최적화할 필요는 없음
+- 실시간으로 많은 양의 데이터를 주고받는 앱의 경우에 필요함
+
 ---
 
 # React.lazy 및 서스펜스(Suspense) 를 사용한 코드 분할

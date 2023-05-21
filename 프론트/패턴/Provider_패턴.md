@@ -4,7 +4,7 @@ https://patterns-dev-kr.github.io/design-patterns/provider-pattern/
 https://www.patterns.dev/posts/provider-pattern/
 
 앱 내의 여러 컴포넌트들이 데이터를 사용 할 수 있게 해야 하는 상황이 있다.  
-props 를 통해서 데이터를 전달하는 방식이 있지만 앱 내의 모든 컴포넌트들이 데이터에 접근해야 하는 경우 이 작업을 하기 매우 번거롭다.
+`props 를 통해서 데이터를 전달하는 방식이 있지만 앱 내의 모든 컴포넌트들이 데이터에 접근해야 하는 경우 이 작업을 하기 매우 번거롭다.`
 
 Provider 패턴은 이런 경우에 매우 유용하다.  
 `Provider 패턴을 이용하면 각 레이어에 직접 데이터를 주지 않고도 여러 컴포넌트들에게 데이터에 접근할 수 있게 구현`할 수 있다.
