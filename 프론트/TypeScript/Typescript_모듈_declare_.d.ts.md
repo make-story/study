@@ -72,6 +72,34 @@ declare namespace JSX {
 }
 ```
 
+# export, import
+
+https://www.typescriptlang.org/ko/docs/handbook/modules.html
+
+Test.d.ts
+
+```typescript
+declare namespace Test {
+  export interface Params {
+    width?: string;
+    height?: string;
+
+    [key: string]: any;
+  }
+}
+```
+
+Test.tsx
+
+```typescript
+import Params = Test.Params;
+
+const testParams: Params = {
+  width: '100px',
+  height: '100px',
+};
+```
+
 ---
 
 https://velog.io/@kmp1007s/Typescript-%EB%AA%A8%EB%93%88%EA%B3%BC-%EA%B4%80%EB%A0%A8%EB%90%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0
