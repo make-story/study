@@ -25,3 +25,38 @@ https://velog.io/@aeong98/Next.js-%EC%97%90%EC%84%9C-Apollo-ClientGraphQL-%EC%82
 https://velog.io/@2ast/Next-Next%EC%97%90%EC%84%9C-Apollo-Client-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
 
 https://www.apollographql.com/blog/apollo-client/next-js/building-a-next-js-app-with-slash-graphql/
+
+---
+
+# ApolloServer
+
+https://www.npmjs.com/package/@apollo/server
+
+```
+$ yarn add @apollo/server graphql
+```
+
+```javascript
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+
+const typeDefs = gql`
+  type Query {
+    ping: String
+  }
+`;
+
+const resolvers = {
+  Query: {
+    ping: () => 'pong',
+  },
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+const { url } = await startStandaloneServer(server);
+console.log(`🚀 Server ready at ${url}`);
+```
