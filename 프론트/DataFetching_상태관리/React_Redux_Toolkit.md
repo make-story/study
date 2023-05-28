@@ -1,6 +1,10 @@
-- https://kyounghwan01.github.io/blog/React/redux/redux-toolkit/#redux-thunk
-
 # redux-toolkit
+
+https://kyounghwan01.github.io/blog/React/redux/redux-toolkit
+
+```
+$ npm install react-redux @reduxjs/toolkit
+```
 
 ## 사용하는 이유
 
@@ -16,12 +20,185 @@ store 값을 효율적으로 핸들링하여 불필요 리렌더링을 막기 �
 
 ## 지원하는 기능
 
-redux-action  
-reselect  
-immer의 produce  
-redux-thunk  
-Flux Standard Action 강제화  
-Type Definition
+- redux-action
+- reselect
+- immer의 produce
+- redux-thunk
+- Flux Standard Action 강제화
+- Type Definition
+
+---
+
+# 예제
+
+https://velog.io/@760kry/Redux-Toolkit
+
+## `CreateSlice` 를 통해 Action 과 Reducer 를 한 번에 정의할 수 있다.
+
+문자열 이름(name), 초기 상태 값(initialState), 상태 업데이트 방법(reducers)을 정의
+
+store/slice/user.ts
+
+```typescript
+import { createSlice } from '@reduxjs/toolkit';
+
+export const initialState = {
+  name: null,
+  isLogin: false,
+};
+
+export const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setUserName: (state, action) => {
+      state.name = action.payload;
+    },
+    setUserLogin: (state, action) => {
+      state.isLogin = action.payload;
+    },
+  },
+});
+
+export const { setUser, setUserLoading } = userSlice.actions;
+
+export default userSlice.reducer;
+```
+
+## `combineReducers` 는 Reducer 들을 모두 합쳐주는 것이다.
+
+이것이 중요한 이유는 store에서 reducer를 단 1개만 받을 수 있기 때문이다.  
+따라서 combineReducers에서 Reducer들을 모두 합쳐주고 store에서 모두 합쳐진 reducer를 사용하면 된다.
+
+rootReducer.ts
+
+```typescript
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import userReducer from './store/slice/user';
+
+/*
+ * combineReducers 를 사용하여 사용할 리듀서를 사용할 키값과 함께 정의한다.
+ */
+const rootReducer = combineReducers({
+  userReducer: userReducer,
+});
+
+export default rootReducer;
+```
+
+## `configureStore` 는 슬라이스에서 리듀서 함수를 가져와서 스토어에 추가한다.
+
+store.ts
+
+```typescript
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
+
+import rootReducer from './rootReducer';
+
+//const sagaMiddleware = createSagaMiddleware();
+
+/*
+ * configureStore를 실행하여 옵션과 함께 스토어를 생성한다.
+ */
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: true,
+  middleware: getDefaultMiddleware =>
+    // 기본 미들웨어 설정
+    // 공식문서: https://redux-toolkit.js.org/api/getDefaultMiddleware
+    //
+    // thunk는 사용하지 않기로 함에 따라 false로 설정한다.
+    // immutableCheck, serializableCheck는 개발을 돕는 도구로, true로 설정하여도 production에서는 활성화 되지 않는다.
+    // 모두 true 설정 시 기본값은 아래와 같다.
+    // - node env production: [thunk]
+    // - node env development: [thunk, immutableCheck, serializableCheck]
+    getDefaultMiddleware({
+      thunk: false,
+      // Immutability Middleware 활성화 여부
+      // https://redux-toolkit.js.org/api/immutabilityMiddleware
+      //
+      // 주의! Redux state는 불변성을 유지해야 한다.
+      // https://ko.redux.js.org/tutorials/fundamentals/part-1-overview/#the-redux-store
+      // - You must never directly modify or change the state that is kept inside the Redux store
+      // - Instead, the only way to cause an update to the state is to create a plain action object that describes "something that happened in the application", and then dispatch the action to the store to tell it what happened.
+      immutableCheck: true,
+      // Serializability Middleware 활성화 여부
+      // https://redux-toolkit.js.org/api/serializabilityMiddleware
+      //
+      // 주의! Redux action 과 state는 직렬화 가능한 값만 포함해야 한다.
+      // https://ko.redux.js.org/tutorials/essentials/part-4-using-data/#storing-dates-for-posts
+      // - Redux actions and state should only contain plain JS values like objects, arrays, and primitives.
+      // - Don't put class instances, functions, or other non-serializable values into Redux!
+      serializableCheck: true,
+    })
+      // 추가 미들웨어 설정
+      .concat([/*injectAxiosMiddleware, sagaMiddleware, */ logger]),
+  // preloadedState: (서버 사이드 렌더링 전용)
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+
+export default store;
+```
+
+## React 에 `Redux 스토어 전달`하기
+
+`<Provider>를 감싸 생성된 저장소(store)를 전달`한다.
+
+src/index.tsx
+
+```typescript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+import store from 'src/services/store';
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+);
+
+reportWebVitals();
+```
+
+## 상태 변경 및 확인
+
+react-redux에서 제공하는 useDispatch, useSelector로 상태 관리를 한다.
+
+```typescript
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/services/store';
+import { setUserName } from 'src/services/store/slice/user';
+
+const MainPage = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.userReducer);
+
+  console.log(user);
+
+  return (
+    <div>
+      <button onClick={() => dispatch(setUserName('raeyoung'))}>test</button>
+    </div>
+  );
+};
+
+export default MainPage;
+```
 
 ---
 
@@ -30,9 +207,9 @@ Type Definition
 https://redux-toolkit.js.org/
 
 - Redux 와 비교
-  Redux Toolkit을 사용하면 `리듀서, 액션타입, 액션 생성함수, 초기상태를 하나의 함수로 편하게 선언`  
-  `Typescript 지원`  
-  `Immer 가 내장`되어있기 때문에, 불변성을 유지하기 위하여 번거로운 코드들을 작성하지 않고 원하는 값을 직접 변경하면 알아서 불변셩 유지되면서 상태가 업데이트
+  - Redux Toolkit을 사용하면 `리듀서, 액션타입, 액션 생성함수, 초기상태를 하나의 함수로 편하게 선언`
+  - `Typescript 지원`
+  - `Immer 가 내장`되어있기 때문에, 불변성을 유지하기 위하여 번거로운 코드들을 작성하지 않고 원하는 값을 직접 변경하면 알아서 불변셩 유지되면서 상태가 업데이트
 
 ```javascript
 import { createSlice } from '@reduxjs/toolkit';
