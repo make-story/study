@@ -1,6 +1,8 @@
 # Authentication bearer
 
-`bearer 는 JWT와 OAuth를 타나내는 인증 타입`
+https://datatracker.ietf.org/doc/html/rfc6750
+
+`bearer 는 JWT 와 OAuth 를 나타내는 인증 타입`
 
 https://velog.io/@tosspayments/Basic-%EC%9D%B8%EC%A6%9D%EA%B3%BC-Bearer-%EC%9D%B8%EC%A6%9D%EC%9D%98-%EB%AA%A8%EB%93%A0-%EA%B2%83
 

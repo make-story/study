@@ -8,6 +8,36 @@ https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api
 
 ---
 
+# 흐름
+
+https://developers.kakao.com/docs/latest/ko/kakaologin/common#intro-login-process
+https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#before-you-begin-process
+
+## Step1 : 카카오 로그인 흐름
+
+카카오 로그인 요청 [사용자, 클라이언트] >  
+`인가코드(Authorization Code) 발급 요청 [서비스 서버]` >  
+인증 및 동의 요청 [카카오 인증서버] >  
+사용자의 카카오 로그인 및 동의 [사용자, 클라이언트] >  
+카카오 인증 서버는 인가 코드(Authorization Code)를 발급해 서비스 앱에 등록된 Redirect URI 로 전달 >  
+`인가 코드(Authorization Code)로 토큰 발급 요청 [서비스 서버]` >  
+OAuth 2.0 표준 규격에 따라 `액세스 토큰(Access token), 리프레시 토큰(Refresh token) 두 종류의 토큰을 발급 [카카오 인증서버]` >  
+카카오 로그인 완료, 토큰정보 조회 및 검증 [서비스 서버]
+
+## Step2 : 회원 확인 및 가입 흐름
+
+서비스는 카카오 로그인을 완료하여 `발급받은 토큰으로, 사용자 정보 가져오기 요청 [서비스 서버]` >  
+카카오 API 서버는 요청 시 사용된 토큰의 유효성을 검증하고, 요청을 처리하고 서비스에 응답 [카카오 API 서버] >  
+제공 받은 `사용자 정보로 서비스 회원여부 확인 [서비스 서버]` >  
+신규 사용자인 경우, 회원가입 처리 [서비스 서버]
+
+## Step3 : 서비스 로그인
+
+`서비스 서버는 서비스 클라이언트에 해당 사용자의 로그인에 대한 세션을 발급 (JWT 토큰, 쿠키 또는 로컬스토리지 저장)` >  
+로그인 완료처리
+
+---
+
 # 인증(Authentication)
 
 - ID와 비밀번호로 사용자 신원을 확인
