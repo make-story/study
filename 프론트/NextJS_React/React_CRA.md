@@ -1,4 +1,4 @@
-# Create React App (CRA) - 2016년 Create React App을 출시
+# Create React App (CRA, create-react-app) - 2016년 Create React App을 출시
 
 https://create-react-app.dev/  
 https://create-react-app.dev/docs/getting-started
@@ -26,6 +26,48 @@ https://www.npmjs.com/package/react-scripts/v/3.4.4?activeTab=versions
 ```
 $ yarn global remove create-react-app
 $ yarn create react-app ./apps/client --scripts-version 4.0.1 --template typescript
+```
+
+## CRA env 환경변수
+
+https://flamingotiger.github.io/frontend/react/create-react-app-environment/
+
+```
+.env: 기본 파일.
+.env.local: .env를 덮어쓰는 파일. Test를 제외한 모든 환경에서 로딩됩니다.
+
+.env.development: 개발자 환경에서 로딩
+.env.test: 테스트 환경에서 로딩
+.env.production: 프로덕션 환경에서 로딩
+
+.env.development.local, .env.test.local, .env.production.local: 각각 env.* 를 덮어쓰는 파일입니다.
+```
+
+env 실행 우선순위  
+왼쪽이 오른쪽보다 우선순위가 높습니다.
+
+```
+npm start: .env.development.local > .env.development > .env.local > .env
+npm run build: .env.production.local > .env.production > .env.local, .env
+npm test: .env.test.local > .env.test > .env (note .env.local is missing)
+```
+
+`Create react app 에서는 변수명앞에 무조건 REACT_APP_ 가 있어야 인식`을 합니다.
+사용하지 않을시 변수를 무시합니다.
+
+REACT_APP  
+`환경 변수는 빌드에 포함되므로 누구나 앱 파일을 검사하여 볼 수 있습니다.`
+
+https://create-react-app.dev/docs/adding-custom-environment-variables/
+
+https://github.com/facebook/create-react-app/issues/865
+
+```
+// .env.development
+REACT_APP_URL= "http://localhost:3000"
+
+// .env.production
+REACT_APP_URL= "http://localhost:4000"
 ```
 
 ---
