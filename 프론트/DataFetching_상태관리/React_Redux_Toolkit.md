@@ -29,6 +29,21 @@ store 값을 효율적으로 핸들링하여 불필요 리렌더링을 막기 �
 
 ---
 
+# redux-toolkit 은 redux-thunk 를 기반으로 함
+
+https://yrnana.dev/post/2021-08-29-redux-saga/#redux-toolkit%EC%9D%80-redux-thunk%EB%A5%BC-%EA%B8%B0%EB%B0%98%EC%9C%BC%EB%A1%9C-%ED%95%A8
+
+redux를 사용할때 가능한 redux-toolkit을 사용하고 비동기 처리가 필요하다면 툴킷에 내장된 redux-thunk를 사용하자.
+
+## 서버 데이터 처리나 비동기 처리 만을 한다면!! 서버 state 를 관리하기 위한 라이브러리인 react-query나 swr을 도입 검토가 좋음!
+
+서버에서 받아오는 데이터를 무조건 redux에 저장할 필요가 없고,  
+isLoading 나 error 나 데이터 캐싱 등 서버 상태를 다루기 위해  
+매번 서버 상태와 관련된 프로퍼티를 redux store 에 추가하던 비용을 생각하면  
+서버 상태 관리는 클라이언트 전역 상태 관리와 분리할 필요가 있다
+
+---
+
 # 예제
 
 https://velog.io/@760kry/Redux-Toolkit

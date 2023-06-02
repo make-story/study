@@ -28,6 +28,14 @@ $ yarn global remove create-react-app
 $ yarn create react-app ./apps/client --scripts-version 4.0.1 --template typescript
 ```
 
+## CRA 에서 Next.js 전환 (마이그레이션, CRA Migration)
+
+https://nextjs.org/docs/app/building-your-application/upgrading/codemods#migrate-from-cra
+
+```
+$ npx @next/codemod cra-to-next
+```
+
 ## CRA env 환경변수
 
 https://flamingotiger.github.io/frontend/react/create-react-app-environment/
