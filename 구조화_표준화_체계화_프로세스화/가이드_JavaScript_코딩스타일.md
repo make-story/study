@@ -143,10 +143,10 @@ CSS 설계를 염두에 둔 것이 아니라 어디까지나 디자인 시스템
 ## 아토믹 컴포넌트 설계 방법(과정)
 
 - 방법 1.  
-기획서 기준, 여러 작업자(개발자)가 기획서 기반 개발리뷰를 했고, 공통적 요소를 사전 분리한 후 작업을 시작했다면, 작은 단위(atmos, molecules 등) 부터 개발 시작
+  기획서 기준, 여러 작업자(개발자)가 기획서 기반 개발리뷰를 했고, 공통적 요소를 사전 분리한 후 작업을 시작했다면, 작은 단위(atmos, molecules 등) 부터 개발 시작
 
 - 방법 2.  
-개발리뷰없이 작업을 시작했다면, 큰 단위(templetes, pages 등) 폴더에서 작업 시작하여, 공통 필요 조건(공통 컴포넌트화 필요)이 발견(발생)되는 시점에, 작은 단위(atmos, molecules 등)로 분리(코드 리팩토링 진행) 해가며 개발
+  개발리뷰없이 작업을 시작했다면, 큰 단위(templetes, pages 등) 폴더에서 작업 시작하여, 공통 필요 조건(공통 컴포넌트화 필요)이 발견(발생)되는 시점에, 작은 단위(atmos, molecules 등)로 분리(코드 리팩토링 진행) 해가며 개발
 
 # 들여쓰기
 
@@ -196,11 +196,11 @@ let b = 2;
 
 ```javascript
 // 나쁜 예
-import React from 'react";
-import Button from '../Button";
+import React from 'react';
+import Button from '../Button';
 
-import styles from './styles.css";
-import type { User } from '../../types";
+import styles from './styles.css';
+import type { User } from '../../types';
 import { getUser } from '../../api';
 
 import PropTypes from 'prop-types';
@@ -350,12 +350,12 @@ for (i = 0; i < count; i++) {
 /**
  * 파일 첫 라인에는 해당파일의 기능(또는 역할, 화면영역)에 대한 설명
  */
-import test from ‘module’;
+import test from 'module';
 
 /**
  * 인터페이스에 대한 설명
  */
-interfact ITest {};
+interface ITest {};
 
 /**
  * 타입에 대한 설명
