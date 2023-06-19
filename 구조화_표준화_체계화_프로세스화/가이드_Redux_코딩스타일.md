@@ -1,9 +1,8 @@
-
-
 # types/brands/index.ts
+
 ```javascript
 import { IAllBrandListResponse } from 'src/display/types/brand/response'; // API 응답 타입정의 (선택적 정의)
- 
+
 export interface IBrandsAllActionPayload {
   data?: IAllBrandListResponse;
   error?: Error;
@@ -11,7 +10,7 @@ export interface IBrandsAllActionPayload {
 export interface IBrandsAllAction extends Action<typeof BRANDS_ALL_ACTION_TYPE[keyof typeof BRANDS_ALL_ACTION_TYPE]> {
   payload?: IBrandsAllActionPayload;
 }
- 
+
 // 브랜드 전체보기 상태 (API 응답 후 리듀서에서 가공된, 최종 데이터 구조 정의)
 export interface IBrandsAllState {
   // [예시] 아래 구조는 각 기능별로 다른 구조를 가져갈 수 있음(참고용 코드)
@@ -28,6 +27,7 @@ export interface IBrandsAllState {
 ```
 
 # stores/brands/action.ts
+
 ```javascript
 import { Action } from 'redux';
 
@@ -64,6 +64,7 @@ export const brandsAllActionCreators = {
 ```
 
 # sagas/brands/reducer.ts
+
 ```javascript
 import { Reducer } from 'redux';
 import { produce } from 'immer';

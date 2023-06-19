@@ -90,6 +90,8 @@ src 하위에 아래 폴더 구성됨
   - [project page folder]
 ```
 
+## 폴더/파일 네이밍
+
 - 폴더명 규칙
   - '소문자'로 시작
   - 예: /pacificShop/index.tsx
@@ -98,6 +100,8 @@ src 하위에 아래 폴더 구성됨
     - 예: /molecules/FullLayer.tsx
   - 컴포넌트가 아닌 경우 '소문자'로 시작
     - 예: /utils/array.ts
+  - 사용자 Hook 경우, 'use'로 시작 (프리픽스)
+    - 예: /hooks/test/useQueryTest.ts
   - react-query API 호출 Hook 경우, 'useQuery' 파일명 프리픽스
     - 예: /hooks/test/useQueryTest.ts
 - 비즈니스 로직
@@ -180,13 +184,12 @@ space와 tab을 섞어서 사용하지 않는다. - 'NHN 가이드'와 동일
 한 줄에 하나의 문장만 허용하며, 문장 종료 시에는 반드시 세미콜론(;)을 사용한다. - 'NHN 가이드'와 동일  
 자바스크립트는 이를 문법으로 강제하지 않지만, 종종 생각지 못한 오류를 만들고 디버깅을 어렵게 한다.
 
-```javascript
+```
 // 나쁜 예: 세미콜론 없음
-let a = 1;
+let a = 1
 
 // 나쁜 예: 한 줄에 두개의 문장
-let a = 1;
-let b = 2;
+let a = 1, b = 2;
 ```
 
 # File Import
@@ -277,7 +280,7 @@ for (i=0; i<count; i++) {
 `괄호에 공백 넣기`  
 괄호를 사용할 때, 여는 괄호 바로 다음과 닫는 괄호 바로 앞에는 공백이 없어야 합니다.
 
-```javascript
+```
 // 좋은 예
 const found = values[i] === item;
 
@@ -292,15 +295,15 @@ for (i = 0; i < count; i++) {
 }
 
 // 나쁜 예: 여는 괄호 바로 다음에 공백이 입력됨
-const found = values[i] === item;
+const found = ( values[i] === item);
 
 // 나쁜 예: 닫는 괄호 바로 앞에 공백이 입력됨
-if (found && count > 10) {
+if (found && count > 10 ) {
   doSomething();
 }
 
 // 나쁜 예: 인자 앞뒤로 불필요한 공백이 입력됨
-for (i = 0; i < count; i++) {
+for ( i = 0; i < count; i++ ) {
   process(i);
 }
 ```
@@ -382,6 +385,9 @@ const TestComponent = () => {
   // 주석은 한줄 빈칸(공백)을 두고 입력한다.
   const code2 = ‘’; // 변수 설명 (선택)
 
+  /**
+   * 큰 기능(비즈니스)단위 그룹의 경우
+   */
   useEffect(() => {
     // 각 기능(디스패치, 유효성검사 등)에 대한 설명
 
@@ -600,7 +606,7 @@ const total_COUNT = 10;
 
 ## 변수
 
-```javascript
+```
 // 좋은 예 - 구글 가이드
 errorCount; // 약어 없음.
 dnsConnectionIndex; // 대부분의 사람들은 "DNS"가 무엇을 의미하는지 알고 있습니다.
