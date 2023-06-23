@@ -36,6 +36,40 @@ https://nextjs.org/docs/app/building-your-application/upgrading/codemods#migrate
 $ npx @next/codemod cra-to-next
 ```
 
+## CRA 에서 webpack, babel, eslint 설정 가능한 커스터마이징 상태로 변경
+
+```
+$ npm run eject
+```
+
+또는
+
+```
+$ yarn eject
+```
+
+`주의! 이는 one-way operation 으로 한 번 실행하면 이전으로 돌아갈 수 없다.`
+
+### eject 명령을 실행하지 않고 커스터마이징 가능 상태로 변경
+
+craco 패키지 설치
+
+```
+$ yarn add @craco/craco
+```
+
+package.json
+
+```json
+{
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test"
+  }
+}
+```
+
 ## CRA env 환경변수
 
 https://flamingotiger.github.io/frontend/react/create-react-app-environment/
