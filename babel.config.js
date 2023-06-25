@@ -11,6 +11,9 @@
 1. package.json, .babelrc, .babelrc.js 파일을 만날 때까지 부모 폴더로 이동한다.  
 2. 프로젝트 루트의 babel.config.js 파일이 전체 설정 파일이다.  
 3. 전체 설정 파일과 지역 설정 파일을 병합한다.  
+
+$ npm install -D @babel/core 
+$ npm install -D babel-plugin-module-resolver babel-plugin-styled-components
 */
 module.exports = {
   presets: ['next/babel'],
