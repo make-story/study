@@ -31,8 +31,8 @@ default 는 true 인데, 이 값이 true 가 아니면, eslintrc 파일을 찾�
 
 ## parser
 
-각 코드 파일을 검사할 파서를 설정하는 부분이다.  
-기본 설정은 espree이고, 특정 @typescript-eslint/eslint-plugin 처럼 특정 플러그인을 사용한다면 해당 플러그인에서 제공하는 parser 를 장착하면 된다.
+각 코드 파일을 검사할 파서를 설정  
+기본 설정은 espree 이고, @typescript-eslint/eslint-plugin 처럼 특정 플러그인을 사용한다면 해당 플러그인에서 제공하는 parser 로 설정하면 된다.
 
 ## plugins
 
@@ -40,7 +40,7 @@ default 는 true 인데, 이 값이 true 가 아니면, eslintrc 파일을 찾�
 (규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 extends 에 추가해주어야 적용이 됩니다.)
 
 plugin 추가 후 매번 적용가능 한 extends 를 확인하는 것이 번거롭기 때문에,  
-대부분의 플러그인은 recommended 나 strict, all 등의 자체 설정을 제공하는 것
+대부분의 플러그인은 recommended 나 strict, all 등의 자체 설정을 제공함
 
 우선 plugin 종류는 여러 가지 있는데,  
 예를 들어
@@ -57,13 +57,15 @@ plugin 추가 후 매번 적용가능 한 extends 를 확인하는 것이 번거
 eslint rule 설정이 저장되어 있는 외부 file 을 extends 하는 부분이다.
 (extends 는 추가한 플러그인에서 사용할 규칙을 설정하는 것)
 
-extends 에 eslint:recommended, plugin:@typescript-eslint/recommended 를 장착시켜주면, 사용하려는 해당 플러그인에서 기본적으로 제공하는 rule set 이 적용된다.
+예를 들어,  
+extends 에 eslint:recommended, plugin:@typescript-eslint/recommended 를 설정하면,  
+사용하려는 해당 플러그인에서 기본적으로 제공하는 rule set 이 적용된다.
 
 변경하고 싶은 부분이 있다면 rules 쪽에서 커스터마이징 하면 된다.
 
 ## rules
 
-직접 lint rule을 적용하는 부분이다.
+직접 lint rule을 적용하는 부분  
 extends로 자동으로 설정된 rules 중에, 특정 rule을 끄거나, erorr를 warning으로 나오도록 변경하는 등 설정을 바꿀 수 있다.
 
 ## env
@@ -84,7 +86,7 @@ https://eslint.org/docs/latest/use/configure/language-options#specifying-environ
 
 ## globals
 
-선언되지 않은 전역변수를 사용하는 경우 ESLint 경고가 발생하지 않도록,  
+전역변수를 사용하는 경우 ESLint 경고가 발생하지 않도록,  
 globals 를 이용하여 사용자 전역 변수를 추가할 수 있습니다.
 
 ```javascript
@@ -167,7 +169,8 @@ https://www.daleseo.com/eslint-config/
 
 ## settings
 
-일부 ESLint 플러그인은 추가적인 설정이 가능한데요. 이런 경우에는 설정 파일의 settings 옵션을 사용합니다.
+일부 ESLint 플러그인은 추가적인 설정이 가능  
+이런 경우에는 설정 파일의 settings 옵션을 사용합니다.
 
 예를 들어, react 플러그인이 프로젝트에 설치된 리액트의 버전을 자동으로 탐지하도록 설정해보겠습니다. (기본 설정은 리액트 최신 버전을 기준으로 린트(lint)를 하게 되었습니다.)
 
@@ -187,7 +190,8 @@ https://www.daleseo.com/eslint-config/
 
 https://www.daleseo.com/eslint-config/
 
-ESLint는 린트(lint)를 수행할 때 기본적으로 node_modules 폴더나 .로 시작하는 설정 파일은 무시하는데요. 그 밖에 다른 파일을 무시하고 싶다면 설정 파일의 ignorePatterns 옵션을 사용할 수 있습니다.
+ESLint는 린트(lint)를 수행할 때 기본적으로 node_modules 폴더나 .로 시작하는 설정 파일은 무시  
+그 밖에 다른 파일을 무시하고 싶다면 설정 파일의 ignorePatterns 옵션을 사용할 수 있습니다.
 
 ```json
 {
