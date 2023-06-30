@@ -1,15 +1,20 @@
-# Airbnb React/JSX Style Guide
+# 참고: Airbnb React/JSX Style Guide
 
 https://github.com/apple77y/javascript/tree/master/react
 
-# 함수 컴포넌트
+# 참고: 함수 컴포넌트
 
 https://ko.reactjs.org/docs/components-and-props.html
 
+---
+
 # 명명규칙
 
-- 확장자 : .tsx
-- 파일이름 : 컴포넌트는 대문자로 시작(PascalCase를 사용)합니다. (예: ReservationCard.tsx)
+- 확장자
+  - .tsx
+- 파일이름
+  - 컴포넌트는 대문자로 시작(PascalCase를 사용)합니다.
+  - 예: ReservationCard.tsx
 
 ```react
 // bad
@@ -25,7 +30,8 @@ const ReservationItem = <ReservationCard />;
 const reservationItem = <ReservationCard />;
 ```
 
-- Props: DOM(HTML), React 예약어를 사용하지 않습니다.
+- Props
+  - DOM(HTML), React 예약어를 사용하지 않습니다.
 
 ```react
 // bad

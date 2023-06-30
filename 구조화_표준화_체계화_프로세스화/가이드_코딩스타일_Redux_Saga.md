@@ -1,3 +1,89 @@
+# 참고: Redux Toolkit 사용
+
+https://redux-toolkit.js.org/usage/usage-with-typescript
+
+https://redux-toolkit.js.org/api/createSlice
+
+https://redux-toolkit.js.org/api/createSelector
+
+## /src/<프로젝트>/store/<프로젝트내 특정 영역/기능단위>/
+
+xxxxxSlice.ts
+
+```javascript
+/**
+ * 예제 display slice
+ */
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface DisplayStateDraft {
+  value?: number;
+  test?: string;
+}
+
+export interface DisplayState {
+  value: number;
+  test?: {};
+}
+
+const initialState: DisplayState = {
+  value: 0,
+  test: {},
+};
+
+/**
+ * 예제 action, reducer
+ * https://redux-toolkit.js.org/api/createSlice
+ */
+export const displaySlice = createSlice({
+  name: 'display',
+  initialState,
+  reducers: {
+    increment(state) {
+      state.value++;
+    },
+    decrement(state) {
+      state.value--;
+    },
+    incrementByAmount(state, action: PayloadAction<DisplayStateDraft>) {
+      state.value += action.payload?.value || 0;
+    },
+    up: (state, action) => {
+      state.value = state.value + action.payload;
+    },
+    down: (state, action) => {
+      state.value = state.value - action.payload;
+    },
+  },
+});
+
+export const { increment, decrement, incrementByAmount } = displaySlice.actions;
+export default displaySlice.reducer;
+```
+
+xxxxxSelector.ts
+
+```javascript
+/**
+ * 예제 display selector
+ */
+import { AppState } from '@/store';
+import { DisplayState } from '@/project2/store/display/displaySlice';
+import { createSelector } from '@reduxjs/toolkit';
+
+export const displaySelector = ({ project2 }: AppState): DisplayState => project2.display;
+
+/**
+ * createSelector 을 이용해 새로운 값을 반환하면
+ * 해당 값은 다시 리렌더링 되더라도 연산을 새로 수행하는 대신 이전에 캐싱해두었던 값을 반환
+ */
+export const displayReselect = createSelector(displaySelector, (display): any => {
+  return display.value;
+});
+```
+
+---
+
 `리액트를 다루는 기술` 책 내용 중
 
 # sagas/createRequestSaga.ts
