@@ -1,8 +1,15 @@
+/**
+ * 스토리북 미리보기 방식 구성
+ * https://storybook.js.org/docs/react/configure/overview#configure-story-rendering
+ */
 //import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 //import 'css/bundle.css'; // 서비스 페이지 공통 CSS
 
+// https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+// https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
+// https://storybook.js.org/docs/react/essentials/toolbars-and-globals#global-types-and-the-toolbar-annotation
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {

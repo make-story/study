@@ -70,6 +70,8 @@ package.json
 }
 ```
 
+`@storybook/react` 경우, react 버전에 맞는 버전으로 설치해야 함!
+
 ### Storybook 설정
 
 .storybook 디렉터리를 열어보시면 Storybook 관련 2개의 설정 파일이 있을 것입니다.
@@ -128,3 +130,10 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 ```
+
+해결책: 각 연관된 패키지 버전 확인!
+react:17.0.2 버전을 사용할 경우 @storybook/react:6.1.20
+
+- `@storybook/react` 패키지 버전 (https://storybook.js.org/blog/storybook-6-1/)
+- `react` 패키지 버전
+- `react-dom` 패키지 버전
