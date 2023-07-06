@@ -1,5 +1,5 @@
-
 # next.config.js
+
 ```javascript
 module.exports = withBundleAnalyzer({
   distDir: '.next',
@@ -17,6 +17,7 @@ module.exports = withBundleAnalyzer({
 ```
 
 # development
+
 ```javascript
 {
   mode: 'development',
@@ -113,6 +114,7 @@ module.exports = withBundleAnalyzer({
 ```
 
 # production
+
 ```javascript
 {
   mode: 'production',

@@ -1,4 +1,4 @@
-# 렌더링 속도를 올리기 위한 성능 최적화 방법 - 실전 리액트 프로그래밍 책 내용 중
+# 렌더링 속도를 올리기 위한 성능 최적화 방법 - `실전 리액트 프로그래밍` 책 내용 중
 
 리액트에서 최초 렌더링 이후에는 데이터 변경 시 렌더링을 하는데,  
 이 때 다음과 같은 단계를 거친다.
@@ -309,7 +309,6 @@ const App = () => (
 # Next.js 스트리밍 및 서스펜스(Suspense)
 
 https://beta.nextjs.org/docs/data-fetching/streaming-and-suspense
-https://beta.reactjs.org/apis/react/Suspense
 
 https://stackoverflow.com/questions/69433673/nextjs-reactdomserver-does-not-yet-support-suspense
 Next js 12 이하 버전에서는 Suspense를 지원하지 않음

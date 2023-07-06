@@ -1,4 +1,4 @@
-# 실전에서 바로쓰는 Next.js 책 정리
+# `실전에서 바로쓰는 Next.js` 책 정리
 
 Next.js 기본철학 Convention-Over-Configuration, 개발자가 해야 할 결정의 수를 줄이면서도 유연성은 잃지 않도록 하는 소프트웨어 설계 패러다임
 
