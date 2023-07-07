@@ -1,4 +1,4 @@
-# NPM scripts
+# NPM package.json `scripts`
 
 https://docs.npmjs.com/cli/v9/using-npm/scripts
 
@@ -16,3 +16,15 @@ https://docs.npmjs.com/cli/v9/using-npm/scripts
 - prestop, stop, poststop: Run by the npm stop command.
 - prestart, start, poststart: Run by the npm start command.
 - prerestart, restart, postrestart: Run by the npm restart command. 주의: npm restart 시에 restart 스크립트를 지정하지 않으면 stop과 start 스크립트가 실행됩니다.
+
+# NPM package.json scripts 여러 명령을 동시에 실행
+
+## 기본적인 방식
+
+```
+$ npm run watch-js & npm run watch-css
+```
+
+## 도구 활용
+
+https://www.npmjs.com/package/concurrently
