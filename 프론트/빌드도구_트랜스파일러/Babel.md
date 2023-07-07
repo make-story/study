@@ -100,8 +100,7 @@ process.env.BABEL_ENV || process.env.NODE_ENV || "development"
   바벨 버전 7에 추가된 babel.config.js 파일이 전체 설정 파일이다.
 - 두 번째  
   자바스크립트 파일의 경로에 따라 결정되는 지역(file-relative) 설정 파일이다.  
-  .babelrc, .babelrc.js 파일과 바벨 설정이 있는 package.json 파일이 지역 설정 파일이다.  
-
+  .babelrc, .babelrc.js 파일과 바벨 설정이 있는 package.json 파일이 지역 설정 파일이다.
 
 1. package.json, .babelrc, .babelrc.js 파일을 만날 때까지 부모 폴더로 이동한다.
 2. 프로젝트 루트의 babel.config.js 파일이 전체 설정 파일이다.
@@ -204,9 +203,24 @@ $ npm install --save-dev @babel/preset-env
 기본적으로 babel-preset-env는 단순히 모든 es6 plugin을 설치한다. 하지만 이것은 컴파일된 자바스크립트의 양이 많아져 번들의 코드를 길어지게 만든다.  
 그래서 babel-preset-env에게 원하는 브라우저만 지원가능하도록 plugin을 선택할 수 있다.
 
+## `플러그인들은 프리셋 이전에 먼저 실행`
+
+https://babeljs.io/docs/plugins#plugin-ordering
+
+## `플러그인 배열내 실행순서와 프리셋 배열내 실행 순서가 각각 다름`
+
+https://maxkim-j.github.io/posts/frontend-tooling-ideas/
+
+플러그인들은 배열의 앞에서부터 뒤로 실행  
+프리셋은 배열의 맨 뒤 인덱스부터 앞으로 실행
+
+예를 들어,  
+@babel/preset-react 나 @babel/preset-typescript를 함께 쓰는 경우 이후에 배치하도록 가이드하고 있음  
+즉, 각 도구별 바벨설정 가이드가 다를 수 있음
+
 ---
 
-# 웹팩(webpack)과 함께 사용할 때
+# `웹팩(webpack)과 함께 사용할 때`
 
 `.babelrc` 있다면 해당 파일을 먼저 참조 하며,  
 없을 경우 webpack options에 부여한 presets plugins 을 참조한다.  
