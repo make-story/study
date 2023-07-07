@@ -5,7 +5,7 @@ https://create-react-app.dev/docs/getting-started
 
 https://github.com/facebook/create-react-app
 
-create-react-app은 React App의 개발 환경을 한 줄의 커맨드로 구성해주는 boilerplate이다.  
+CRA(create-react-app) 는 React 의 개발 환경을 한 줄의 커맨드로 구성해주는 Boilerplate  
 (보일러 플레이트는 변경 없이 계속해서 재 사용할 수 있는 저작물)
 
 React와 함께 facebook에서 만들었고 npm과 yarn 패키지로 제공된다.  
@@ -70,7 +70,7 @@ package.json
 }
 ```
 
-## CRA env 환경변수
+## CRA 에서의 env 환경변수
 
 https://flamingotiger.github.io/frontend/react/create-react-app-environment/
 
@@ -100,6 +100,9 @@ npm test: .env.test.local > .env.test > .env (note .env.local is missing)
 REACT_APP  
 `환경 변수는 빌드에 포함되므로 누구나 앱 파일을 검사하여 볼 수 있습니다.`
 
+CRA 공식 문서에서의 주의 사항  
+'WARNING: Do not store any secrets (such as private API keys) in your React app'
+
 https://create-react-app.dev/docs/adding-custom-environment-variables/
 
 https://github.com/facebook/create-react-app/issues/865
@@ -111,6 +114,32 @@ REACT_APP_URL= "http://localhost:3000"
 // .env.production
 REACT_APP_URL= "http://localhost:4000"
 ```
+
+## CRA 에서의 Proxy
+
+package.json 에서 proxy 를 하나만 설정할 수 있고, 여러개 설정할 수도 있음
+
+```json
+{
+  "proxy": "http://localhost:8000"
+}
+```
+
+```json
+{
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8000"
+    },
+    "/auth": {
+      "target": "http://localhost:8080"
+    }
+  }
+}
+```
+
+// http://localhost:3000/api/posts => http://localhost:8000/api/posts
+// http://localhost:3000/auth/login => http://localhost:8080/auth/login
 
 ---
 
