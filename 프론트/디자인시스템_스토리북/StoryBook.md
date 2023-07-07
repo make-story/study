@@ -103,10 +103,11 @@ Uncaught Error: Cannot find module 'react-dom/client'
 ```
 
 react-dom/client 모듈을 찾을 수 없기 때문에 발생한 문제  
-react-dom/client 는 v18에서 새로 생긴 모듈  
+react-dom/client 는 React v18 에서 새로 생긴 모듈  
 React v18 버전부터는 이 모듈을 이용해 DOM을 렌더링
-
 React v18 이전 버전은 다른 모듈(react-dom)을 사용
+
+즉, @storybook/react 버전과 react 버전 확인 필요!
 
 ```javascript
 // import ReactDOM from 'react-dom/client'; // react v18 버전용
