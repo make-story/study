@@ -32,6 +32,8 @@ https://wit.nts-corp.com/2017/08/08/4818
 
 # Self-Closing, void-element
 
+https://jakearchibald.com/2023/against-self-closing-tags-in-html/
+
 https://html.spec.whatwg.org/multipage/syntax.html#void-elements  
 https://www.devkuma.com/docs/html/html-self-closing-tags/
 
