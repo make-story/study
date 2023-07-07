@@ -1,5 +1,9 @@
 # React
 
+https://www.freecodecamp.org/korean/news/best-practices-for-react/
+
+---
+
 Effect
 https://beta.reactjs.org/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state
 

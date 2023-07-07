@@ -1,11 +1,34 @@
 # 비즈니스 로직
 
-- 추천방법1:
-  - 댄 아브라모프(Dan Abramov)의 프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리
-- 추천방법2:
-  - useQueryXXX(react-query API) 와 useXXX(비즈니스 또는 유틸) 등 사용자 Hooks 로 분리
+코딩컨벤션
 
-# 관심사 분리를 위한 프레젠테이션(Presentational), 컨테이너(Container) 컴포넌트 구분하기
+- 추천방법1:
+
+  - 댄 아브라모프(Dan Abramov)의 프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리
+    - 특정 컨테이너 내부 여러 컴포넌트에서의 공통 비즈니스 로직
+      - 이벤트 처리, 데이터 호출, 데이터 가공 등
+    - https://patterns-dev-kr.github.io/design-patterns/container-presentational-pattern/
+
+- 추천방법2:
+
+  - useXXX 사용자 Hooks 로 분리
+    - 여러 컨테이너 또는 여러 컴포넌트에서의 공통 비즈니스 로직
+      - 이벤트 처리, 데이터 호출, 데이터 가공 등
+  - https://usehooks.com/
+  - https://github.com/streamich/react-use
+  - https://usehooks-ts.com/
+  - https://blog.bitsrc.io/11-useful-custom-react-hooks-for-your-next-app-c66307cf0f0c
+
+- 추천방법3:
+
+  - withXXX 고차 컴포넌트(HOC)로 분리 (사용자 Hook 방식을 우선 고민)
+    - 전반적으로 재사용 가능한 로직을 prop으로 컴포넌트에게 제공
+    - 또는 특정 컨테이너 또는 컴포넌트 실행을 위한 선행조건 적용
+    - https://patterns-dev-kr.github.io/design-patterns/hoc-pattern/
+
+## 관심사 분리를 위한 프레젠테이션(Presentational), 컨테이너(Container) 컴포넌트 구분하기
+
+https://www.patterns.dev/posts/presentational-container-pattern/
 
 댄 아브라모프(Dan Abramov)의 블로그 포스트로 잘 알려진 컴포넌트 구분법이 있다.  
 UI 처리, API 호출, DB 관리 등의 코드가 같은 곳에 있으면 복잡하기 때문에 이들은 서로 관심사가 다르다로 보고 분리해서 관리하는 게 좋다.
@@ -15,7 +38,7 @@ UI 처리, API 호출, DB 관리 등의 코드가 같은 곳에 있으면 복잡
 - 비즈니스 로직이 없다.
 - 상태값이 없다. 단, 마우스 오버(mouse over)와 같은 UI효과를 위한 상태값은 제외한다.
 
-## Presentational & Container 분리는 이제 그만?
+### Presentational & Container 분리는 이제 그만?
 
 Dan Abramov  
 https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
@@ -47,15 +70,13 @@ https://www.youtube.com/watch?v=bjVAVm3t5cQ
 
 ---
 
-# Module Pattern
+## Module Pattern
 
 https://www.patterns.dev/posts/module-pattern/
 
-# Container / Presentational Pattern
+---
 
-https://www.patterns.dev/posts/presentational-container-pattern/
-
-# Hooks Pattern
+## Hooks Pattern
 
 https://www.patterns.dev/posts/hooks-pattern/
 
@@ -87,4 +108,47 @@ function useKeyPress(targetKey) {
 
   return keyPressed;
 }
+```
+
+---
+
+# 공통 로직
+
+## 개인적 생각: 하위 여러 컴포넌트에 적용시킬 공통 로직
+
+```javascript
+// CommonLogic.jsx
+import React, { useEffect } from 'react';
+
+const CommonLogic = ({ children }) => {
+  // 공통 실행 로직
+  useEffect(() => {
+    // ...
+  }, []);
+
+  return (
+    <>
+      <div>공통적용 UI</div>
+      {children}
+    </>
+  );
+};
+
+export default CommonLogic;
+```
+
+```javascript
+// index.jsx
+import React from 'react';
+import CommonLogic from '@/CommonLogic';
+
+const Index = () => {
+  return (
+    <CommonLogic>
+      <div>UI</div>
+    </CommonLogic>
+  );
+};
+
+export default Index;
 ```
