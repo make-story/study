@@ -68,6 +68,8 @@ extends 에 eslint:recommended, plugin:@typescript-eslint/recommended 를 설정
 직접 lint rule을 적용하는 부분  
 extends로 자동으로 설정된 rules 중에, 특정 rule을 끄거나, erorr를 warning으로 나오도록 변경하는 등 설정을 바꿀 수 있다.
 
+https://eslint.org/docs/latest/rules/
+
 ## env
 
 사전 정의된 전역변수 사용
