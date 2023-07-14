@@ -29,95 +29,127 @@ $ eslint --init
 .eslintrc.js 파일 생성됨
 */
 
+/**
+ * https://eslint.org/docs/latest/use/getting-started#configuration
+ * https://eslint.org/docs/latest/rules/
+ */
+
 module.exports = {
-    // 환경(env): 프로젝트의 사용 환경을 설정한다.
-    env: {
-        browser: true,
-        es2020: true,
-        node: true, // node: true 는 webpack.config.js 빌드시 node 환경도 적용
-    },
+  // ESLint 구성파일 탐색 범위
+  // default 는 true 인데, 이 값이 true 가 아니면, eslintrc 파일을 찾을 때,
+  // 해당 프로젝트 디렉토리 뿐 아니라, 내 PC의 root 파일 시스템 root 디렉토리까지 eslint 를 찾는다.
+  root: true,
 
-    // 파서
-    parser: "@typescript-eslint/parser",
+  // 프로젝트의 사용 환경을 설정한다.
+  // https://eslint.org/docs/latest/use/configure/language-options#specifying-environments
+  env: {
+    browser: true,
+    es2020: true,
+    node: true, // node: true 는 webpack.config.js 빌드시 node 환경도 적용
+  },
 
-    // 파서 옵션(parserOptions): ESLint 사용을 위해 지원하려는 Javascript 언어 옵션을 설정할 수 있다.
-    parserOptions: {
-        // 자바스크립트 버전
-        //ecmaVersion: 11,
-        //sourceType: "module",
-        // Typescript
-        project: "./tsconfig.json",
-        parser: "typescript-eslint-parser",
-    },
+  // 전역변수를 사용하는 경우 ESLint 경고가 발생하지 않도록,
+  // globals 를 이용하여 사용자 전역 변수를 추가할 수 있습니다.
+  globals: {},
 
-    // 코드 포맷을 prettier로 설정
-    plugins: ["prettier", "react", "@typescript-eslint"],
+  // 파서
+  // 기본 설정은 espree 이고, @typescript-eslint/eslint-plugin 처럼 특정 플러그인을 사용한다면 해당 플러그인에서 제공하는 parser 로 설정하면 된다.
+  parser: '@typescript-eslint/parser',
 
-    // 확장(extends): 다른 ESLint 설정을 확장해서 사용할때 설정한다.
-    // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
-    // plugin:prettier/recommended: eslint-plugin-prettier + eslint-config-prettier 동시 적용
-    // prettier/@typescript-eslint: prettier 규칙과 충돌하는 @typescript-eslint/eslint-plugin 규칙 비활성화
-    extends: [
-        "plugin:@typescript-eslint/recommended",
-        "prettier/@typescript-eslint",
-        "plugin:react/recommended",
-        "plugin:prettier/recommended",
+  // ESLint 사용을 위해 지원하려는 JavaScript 언어 옵션을 설정할 수 있다.
+  parserOptions: {
+    // 자바스크립트 버전
+    //ecmaVersion: 11,
+    //sourceType: "module",
+    // Typescript
+    project: './tsconfig.json',
+    parser: 'typescript-eslint-parser',
+  },
+
+  // 플러그인은 일련의 규칙 집합이며, 플러그인을 추가하여도 규칙은 적용되지 않습니다.
+  // (규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 extends 에 추가해주어야 적용이 됩니다.)
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+
+  // eslint rule 설정이 저장되어 있는 외부 file 을 extends 하는 부분이다.
+  // (extends 는 추가한 플러그인에서 사용할 규칙을 설정하는 것)
+  // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
+  // plugin:prettier/recommended: eslint-plugin-prettier + eslint-config-prettier 동시 적용
+  // prettier/@typescript-eslint: prettier 규칙과 충돌하는 @typescript-eslint/eslint-plugin 규칙 비활성화
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+  ],
+
+  // ESLint 무시할 디렉토리, 파일을 설정
+  ignorePatterns: ['dist/', 'node_modules/'],
+
+  // 직접 lint rule 을 적용하는 부분
+  // extends로 자동으로 설정된 rules 중에, 특정 rule을 끄거나, erorr를 warning으로 나오도록 변경하는 등 설정을 바꿀 수 있다.
+  // https://eslint.org/docs/latest/rules/
+  rules: {
+    quotes: ['error', 'double'], //더블 쿼터 사용
+    '@typescript-eslint/quotes': ['error', 'double'], //더블 쿼터 사용
+    'no-unused-vars': 'off', //사용안한 변수 경고 중복
+    'spaced-comment': 'off', //주석을 뒤에 쓰지 말라는 경고
+    '@typescript-eslint/no-unused-vars': 'warn', //사용안한 변수는 경고
+    'jsx-a11y/control-has-associated-label': 'off', // 상호작용하는 엘리먼트에 label을 넣는다
+    'react/no-array-index-key': 'off', // key값으로 index를 사용할수 있다.
+    'comma-dangle': 'off', // 마지막에 , 을 넣어주지 않는다.
+    'arrow-body-style': 'off', //화살표 함수 안에 return을 사용 할 수 있다.
+    'react/no-unescaped-entities': 'off', //문자열 내에서 " ' > } 허용
+    'react/prop-types': 'off', //proptypes를 사용하지 않는다.
+    'object-curly-newline': 'off', // { 다음 줄 바꿈을 강제로 사용하지 않는다.
+    'react/jsx-one-expression-per-line': 'off', //한라인에 여러개의 JSX를 사용 할 수 있다.
+    'implicit-arrow-linebreak': 'off', // 화살표 함수 다음에 줄 바꿈을 사용할 수 있다.
+    'no-shadow': 'off', //파일 내에서 중복 이름을 사용 할 수 있다.
+    'operator-linebreak': 'off', //연산자 다음 줄 바꿈을 사용 할 수 있다.
+    'react/react-in-jsx-scope': 'off', // jsx를 사용하여도 React를 꼭 import 하지 않아도 된다.
+    'react/jsx-props-no-spreading': 'off', //props를 스프래드 할 수 있다.
+    'jsx-a11y/anchor-is-valid': 'off', // next js에서는 a에 href없이 사용
+    'global-require': 'off', //함수 내에서 require 사용가능
+    'no-use-before-define': 'off', // 선언전에 사용하지 말라,
+    'import/prefer-default-export': 'off', //export default 권장
+    'no-param-reassign': 'off', //param assign 하지 않기
+    'jsx-a11y/label-has-associated-control': 'off',
+    'no-invalid-css': 'off',
+    'no-confusing-arrow': 'off',
+    'react/jsx-curly-newline': 'off',
+    indent: 'off',
+    'react/jsx-filename-extension': [
+      1,
+      { extensions: ['.js', '.jsx', '.tsx'] }, //jsx사용가능한 확장자 설정
     ],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      }, //import 시 확장자명은 사용하지 않는다.
+    ],
+  },
 
-    // ESLint가 무시할 디렉토리, 파일을 설정
-    ignorePatterns: ["dist/", "node_modules/"],
+  // 프로젝트 내에서 일부 파일에 대해서만 다른 설정을 적용해줘야 할 때
+  // https://www.daleseo.com/eslint-config/
+  overrides: [
+    {
+      files: ['**/*.tsx'],
+      rules: {
+        'react/prop-types': 'off',
+      },
+    },
+  ],
 
-    // 규칙(rules): 프로젝트에서 자체적으로 덮어쓰고 싶은 규칙을 정의할 때 사용한다.
-    // https://eslint.org/docs/rules/
-    rules: {
-        quotes: ["error", "double"], //더블 쿼터 사용
-        "@typescript-eslint/quotes": ["error", "double"], //더블 쿼터 사용
-        "no-unused-vars": "off", //사용안한 변수 경고 중복
-        "spaced-comment": "off", //주석을 뒤에 쓰지 말라는 경고
-        "@typescript-eslint/no-unused-vars": "warn", //사용안한 변수는 경고
-        "jsx-a11y/control-has-associated-label": "off", // 상호작용하는 엘리먼트에 label을 넣는다
-        "react/no-array-index-key": "off", // key값으로 index를 사용할수 있다.
-        "comma-dangle": "off", // 마지막에 , 을 넣어주지 않는다.
-        "arrow-body-style": "off", //화살표 함수 안에 return을 사용 할 수 있다.
-        "react/no-unescaped-entities": "off", //문자열 내에서 " ' > } 허용
-        "react/prop-types": "off", //proptypes를 사용하지 않는다.
-        "object-curly-newline": "off", // { 다음 줄 바꿈을 강제로 사용하지 않는다.
-        "react/jsx-one-expression-per-line": "off", //한라인에 여러개의 JSX를 사용 할 수 있다.
-        "implicit-arrow-linebreak": "off", // 화살표 함수 다음에 줄 바꿈을 사용할 수 있다.
-        "no-shadow": "off", //파일 내에서 중복 이름을 사용 할 수 있다.
-        "operator-linebreak": "off", //연산자 다음 줄 바꿈을 사용 할 수 있다.
-        "react/react-in-jsx-scope": "off", // jsx를 사용하여도 React를 꼭 import 하지 않아도 된다.
-        "react/jsx-props-no-spreading": "off", //props를 스프래드 할 수 있다.
-        "jsx-a11y/anchor-is-valid": "off", // next js에서는 a에 href없이 사용
-        "global-require": "off", //함수 내에서 require 사용가능
-        "no-use-before-define": "off", // 선언전에 사용하지 말라,
-        "import/prefer-default-export": "off", //export default 권장
-        "no-param-reassign": "off", //param assign 하지 않기
-        "jsx-a11y/label-has-associated-control": "off",
-        "no-invalid-css": "off",
-        "no-confusing-arrow": "off",
-        "react/jsx-curly-newline": "off",
-        indent: "off",
-        "react/jsx-filename-extension": [
-            1,
-            { extensions: [".js", ".jsx", ".tsx"] }, //jsx사용가능한 확장자 설정
-        ],
-        "import/extensions": [
-            "error",
-            "ignorePackages",
-            {
-                js: "never",
-                jsx: "never",
-                ts: "never",
-                tsx: "never",
-            }, //import 시 확장자명은 사용하지 않는다.
-        ],
+  // 일부 ESLint 플러그인은 추가적인 설정이 가능
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
+      },
     },
-    settings: {
-        "import/resolver": {
-            node: {
-                extensions: [".js", ".jsx", ".ts", ".tsx", ".d.ts"],
-            },
-        },
-    },
-}
+  },
+};

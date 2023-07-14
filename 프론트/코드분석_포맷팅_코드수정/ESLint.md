@@ -103,7 +103,7 @@ globals 를 이용하여 사용자 전역 변수를 추가할 수 있습니다.
 
 ## parserOptions
 
-parserOptions은 ESLint 사용을 위해 지원하려는 Javascript 언어 옵션을 지정할 수 있습니다.
+parserOptions은 ESLint 사용을 위해 지원하려는 JavaScript 언어 옵션을 지정할 수 있습니다.
 
 -   ecmaVersion: 사용할 ECMAScript 버전을 설정
 -   sourceType: parser의 export 형태를 설정
