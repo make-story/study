@@ -9,19 +9,68 @@
 
 ---
 
-# 리덕스 미들웨어를 통한 비동기 작업 관리
+# 미들웨어란?
 
-> 미들웨어란?  
-> 리덕스 미들웨어는 `액션을 디스패치했을 때 리듀서에서 이를 처리하기에 앞서 사전에 지정된 작업을 실행(예를 들어 비동기 통신)`합니다.  
-> `미들웨어는 액션과 리듀서 사이의 중간자`라고 볼 수 있습니다.
+`리액트를 다루는 기술` 책 내용중
 
-- `액션` -> `미들웨어(redux-trunk, redux-saga 등)` -> `리듀서` -> `스토어`  
-  리듀서가 액션을 처리하기 전에 미들웨어가 할 수 있는 작업은 여러 가지가 있습니다.  
-  `전달받은 액션을 단순히 콘솔에 기록하거나, 전달받은 액션 정보를 기반으로 액션을 아예 취소하거나 다른 종류의 액션을 추가로 디스패치할 수 있습니다.`
+리덕스 미들웨어는 `액션을 디스패치했을 때 리듀서에서 이를 처리하기에 앞서 사전에 지정된 작업을 실행(예를 들어 비동기 통신)`합니다.  
+`미들웨어는 액션과 리듀서 사이의 중간자`라고 볼 수 있습니다.
+
+액션 -> `미들웨어(redux-trunk, redux-saga 등)` -> 리듀서 -> 스토어  
+리듀서가 액션을 처리하기 전에 미들웨어가 할 수 있는 작업은 여러 가지가 있습니다.
+
+전달받은 액션을 단순히 콘솔에 기록하거나,  
+전달받은 액션 정보를 기반으로 액션을 아예 취소하거나  
+다른 종류의 액션을 추가로 디스패치할 수 있습니다.
+
+## 개발자도구 확인
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+https://github.com/zalmoxisus/redux-devtools-extension#13-use-redux-devtools-extension-package-from-npm
+
+```
+$ yarn add redux-devtools-extension
+```
+
+```javascript
+import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+const store = createStore(
+  reducer,
+  composeWithDevTools(
+    applyMiddleware(...middleware)
+    // other store enhancers if any
+  )
+);
+```
 
 ---
 
-# redux-trunk
+# redux-logger
+
+로그 관련
+
+---
+
+# 비동기 작업을 처리하는 미들웨어 사용
+
+- redux-trunk
+  리덕스 창시자인 댄 아브라모프(Dan Abramov)가 만들었음. 객체가 아닌 함수 형태의 액션을 디스패치할 수 있게 해줍니다.
+
+- redux-saga  
+  특정 액션이 디스패치되었을 때 정해진 로직에 따라 다른 액션을 디스패치시키는 규칙을 작성하여 비동기 작업을 처리할 수 있게 해 줍니다.
+
+redux-saga 와 redux-thunk 비교  
+다음과 같은 상황에서는 redux-saga 를 사용하는 것이 유리합니다.
+
+- 기존 요청을 취소 처리해야 할 때
+- 특정 액션이 발생했을 때 다른 액션을 발생시키거나, API 요청 등 리덕스와 관련없는 코드를 실행할 때
+- 웹 소켓을 사용할 때
+- API 요청 실패 시 재요청해야 할 때
+
+## redux-trunk
 
 redux-trunk 는 리덕스를 사용하는 프로젝트에서 `비동기 작업을 처리할 때 가장 기본적으로 사용하는 미들웨어` 입니다.  
 Trunk 는 특정 작업을 나중에 할 수 있도록 미루기 위해 함수 형태로 감싼 것을 의미합니다.
@@ -30,25 +79,27 @@ Trunk 는 특정 작업을 나중에 할 수 있도록 미루기 위해 함수 �
 
 ```javascript
 // modules/users.js
-import axios from 'axios';
+import axios from "axios";
 
-const GET_USERS_PENDING = 'users/GET_USERS_PENDING';
-const GET_USERS_SUCCESS = 'users/GET_USERS_SUCCESS';
-const GET_USERS_FAILURE = 'users/GET_USERS_FAILURE';
+const GET_USERS_PENDING = "users/GET_USERS_PENDING";
+const GET_USERS_SUCCESS = "users/GET_USERS_SUCCESS";
+const GET_USERS_FAILURE = "users/GET_USERS_FAILURE";
 
 const getUsersPending = () => ({ type: GET_USERS_PENDING });
-const getUsersSuccess = payload => ({ type: GET_USERS_SUCCESS, payload });
-const getUsersFailure = payload => ({
+const getUsersSuccess = (payload) => ({ type: GET_USERS_SUCCESS, payload });
+const getUsersFailure = (payload) => ({
   type: GET_USERS_FAILURE,
   error: true,
   payload,
 });
 
 // 비동기 사용 - trunk 방식
-export const getUsers = () => async dispatch => {
+export const getUsers = () => async (dispatch) => {
   try {
     dispatch(getUsersPending());
-    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/users"
+    );
     dispatch(getUsersSuccess(response));
   } catch (e) {
     dispatch(getUsersFailure(e));
@@ -100,10 +151,10 @@ export default users;
 
 ```javascript
 // containers/UsersContainer.js
-import React from 'react';
-import Users from '../components/Users';
-import { connect } from 'react-redux';
-import { getUsers } from '../modules/users';
+import React from "react";
+import Users from "../components/Users";
+import { connect } from "react-redux";
+import { getUsers } from "../modules/users";
 
 const { useEffect } = React;
 
@@ -122,12 +173,12 @@ const UsersContainer = ({ users, getUsers }) => {
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     users: state.users.users,
   }),
   {
     getUsers,
-  },
+  }
 )(UsersContainer);
 ```
 
@@ -135,15 +186,15 @@ export default connect(
 
 ```javascript
 // components/Users.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Users = ({ users }) => {
   if (!users) return null; // users가 유효하지 않다면 아무것도 보여주지 않음
   return (
     <div>
       <ul>
-        {users.map(user => (
+        {users.map((user) => (
           <li key={user.id}>
             <Link to={`/users/${user.id}`}>{user.username}</Link>
           </li>
@@ -160,8 +211,8 @@ export default Users;
 
 ```javascript
 // modules/index.js
-import { combineReducers } from 'redux';
-import users from './users';
+import { combineReducers } from "redux";
+import users from "./users";
 
 const rootReducer = combineReducers({ users });
 
@@ -171,14 +222,14 @@ export default rootReducer;
 App
 
 ```javascript
-import React from 'react';
-import { Route } from 'react-router-dom';
-import UsersPage from './pages/UsersPage';
+import React from "react";
+import { Route } from "react-router-dom";
+import UsersPage from "./pages/UsersPage";
 
 function App() {
   return (
     <div>
-      <Route path='/users' component={UsersPage} />
+      <Route path="/users" component={UsersPage} />
     </div>
   );
 }
@@ -190,8 +241,8 @@ Pages
 
 ```javascript
 // pages/UsersPage.js
-import React from 'react';
-import UsersContainer from '../containers/UsersContainer';
+import React from "react";
+import UsersContainer from "../containers/UsersContainer";
 
 const UsersPage = () => {
   return <UsersContainer />;
@@ -203,14 +254,14 @@ export default UsersPage;
 index.js
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import rootReducer from './modules/index';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import rootReducer from "./modules/index";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -227,13 +278,13 @@ ReactDOM.render(
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 ```
 
 ---
 
-# redux-saga
+## redux-saga
 
 redux-saga 는 redux-trunk 다음으로 많이 사용하는 `비동기 작업 관련 미들웨어` 입니다.
 
@@ -249,11 +300,11 @@ redux-saga 에서는 ES6 의 제너레이터 함수라는 문법을 사용합니
 // 제너레이터 함수를 사용하면 함수에서 값을 순차적으로 반환할 수 있습니다.
 // 심지어 함수의 흐름을 도중에 멈춰 놓았다가 다시 이어서 진행시킬 수도 있죠.
 function* generatorFunction() {
-  console.log('첫 번째 실행');
+  console.log("첫 번째 실행");
   yield 1; // 첫번째 next 호출 시에 이 지점까지 실행된다.
-  console.log('두 번쨰 실행');
+  console.log("두 번쨰 실행");
   yield 2; // 두번째 next 호출 시에 이 지점까지 실행된다.
-  console.log('세 번째 실행');
+  console.log("세 번째 실행");
   yield 3; // 세번째 next 호출 시에 이 지점까지 실행된다.
 
   return 4; // 제너레이터 함수 종료
@@ -287,7 +338,7 @@ next() 함수에 파라미터를 넣으면 제너레이터 함수에서 yield를
 
 ```javascript
 function* generatorSum() {
-  console.log('a + b 테스트');
+  console.log("a + b 테스트");
 
   let a = yield;
   let b = yield;
@@ -315,7 +366,7 @@ function* createInfinityByGenerator() {
 }
 for (const n of createInfinityByGenerator()) {
   if (n > 5) break;
-  console.log('createInfinityByGenerator', n); // 1 2 3 4 5
+  console.log("createInfinityByGenerator", n); // 1 2 3 4 5
 }
 
 function* counter() {
@@ -323,7 +374,7 @@ function* counter() {
 }
 let generatorCounter = counter();
 for (const i of generatorCounter) {
-  console.log('generatorCounter', i); // 1 2 3
+  console.log("generatorCounter", i); // 1 2 3
 }
 ```
 
@@ -331,15 +382,15 @@ for (const i of generatorCounter) {
 
 ```javascript
 function* generatorWatch() {
-  console.log('모니터링 중...');
+  console.log("모니터링 중...");
 
   let prevAction = null;
   while (true) {
     const action = yield;
-    console.log('이전 액션: ', prevAction);
+    console.log("이전 액션: ", prevAction);
     prevAction = action;
-    if (action.type === 'HELLO') {
-      console.log('안녕하세요.');
+    if (action.type === "HELLO") {
+      console.log("안녕하세요.");
     }
   }
 }
@@ -347,10 +398,10 @@ const watch = generatorWatch();
 watch.next();
 // 모니터링 중...
 // { value: undefined, donw: false }
-watch.next({ type: 'TEST' });
+watch.next({ type: "TEST" });
 // 이전 액션: null
 // { value: undefined, donw: false }
-watch.next({ type: 'HELLO' });
+watch.next({ type: "HELLO" });
 // 이전 액션: {type: 'TEST'}
 // 안녕하세요.
 // { value: undefined, donw: false }
@@ -363,14 +414,14 @@ watch.next({ type: 'HELLO' });
 
 ```javascript
 // modules/counter.js
-import { createAction, handleActions } from 'redux-actions';
-import { delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { createAction, handleActions } from "redux-actions";
+import { delay, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 // 액션 타입
-const INCREASE = 'counter/INCREASE';
-const DECREASE = 'counter/DECREASE';
-const INCREASE_ASYNC = 'counter/INCREASE_ASYNC';
-const DECREASE_ASYNC = 'counter/DECREASE_ASYNC';
+const INCREASE = "counter/INCREASE";
+const DECREASE = "counter/DECREASE";
+const INCREASE_ASYNC = "counter/INCREASE_ASYNC";
+const DECREASE_ASYNC = "counter/DECREASE_ASYNC";
 
 // 액션 생성함수
 export const increase = createAction(INCREASE);
@@ -415,10 +466,10 @@ const initialState = 0;
 // 액션 함수(리듀서)
 const counter = handleActions(
   {
-    [INCREASE]: state => state + 1,
-    [DECREASE]: state => state - 1,
+    [INCREASE]: (state) => state + 1,
+    [DECREASE]: (state) => state - 1,
   },
-  initialState,
+  initialState
 );
 
 export default counter;
@@ -428,10 +479,15 @@ export default counter;
 
 ```javascript
 // containers/CounterContainer.js
-import React, { useCallback } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import Counter from '../components/Counter';
-import { increase, decrease, increaseAsync, decreaseAsync } from '../modules/counter';
+import React, { useCallback } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
+import Counter from "../components/Counter";
+import {
+  increase,
+  decrease,
+  increaseAsync,
+  decreaseAsync,
+} from "../modules/counter";
 
 // 컨테이너 컴포넌트 - 동기 실행 관련 처리
 /*const CounterContainer = () => {
@@ -448,14 +504,16 @@ import { increase, decrease, increaseAsync, decreaseAsync } from '../modules/cou
 };*/
 // 컨테이너 컴포넌트 - 비동기 실행 관련 처리
 const CounterContainer = () => {
-  const number = useSelector(state => state.counter);
+  const number = useSelector((state) => state.counter);
   const dispatch = useDispatch();
 
   // useCallback 를 통해 성능 최적화 가능
   // 숫자가 바뀌어서 컴포넌트가 리렌더링될 때마다 onIncrease 함수와 onDecrease 함수가 새롭게 만들어지고 있으므로 최적화 필요
   const onIncrease = useCallback(() => dispatch(increaseAsync()), [dispatch]);
   const onDecrease = useCallback(() => dispatch(decreaseAsync()), [dispatch]);
-  return <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />;
+  return (
+    <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />
+  );
 };
 
 export default CounterContainer;
@@ -465,7 +523,7 @@ export default CounterContainer;
 
 ```javascript
 // components/Counter.js
-import React from 'react';
+import React from "react";
 
 // 프레젠테이셔널 컴포넌트
 const Counter = ({ number, onIncrease, onDecrease }) => {
@@ -487,9 +545,9 @@ export default Counter;
 
 ```javascript
 // modules/index.js
-import { combineReducers } from 'redux';
-import { all } from 'redux-saga/effects';
-import counter, { counterSaga } from './counter';
+import { combineReducers } from "redux";
+import { all } from "redux-saga/effects";
+import counter, { counterSaga } from "./counter";
 
 // 루트 리듀서
 const rootReducer = combineReducers({
@@ -510,8 +568,8 @@ App
 
 ```javascript
 // App.js
-import React from 'react';
-import CounterContainer from './containers/CounterContainer';
+import React from "react";
+import CounterContainer from "./containers/CounterContainer";
 
 const App = () => {
   return (
@@ -528,14 +586,14 @@ index.js
 
 ```javascript
 // index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import App from './redux-saga/App';
-import rootReducer, { rootSaga } from './redux-saga/modules/index';
-import { createLogger } from 'redux-logger';
-import createSagaMiddleware from 'redux-saga';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import App from "./redux-saga/App";
+import rootReducer, { rootSaga } from "./redux-saga/modules/index";
+import { createLogger } from "redux-logger";
+import createSagaMiddleware from "redux-saga";
 
 // 미들웨어
 const logger = createLogger();
@@ -546,7 +604,7 @@ const store = createStore(
   // 루트 리듀서 등록
   rootReducer,
   // 미들웨어 등록
-  applyMiddleware(logger, sagaMiddleware),
+  applyMiddleware(logger, sagaMiddleware)
 );
 
 // 루트 사가 등록
@@ -556,7 +614,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 ```
 
@@ -567,18 +625,18 @@ ReactDOM.render(
 
 ```javascript
 // modules/auth.js
-import { createAction, handleActions } from 'redux-actions';
-import produce from 'immer';
-import { takeLatest } from 'redux-saga/effects';
-import createRequestSaga from '../lib/createRequestSaga';
-import * as authAPI from '../lib/api/auth';
+import { createAction, handleActions } from "redux-actions";
+import produce from "immer";
+import { takeLatest } from "redux-saga/effects";
+import createRequestSaga from "../lib/createRequestSaga";
+import * as authAPI from "../lib/api/auth";
 
-const REGISTER = 'auth/REGISTER';
-const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
-const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
-const LOGIN = 'auth/LOGIN';
-const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
-const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
+const REGISTER = "auth/REGISTER";
+const REGISTER_SUCCESS = "auth/REGISTER_SUCCESS";
+const REGISTER_FAILURE = "auth/REGISTER_FAILURE";
+const LOGIN = "auth/LOGIN";
+const LOGIN_SUCCESS = "auth/LOGIN_SUCCESS";
+const LOGIN_FAILURE = "auth/LOGIN_FAILURE";
 
 export const register = createAction(REGISTER, ({ username, password }) => {
   // payload
@@ -609,13 +667,13 @@ export function* authSaga() {
 
 const initialState = {
   register: {
-    username: '',
-    password: '',
-    passwordConfirm: '',
+    username: "",
+    password: "",
+    passwordConfirm: "",
   },
   login: {
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   },
   auth: null,
   authError: null,
@@ -654,7 +712,7 @@ const auth = handleActions(
       };
     },
   },
-  initialState,
+  initialState
 );
 
 export default auth;
@@ -664,24 +722,24 @@ export default auth;
 
 ```javascript
 // modules/loading.js
-import { createAction, handleActions } from 'redux-actions';
+import { createAction, handleActions } from "redux-actions";
 
-const START_LOADING = 'loading/START_LOADING';
-const FINISH_LOADING = 'loading/FINISH_LOADING';
+const START_LOADING = "loading/START_LOADING";
+const FINISH_LOADING = "loading/FINISH_LOADING";
 
 /*
 요청을 위한 액션 타입을 payload로 설정합니다.
 (예: sample/GET_POST)
 */
 
-export const startLoading = createAction(START_LOADING, requestType => {
+export const startLoading = createAction(START_LOADING, (requestType) => {
   // payload
-  console.log('startLoading', requestType);
+  console.log("startLoading", requestType);
   return requestType; // 액션 타입(액션 이름)을 상태 키 값으로 사용
 });
-export const finishLoading = createAction(FINISH_LOADING, requestType => {
+export const finishLoading = createAction(FINISH_LOADING, (requestType) => {
   // payload
-  console.log('finishLoading', requestType);
+  console.log("finishLoading", requestType);
   return requestType; // 액션 타입(액션 이름)을 상태 키 값으로 사용
 });
 
@@ -702,7 +760,7 @@ const loading = handleActions(
       };
     },
   },
-  initialState,
+  initialState
 );
 
 export default loading;
@@ -712,8 +770,8 @@ export default loading;
 
 ```javascript
 // lib/createRequestSaga
-import { call, put } from 'redux-saga/effects';
-import { startLoading, finishLoading } from '../modules/loading';
+import { call, put } from "redux-saga/effects";
+import { startLoading, finishLoading } from "../modules/loading";
 
 // 사가 (제너레이터 함수 생성하여 반환)
 export default function createRequestSaga(actionType, reuqest) {
@@ -753,8 +811,8 @@ export default function createRequestSaga(actionType, reuqest) {
 활용 예
 
 ```javascript
-import { call, put } from 'redux-saga/effects';
-import { startLoading, finishLoading } from '../modules/loading';
+import { call, put } from "redux-saga/effects";
+import { startLoading, finishLoading } from "../modules/loading";
 
 // API요청/응답 공통 Saga함수 (제너레이터 함수 생성하여 반환)
 function createRequestSaga(actionType: string, reuqest: any) {
@@ -802,28 +860,28 @@ API
 
 ```javascript
 // lib/api/auth
-import client from './client';
+import client from "./client";
 
 // 로그인
 export const login = ({ username, password }) => {
-  return client.post('/api/auth/login', { username, password });
+  return client.post("/api/auth/login", { username, password });
 };
 
 // 회원가입
 export const register = ({ username, password }) => {
-  return client.post('/api/auth/register', { username, password });
+  return client.post("/api/auth/register", { username, password });
 };
 
 // 로그인 상태 확인
 export const check = () => {
-  return client.get('/api/auth/check');
+  return client.get("/api/auth/check");
 };
 ```
 
 AXIOS 공통 설정
 
 ```javascript
-import axios from 'axios';
+import axios from "axios";
 
 const client = axios.create();
 
@@ -877,10 +935,10 @@ index.js
 
 ```javascript
 // index.js
-import { combineReducers } from 'redux';
-import { all } from 'redux-saga/effects';
-import auth, { authSaga } from './auth';
-import loading from './loading';
+import { combineReducers } from "redux";
+import { all } from "redux-saga/effects";
+import auth, { authSaga } from "./auth";
+import loading from "./loading";
 
 const rootReducer = combineReducers({
   auth,
