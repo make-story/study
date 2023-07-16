@@ -29,6 +29,9 @@ https://github.com/zalmoxisus/redux-devtools-extension
 
 https://github.com/zalmoxisus/redux-devtools-extension#13-use-redux-devtools-extension-package-from-npm
 
+`Redux Toolkit 사용할 경우, 더 이상 사용하지 않음`  
+https://redux-toolkit.js.org/api/configureStore#devtools
+
 ```
 $ yarn add redux-devtools-extension
 ```
