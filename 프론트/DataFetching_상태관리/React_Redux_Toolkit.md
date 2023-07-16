@@ -6,6 +6,13 @@ https://kyounghwan01.github.io/blog/React/redux/redux-toolkit
 $ npm install react-redux @reduxjs/toolkit
 ```
 
+## Redux 와 Redux Toolkit 차이점
+
+https://velog.io/@inwoong100/Redux-toolkit%EA%B3%BC-Redux%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90  
+https://redux-toolkit.js.org/introduction/getting-started
+
+immer, redux, redux-devtools-extension 자체 내장
+
 ## 사용하는 이유
 
 `redux`를 아무 라이브러리 없이 사용할 때 (actionType 정의 -> 액션 함수 정의 -> 리듀서 정의) 1개의 액션을 생성합니다.  
@@ -55,7 +62,7 @@ https://velog.io/@760kry/Redux-Toolkit
 store/slice/user.ts
 
 ```typescript
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
   name: null,
@@ -63,7 +70,7 @@ export const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setUserName: (state, action) => {
@@ -88,8 +95,8 @@ export default userSlice.reducer;
 rootReducer.ts
 
 ```typescript
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import userReducer from './store/slice/user';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import userReducer from "./store/slice/user";
 
 /*
  * combineReducers 를 사용하여 사용할 리듀서를 사용할 키값과 함께 정의한다.
@@ -106,11 +113,11 @@ export default rootReducer;
 store.ts
 
 ```typescript
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-import createSagaMiddleware from 'redux-saga';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import createSagaMiddleware from "redux-saga";
 
-import rootReducer from './rootReducer';
+import rootReducer from "./rootReducer";
 
 //const sagaMiddleware = createSagaMiddleware();
 
@@ -120,7 +127,7 @@ import rootReducer from './rootReducer';
 const store = configureStore({
   reducer: rootReducer,
   devTools: true,
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     // 기본 미들웨어 설정
     // 공식문서: https://redux-toolkit.js.org/api/getDefaultMiddleware
     //
@@ -155,7 +162,12 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
 export default store;
 ```
@@ -167,23 +179,25 @@ export default store;
 src/index.tsx
 
 ```typescript
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-import store from 'src/services/store';
+import store from "src/services/store";
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 reportWebVitals();
@@ -194,10 +208,10 @@ reportWebVitals();
 react-redux에서 제공하는 useDispatch, useSelector로 상태 관리를 한다.
 
 ```typescript
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'src/services/store';
-import { setUserName } from 'src/services/store/slice/user';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "src/services/store";
+import { setUserName } from "src/services/store/slice/user";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -207,7 +221,7 @@ const MainPage = () => {
 
   return (
     <div>
-      <button onClick={() => dispatch(setUserName('raeyoung'))}>test</button>
+      <button onClick={() => dispatch(setUserName("raeyoung"))}>test</button>
     </div>
   );
 };
@@ -227,14 +241,14 @@ https://redux-toolkit.js.org/
   - `Immer 가 내장`되어있기 때문에, 불변성을 유지하기 위하여 번거로운 코드들을 작성하지 않고 원하는 값을 직접 변경하면 알아서 불변셩 유지되면서 상태가 업데이트
 
 ```javascript
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 // 리듀서와 액션 생성 함수를 한방에 만들 수 있음
 const msgboxSlice = createSlice({
-  name: 'msgbox',
+  name: "msgbox",
   initialState: {
     open: false,
-    message: '',
+    message: "",
   },
   reducers: {
     open(state, action) {
@@ -255,7 +269,7 @@ export default msgboxSlice;
 
 ```javascript
 // Typescript 사용
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type MsgboxState = {
   open: boolean,
@@ -264,11 +278,11 @@ type MsgboxState = {
 
 const initialState: MsgboxState = {
   open: false,
-  message: '',
+  message: "",
 };
 
 const msgboxSlice = createSlice({
-  name: 'msgbox',
+  name: "msgbox",
   initialState,
   reducers: {
     open(state, action: PayloadAction<string>) {
