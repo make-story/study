@@ -1,5 +1,7 @@
 # React는 컴포넌트를 언제 다시 리렌더링 할까요? - 리렌더링 조건
 
+https://www.joshwcomeau.com/react/why-react-re-renders/
+
 https://velog.io/@mogulist/understanding-react-rerender-easily
 
 https://velog.io/@surim014/react-rerender
