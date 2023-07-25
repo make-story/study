@@ -25,6 +25,20 @@ https://tech.osci.kr/2022/07/13/react-query/
 
 https://tech.kakao.com/2022/06/13/react-query/
 
+## 기존 전통적 방식: Redux 와 Redux-Saga 데이터 통신을 위한, 많은 Boilerplate 코드
+
+`Redux dispatch - Redux-Saga(Asynchronous Middleware) 에서 Data Fetch - Data 받은 후 Store 에 put`
+
+리액트 개발자들은 서버에서 데이터를 받아오는 작업을 리덕스에서 처리하기 위해  
+redux-thunk, redux-saga 등을 이용해서 비동기 작업을 수행하고  
+데이터를 리덕스 스토어에 저장한 뒤  
+그 데이터를 각 컴포넌트에서 사용
+
+## 대체: React Query 가 Redux 를 대체할까?
+
+Redux 는 전역상태 관리 도구, React Query 는 서버와 클라이언트 간의 비동기 작업 도구  
+즉, 각 도구의 역할이 다르다!
+
 ---
 
 https://tech.kakaopay.com/post/react-query-1/
@@ -33,8 +47,14 @@ React Query는 React Application에서 서버의 상태를 불러오고, 캐싱�
 React Query는 우리에게 친숙한 Hook을 사용하여 React Component 내부에서 자연스럽게 서버(또는 비동기적인 요청이 필요한 Source)의 데이터를 사용할 수 있는 방법을 제안합니다.
 
 ```javascript
-import axios from 'axios';
-import { QueryClient, QueryClientProvider, useMutation, useQuery, useQueryClient } from 'react-query';
+import axios from "axios";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
 
 // React Query는 내부적으로 queryClient를 사용하여
 // 각종 상태를 저장하고, 부가 기능을 제공합니다.
@@ -52,20 +72,25 @@ function Menus() {
   const queryClient = useQueryClient();
 
   // "/menu" API에 Get 요청을 보내 서버의 데이터를 가져옵니다.
-  const { data } = useQuery('getMenu', () => axios.get('/menu').then(({ data }) => data));
+  const { isLoading, error, data } = useQuery("getMenu", () =>
+    axios.get("/menu").then(({ data }) => data)
+  );
 
   // "/menu" API에 Post 요청을 보내 서버에 데이터를 저장합니다.
-  const { mutate } = useMutation(suggest => axios.post('/menu', { suggest }), {
-    // Post 요청이 성공하면 위 useQuery의 데이터를 초기화합니다.
-    // 데이터가 초기화되면 useQuery는 서버의 데이터를 다시 불러옵니다.
-    onSuccess: () => queryClient.invalidateQueries('getMenu'),
-  });
+  const { mutate } = useMutation(
+    (suggest) => axios.post("/menu", { suggest }),
+    {
+      // Post 요청이 성공하면 위 useQuery의 데이터를 초기화합니다.
+      // 데이터가 초기화되면 useQuery는 서버의 데이터를 다시 불러옵니다.
+      onSuccess: () => queryClient.invalidateQueries("getMenu"),
+    }
+  );
 
   return (
     <div>
       <h1> Tomorrow's Lunch Candidates! </h1>
       <ul>
-        {data.map(item => (
+        {data.map((item) => (
           <li key={item.id}> {item.title} </li>
         ))}
       </ul>
@@ -74,7 +99,7 @@ function Menus() {
         onClick={() =>
           mutate({
             id: Date.now(),
-            title: 'Toowoomba Pasta',
+            title: "Toowoomba Pasta",
           })
         }
       >
@@ -94,11 +119,14 @@ React Query는 API 요청을 `Query` 그리고 `Mutation` 이라는 두 가지 �
 const { data } = useQuery(
   queryKey, // 이 Query 요청에 대한 응답 데이터를 캐시할 때 사용할 Unique Key (required)
   fetchFn, // 이 Query 요청을 수행하기 위한 Promise를 Return 하는 함수 (required)
-  options, // useQuery에서 사용되는 Option 객체 (optional)
+  options // useQuery에서 사용되는 Option 객체 (optional)
 );
 ```
 
 useQuery Hook으로 수행되는 Query 요청은 HTTP METHOD GET 요청과 같이 서버에 저장되어 있는 “상태”를 불러와 사용할 때 사용합니다.
+
+React Query의 useQuery Hook은 요청마다 (API마다) 구분되는 **Unique Key (aka. Query Key)**를 필요로 합니다.  
+React Query는 이 Unique Key로 서버 상태 (aka. API Response)를 로컬에 캐시하고 관리합니다.
 
 ## React Query의 Mutation 요청
 
@@ -106,7 +134,7 @@ useQuery Hook으로 수행되는 Query 요청은 HTTP METHOD GET 요청과 같�
 // 가장 기본적인 형태의 React Query useMutation Hook 사용 예시
 const { mutate } = useMutation(
   mutationFn, // 이 Mutation 요청을 수행하기 위한 Promise를 Return 하는 함수 (required)
-  options, // useMutation에서 사용되는 Option 객체 (optional)
+  options // useMutation에서 사용되는 Option 객체 (optional)
 );
 ```
 
