@@ -1,11 +1,3 @@
-# Next.js 환경구축
-
-```
-$ npm install next react react-dom
-```
-
-넥스트에서 모든 페이지 컴포넌트는 pages 폴더 밑에 만들어야 한다.
-
 ## Next.js 브라우저 지원
 
 https://nextjs.org/docs/basic-features/supported-browsers-features
@@ -25,11 +17,11 @@ $ npm install express
 server.js
 
 ```javascript
-const express = require('express');
-const next = require('next');
+const express = require("express");
+const next = require("next");
 
 const port = 3000;
-const dev = process.env.NODE_ENV !== 'production';
+const dev = process.env.NODE_ENV !== "production";
 
 // 넥스트를 실행하기 위해 필요한 객체와 함수를 생성한다.
 const app = next({ dev });
@@ -39,15 +31,15 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  server.get('/page/:id', (req, res) => {
+  server.get("/page/:id", (req, res) => {
     res.redirect(`/page${req.params.id}`);
   });
-  server.get('*', (req, res) => {
+  server.get("*", (req, res) => {
     // 다른 모든 GET 요청은 handle 함수가 처리하도록 한다.
     return handle(req, res);
   });
 
-  server.listen(port, err => {
+  server.listen(port, (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
   });
@@ -76,7 +68,7 @@ https://nextjs.org/docs/api-reference/next.config.js/setting-a-custom-build-dire
 
 ```javascript
 module.exports = {
-  distDir: '_next',
+  distDir: "_next",
 };
 ```
 
@@ -95,11 +87,11 @@ module.exports = {
 https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
 
 ```javascript
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
   // Use the CDN in production and localhost for development.
-  assetPrefix: isProd ? 'https://cdn.mydomain.com' : undefined,
+  assetPrefix: isProd ? "https://cdn.mydomain.com" : undefined,
 };
 ```
 
@@ -113,17 +105,17 @@ next.config.js
 
 ```javascript
 module.exports = {
-  webpack: config => {
+  webpack: (config) => {
     // 웹팩 설정을 변경하기 위한 함수
     config.module.rules.push({
       test: /.(png|jpg)$/,
       use: [
         {
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
-            name: '[path][name].[ext]?[hash]', // 쿼리 파라미터 부분에 해시를 추가해서 파일의 내용이 변경될 때마다 파알의 경로도 수정되도록 한다.
+            name: "[path][name].[ext]?[hash]", // 쿼리 파라미터 부분에 해시를 추가해서 파일의 내용이 변경될 때마다 파알의 경로도 수정되도록 한다.
             emitFile: false, // 넥스트는 static 폴더의 정적 파일을 그대로 서비스하기 때문에 파일을 복사할 필요가 없다.
-            publicPath: '/',
+            publicPath: "/",
           },
         },
       ],
@@ -160,7 +152,7 @@ function Blog({ posts }) {
 // This function gets called at build time
 export async function getStaticProps() {
   // Call an external API endpoint to get posts
-  const res = await fetch('https://.../posts');
+  const res = await fetch("https://.../posts");
   const posts = await res.json();
 
   // By returning { props: { posts } }, the Blog component
@@ -206,12 +198,12 @@ https://nextjs.org/docs/basic-features/script
 https://themarketer.tistory.com/82
 
 ```javascript
-import Script from 'next/script';
+import Script from "next/script";
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Script src='https://example.com/script.js' />
+      <Script src="https://example.com/script.js" />
       <Component {...pageProps} />
     </>
   );
@@ -231,16 +223,19 @@ Next.js가 스크립트 로딩을 최적화합니다.
 ## 이제는 Next.js 페이지의 본문(body) 안에서 'next/script' 를 사용합니다.
 
 ```javascript
-import Script from 'next/script';
+import Script from "next/script";
 
 export default function Home() {
   return (
     <>
-      <Script src='https://www.google-analytics.com/analytics.js' />
-      <Script src='https://connect.facebook.net/en_US/sdk.js' strategy='lazyOnload' />
+      <Script src="https://www.google-analytics.com/analytics.js" />
       <Script
-        src='https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js'
-        strategy='beforeInteractive'
+        src="https://connect.facebook.net/en_US/sdk.js"
+        strategy="lazyOnload"
+      />
+      <Script
+        src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"
+        strategy="beforeInteractive"
       />
     </>
   );
@@ -254,12 +249,12 @@ https://nextjs.org/docs/basic-features/script
 ### 단일 경로에서 타사 스크립트를 로드
 
 ```javascript
-import Script from 'next/script';
+import Script from "next/script";
 
 export default function Dashboard() {
   return (
     <>
-      <Script src='https://example.com/script.js' />
+      <Script src="https://example.com/script.js" />
     </>
   );
 }
@@ -270,12 +265,12 @@ export default function Dashboard() {
 pages/\_app.js
 
 ```javascript
-import Script from 'next/script';
+import Script from "next/script";
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Script src='https://example.com/script.js' />
+      <Script src="https://example.com/script.js" />
       <Component {...pageProps} />
     </>
   );
