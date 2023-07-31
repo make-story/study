@@ -36,16 +36,16 @@ https://fonts.adobe.com/
     <style>
       /* 폰트아이콘 */
       @font-face {
-        font-family: 'font-icon';
-        src: url('./font-icon.eot');
-        src: url('./font-icon.eot?#iefix') format('eot'), url('./font-icon.woff2') format('woff2'),
-          url('./font-icon.woff') format('woff'), url('./font-icon.ttf') format('truetype'),
-          url('./font-icon.svg#font-icon') format('svg');
+        font-family: "font-icon";
+        src: url("./font-icon.eot");
+        src: url("./font-icon.eot?#iefix") format("eot"), url("./font-icon.woff2")
+            format("woff2"), url("./font-icon.woff") format("woff"), url("./font-icon.ttf")
+            format("truetype"), url("./font-icon.svg#font-icon") format("svg");
         font-weight: normal;
         font-style: normal;
       }
       .ficon:before {
-        font-family: 'font-icon';
+        font-family: "font-icon";
         display: inline-block;
         vertical-align: middle;
         line-height: 1;
@@ -60,7 +60,7 @@ https://fonts.adobe.com/
         -moz-osx-font-smoothing: grayscale;
       }
       .ficon-cate-open_new-20:before {
-        content: '\E926';
+        content: "\E926";
       }
 
       .banner-item {
@@ -144,3 +144,34 @@ https://fontello.com/
 https://fontawesome.com/
 
 웹 페이지에 아이콘을 표시해주는 서비스로 범용성이 높은 심플한 아이콘이 많이 있습니다.
+
+---
+
+# CSS 코드 및 해석
+
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+```
+
+```
+// Safari for OS X and iOS (San Francisco)
+-apple-system,
+// Chrome < 56 for OS X (San Francisco)
+BlinkMacSystemFont,
+// Windows
+"Segoe UI",
+// Android
+"Roboto",
+// Basic web fallback
+"Helvetica Neue", Arial, sans-serif,
+// Emoji fonts
+"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+```
+
+# Noto는 Google이 개발한 오픈소스 글꼴 패밀리
+
+https://fonts.google.com/noto/specimen/Noto+Sans+KR
