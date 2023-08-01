@@ -10,6 +10,11 @@ https://velog.io/@cks3066/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-Emotion-
 
 # emotion + Next.js
 
+https://nextjs.org/docs/app/building-your-application/styling/css-in-js
+
+https://emotion.sh/docs/ssr#nextjs  
+https://github.com/vercel/next.js/tree/deprecated-main/examples/with-emotion-vanilla
+
 https://velog.io/@familyman80/nextjs%EC%97%90%EC%84%9C-emotion-%EC%B4%88%EA%B8%B0-%EC%84%A4%EC%A0%95
 
 ---
@@ -44,3 +49,47 @@ https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
 
 CSS 스타일 시트는 CSS 사양에 정의된 스타일 시트를 나타내는 추상적인 개념 이고, CSSOM에서 css style sheet는 CSSStyleSheet 객체로 표현됩니다
 https://drafts.csswg.org/cssom/#css-style-sheets
+
+## isSpeedy (CSSStyleSheet.insertRule() 사용 안하는 방법)
+
+https://emotion.sh/docs/ssr#puppeteer
+
+```javascript
+import { sheet } from "@emotion/css";
+
+// Check if the root node has any children to detect if the app has been preprendered
+// speedy is disabled when the app is being prerendered so that styles render into the DOM
+// speedy is significantly faster though so it should only be disabled during prerendering
+if (!document.getElementById("root")?.hasChildNodes()) {
+  sheet.speedy(false);
+}
+```
+
+또는
+
+https://stackoverflow.com/questions/51518253/react-emotions-css-not-present-in-dom
+
+```javascript
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+
+// if you are using mui v5
+import { ThemeProvider } from "@mui/material/styles";
+
+const emotionCache = createCache({
+  key: "emotion-cache-no-speedy",
+  speedy: false,
+});
+
+const theme = createTheme();
+
+const App = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <CacheProvider value={emotionCache}>
+        <div>Your app here</div>
+      </CacheProvider>
+    </ThemeProvider>
+  );
+};
+```
