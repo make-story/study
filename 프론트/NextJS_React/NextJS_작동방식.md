@@ -16,3 +16,7 @@ https://web.dev/i18n/ko/code-splitting-with-dynamic-imports-in-nextjs/
 
 \_app 실행 > \_document 실행  
 공통코드 삽입이 필요한 경우 \_app 에 주입
+
+# Next.js가 SSR을 수행하는 방식
+
+https://velog.io/@devstone/Next.js-100-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-feat.-initialProps-webpack-storybook

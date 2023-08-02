@@ -8,19 +8,44 @@ https://www.howdy-mj.me/css/emotionjs-intro
 
 https://velog.io/@cks3066/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-Emotion-%EC%A0%81%EC%9A%A9%EA%B8%B0
 
-# emotion + Next.js
+# emotion + Next.js (CSS-in-JS)
 
 - @emotion/cache
 - @emotion/react
 - @emotion/server
 - @emotion/styled
 
+Next.js 공식  
 https://nextjs.org/docs/app/building-your-application/styling/css-in-js
 
+Emotion 공식
 https://emotion.sh/docs/ssr#nextjs  
+https://github.com/vercel/next.js/tree/deprecated-main/examples/with-emotion  
 https://github.com/vercel/next.js/tree/deprecated-main/examples/with-emotion-vanilla
 
+https://gist.github.com/colinhacks/c40519a6a050a99091862319151377ec
+
+https://soojae.tistory.com/59
+
 https://velog.io/@familyman80/nextjs%EC%97%90%EC%84%9C-emotion-%EC%B4%88%EA%B8%B0-%EC%84%A4%EC%A0%95
+
+## emotion 과 Next.js 13 이상에서의 이슈
+
+https://velog.io/@gene028/classpick-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%80-1-Next.js13%EC%9C%BC%EB%A1%9C-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98%ED%95%98%EA%B8%B0-emotion%EC%9D%B4-%EC%95%88%EB%90%9C%EB%8B%A4%EA%B3%A0
+
+```
+/** @jsxImportSource @emotion/react */
+```
+
+또는 tsconfig.json 에 설정
+
+## @emotion/babel-plugin
+
+Emotion 버전 8 이상 부터는 바벨 필요하지 않음  
+https://www.npmjs.com/package/@emotion/babel-plugin
+
+@emotion/babel-plugin -> Next.js compiler 설정으로 이관  
+https://nextjs.org/docs/architecture/nextjs-compiler#emotion
 
 ---
 
