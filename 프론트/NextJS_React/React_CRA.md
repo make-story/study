@@ -32,6 +32,9 @@ $ yarn create react-app ./apps/client --scripts-version 4.0.1 --template typescr
 
 https://nextjs.org/docs/app/building-your-application/upgrading/codemods#migrate-from-cra
 
+이슈경험  
+https://bsnn.tistory.com/131
+
 ```
 $ npx @next/codemod cra-to-next
 ```
