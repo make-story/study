@@ -10,6 +10,11 @@ https://velog.io/@cks3066/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-Emotion-
 
 # emotion + Next.js
 
+- @emotion/cache
+- @emotion/react
+- @emotion/server
+- @emotion/styled
+
 https://nextjs.org/docs/app/building-your-application/styling/css-in-js
 
 https://emotion.sh/docs/ssr#nextjs  
