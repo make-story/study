@@ -1,13 +1,13 @@
-# Node.js는 CommonJs 모듈 시스템을 표준 시스템으로 사용하고 있다.
+# Node.js 는 CommonJs 모듈 시스템을 표준 시스템으로 사용하고 있다.
 
 ```javascript
 //CommonJs
-const gulp = require('gulp');
-const babel = require('gulp-babel');
+const gulp = require("gulp");
+const babel = require("gulp-babel");
 
 //ESModule
-import gulp from 'gulp';
-import babel from 'gulp-babel';
+import gulp from "gulp";
+import babel from "gulp-babel";
 ```
 
 Node.js 에서 ES모듈 시스템을 활용하려면 Babel이라는 별도의 도구가 필요했는데,
@@ -23,7 +23,7 @@ package.json 파일에 type 항목을 module로 설정하면 바로 활용 가�
 }
 ```
 
-# NodeJS 에서 바벨횔용 ES6 코드 실행
+# Node.js 에서 바벨횔용 ES6 코드 실행
 
 ```
 $ yarn add @babel/core @babel/cli @babel/preset-env @babel/node
@@ -42,3 +42,23 @@ $ npx babel-node --presets @babel/env index.js
 
 - 명령에서 '--presets' 욥션 제거방법
   .babelrc 또는 babel.config.js 바벨 설정 파일에 `"presets": ["@babel/env"],` 형태 설정 추가
+
+# Node.js 'node:' imports
+
+https://nodejs.org/api/esm.html#node-imports
+
+https://2ality.com/2021/12/node-protocol-imports.html
+
+v16.0.0, v14.18.0 지원 (import, require 방식)
+
+node 내부 모듈 구분
+
+```javascript
+import fs from "node:fs";
+import http from "node:http";
+import https from "node:https";
+import path from "node:path";
+import { parse } from "node:url";
+import os from "node:os";
+import cluster from "node:cluster";
+```
