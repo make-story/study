@@ -4,6 +4,8 @@ https://httpwg.org/specs/rfc9111.html#field.cache-control
 
 https://jakearchibald.com/2016/caching-best-practices/
 
+https://toss.tech/article/smart-web-service-cache
+
 HTTP 캐시 신뢰성
 https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exercise/
 
@@ -51,37 +53,45 @@ Cache-Control: no-cache
 ## 서비스워커
 
 ```javascript
-const version = '2';
+const version = "2";
 
-self.addEventListener('install', event => {
+self.addEventListener("install", (event) => {
   // 스크립트와 스타일을 미리 캐시
   // Cache-Control max-age 확인(경합)하지 않고 바로 캐싱
-  event.waitUntil(caches.open(`static-${version}`).then(cache => cache.addAll(['/styles.css', '/script.js'])));
+  event.waitUntil(
+    caches
+      .open(`static-${version}`)
+      .then((cache) => cache.addAll(["/styles.css", "/script.js"]))
+  );
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener("activate", (event) => {
   // …delete old caches…
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", (event) => {
   // 일치하는 항목이 있으면 캐시에서 제공하고 그렇지 않으면 네트워크 사용
-  event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then((response) => response || fetch(event.request))
+  );
 });
 ```
 
 서비스 워커에서 캐시(Cache-Control)를 우회할 수 있음
 
 ```javascript
-self.addEventListener('install', event => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(`static-${version}`)
-      .then(cache =>
+      .then((cache) =>
         cache.addAll([
-          new Request('/styles.css', { cache: 'no-cache' }),
-          new Request('/script.js', { cache: 'no-cache' }),
-        ]),
-      ),
+          new Request("/styles.css", { cache: "no-cache" }),
+          new Request("/script.js", { cache: "no-cache" }),
+        ])
+      )
   );
 });
 ```
@@ -89,20 +99,20 @@ self.addEventListener('install', event => {
 캐시회피
 
 ```javascript
-self.addEventListener('install', event => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(`static-${version}`).then(cache =>
+    caches.open(`static-${version}`).then((cache) =>
       Promise.all(
-        ['/styles.css', '/script.js'].map(url => {
+        ["/styles.css", "/script.js"].map((url) => {
           // cache-bust using a random query string
-          return fetch(`${url}?${Math.random()}`).then(response => {
+          return fetch(`${url}?${Math.random()}`).then((response) => {
             // fail on 404, 500 etc
-            if (!response.ok) throw Error('Not ok');
+            if (!response.ok) throw Error("Not ok");
             return cache.put(url, response);
           });
-        }),
-      ),
-    ),
+        })
+      )
+    )
   );
 });
 ```

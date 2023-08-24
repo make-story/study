@@ -2,6 +2,8 @@
 
 https://graphql.org/code/#javascript
 
+https://yozm.wishket.com/magazine/detail/2113/
+
 Node.js 환경에서 GraphQL을 실행하도록 설계된 GraphQL  
 graphql은 Facebook에서 제공하는 패키지
 
