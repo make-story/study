@@ -3,7 +3,7 @@
 
 https://evan-moon.github.io/2021/08/22/tsconfig-compiler-options-modules/
 
-- TypeScript Playground
+- `TypeScript Playground`
   https://www.typescriptlang.org/play
 
 - 핸드북  
@@ -35,9 +35,17 @@ https://stackoverflow.com/questions/71842787/next-js-typescript-error-you-do-not
 # 타입스크립트 프로젝트 생성
 
 ```bash
+# 글로벌 tsc 명령실행
 $ npm install -g typescript
+# 프로젝트 폴더 생성
 $ mkdir <프로젝트명>
 $ cd <프로젝트명>
+```
+
+--strictNullChecks 는 엄격한 체크를 수행하는 옵션입니다.
+
+```bash
+$ tsc --strictNullChecks sayHello.ts
 ```
 
 ## tsconfig.json
@@ -82,7 +90,7 @@ import data from 'data.json' 으로 쓰면되는데, typescript 를 같이 쓸 �
 
 ```typescript
 // typings.d.ts
-declare module 'json!*' {
+declare module "json!*" {
   const json: any;
   export = json;
 }
@@ -144,10 +152,10 @@ let voi: void = null;
 
 ```typescript
 let any: any = 123;
-any = 'Hello world';
+any = "Hello world";
 any = {};
 any = null;
-let any2: any[] = [0, 1, {}, [], 'str', false];
+let any2: any[] = [0, 1, {}, [], "str", false];
 ```
 
 ## Unknown (알 수 없는 타입)
@@ -182,12 +190,12 @@ export default function getItems(user: IUser): Result {
   if (id.isValid) {
     return {
       success: true,
-      value: ['Apple', 'Banana'], // unknown
+      value: ["Apple", "Banana"], // unknown
     };
   } else {
     return {
       success: false,
-      error: new Error('Invalid user.'),
+      error: new Error("Invalid user."),
     };
   }
 }
@@ -197,19 +205,19 @@ export default function getItems(user: IUser): Result {
 
 ```typescript
 // 문자열만 가지는 배열
-let fruits1: string[] = ['Apple', 'Banana', 'Mango'];
-let fruits2: Array<string> = ['Apple', 'Banana', 'Mango'];
+let fruits1: string[] = ["Apple", "Banana", "Mango"];
+let fruits2: Array<string> = ["Apple", "Banana", "Mango"];
 
 // 숫자만 가지는 배열
 let oneToSeven1: number[] = [1, 2, 3, 4, 5, 6, 7];
 let oneToSeven2: Array<number> = [1, 2, 3, 4, 5, 6, 7];
 
 // 유니언 타입(다중 타입)
-let array1: (string | number)[] = ['Apple', 1, 2, 'Banana', 'Mango', 3];
-let array2: Array<string | number> = ['Apple', 1, 2, 'Banana', 'Mango', 3];
+let array1: (string | number)[] = ["Apple", 1, 2, "Banana", "Mango", 3];
+let array2: Array<string | number> = ["Apple", 1, 2, "Banana", "Mango", 3];
 
 // any
-let someArr: any[] = [0, 1, {}, [], 'str', false];
+let someArr: any[] = [0, 1, {}, [], "str", false];
 ```
 
 ## 인덱싱 가능 타입 (Indexable types)
@@ -222,24 +230,24 @@ arr[2]와 같이 ‘숫자’로 인덱싱하거나 obj['name']과 같이 ‘문
 interface IItem {
   [itemIndex: number]: string; // Index signature
 }
-let item1: IItem = ['a', 'b', 'c']; // Indexable type
+let item1: IItem = ["a", "b", "c"]; // Indexable type
 
 console.log(item1[0]); // 'a' is string.
 console.log(item1[1]); // 'b' is string.
-console.log(item1['0']); // Error - TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+console.log(item1["0"]); // Error - TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
 
 interface States {
   [state: string]: boolean; //indexer
 }
 let s: States = { enabled: true, maximized: false };
 console.log(s);
-console.log(s['maximized']);
+console.log(s["maximized"]);
 
 // 유니온 (union) 활용
 interface IItemUnion {
   [itemIndex: number]: string | boolean | number[];
 }
-let item2: IItemUnion = ['Hello', false, [1, 2, 3]];
+let item2: IItemUnion = ["Hello", false, [1, 2, 3]];
 console.log(item2[0]); // Hello
 console.log(item2[1]); // false
 console.log(item2[2]); // [1, 2, 3]
@@ -254,12 +262,12 @@ Tuple 타입은 배열과 매우 유사
 
 ```typescript
 let tuple: [string, number];
-tuple = ['a', 1];
-tuple = ['a', 1, 2]; // Error - TS2322
-tuple = [1, 'a']; // Error - TS2322
+tuple = ["a", 1];
+tuple = ["a", 1, 2]; // Error - TS2322
+tuple = [1, "a"]; // Error - TS2322
 
 // 데이터를 개별 변수로 지정하지 않고, 단일 Tuple 타입으로 지정해 사용
-let user: [number, string, boolean] = [1234, 'HEROPY', true];
+let user: [number, string, boolean] = [1234, "HEROPY", true];
 console.log(user[0]); // 1234
 console.log(user[1]); // 'HEROPY'
 console.log(user[2]); // true
@@ -267,9 +275,9 @@ console.log(user[2]); // true
 // Tuple 타입의 배열(2차원 배열)을 사용
 let users: [number, string, boolean][];
 users = [
-  [1, 'Neo', true],
-  [2, 'Evan', false],
-  [3, 'Lewis', true],
+  [1, "Neo", true],
+  [2, "Evan", false],
+  [3, "Lewis", true],
 ];
 
 // 값으로 타입을 대신
@@ -279,8 +287,8 @@ tuple = [1, 3];
 tuple = [2, 3]; // Error - TS2322: Type '2' is not assignable to type '1'.
 
 // readonly 키워드를 사용해 읽기 전용 튜플을 생성
-let a: readonly [string, number] = ['Hello', 123];
-a[0] = 'World'; // Error - TS2540: Cannot assign to '0' because it is a read-only property.
+let a: readonly [string, number] = ["Hello", 123];
+a[0] = "World"; // Error - TS2540: Cannot assign to '0' because it is a read-only property.
 ```
 
 ## object
@@ -297,7 +305,7 @@ let date: object = new Date();
 
 // 보다 정확하게 타입 지정을 하기 위해 다음과 같이 객체 속성(Properties)들에 대한 타입을 개별적으로 지정
 let userA: { name: string; age: number } = {
-  name: 'HEROPY',
+  name: "HEROPY",
   age: 123,
 };
 
@@ -307,13 +315,13 @@ interface IUser {
   age: number;
 }
 let userA: IUser = {
-  name: 'HEROPY',
+  name: "HEROPY",
   age: 123,
 };
 let userB: IUser = {
-  name: 'HEROPY',
+  name: "HEROPY",
   age: false, // Error
-  email: 'thesecon@gmail.com', // Error
+  email: "thesecon@gmail.com", // Error
 };
 ```
 
@@ -357,12 +365,12 @@ console.log(Week.Tue); // 23
 
 ```typescript
 enum Color {
-  Red = 'red',
-  Green = 'green',
-  Blue = 'blue',
+  Red = "red",
+  Green = "green",
+  Blue = "blue",
 }
 console.log(Color.Red); // red
-console.log(Color['Green']); // green
+console.log(Color["Green"]); // green
 ```
 
 ## Void - 반환값 없는 함수
@@ -395,7 +403,7 @@ function error(message: string): never {
 
 ```typescript
 let union: string | number;
-union = 'Hello type!';
+union = "Hello type!";
 union = 123;
 union = false; // Error - TS2322: Type 'false' is not assignable to type 'string | number'.
 ```
@@ -440,7 +448,7 @@ interface IValidation {
   isValid: boolean;
 }
 const neo: IUser & IValidation = {
-  name: 'Neo',
+  name: "Neo",
   age: 85,
   isValid: true,
 };
@@ -488,12 +496,12 @@ interface IUser {
 }
 let userArr: IUser[] = [
   {
-    name: 'name1',
+    name: "name1",
     age: 10,
     isAdmin: true,
   },
   {
-    name: 'name1',
+    name: "name1",
     age: 20,
   },
 ];
@@ -501,19 +509,19 @@ let userArr: IUser[] = [
 // 모든 속성이 readonly일 경우, 유틸리티(Utility)나 단언(Assertion) 타입을 활용
 // Readonly Utility
 let user1: Readonly<IUser> = {
-  name: 'Neo',
+  name: "Neo",
   age: 36,
 };
 user1.age = 85; // Error
-user1.name = 'Evan'; // Error
+user1.name = "Evan"; // Error
 
 // 타입 단언 (Type assertion)
 let user2 = {
-  name: 'Neo',
+  name: "Neo",
   age: 36,
 } as const;
 user2.age = 85; // Error
-user2.name = 'Evan'; // Error
+user2.name = "Evan"; // Error
 ```
 
 ## 인터페이스 확장
@@ -532,7 +540,7 @@ interface ICat extends IAnimal {
 class Cat implements ICat {
   // Error - TS2420: Class 'Cat' incorrectly implements interface 'ICat'. Property 'name' is missing in type 'Cat' but required in type 'ICat'.
   meow() {
-    return 'MEOW~';
+    return "MEOW~";
   }
 }
 ```
@@ -547,9 +555,9 @@ interface IFullName {
 }
 
 const fullName: IFullName = {
-  firstName: 'Tomas',
-  middleName: 'Sean',
-  lastName: 'Connery',
+  firstName: "Tomas",
+  middleName: "Sean",
+  lastName: "Connery",
 };
 ```
 
@@ -558,8 +566,8 @@ const fullName: IFullName = {
 ## typeof 키워드 또는 타입 (typeof 연산자와 다름)
 
 ```typescript
-const test = { a: 'aaa', b: 'bbb', c: 'ccc' };
-const code = 'a';
+const test = { a: "aaa", b: "bbb", c: "ccc" };
+const code = "a";
 
 test[code as keyof typeof test];
 ```
@@ -603,30 +611,30 @@ type objectShape = typeof object;
 
 ```typescript
 interface ICountries {
-  KR: '대한민국';
-  US: '미국';
-  CP: '중국';
+  KR: "대한민국";
+  US: "미국";
+  CP: "중국";
 }
 // key 로 접근
 type TKeys = keyof ICountries; // 'KR' | 'US' | 'CP'
 let country1: TKeys;
-country1 = 'KR'; // ok
-country1 = 'RU'; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
+country1 = "KR"; // ok
+country1 = "RU"; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
 
 // value 로 접근
 type TValues = ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
 let country2: TValues;
-country2 = '대한민국';
-country2 = '러시아'; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
+country2 = "대한민국";
+country2 = "러시아"; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
 ```
 
 ```typescript
 // const - readonly
 export const TAB = {
-  HOME: 'home', // 홈
-  INTRODUCE: 'introduce', // 소개
-  RESERVE: 'reserve', // 예약
-  NOTICE: 'notice', // 소식
+  HOME: "home", // 홈
+  INTRODUCE: "introduce", // 소개
+  RESERVE: "reserve", // 예약
+  NOTICE: "notice", // 소식
 } as const;
 
 // object 로 접근
@@ -657,8 +665,8 @@ type keyofEnum = keyof typeof sample_keys;
   typeof A → A(변수/함수등)의 type을 반환
 
 ```typescript
-let str = 'hello';
-let str2: typeof str = 'hi';
+let str = "hello";
+let str2: typeof str = "hi";
 // === let str2: string ="hi"
 ```
 
@@ -674,17 +682,17 @@ interface Todo {
 type Keys = keyof Todo;
 // === type Keys = 'id' | 'text'
 
-let a: Keys = 'id';
-a = 'text';
-a = 'ids'; // ERROR!
-a = 'id' | 'text'; // ERROR!
+let a: Keys = "id";
+a = "text";
+a = "ids"; // ERROR!
+a = "id" | "text"; // ERROR!
 ```
 
 - Mapped Type (in 연산자)
   기존 타입을 새로운 타입으로 변환
 
 ```typescript
-type Test = 'A' | 'B' | 'C';
+type Test = "A" | "B" | "C";
 type MappedTest = {
   [key in Test]: number;
 };
@@ -702,21 +710,23 @@ const data1: MappedTest = { A: 1, B: 2 }; // ERROR!
 ```typescript
 type MyType = string;
 type YourType = string | number | boolean;
-type TUser = { name: string; age: number; isValid: boolean } | [string, number, boolean]; // { ... } 또는 [ ... ]
+type TUser =
+  | { name: string; age: number; isValid: boolean }
+  | [string, number, boolean]; // { ... } 또는 [ ... ]
 
 // TUser에서 T는 Type를 의미하는 별칭으로 사용
 let userA: TUser = {
-  name: 'Neo',
+  name: "Neo",
   age: 85,
   isValid: true,
 };
-let userB: TUser = ['Evan', 36, false];
+let userB: TUser = ["Evan", 36, false];
 
 function someFunc(arg: MyType): YourType {
   switch (arg) {
-    case 's':
+    case "s":
       return arg.toString(); // string
-    case 'n':
+    case "n":
       return parseInt(arg); // number
     default:
       return true; // boolean
@@ -737,7 +747,7 @@ interface PeopleInterface {
 }
 
 const me1: PeopleInterface = {
-  name: 'yc',
+  name: "yc",
   age: 34,
 };
 
@@ -747,7 +757,7 @@ type PeopleType = {
 };
 
 const me2: PeopleType = {
-  name: 'yc',
+  name: "yc",
   age: 31,
 };
 ```
@@ -843,7 +853,7 @@ const getUser: IGetUser = function (n) {
   // ...
   return user;
 };
-getUser('Heropy');
+getUser("Heropy");
 ```
 
 ## 타입 주석 (함수 선언문에서 매개변수, 반환값)
@@ -872,7 +882,10 @@ function add(a: number, b: number): number {
 ```
 
 ```typescript
-let printMe: (string, number) => void = function (name: string, age: number): void {
+let printMe: (string, number) => void = function (
+  name: string,
+  age: number
+): void {
   // ...
 };
 ```
@@ -903,7 +916,7 @@ class User implements IUser {
   }
 }
 
-const neo = new User('Neo');
+const neo = new User("Neo");
 neo.getName(); // Neo
 ```
 
@@ -925,7 +938,7 @@ function makeKitten(c: ICatConstructor, n: string) {
   return new c(n); // ok
 }
 
-const kitten = makeKitten(Cat, 'Lucy');
+const kitten = makeKitten(Cat, "Lucy");
 console.log(kitten);
 ```
 
@@ -962,7 +975,7 @@ if (flag === true) {
   // ...
 }
 
-if (typeof maybe === 'string') {
+if (typeof maybe === "string") {
   // typeof 연산자를 사용하여 타입을 확인한 뒤에도 타입을 명시하지 않아도 됨
   const text: string = maybe;
 }
@@ -979,7 +992,7 @@ JavaScript로 작성된 모듈을 최소한의 수정으로 사용하거나,
 // never 변수에는 어떤 값도 할당할 수 없습니다.
 // 그래서 아래의 두 코드는 TypeScript에서 컴파일 오류가 발생합니다.
 const first: never = 42;
-const second: never = 'some text';
+const second: never = "some text";
 ```
 
 아래와 같이 어떠한 값도 반환하지 않는 함수라면 반환 타입을 never로 명시하여 어떠한 값도 반환하지 않음을 알려줄 수 있습니다.
@@ -1010,8 +1023,8 @@ enum MOBILE_OS {
 }
 // 임의의 숫자나 문자열을 할당할 수도 있습니다
 enum MOBILE_OS {
-  IOS = 'iOS',
-  ANDROID = 'Android',
+  IOS = "iOS",
+  ANDROID = "Android",
 }
 // 아래와 같이 유형으로 사용할 수도 있습니다
 const os: MOBILE_OS = MOBILE_OS.IOS;
@@ -1026,8 +1039,8 @@ https://engineering.linecorp.com/ko/blog/typescript-enum-tree-shaking/
 
 ```typescript
 const MOBILE_OS = {
-  IOS: 'iOS',
-  Android: 'Android',
+  IOS: "iOS",
+  Android: "Android",
 } as const;
 type MOBILE_OS = (typeof MOBILE_OS)[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
 ```
@@ -1038,6 +1051,6 @@ type MOBILE_OS = (typeof MOBILE_OS)[keyof typeof MOBILE_OS]; // 'iOS' | 'Android
 
 ```typescript
 function getHelloStr(): `Hello, ${string}!` {
-  return 'Hello, world!';
+  return "Hello, world!";
 }
 ```
