@@ -2,6 +2,29 @@
 
 https://docs.npmjs.com/cli/v9/using-npm/scripts
 
+https://docs.npmjs.com/cli/v9/using-npm/scripts#pre--post-scripts
+
+특정 scripts 명령 이전 또는 이후 자동 실행을 원한다면,  
+`"pre" or "post"` 를 추가!
+
+예를 들어,
+
+```json
+{
+  "scripts": {
+    "precompress": "echo precompress",
+    "compress": "echo compress",
+    "postcompress": "echo postcompress"
+  }
+}
+```
+
+```
+$ npm run compress
+```
+
+명령을 실행하면, 자동으로 precompress 먼저 실행 -> compress 실행 -> postcompress 이후 실행 됨.
+
 아래와 같은 package.json 파일에서 "scripts" 프로퍼티를 사용할 수 있습니다.
 
 - prepublish: 팩키지를 퍼블리쉬하기전에 실행됩니다. (또한 로컬에서 다른 인자 없이 npm install를 실행할 때에도 적용됩니다.)
