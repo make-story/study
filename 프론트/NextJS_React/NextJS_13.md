@@ -37,10 +37,10 @@ app/ 에서 React Suspense 기반으로 구현된 새로운 data fetch 하는 �
 
 ```javascript
 // app/page.js
-import { use } from 'react';
+import { use } from "react";
 
 async function getData() {
-  const res = await fetch('...');
+  const res = await fetch("...");
   const name: string = await res.json();
   return name;
 }
@@ -51,7 +51,7 @@ export default function Page() {
   // so you can return Date, Map, Set, etc.
   const name = use(getData());
 
-  return '...';
+  return "...";
 }
 ```
 
@@ -81,13 +81,13 @@ next 12 버전에서 소개되었던 Middleware가 여러 피드백을 통해 �
 
 ```javascript
 // middleware.ts
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   // Clone the request headers and set a new header `x-version`
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-version', '13');
+  requestHeaders.set("x-version", "13");
 
   // You can also set request headers in NextResponse.rewrite
   const response = NextResponse.next({
@@ -98,7 +98,7 @@ export function middleware(request: NextRequest) {
   });
 
   // Set a new response header `x-version`
-  response.headers.set('x-version', '13');
+  response.headers.set("x-version", "13");
   return response;
 }
 ```
@@ -107,12 +107,12 @@ export function middleware(request: NextRequest) {
 
 ```javascript
 // middleware.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { isAuthenticated } from '@lib/auth';
+import { NextRequest, NextResponse } from "next/server";
+import { isAuthenticated } from "@lib/auth";
 
 // Limit the middleware to paths starting with `/api/`
 export const config = {
-  matcher: '/api/:function*',
+  matcher: "/api/:function*",
 };
 
 export function middleware(request: NextRequest) {
@@ -122,11 +122,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        message: 'Auth failed',
+        message: "Auth failed",
       },
       {
         status: 401,
-      },
+      }
     );
   }
 }
