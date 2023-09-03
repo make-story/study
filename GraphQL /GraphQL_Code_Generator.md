@@ -19,16 +19,16 @@ codegen.yml
 ```yml
 # codegen.yml
 overwrite: true
-schema: 'httpp://localhost:4000/graphql'
-documents: 'src/**/*.graphql'
+schema: "httpp://localhost:4000/graphql"
+documents: "src/**/*.graphql"
 generates:
   src/generated/graphql.tsx:
     plugins:
       - add:
-        content: '/* exlent-disable */'
-      - 'typescript'
-      - 'typescript-operations'
-      - 'typescript-react-apollo'
+        content: "/* exlent-disable */"
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
 ```
 
 schema 필드에는 GraphQL Codegen 이 참조할 GraphQL API 서버  

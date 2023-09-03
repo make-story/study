@@ -1,4 +1,4 @@
-`새로운 CSS 레이아웃` 책 내용 중
+# `새로운 CSS 레이아웃` 책 내용 중
 
 수평축 또는 수직축에 따라 `그리드 아이템을 정렬하고 싶다면 justify-items 속성을 사용`합니다.
 이 속성은 `개별 그리드 아이템에 justify-self 를 설정하는 것과 같은 효과`를 보여줍니다.
@@ -14,9 +14,9 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 100px);
   grid-template-areas:
-    'a a a b'
-    'a a a b'
-    'c d d d';
+    "a a a b"
+    "a a a b"
+    "c d d d";
   grid-gap: 20px;
   justify-items: end;
 }
@@ -31,9 +31,9 @@ justify-self 속성에 사용할 수 있는 값은 justify-items 속성과 동�
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 100px);
   grid-template-areas:
-    'a a a b'
-    'a a a b'
-    'c d d d';
+    "a a a b"
+    "a a a b"
+    "c d d d";
   grid-gap: 20px;
   justify-items: end;
 }

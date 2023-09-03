@@ -2,18 +2,37 @@
 
 https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration
 
+https://www.samsungsds.com/kr/insights/web_component.html
+
+CSS-in-JS는 단어 그대로 자바스크립트 코드에서 CSS를 작성하는 방식을 말합니다.  
+2014년 페이스북 개발자인 Christopher Chedeau aka Vjeux가 처음 소개하였습니다.
+
+https://css-tricks.com/a-thorough-analysis-of-css-in-js/
+
+Vjeux는 CSS를 작성하는 어려움을 다음과 같이 설명하였으며 CSS-in-JS로 이들 이슈를 모두 해결할 수 있다고 강조했습니다.
+
+- Global namespace: 글로벌 공간에 선언된 이름의 명명 규칙 필요
+- Dependencies: CSS간의 의존 관계를 관리
+- Dead Code Elimination: 미사용 코드 검출
+- Minification: 클래스 이름의 최소화
+- Sharing Constants: JS와 CSS의 상태 공유
+- Non-deterministic Resolution: CSS 로드 우선 순위 이슈
+- Isolation: CSS와 JS의 상속에 따른 격리 필요 이슈
+
+---
+
 ## inline styles
 
 ```javascript
 const h1Styles = {
-  backgroundColor: 'rgba(255, 255, 255, 0.85)',
-  position: 'absolute',
+  backgroundColor: "rgba(255, 255, 255, 0.85)",
+  position: "absolute",
   right: 0,
-  bottom: '2rem',
-  padding: '0.5rem',
-  fontFamily: 'sans-serif',
-  fontSize: '1.5rem',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+  bottom: "2rem",
+  padding: "0.5rem",
+  fontFamily: "sans-serif",
+  fontSize: "1.5rem",
+  boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
 };
 ```
 
@@ -24,17 +43,17 @@ $ npm install csstype
 ```
 
 ```javascript
-import CSS from 'csstype';
+import CSS from "csstype";
 
 const h1Styles: CSS.Properties = {
-  backgroundColor: 'rgba(255, 255, 255, 0.85)',
-  position: 'absolute',
+  backgroundColor: "rgba(255, 255, 255, 0.85)",
+  position: "absolute",
   right: 0,
-  bottom: '2rem',
-  padding: '0.5rem',
-  fontFamily: 'sans-serif',
-  fontSize: '1.5rem',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+  bottom: "2rem",
+  padding: "0.5rem",
+  fontFamily: "sans-serif",
+  fontSize: "1.5rem",
+  boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
 };
 ```
 
@@ -50,17 +69,17 @@ $ npm install --save @emotion/styled
 ```javascript
 /** @jsx jsx */
 // the line above activates the jsx factory by emotion
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from "@emotion/core";
 
 const h1Style = css({
-  backgroundColor: 'rgba(255, 255, 255, 0.85)',
-  position: 'absolute',
+  backgroundColor: "rgba(255, 255, 255, 0.85)",
+  position: "absolute",
   right: 0,
-  bottom: '2rem',
-  padding: '0.5rem',
-  fontFamily: 'sans-serif',
-  fontSize: '1.5rem',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+  bottom: "2rem",
+  padding: "0.5rem",
+  fontFamily: "sans-serif",
+  fontSize: "1.5rem",
+  boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
 });
 
 export function Heading({ title }: { title: string }) {
@@ -81,10 +100,10 @@ styled
 
 ```javascript
 /** @jsx jsx */
-import styled from '@emotion/styled';
-import { jsx } from '@emotion/core';
+import styled from "@emotion/styled";
+import { jsx } from "@emotion/core";
 
-const LayoutWrapper = styled('div')`
+const LayoutWrapper = styled("div")`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 1rem;
@@ -108,7 +127,7 @@ $ npm install @types/styled-components
 ```
 
 ```javascript
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Heading = styled.h1`
   font-weight: normal;
@@ -121,7 +140,7 @@ export const Heading = styled.h1`
 
 ```javascript
 type FlexProps = {
-  direction?: 'row' | 'column',
+  direction?: "row" | "column",
 };
 
 export const Flex =
@@ -129,11 +148,11 @@ export const Flex =
   FlexProps >
   `
 	display: flex;
-	flex-direction: ${props => props.direction};
+	flex-direction: ${(props) => props.direction};
 `;
 
 // use it like that:
-const el = <Flex direction='row'></Flex>;
+const el = <Flex direction="row"></Flex>;
 ```
 
 ---

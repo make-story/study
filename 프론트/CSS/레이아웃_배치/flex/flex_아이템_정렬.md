@@ -1,4 +1,4 @@
-`새로운 CSS 레이아웃` 책 내용 중
+# `새로운 CSS 레이아웃` 책 내용 중
 
 `justify-content 속성은 주축(main axis)`,
 즉 `flex-direction 이 row 라면 가로 줄, flex-direction 이 column 이라면 칼럼상에서 동작`합니다.

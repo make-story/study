@@ -1,4 +1,4 @@
-`새로운 CSS 레이아웃` 책 내용 중
+# `새로운 CSS 레이아웃` 책 내용 중
 
 그리드 컨테이너에 `align-items 속성을 추가하고 start 로 값을 설정하면 모든 요소가 각각 자신의 영역 상단에 붙습니다.`
 
@@ -10,9 +10,9 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 100px);
   grid-template-areas:
-    'a a a b'
-    'a a a b'
-    'c d d d';
+    "a a a b"
+    "a a a b"
+    "c d d d";
   grid-gap: 20px;
   align-items: start;
 }
@@ -44,9 +44,9 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 100px);
   grid-template-areas:
-    'a a a b'
-    'a a a b'
-    'c d d d';
+    "a a a b"
+    "a a a b"
+    "c d d d";
   grid-gap: 20px;
   align-items: start;
 }
