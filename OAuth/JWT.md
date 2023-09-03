@@ -64,44 +64,6 @@ JWT 는 “인증” 정보가 아니라 “인증된 정보” 를 교환하는
 
 ---
 
-## Next.js JWT
-
-https://thewidlarzgroup.com/nextjs-auth/
-
-# 토근 기반 인증에서 bearer는 무엇일까?
-
-https://velog.io/@cada/%ED%86%A0%EA%B7%BC-%EA%B8%B0%EB%B0%98-%EC%9D%B8%EC%A6%9D%EC%97%90%EC%84%9C-bearer%EB%8A%94-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C
-
-일반적으로 토큰은 요청 헤더의 Authorization 필드에 담아져 보내집니다.  
-`Authorization: <type> <credentials>`
-
-우리가 궁금해하던 bearer는 위 형식에서 type에 해당합니다.  
-토큰에는 많은 종류가 있고 서버는 다양한 종류의 토큰을 처리하기 위해 전송받은 type에 따라 토큰을 다르게 처리합니다.
-
-`bearer는 JWT와 OAuth를 타나내는 인증 타입 - 토큰 포맷의 일종`
-
-## 인증 타입
-
-- Basic  
-  사용자 아이디와 암호를 Base64로 인코딩한 값을 토큰으로 사용한다. (RFC 7617)
-
-- Bearer  
-  JWT 혹은 OAuth에 대한 토큰을 사용한다. (RFC 6750)
-
-- Digest  
-  서버에서 난수 데이터 문자열을 클라이언트에 보낸다. 클라이언트는 사용자 정보와 nonce를 포함하는 해시값을 사용하여 응답한다 (RFC 7616)
-
-- HOBA  
-  전자 서명 기반 인증 (RFC 7486)
-
-- Mutual  
-  암호를 이용한 클라이언트-서버 상호 인증 (draft-ietf-httpauth-mutual)
-
-- AWS4-HMAC-SHA256  
-  AWS 전자 서명 기반 인증
-
----
-
 # 세션 기반 인증과 토큰 기반 인증의 차이
 
 ## 세션 기반 인증 시스템
@@ -150,9 +112,9 @@ $ yarn add jsonwebtoken
 > `참고!` 단방향 해싱 함수를 지원해 주는 bcrypt 라이브러리
 
 ```javascript
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-const password = '';
+const password = "";
 const hash = await bcrypt.hash(password, 10); // 해시 생성
 const result = await bcrypt.compare(password, hash); // 검증 (true/false 반환)
 ```
@@ -178,9 +140,9 @@ $ openssl rand -hex 64
 ## 토큰 발급하기
 
 ```javascript
-import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // ...
 
@@ -195,8 +157,8 @@ UserSchema.methods.generateToken = function () {
     process.env.JWT_SECRET,
     // 세 번째 파라미터에는 옵션 또는 콜백 (알고리즘 등 설정가능)
     {
-      expireIn: '7d', // 7일 동안 유효함
-    },
+      expireIn: "7d", // 7일 동안 유효함
+    }
   );
   return token;
 };
@@ -215,7 +177,7 @@ UserSchema.methods.generateToken = function () {
 
 ```javascript
 // 회원가입 예
-export const register = async ctx => {
+export const register = async (ctx) => {
   // ...
 
   ctx.body = user.serialize();
@@ -224,14 +186,14 @@ export const register = async ctx => {
   const token = user.generateToken();
 
   // 쿠키 값 설정
-  ctx.cookies.set('access_token', token, {
+  ctx.cookies.set("access_token", token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
     httpOnly: true,
   });
 };
 
 // 로그인 예
-export const login = async ctx => {
+export const login = async (ctx) => {
   // ...
 
   ctx.body = user.serialize();
@@ -240,7 +202,7 @@ export const login = async ctx => {
   const token = user.generateToken();
 
   // 쿠키 값 설정
-  ctx.cookies.set('access_token', token, {
+  ctx.cookies.set("access_token", token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
     httpOnly: true,
   });
@@ -306,11 +268,11 @@ export default jwtMiddleware;
 
 ```javascript
 // main.js 예
-require('dotenv').config();
-import Koa from 'koa';
-import Router from 'koa-router';
+require("dotenv").config();
+import Koa from "koa";
+import Router from "koa-router";
 
-import jwtMiddleware from './lib/jwtMiddleware'; // JWT 미들웨어 코드 import
+import jwtMiddleware from "./lib/jwtMiddleware"; // JWT 미들웨어 코드 import
 
 // ...
 
@@ -327,8 +289,8 @@ app.use(jwtMiddleware);
 쿠키 삭제
 
 ```javascript
-export const logout = async ctx => {
-  ctx.cookies.set('access_token');
+export const logout = async (ctx) => {
+  ctx.cookies.set("access_token");
   ctx.status = 204;
 };
 ```
