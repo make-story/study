@@ -20,6 +20,14 @@
 - initial  
   `프로퍼티 값을 관련 CSS 모듈에서 정의하는 초깃값으로 정합니다.`
 
+또는
+
+```css
+& * {
+  all: revert;
+}
+```
+
 - unset
   inherit 와 initial 의 효과를 섞습니다.  
   color 처럼 상속되는 프로퍼티에서 unset 은 initial 와 같은 의미 입니다,  

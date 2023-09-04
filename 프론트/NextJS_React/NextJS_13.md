@@ -33,6 +33,8 @@ https://velog.io/@surim014/building-a-blog-with-Next.js-13-and-React-Server-Comp
 
 ### Data Fetching
 
+https://github.com/XionWCFM/Nextjs-docs-Korean-translation/blob/main/nextjsdocs/BuildingYourApplication/DataFetching/Fetching.md
+
 app/ 에서 React Suspense 기반으로 구현된 새로운 data fetch 하는 방식이다.
 
 ```javascript
