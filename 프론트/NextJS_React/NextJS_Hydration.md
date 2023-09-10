@@ -27,6 +27,24 @@ hydration을 직역하면 '수분 공급'이라는 뜻인데, 즉 건조한 HTML
 
 ---
 
+# Hydration Mismatch
+
+https://toss.tech/article/isomorphic-javascript
+
+서버에서 생성한 HTML은 단순 마크업이므로 사용자 인터랙션이 불가능합니다.  
+따라서 React 는 이벤트 리스너, 상태 관리와 같은 클라이언트 로직(JavaScript 빌드 파일)을 전달받고  
+HTML과 통합하여 애플리케이션으로 작동할 수 있도록 합니다.  
+이 과정을 Hydration 이라고 합니다.
+
+여기서 주의깊게 봐야할 점은 로직 연결 과정입니다.  
+React 는 요소(Element)와 로직 정보가 담긴 가상 DOM을 생성한 뒤, 이를 전달받은 HTML과 비교합니다.  
+따라서, 서버와 클라이언트의 렌더링 결과가 같은 경우에만 Hydration 을 수행합니다.
+
+예를 들어,
+서버상에서 특정 변수의 값이 null 이였다면, 클라이언트로 전달된 HTML 에서도 해당 값은 null 이 되어야 합니다.
+
+---
+
 # Next.js pre-rendering 정리
 
 https://nextjs.org/docs/basic-features/pages#pre-rendering
