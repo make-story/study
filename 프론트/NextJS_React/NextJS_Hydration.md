@@ -15,6 +15,10 @@ https://helloinyong.tistory.com/315
 2. Next.js Server에서는 Pre-Rendering된 웹 페이지를 클라이언트에게 보내고 나서, 바로 리액트가 번들링 된 자바스크립트 코드들을 클라이언트에게 전송한다.  
    그리고 이 자바스크립트 코드들이 이전에 보내진 HTML DOM 요소 위에서 한번 더 렌더링을 하면서, 각자 자기 자리를 찾아가며 매칭이 된다.
 
+## 하이드레이션 에러 관련
+
+https://nextjs.org/docs/messages/react-hydration-error
+
 ## dehydrate 와 hydrate
 
 https://seogeurim.tistory.com/19
