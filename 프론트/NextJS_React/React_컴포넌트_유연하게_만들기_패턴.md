@@ -38,7 +38,7 @@ https://jbee.io/web/components-should-be-flexible/
 
 https://kentcdodds.com/blog/inversion-of-control
 
-## Compound Component라는 개념
+## Compound Component (합성 컴포넌트) 라는 개념
 
 https://kentcdodds.com/blog/compound-components-with-react-hooks
 

@@ -16,6 +16,9 @@ Non-blocking I/O와 단일 스레드 이벤트 루프를 통한 높은 처리 �
 - 따라서 `노드는 자바스크립트 프로그램을 컴퓨터에서 실행할 수 있게 하는 자바스크립트 실행기`이다.
 - 특히 2008년 구글이 V8 엔진을 사용하여 크롬을 출시했고 V8 엔진은 다른 자바스크립트 엔진과 달리 매우 빨라 라이언 달(Ryan Dahl)은 2009년 V8 엔진 기반의 노드 프로젝트를 시작하며 세상에 나왔다.
 
+(즉, 프로그래밍언어 JavaScript 가 구동되는 환경)
+(JavaScript 언어를 사용해 HTTP 요청/응답을 처리하도록 만들면, 웹서버 형태로 Node.js 를 사용한다는 것)
+
 ---
 
 # 멀티 스레드(Multithreaded) 구조와 싱글 스레드 이벤트 루프(Single Threaded Event Loop) 구조의 차이점
@@ -88,43 +91,43 @@ https://mygumi.tistory.com/154
 
 ```javascript
 // 동기-블로킹 방식
-const fs = require('fs');
+const fs = require("fs");
 
-console.log('시작');
+console.log("시작");
 let data = null;
 
-data = fs.readFileSync('./readme2.txt');
-console.log('1번', data.toString());
+data = fs.readFileSync("./readme2.txt");
+console.log("1번", data.toString());
 
-data = fs.readFileSync('./readme2.txt');
-console.log('2번', data.toString());
+data = fs.readFileSync("./readme2.txt");
+console.log("2번", data.toString());
 
-data = fs.readFileSync('./readme2.txt');
-console.log('3번', data.toString());
+data = fs.readFileSync("./readme2.txt");
+console.log("3번", data.toString());
 
-console.log('끝');
+console.log("끝");
 ```
 
 ```javascript
 // 비동기-논 블로킹 방식
-const fs = require('fs').promises;
+const fs = require("fs").promises;
 
-console.log('시작');
+console.log("시작");
 
-fs.readFile('./readme2.txt')
-  .then(data => {
-    console.log('1번', data.toString());
-    return fs.readFile('./readme2.txt');
+fs.readFile("./readme2.txt")
+  .then((data) => {
+    console.log("1번", data.toString());
+    return fs.readFile("./readme2.txt");
   })
-  .then(data => {
-    console.log('2번', data.toString());
-    return fs.readFile('./readme2.txt');
+  .then((data) => {
+    console.log("2번", data.toString());
+    return fs.readFile("./readme2.txt");
   })
-  .then(data => {
-    console.log('3번', data.toString());
-    console.log('끝');
+  .then((data) => {
+    console.log("3번", data.toString());
+    console.log("끝");
   })
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
   });
 ```
@@ -151,19 +154,19 @@ readFile 방식의 버퍼가 편리하기는 하지만 문제점도 있습니다
 /**
  * 파일 읽는 스트림
  */
-const fs = require('fs');
+const fs = require("fs");
 
-const readStream = fs.createReadStream('./readme3.txt', { highWaterMark: 16 }); // highWaterMark : 버퍼의 크기(기본값 64KB)
+const readStream = fs.createReadStream("./readme3.txt", { highWaterMark: 16 }); // highWaterMark : 버퍼의 크기(기본값 64KB)
 const data = [];
-readStream.on('data', chunk => {
+readStream.on("data", (chunk) => {
   data.push(chunk);
-  console.log('data :', chunk, chunk.length);
+  console.log("data :", chunk, chunk.length);
 });
-readStream.on('end', () => {
-  console.log('end :', Buffer.concat(data).toString());
+readStream.on("end", () => {
+  console.log("end :", Buffer.concat(data).toString());
 });
-readStream.on('error', error => {
-  console.log('error :', error);
+readStream.on("error", (error) => {
+  console.log("error :", error);
 });
 ```
 
@@ -171,22 +174,22 @@ readStream.on('error', error => {
 /**
  * 파일 쓰는 스트림
  */
-const fs = require('fs');
+const fs = require("fs");
 
-const writeStream = fs.createWriteStream('./writeme2.txt');
-writeStream.on('finish', () => {
-  console.log('파일 쓰기 완료');
+const writeStream = fs.createWriteStream("./writeme2.txt");
+writeStream.on("finish", () => {
+  console.log("파일 쓰기 완료");
 });
 
-writeStream.write('이 글을 씁니다.\n');
-writeStream.write('한 번 더 씁니다.\n');
+writeStream.write("이 글을 씁니다.\n");
+writeStream.write("한 번 더 씁니다.\n");
 writeStream.end();
 
 // createReadStream 으로 파일을 읽고 그 스트림을 전달받아
 // createWriteStream 으로 파일을 쓸 수도 있습니다. 파일 복사와 비슷합니다.
 // 스트림끼리 연결하는 것을 '파이핑한다'고 표현합니다.
-const readStreamPipe = fs.createReadStream('./readme4.txt');
-const writeStreamPipe = fs.createWriteStream('./writeme3.txt');
+const readStreamPipe = fs.createReadStream("./readme4.txt");
+const writeStreamPipe = fs.createWriteStream("./writeme3.txt");
 readStreamPipe.pipe(writeStreamPipe);
 ```
 
@@ -205,9 +208,9 @@ readStreamPipe.pipe(writeStreamPipe);
 
 ```javascript
 setInterval(() => {
-  console.log('시작');
+  console.log("시작");
   try {
-    throw new Error('서버를 고장내주마!');
+    throw new Error("서버를 고장내주마!");
   } catch (err) {
     console.error(err);
   }
@@ -231,17 +234,17 @@ setInterval 내부에 throw new Error()를 써서 에러를 강제로 발생시�
 처리하지 못한 에러가 발생 했을 때 이벤트 리스너가 실행되고 프로세스가 유지됩니다.
 
 ```javascript
-process.on('uncaughtException', error => {
-  console.log('예기치 못한 에러', error);
+process.on("uncaughtException", (error) => {
+  console.log("예기치 못한 에러", error);
 });
 
 // 실행 후 1초만에 throw 에러가 발생하며 프로세스가 멈출 것 같지만,
 // uncaughtException 이벤트 리스너가 연결되어 있으므로 프로세스가 멈추지 않습니다.
 setInterval(() => {
-  throw new Error('throw 를 사용해 서버를 멈추게 해본다!!!!');
+  throw new Error("throw 를 사용해 서버를 멈추게 해본다!!!!");
 }, 1000);
 setTimeout(() => {
-  console.log('실행됩니다!');
+  console.log("실행됩니다!");
 }, 2000);
 ```
 
@@ -354,13 +357,13 @@ next(err)
 ```javascript
 app.use(
   (request, response, next) => {
-    request.data = '데이터 넣기'; // 새로운 요청이 오면 request.data 는 초기화됩니다.
+    request.data = "데이터 넣기"; // 새로운 요청이 오면 request.data 는 초기화됩니다.
     next();
   },
   (request, response, next) => {
     console.log(request.data);
     next();
-  },
+  }
 );
 app.use((request, response, next) => {
   console.log(request.data);
