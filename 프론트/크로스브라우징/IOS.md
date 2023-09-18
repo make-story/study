@@ -8,6 +8,12 @@ https://channel.io/ko/blog/cross_browsing_ios15
 
 ---
 
+# 
+"스키마 대신 Firebase DynamicLink를 사용하여 웹에서 앱 호출 및 앱스토어로 연결하게끔 만들어주어 해당 문제를 해결하였다."
+"앱스토어 주소 대신 "itms-apps://itunes.apple.com/app/" 뒤에다 해당 앱의 앱스토어 Apple ID를 넣어서 해결하였다."
+
+---
+
 # 사파리 버전 13.4 이상부터 replaceAll() 지원
 
 # 사파리가 SVG를 처리하는데 있어서 부분적으로 완벽하지 않음
