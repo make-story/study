@@ -1,6 +1,6 @@
 `완성된 웹사이트로 배우는 HTML & CSS 웹 디자인` 책 내용중
 
-# 배경에 동영상 넣는 법
+# 배경에 동영상 넣는 법 - video 태그, object-fit CSS
 
 동영상을 넣기 위해 <video> 태그를 사용합니다.  
 CSS에서 설정한 크기로 표시되도록 object-fit: cover; 를 활용해서 정해진 크기보다 큰 부분을 잘라냅니다.
@@ -48,12 +48,22 @@ CSS에서 설정한 크기로 표시되도록 object-fit: cover; 를 활용해�
           <h1 class="header-name">Name</h1>
         </div>
         <!-- poster 속성을 추가해 이미지 파일을 설정. 동영상 재생 이슈 또는 동영상 로딩이 완료될 때까지 대체 이미지가 표시됩니다. -->
-        <video src="./photo-movie.mp4" poster="./hero.jpg" autoplay loop muted></video>
+        <video
+          src="./photo-movie.mp4"
+          poster="./hero.jpg"
+          autoplay
+          loop
+          muted
+        ></video>
       </header>
     </div>
   </body>
 </html>
 ```
+
+## iOS 환경에서 비디오 최적화 및 성능 개선 사례
+
+https://techtopic.skplanet.com/ios15-rendering/
 
 ---
 
