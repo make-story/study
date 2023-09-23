@@ -28,17 +28,6 @@ $ yarn global remove create-react-app
 $ yarn create react-app ./apps/client --scripts-version 4.0.1 --template typescript
 ```
 
-## CRA 에서 Next.js 전환 (마이그레이션, CRA Migration)
-
-https://nextjs.org/docs/app/building-your-application/upgrading/codemods#migrate-from-cra
-
-이슈경험  
-https://bsnn.tistory.com/131
-
-```
-$ npx @next/codemod cra-to-next
-```
-
 ## CRA 에서 webpack, babel, eslint 설정 가능한 커스터마이징 상태로 변경
 
 ```
