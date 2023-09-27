@@ -10,8 +10,8 @@ next.js는 이미지 자동 최적화 기능이 구현되어 사이즈를 변경
 따라서 큰 이미지라도 작은 뷰포트에서는 작게 리사이즈되어 서빙된다. 이미지 최적화 기능은 next.js 에서 Image컴포넌트를 import하여 <img> 엘리먼트를 사용하듯이 쓸 수 있다.
 
 ```javascript
-import Image from 'next/image';
-<Image src='/logo.png' alt='Logo' width={500} height={500} />;
+import Image from "next/image";
+<Image src="/logo.png" alt="Logo" width={500} height={500} />;
 ```
 
 ## 코드 스플리팅
@@ -105,3 +105,48 @@ Next.js는 기본적으로 모든 페이지에 대해 etag 를 생성합니다.
 ## Keep-Alive
 
 Next.js는 자동으로 node-fetch 를 폴리필하고 기본적으로 HTTP Keep-Alive 를 활성화 합니다.
+
+---
+
+# Next.js 빌드 최적화
+
+https://tech.inflab.com/20230918-rallit-standalone/
+
+Next.js 에서 지원하는 standalone 옵션을 적용시킨 후, Docker image 사이즈를 최소화하고 배포 시간을 줄이는데 성공
+
+Standalone 은 ‘독립형’ 또는 ‘독립적인 것’ 이라는 뜻을 가지고 있습니다. Next.js 에서는 웹 어플리케이션을 실행하는데 필요한 최소한의 코드만 추출하겠다는 의미로 사용됩니다.
+
+https://nextjs.org/docs/pages/api-reference/next-config-js/output#automatically-copying-traced-files
+
+```javascript
+module.exports = {
+  output: "standalone",
+};
+```
+
+## 모노레포 + Next.js v12 인 경우
+
+'.next/standalone' 경로에 빌드
+
+빌드하고자 하는 root 경로와 실제 root 경로가 명확하게 일치하지 않아, 원하는 패키지의 하위 라이브러리를 받아오지 못합니다. 따라서 요구하는 라이브러리를 찾을 수 없다는 Not Found 에러를 뱉으면서 빌드가 멈춥니다.
+
+https://nextjs.org/docs/pages/api-reference/next-config-js/output#caveats
+
+아래의 옵션으로 해결 가능
+
+```javascript
+module.exports = {
+  experimental: {
+    // this includes files from the monorepo base two directories up
+    outputFileTracingRoot: path.join(__dirname, "../../"),
+  },
+};
+```
+
+## 실행
+
+standalone 으로 걸러낸 서버의 실행은 다음과 같이 할 수 있습니다. next start와 유사한 기능입니다.
+
+```bash
+$ node standalone/server.js
+```
