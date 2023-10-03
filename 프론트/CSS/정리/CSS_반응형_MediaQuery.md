@@ -55,7 +55,7 @@ initial-scale 은 페이지를 확대하는 비율을 나타내며 값을 1로 �
 
 ```css
 @charset 'UTF-8';
-@import url('mobile.css') (max-width: 700px);
+@import url("mobile.css") (max-width: 700px);
 ```
 
 # 브레이크 포인트란
@@ -94,9 +94,15 @@ const sizePercent = function (target, content) {
   // 예제1 : 60(구하고자하는 크기) / 320(기준, 최소 해상도) = 0.1875 -> 18.75%
   // 예제2 : 10(구하고자하는 크기) / 320(기준, 최소 해상도) = 0.03125 -> 3.125%
 
+  // rem 계산
   // 공식(rem) : 사용하려는 값(target) / 최상단 부모값(content) = rem 값
   // 부모요소 10px : 그럼 1rem 은 10, 2rem 은 20
   // 부모요소 10px, 구하고자하는 크기 11px : 11 / 10 = 1.1rem
+
+  // 루트 요소의 폰트 사이즈는 웹 브라우저의 기본 폰트 사이즈가 결정하며, 대부분의 웹 브라우저에서 16px로 정해놓고 있습니다.
+  // font-size: 1.25rem; /* 사용자 지정된 폰트 사이즈가 없는 경우 브라우저 기본 폰트 사이즈 16px × 1.25 -> 20px */
+  // padding: 1.5rem; /* font-size 16px × 1.5 -> 24px */
+  // height: 1.4rem; /* font-size 16px × 1.4 -> 22.4px */
   target = Number(target);
   content = Number(content);
   return (target / content) * 100;
@@ -112,7 +118,7 @@ const getAspectRatio = function (width, height) {
   result.width = width;
   result.height = height;
   result.gcd = getGCD(width, height);
-  result.aspect = [width / result.gcd, height / result.gcd].join(':');
+  result.aspect = [width / result.gcd, height / result.gcd].join(":");
 
   return result;
 };
@@ -161,12 +167,12 @@ https://www.smashingmagazine.com/2022/03/guide-hover-pointer-media-queries/
       font-size: 1.05em;
     }
 
-    input[type='checkbox'] {
+    input[type="checkbox"] {
       width: 1.625rem;
       height: 1.625rem;
     }
 
-    button[type='button'] {
+    button[type="button"] {
       min-height: 3rem;
     }
   }
@@ -181,9 +187,13 @@ https://www.smashingmagazine.com/2022/03/guide-hover-pointer-media-queries/
       <label for="c-sharp"> <input type="checkbox" id="c-sharp" /> C# </label>
       <label for="kotlin"> <input type="checkbox" id="kotlin" /> Kotlin </label>
       <label for="java"> <input type="checkbox" id="java" /> Java </label>
-      <label for="javascript"> <input type="checkbox" id="javascript" /> JavaScript </label>
+      <label for="javascript">
+        <input type="checkbox" id="javascript" /> JavaScript
+      </label>
       <label for="go"> <input type="checkbox" id="go" /> Go </label>
-      <label for="objective-c"> <input type="checkbox" id="objective-c" /> Objective-C </label>
+      <label for="objective-c">
+        <input type="checkbox" id="objective-c" /> Objective-C
+      </label>
       <label for="php"> <input type="checkbox" id="php" /> PHP </label>
       <label for="python"> <input type="checkbox" id="python" /> Python </label>
       <label for="ruby"> <input type="checkbox" id="ruby" /> Ruby </label>
