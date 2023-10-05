@@ -228,3 +228,48 @@ https://www.bram.us/2017/12/10/customizing-pull-to-refresh-and-overflow-effects-
 ## touch-action 속성의 값으로 auto 이외의 값을 줄 경우, 해당 속성에 명시해준 터치 액션만이 브라우저에 의해 처리
 
 https://wit.nts-corp.com/2018/08/28/5317
+
+---
+
+# 브라우저 히스토리 제거, 파라미터 정보 숨김 또는 페이지 이동 기록 제거 등
+
+사용자에게 현재 url 숨겨야 하는 경우
+
+- 서버사이드단 포워드
+- 클라이언트단 `history.replaceState(null, 'title', '/path')`
+
+# JavaScript: 스와이프(swiper) 터치 민감도, 스와이프 내부 배너 클릭 등
+
+슬라이드 내부 컨텐츠가 배너 형태의 링크가 적용된 경우,  
+스와이퍼 라이브러리가 슬라이드 동작(기능)을 우선시 하므로,  
+터치가 위아래 또는 슬라이드 이동시키려는 제스처 등이 있을 때,  
+슬라이드 내부 링크 클릭 이벤트 실행을 정지시키는 경우가 있음
+
+https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events#event_order  
+https://ui.toast.com/posts/ko_20220106  
+'touchstart' -> 'touchmove' -> 'touchend' -> 'mousedown' -> 'mousemove' -> 'mouseup' -> 'click'
+
+해당 이벤트 순서로 실행됨 (브라우저에 따라 다를 수 있음)
+
+그렇기 때문에,
+
+```
+allowTouchMove : true, // (false-스와이핑안됨)버튼으로만 슬라이드 조작이 가능
+```
+
+옵션으로 사용자 터치 동작(Touch Gestures, 터치 제스처)에 따라 슬라이드가 동작하지 않도록 한 다음,  
+`touchStart` 이벤트에서 터치시작 위치 `touchEnd` 이벤트에서 터치끝 위치 값을 통해,  
+touchEnd 에서 최종적으로 이전슬라이드 또는 다음슬라이드 함수(기능)을 호출하도록 한다.  
+swiper.slideNext(speed, runCallbacks)  
+swiper.slidePrev(speed, runCallbacks)
+
+https://swiperjs.com/swiper-api#events  
+https://swiperjs.com/swiper-api#methods--properties
+
+## 참고: 터치 클릭 지연 제거
+
+```css
+* {
+  touch-action: manipulation;
+}
+```
