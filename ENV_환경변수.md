@@ -1,4 +1,4 @@
-# env 우선순위
+# env 환경변수 우선순위
 
 ## Node.js (dotenv-flow)
 
