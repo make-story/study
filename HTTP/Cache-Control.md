@@ -34,6 +34,39 @@ https://engineering.fb.com/2015/04/13/web/web-performance-cache-efficiency-exerc
 - HTTP 1.1 은 다양한 지시자를 ,(콤마) 기준으로 다양하게 설정할 수 있습니다.
   Cache-Control: private, max-age=0, no-cache
 
+## HTTP 요청(Request) / 응답(Response) Cache-Control
+
+왜 HTTP Request 에 Cache-Control no-cache 가 포함되어 요청될까?
+
+https://stackoverflow.com/questions/14541077/why-is-cache-control-attribute-sent-in-request-header-client-to-server
+
+Cache-Control: no-cache 일반적으로 요청 헤더(웹 브라우저에서 서버로 전송)에 사용되어 중간 프록시에서 리소스의 유효성을 강제로 확인합니다.
+
+## HTTP 캐시 엔트리 (= 캐싱하는 대상)
+
+https://it-eldorado.tistory.com/142
+
+`HTTP 캐시에 저장되는 데이터 뭉치 하나하나를 캐시 엔트리`라고 부른다.  
+그리고 각 캐시 엔트리를 구분하는 기준은 캐시 키(Cache Key)이다.  
+기본적인(Primary) 캐시 키는 HTTP 요청의 메소드와 URI의 조합으로 결정된다(일반적으로 GET 요청에 대해서만 캐싱하므로 URI로만 결정되는 경우도 있음).
+
+즉, 간단히 생각해서 메소드와 URI가 동일한 하나의 HTTP 요청은 하나의 캐시 엔트리에 대응하는 것이다.
+
+캐시 엔트리의 일반적인 형태를 살펴보면 다음과 같다.
+
+- HTML 문서, 이미지, 파일 등의 리소스를 포함하는 GET 요청에 대한 `200 (OK) 응답`
+- `301 (Moved Permanently) 응답`
+- `404 (Not Found) 응답`
+- `206 (Partial Content) 응답`
+- (캐시 키로 사용하기에 적절한 무언가가 정의된 경우) GET이 아닌 HTTP 요청에 대한 HTTP 응답
+
+이때 주의해야 할 것은,  
+하나의 캐시 엔트리가 여러 개의 HTTP 응답들로 구성되어 있을 수도 있다는 것이다.  
+이 경우에 해당 HTTP 응답들은 그 캐시 엔트리 내에서 두 번째(Secondary) 키에 의해 구분이 된다.  
+이는 보통 그 캐시 엔트리에 대응하는 HTTP 요청이 컨텐츠 협상(Content Negotiation)의 타겟인 경우에 해당한다.
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#varying_responses
+
 ## 불변 콘텐츠 + 최대 수명
 
 1년 동안 캐시
