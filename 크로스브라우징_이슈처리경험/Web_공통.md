@@ -249,6 +249,34 @@ https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events#event_order
 https://ui.toast.com/posts/ko_20220106  
 'touchstart' -> 'touchmove' -> 'touchend' -> 'mousedown' -> 'mousemove' -> 'mouseup' -> 'click'
 
+```javascript
+function createParagraph(text) {
+  const el = document.createElement("p");
+  el.innerText = text;
+
+  return el;
+}
+
+const printEl = document.getElementById("print");
+
+[
+  "touchstart",
+  "touchmove",
+  "touchend",
+  "mousedown",
+  "mousemove",
+  "mouseup",
+  "click",
+].forEach((eventType) => {
+  document.addEventListener(eventType, () => {
+    printEl.appendChild(createParagraph(eventType));
+
+    // 스크롤을 최하단으로 이동시켜준다.
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+});
+```
+
 해당 이벤트 순서로 실행됨 (브라우저에 따라 다를 수 있음)
 
 그렇기 때문에,
