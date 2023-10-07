@@ -273,3 +273,53 @@ https://swiperjs.com/swiper-api#methods--properties
   touch-action: manipulation;
 }
 ```
+
+# a 태그 링크 이동 전 onclick 이벤트 실행
+
+https://duckracoon.tistory.com/entry/%EC%82%AC%ED%8C%8C%EB%A6%AC%EC%97%90%EC%84%9C-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-ajax%EC%99%80-XHR%EC%9D%98-%EC%97%90%EB%9F%AC%EC%BD%9C%EB%B0%B1
+
+onclick 핸들러 내부에 ajax 호출이 있을 경우,  
+사파리는 ajax 호출하지 않고, a 태그의 href 의 링크 이동이 실행됨.  
+즉, a 태그에 적용되어 동작하는 onclick 이벤트 내 ajax 가 실행되지 않음.
+
+이 경우 a 태그의 onclick 에 기본 이벤트 정지 및 ajax 실행 후 href 페이지 이동(window.location.href 로 코드삽입 및 이동)  
+또는  
+페이지 실행 시 특정 이벤트 강제 실행
+
+```javascript
+const sendLogsBeforeRouting = async (
+  e: React.MouseEvent | null,
+  url: string,
+  callbackSendLogs: (() => void | Promise<void>) | undefined,
+  callbackBeforeRouting?: (...args: any[]) => any
+) => {
+  e?.preventDefault();
+
+  const UA = window.navigator.userAgent.toLowerCase();
+  const hasSafari = UA.includes("safari");
+  const hasChrome = UA.includes("chrome");
+  try {
+    // safari 에서 클릭으로 링크 이동할 경우 로그 쌓이지 않는 현상 방어 처리
+    // iOS '모바일 크롬'에서도 '사파리'브라우저 처럼 동기처리 필요. (현재 '모바일 크롬' userAgent에선 'chrome' 문자열 없음)
+    if (hasSafari && !hasChrome) {
+      await callbackSendLogs?.();
+    } else {
+      callbackSendLogs?.();
+    }
+  } catch (error) {
+    console.debug("send log error:", error);
+  } finally {
+    callbackBeforeRouting?.();
+    // url 이 없으나 리액팅로그 수집하는 케이스가 있다. 배너 BO세팅시 링크에 #을 입력하면 이동하지 않는다.
+    if (url && url !== "#") {
+      router.push(url);
+    }
+  }
+};
+```
+
+# 대부분의 브라우저는 HTTP/1.x 규약에서 동시 호출 약 6개로 제한
+
+HTTP 2.0 전환
+
+https://tecoble.techcourse.co.kr/post/2021-09-20-http2/

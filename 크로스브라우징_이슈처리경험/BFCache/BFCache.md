@@ -1,10 +1,16 @@
 # BFCache
 
+https://yceffort.kr/2020/11/back-forward-cache
+
 https://web.dev/bfcache/
 
 https://ui.toast.com/weekly-pick/ko_20201201
 
 https://blog.naver.com/PostView.nhn?blogId=qls0147&logNo=222157982248&categoryNo=0&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView
+
+# SSG.com 리액트 전환간 BFCache 대응
+
+https://medium.com/ssgtech/%ED%94%84%EB%A1%A0%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4-87f13102c593
 
 # BFCache를 위해 페이지 최적화 하는 팁
 

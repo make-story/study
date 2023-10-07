@@ -14,6 +14,10 @@
 - 속도 제한
 - 캐싱, 모니터링, 로깅 등
 
+## 참고: API 게이트웨이 개발 스택 (Node.js 또는 Spring 등)
+
+Reverse Proxy 역할을 하는 Spring Cloud API Gateway 애플리케이션
+
 # Load Balancer
 
 - 트래픽 분포
