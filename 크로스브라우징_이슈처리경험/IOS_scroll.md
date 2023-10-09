@@ -2,7 +2,11 @@
 
 ## ios 스크롤 영역 지정
 
-스크롤이 부드럽지 못하고 뚝뚝 끊기는 느낌
+웹 페이지 내 overflow: scroll 속성을 적용한 스크롤 컴포넌트에 부드러운 스크롤을 적용하려면  
+-webkit-overflow-scrolling: touch 라고 CSS를 적용
+
+`2019년 9월 출시된 iOS 13, iPasOS 13부터, 해당 CSS 없이도 부드러운 스크롤 가능해짐!`
+https://mytory.net/archives/15221
 
 ```css
 .box {
