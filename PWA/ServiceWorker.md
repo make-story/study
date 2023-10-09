@@ -25,9 +25,57 @@ https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope
 > 24시간내(Cache-Control max-age) 업데이트 확인이 없는 상태에서 push 및 sync 이벤트 발생시
 > registration.update(), registration.unregister() 명시적 호출시
 
+https://web.dev/learn/pwa/service-workers/#updating-a-service-worker
+
 https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
 https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
 https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching
+
+라이브러리 참고
+
+https://www.npmjs.com/package/livereload-js
+
+## 업데이트 감지
+
+https://web.dev/learn/pwa/update/
+
+```javascript
+async function detectSWUpdate() {
+  const registration = await navigator.serviceWorker.ready;
+
+  registration.addEventListener("updatefound", (event) => {
+    const newSW = registration.installing;
+    newSW.addEventListener("statechange", (event) => {
+      if (newSW.state == "installed") {
+        // New service worker is installed, but waiting activation
+      }
+    });
+  });
+}
+```
+
+## 업데이트 후 대기상태 건너뛰기
+
+https://web.dev/learn/pwa/update/#force-override
+
+```javascript
+self.addEventListener("install", (event) => {
+  // forces a service worker to activate immediately
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  // when this SW becomes activated, we claim all the opened clients
+  // they can be standalone PWA windows or browser tabs
+  event.waitUntil(clients.claim());
+});
+```
+
+```javascript
+navigator.serviceWorker.addEventListener("controllerchange", (event) => {
+  // The service worker controller has changed
+});
+```
 
 # 서비스워커는 프로미스 기반 동작 event.waitUntil(promise)
 
@@ -48,10 +96,10 @@ install 과 activate 이벤트 처리는 시간이 꽤 걸릴 수도 있기에, 
 install 이나 activate 에서 waitUntil() 을 호출하면서 매개변수로 프로미스를 제공하면, 성공적으로 이행하기 전까지는 기능 이벤트가 발생하지 않습니다.
 
 ```javascript
-addEventListener('install', event => {
+addEventListener("install", (event) => {
   const preCache = async () => {
-    const cache = await caches.open('static-v1');
-    return cache.addAll(['/', '/about/', '/static/styles.css']);
+    const cache = await caches.open("static-v1");
+    return cache.addAll(["/", "/about/", "/static/styles.css"]);
   };
   event.waitUntil(preCache());
 });
@@ -77,7 +125,11 @@ https://web.dev/navigation-preload/
 4. 리소스 요청시 - 리소스 관리(캐시의 데이터 반환, 캐시에 데이터 추가 등)
    self.addEventListener('fetch', function(event) {})
 
-# 캐싱 전략
+# 서비스워커 캐싱전략
+
+https://developer.chrome.com/docs/workbox/modules/workbox-strategies/
+
+https://web.dev/learn/pwa/serving/
 
 https://jakearchibald.com/2014/offline-cookbook/
 

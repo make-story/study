@@ -1,5 +1,7 @@
 # PWA
 
+`https://web.dev/learn/pwa/`
+
 https://abookapart.com/products/progressive-web-apps
 
 # META
@@ -50,10 +52,6 @@ https://firebase.google.com/docs/cloud-messaging/server
 2. FCM HTTP v1 API - 가장 최신 프로토콜로서 보다 안전한 승인과 유연한 교차 플랫폼 메시징 기능 제공(Firebase Admin SDK는 이 프로토콜을 기반으로 하며 모든 고유 이점을 제공함)
 3. `기존 HTTP 프로토콜`
 4. XMPP 서버 프로토콜. 클라이언트 애플리케이션에서 업스트림 메시징을 사용하려면 XMPP를 사용해야 한다는 점에 유의하세요.
-
-# 서비스워커 캐싱전략 (workbox 도구 참고)
-
-https://developer.chrome.com/docs/workbox/modules/workbox-strategies/
 
 ---
 

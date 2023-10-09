@@ -157,29 +157,6 @@ https://codepen.io/paperblock/pen/wvzrezj
 }
 ```
 
-# CSS : 아이폰 X 하단바
-
-아이폰 X의 경우 하단 검은 길다란 바와 겹치는 issue가 생길 수 있음  
-상하단에 생기는 브라우저 버튼들에 가려지는 상황도 생길 수 있는데 이를 대응하는 방법
-
-```html
-<meta name="viewport" content="viewport-fit=cover" />
-<style>
-  .floating-button {
-    padding-top: env(safe-area-inset-bottom);
-  }
-</style>
-```
-
-env(safe-area-inset-bottom); // IOS 11.0 이상 (신)  
-constant(safe-area-inset-bottom); // IOS 11.0 버전 (구)
-
-padding-bottom: calc(env(safe-area-inset-bottom) - 5px);  
-padding-bottom: calc(constant(safe-area-inset-button) - 5px);
-
-https://github.com/ionic-team/cordova-plugin-ionic-webview/issues/49  
-https://webkit.org/blog/7929/designing-websites-for-iphone-x/
-
 # CSS : 텍스트 셀렉트, 모바일 도구상자 노출방지
 
 ```css
@@ -351,3 +328,35 @@ const sendLogsBeforeRouting = async (
 HTTP 2.0 전환
 
 https://tecoble.techcourse.co.kr/post/2021-09-20-http2/
+
+# 'Pull to refresh' 혹은 'Pull down to refresh' - 당겨서 새로고침 (풀투 리프레쉬)
+
+https://www.npmjs.com/package/react-simple-pull-to-refresh
+
+css 로 기능 방지하기 (당겨서 새로고침 비활성화)
+
+https://web.dev/learn/pwa/app-design/#pull-to-refresh
+
+```css
+body {
+  overscroll-behavior-y: contain;
+}
+```
+
+# PWA: 디스플레이 모드 값에 따른 반응형 CSS 적용
+
+https://web.dev/learn/pwa/app-design/#media-queries
+
+```css
+/* It targets only the app used within the browser */
+@media (display-mode: browser) {
+}
+/* It targets only the app used with a system icon in standalone mode */
+@media (display-mode: standalone) {
+}
+/* It targets only the app used with a system icon in all mode */
+@media (display-mode: standalone),
+  (display-mode: fullscreen),
+  (display-mode: minimal-ui) {
+}
+```

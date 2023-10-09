@@ -8,7 +8,8 @@ https://channel.io/ko/blog/cross_browsing_ios15
 
 ---
 
-# 
+#
+
 "스키마 대신 Firebase DynamicLink를 사용하여 웹에서 앱 호출 및 앱스토어로 연결하게끔 만들어주어 해당 문제를 해결하였다."
 "앱스토어 주소 대신 "itms-apps://itunes.apple.com/app/" 뒤에다 해당 앱의 앱스토어 Apple ID를 넣어서 해결하였다."
 
@@ -37,12 +38,12 @@ object 태그는 click 이벤트가 무시되는 문제
 
 ```javascript
 // 아래와 같이 String 포맷을 Date에 넣었을 경우 에러 발생
-new Date('2021-11-15T01:00:00+0900');
-new Date('2022-03-25T02:00:59.999+0900');
+new Date("2021-11-15T01:00:00+0900");
+new Date("2022-03-25T02:00:59.999+0900");
 
 // 아래와 같이 해줘야 한다.
-new Date('2021-11-15T01:00:00+09:00');
-new Date('2022-03-25T02:00:59.999+09:00');
+new Date("2021-11-15T01:00:00+09:00");
+new Date("2022-03-25T02:00:59.999+09:00");
 ```
 
 # safearea, Safe Area, 노치 제어 (하단바)
@@ -107,7 +108,7 @@ https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
-document.documentElement.style.setProperty('--vh', `${vh}px`);
+document.documentElement.style.setProperty("--vh", `${vh}px`);
 ```
 
 ```css
@@ -146,7 +147,9 @@ rel 속성이 noopener면, 자식 창에서 window.opener를 참조하면 null �
 <!-- 수정 전 -->
 <a href="/search_address.html" target="_blank">주소 검색</a>
 <!-- 수정 후 -->
-<a href="/search_address.html" target="_blank" rel="opener noreferrer">주소 검색</a>
+<a href="/search_address.html" target="_blank" rel="opener noreferrer"
+  >주소 검색</a
+>
 ```
 
 rel 속성값 참고  
@@ -236,7 +239,10 @@ let prevVisualViewport = 0;
 function handleVisualViewportResize() {
   const currentVisualViewport = window.visualViewport.height;
 
-  if (prevVisualViewport - 30 > currentVisualViewport && prevVisualViewport - 100 < currentVisualViewport) {
+  if (
+    prevVisualViewport - 30 > currentVisualViewport &&
+    prevVisualViewport - 100 < currentVisualViewport
+  ) {
     const scrollHeight = window.document.scrollingElement.scrollHeight;
     const scrollTop = scrollHeight - window.visualViewport.height;
 
@@ -276,7 +282,9 @@ window.visualViewport의 onresize에 handler를 등록하면 visualViewport가 �
     position: absolute;
     left: 0;
     width: 1px;
-    height: calc(100% + 1px); /* height를 100%보다 1px높게 잡아 실제로 scroll이 되도록 만듭니다. */
+    height: calc(
+      100% + 1px
+    ); /* height를 100%보다 1px높게 잡아 실제로 scroll이 되도록 만듭니다. */
   }
 </style>
 ```
@@ -286,3 +294,30 @@ window.visualViewport의 onresize에 handler를 등록하면 visualViewport가 �
 https://channel.io/ko/blog/cross_browsing_ios15
 
 ---
+
+# 아이폰 하단바 - Safe areas
+
+Safe areas 까지 화면 켄텐츠 노출영역으로 잡을 수 있는 방법
+
+https://web.dev/learn/pwa/app-design/#safe-areas
+
+아이폰 X의 경우 하단 검은 길다란 바와 겹치는 issue가 생길 수 있음  
+상하단에 생기는 브라우저 버튼들에 가려지는 상황도 생길 수 있는데 이를 대응하는 방법
+
+```html
+<meta name="viewport" content="viewport-fit=cover" />
+<style>
+  .floating-button {
+    padding-top: env(safe-area-inset-bottom);
+  }
+</style>
+```
+
+env(safe-area-inset-bottom); // IOS 11.0 이상 (신)  
+constant(safe-area-inset-bottom); // IOS 11.0 버전 (구)
+
+padding-bottom: calc(env(safe-area-inset-bottom) - 5px);  
+padding-bottom: calc(constant(safe-area-inset-button) - 5px);
+
+https://github.com/ionic-team/cordova-plugin-ionic-webview/issues/49  
+https://webkit.org/blog/7929/designing-websites-for-iphone-x/
