@@ -136,7 +136,9 @@ div ~ p {
 
 # 박스 모델
 
-마진(margin) - 테두리선(border) - 패딩(padding) - 내용 영역
+https://web.dev/learn/css/box-model?hl=ko
+
+마진(margin) - 테두리선(border) - 패딩(padding) - 내용 영역(content)
 
 # 마진 겹침 현상
 

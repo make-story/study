@@ -50,3 +50,13 @@ https://mytory.net/archives/8982
   margin-left: auto;
 }
 ```
+
+# padding 사용해야할 때? margin 사용해야할 때?
+
+CSS 박스모델에 따라,  
+마진(margin) - 테두리선(border) - 패딩(padding) - 내용 영역(content)
+https://web.dev/learn/css/box-model?hl=ko
+
+margin 은 요고간의 간격이 필요할 때,  
+padding 은 border 와 content 간 여백에 필요할 때  
+사용 추천!

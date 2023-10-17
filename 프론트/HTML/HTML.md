@@ -2,6 +2,8 @@
 
 https://validator.w3.org/unicorn/?ucn_lang=ko
 
+https://validator.w3.org/nu/#textarea
+
 # HTML 5.1 정리 / HTML 5.2 미리보기
 
 https://wit.nts-corp.com/2017/03/02/4338
@@ -16,6 +18,10 @@ https://wit.nts-corp.com/2017/08/08/4818
 
 태그를 사용하여 텍스트 내용과 이미지, 멀티미지어 콘텐츠를 HTML 문서로 표현하는 것을 마크업(Markup) 한다고 합니다.  
 그래서 HTML 은 하이퍼텍스트(Hypertext)를 마크업(Makerup) 하는 언어(Language) 가 된는 것 입니다.
+
+# HTML 공부
+
+https://web.dev/learn/html
 
 ---
 
