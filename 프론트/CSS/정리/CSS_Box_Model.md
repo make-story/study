@@ -1,4 +1,6 @@
-# CSS의 각 태그의 영역은 Box Model로 구성됩니다.
+# CSS의 각 태그의 영역은 박스모델(Box Model)로 구성됩니다.
+
+https://web.dev/learn/css/box-model?hl=ko
 
 content : 글씨가 삽입되는 영역
 border : 테두리 영역
@@ -85,4 +87,16 @@ margin : border와 다른 태그 영역 사이
   <div class="child3"></div>
   <div class="child4"></div>
 </div>
+```
+
+# box-sizing: border-box 기본 적용
+
+이 CSS 규칙은 문서와 모든 ::before 및 ::after 의사 요소에서 모든 요소를 선택하고 box-sizing: border-box를 적용합니다.
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 ```

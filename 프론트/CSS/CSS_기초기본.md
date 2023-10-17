@@ -60,3 +60,5 @@ https://web.dev/learn/css/box-model?hl=ko
 margin 은 요고간의 간격이 필요할 때,  
 padding 은 border 와 content 간 여백에 필요할 때  
 사용 추천!
+
+주의! 두 요소의 마진이 겹칠 때, 마진이 하나로 합쳐지며, 두 개 중복된 요소의 마진값 중에서 큰 값이 적용됩니다.
