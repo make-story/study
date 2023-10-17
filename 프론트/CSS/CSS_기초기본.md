@@ -62,3 +62,14 @@ padding 은 border 와 content 간 여백에 필요할 때
 사용 추천!
 
 주의! 두 요소의 마진이 겹칠 때, 마진이 하나로 합쳐지며, 두 개 중복된 요소의 마진값 중에서 큰 값이 적용됩니다.
+
+# ::before, ::after 차이점
+
+https://blog.hivelab.co.kr/%EA%B3%B5%EC%9C%A0before%EC%99%80after-%EA%B7%B8%EB%93%A4%EC%9D%98-%EC%A0%95%EC%B2%B4%EB%8A%94/
+
+W3C 스펙
+
+- ::before 실제 내용 바로 앞에서 생성되는 자식요소
+- ::after 실제 내용 바로 뒤에서 생성되는 자식요소​
+
+::before 와 ::after 를 쓸 땐 content 라는 속성이 꼭 필요하다고 합니다! (가상 컨텐츠)
