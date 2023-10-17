@@ -1,5 +1,8 @@
 `모르는 것`
 
+CSS 코드 작성 기법  
+https://mytory.net/archives/8982
+
 # 웹사이트 제작 과정
 
 완성된 웹사이트로 배우는 HTML & CSS 웹 디자인
