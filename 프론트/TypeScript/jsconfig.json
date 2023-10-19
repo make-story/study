@@ -1,0 +1,14 @@
+{
+  /* jsconfig.json디렉토리에 파일이 있다는 것은 해당 디렉토리가 JavaScript 프로젝트의 루트임을 나타냅니다. */
+  /* https://code.visualstudio.com/docs/languages/jsconfig */
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  }
+}
