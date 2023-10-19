@@ -22,7 +22,7 @@ let test1 = "ysm";
 let test2 = "유성민";
 let documentFragment;
 
-// 1. 템플릿 엘리먼트
+// 템플릿 엘리먼트
 /*
 템플릿 엘리먼트는 자바스크립트 코드로 많은 양의 코드를 적지 않아도 되고, 조건에 따라 DOM의 변경도 가능하다. 
 이러한 변경은 강력한 DOM API들을 그대로 사용할 수 있어 편리하다. 
@@ -67,7 +67,7 @@ documentFragment.querySelector(".js_td1").textContent = test1;
 documentFragment.querySelector(".js_td2").textContent = test2;
 target.querySelector("table tbody").appendChild(documentFragment);
 
-// 2. 템플릿 리터럴
+// 템플릿 리터럴
 let templateLiterals = `
     <td class="js_td1">${test1}</td>
     <td class="js_td2">${test2}</td>
@@ -78,15 +78,5 @@ documentFragment = document.createDocumentFragment();
 documentFragment.appendChild(tr);
 target.querySelector("table tbody").appendChild(documentFragment);
 
-// 3. lit-html
-/*
-lit-html 템플릿 리터럴을 사용하여 JavaScript 로 HTML 템플릿을 작성할 수 있습니다.
-lit-html 템플릿은 일반적인 JavaScript이며 HTML 작성의 친숙함과 JavaScript의 결합
-*/
-//import { html, render } from "lit-html";
-//const helloTemplate = (name) => html`<div>Hello ${name}!</div>`;
-//render(helloTemplate("Steve"), document.body);
-//render(helloTemplate("Kevin"), document.body);
-
-// 4. slot
+// slot
 // 템플릿과 slot 태그 활용을 통해 재사용성을 극대화할 수 있음
