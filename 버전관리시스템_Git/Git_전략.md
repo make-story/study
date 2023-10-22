@@ -10,3 +10,15 @@ master -> hotfix 생성 -> release 머지 -> Tag 생성 -> 운영환경 배포
 여러개의 commit 들을 merge 시에 하나로 묶어 1개 commit 만을 남기는 병합 방식
 
 https://www.lesstif.com/gitbook/git-squash-commit-24445167.html
+
+# 업스트림 (Upstream), 다운스트림 (Downstream)
+
+## 용어
+
+- Fork
+  fork는 다른 사람의 repository를 내 소유의 repository로 복사하는 일
+- Upstream remote
+  메인 저장소
+- Origin remote, Downstream remote
+  개발하는 저장소, fork한 리모트
+  메인 저장소를 복제한 저장소
