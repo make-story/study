@@ -21,7 +21,7 @@ const setServiceWorkerRegister = () => {
 const setServiceWorkerUnregisterAll = () => {
   return new Promise((resolve, reject) => {
     try {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
         // 기존 서비스워커 등록취소
         const promises = [];
         for (const registration of registrations) {
@@ -51,13 +51,18 @@ const load = async () => {
   }*/
 
   try {
-    const notSupported = true;
+    // 서비스워커 미지원 체크
+    // App 또는 IOS 최신 사파리에서 BFCache 이슈발생
+    const notSupported = /^((?!chrome|android).)*safari/i.test(
+      window?.navigator?.userAgent || ""
+    ); // IOS 최신 사파리에서 BFCache 이슈발생
+    //const notSupported = true; // 서비스워커 강제 제거 경우
 
     if (notSupported) {
       // 기존에 설치된 서비스워커가 있을 경우 모두 제거
       setServiceWorkerUnregisterAll().then(
-        value => console.log('서비스워커 전체해제 성공!', value),
-        error => console.log('서비스워커 전체해제 실패!', error),
+        (value) => console.log("서비스워커 전체해제 성공!", value),
+        (error) => console.log("서비스워커 전체해제 실패!", error)
       );
     } else {
       const registration = await navigator?.serviceWorker?.getRegistration();
@@ -65,18 +70,19 @@ const load = async () => {
         // 서비스워커 업데이트된 버전이 있는지 확인
         // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/update
         registration?.update().then(
-          registration => console.log('서비스워커 업데이트 성공!', registration),
-          error => console.log('서비스워커 업데이트 실패!', error),
+          (registration) =>
+            console.log("서비스워커 업데이트 성공!", registration),
+          (error) => console.log("서비스워커 업데이트 실패!", error)
         );
       } else {
         // 서비스워커 등록(설치)
         setServiceWorkerRegister().then(
-          registration => console.log('서비스워커 등록 성공!', registration),
-          error => console.log('서비스워커 등록 실패!', error),
+          (registration) => console.log("서비스워커 등록 성공!", registration),
+          (error) => console.log("서비스워커 등록 실패!", error)
         );
       }
-      navigator?.serviceWorker?.ready.then(registration =>
-        console.log('서비스워커 활성화(active) 되었음!', registration?.active),
+      navigator?.serviceWorker?.ready.then((registration) =>
+        console.log("서비스워커 활성화(active) 되었음!", registration?.active)
       );
     }
   } catch (error) {
@@ -84,7 +90,7 @@ const load = async () => {
   }
 };
 
-window.removeEventListener('load', load);
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', load);
+window.removeEventListener("load", load);
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", load);
 }

@@ -25,14 +25,23 @@ const setServiceWorkerRegister = (version = VERSION) => {
 const setServiceWorkerUnregisterAll = (version = 0) => {
   return new Promise((resolve, reject) => {
     try {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
         // 서비스워커 제거
         //const promises: Promise<any>[] = [];
         const promises = [];
         for (const registration of registrations) {
-          const current = new RegExp('[?&amp;]version=([^&amp;#]*)').exec(registration?.active?.scriptURL || ''); // 현재 서비스워커 적용된 버전
-          if (!version || !Array.isArray(current) || Number(current[1]) < version) {
-            console.log('서비스워커 제거', registration?.active?.scriptURL || '');
+          const current = new RegExp("[?&amp;]version=([^&amp;#]*)").exec(
+            registration?.active?.scriptURL || ""
+          ); // 현재 서비스워커 적용된 버전
+          if (
+            !version ||
+            !Array.isArray(current) ||
+            Number(current[1]) < version
+          ) {
+            console.log(
+              "서비스워커 제거",
+              registration?.active?.scriptURL || ""
+            );
             promises.push(registration.unregister());
           }
         }
@@ -61,51 +70,59 @@ const load = async () => {
   try {
     // 서비스워커 미지원 체크
     // App 또는 IOS 최신 사파리에서 BFCache 이슈발생
-    const notSupported = /^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent || ''); // IOS 최신 사파리에서 BFCache 이슈발생
+    const notSupported = /^((?!chrome|android).)*safari/i.test(
+      window?.navigator?.userAgent || ""
+    ); // IOS 최신 사파리에서 BFCache 이슈발생
     //const notSupported = true; // 서비스워커 강제 제거 경우
 
     if (notSupported) {
       // 기존에 설치된 서비스워커가 있을 경우 모두 제거
       setServiceWorkerUnregisterAll().then(
-        value => console.log('서비스워커 전체삭제 성공!', value),
-        error => console.log('서비스워커 전체삭제 실패!', error),
+        (value) => console.log("서비스워커 전체삭제 성공!", value),
+        (error) => console.log("서비스워커 전체삭제 실패!", error)
       );
     } else {
       setServiceWorkerUnregisterAll(VERSION).then(
         async () => {
-          const registration = await navigator?.serviceWorker?.getRegistration();
+          const registration =
+            await navigator?.serviceWorker?.getRegistration();
           if (registration) {
             // 서비스워커 업데이트된 버전이 있는지 확인
             // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/update
             registration?.update().then(
-              registration => console.log('서비스워커 업데이트 성공!', registration),
-              error => console.log('서비스워커 업데이트 실패!', error),
+              (registration) =>
+                console.log("서비스워커 업데이트 성공!", registration),
+              (error) => console.log("서비스워커 업데이트 실패!", error)
             );
           } else {
             // 서비스워커 등록(설치)
             setServiceWorkerRegister().then(
-              registration => console.log('서비스워커 등록 성공!', registration),
-              error => console.log('서비스워커 등록 실패!', error),
+              (registration) =>
+                console.log("서비스워커 등록 성공!", registration),
+              (error) => console.log("서비스워커 등록 실패!", error)
             );
           }
-          navigator?.serviceWorker?.ready.then(registration =>
-            console.log('서비스워커 활성화(active) 되었음!', registration?.active),
+          navigator?.serviceWorker?.ready.then((registration) =>
+            console.log(
+              "서비스워커 활성화(active) 되었음!",
+              registration?.active
+            )
           );
         },
         () => {
           setServiceWorkerUnregisterAll().then(
-            value => console.log('서비스워커 전체삭제 성공!', value),
-            error => console.log('서비스워커 전체삭제 실패!', error),
+            (value) => console.log("서비스워커 전체삭제 성공!", value),
+            (error) => console.log("서비스워커 전체삭제 실패!", error)
           );
-        },
+        }
       );
     }
   } catch (error) {
     console.log(error);
   }
 };
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', load);
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", load);
 }
 /*return () => {
   window.removeEventListener('load', load);
