@@ -17,8 +17,10 @@ https://www.lesstif.com/gitbook/git-squash-commit-24445167.html
 
 - Fork
   fork는 다른 사람의 repository를 내 소유의 repository로 복사하는 일
-- Upstream remote
+
+- 업스트림(Upstream) remote
   메인 저장소
-- Origin remote, Downstream remote
+
+- 오리진(Origin) remote, 다운스트림(Downstream) remote
   개발하는 저장소, fork한 리모트
   메인 저장소를 복제한 저장소
