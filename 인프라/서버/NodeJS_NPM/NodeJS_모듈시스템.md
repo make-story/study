@@ -10,10 +10,10 @@ import gulp from "gulp";
 import babel from "gulp-babel";
 ```
 
-Node.js 에서 ES모듈 시스템을 활용하려면 Babel이라는 별도의 도구가 필요했는데,
+Node.js 에서 ES모듈 시스템을 활용하려면 Babel 이라는 별도의 도구가 필요했는데,
 `Node.js 13.2 버전(2019-11-21) 부터 손쉽게 ES모듈을 활용할 수 있게 되었다.`
 
-package.json 파일에 type 항목을 module로 설정하면 바로 활용 가능하다.
+1. package.json 파일에 type 항목을 module로 설정하면 바로 활용 가능하다.
 
 ```json
 {
@@ -22,6 +22,21 @@ package.json 파일에 type 항목을 module로 설정하면 바로 활용 가�
   //...
 }
 ```
+
+2. .eslintrc.js 에 관련 설정 추가
+
+```json
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  }
+}
+```
+
+3. import 로 .js 파일 할 때, 필히 확장자까지 입력 (예: import './test.js')
 
 # Node.js 에서 바벨횔용 ES6 코드 실행
 
