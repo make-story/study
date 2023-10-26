@@ -176,6 +176,12 @@ $ npm list -global
 $ npm ls -g --depth=0
 ```
 
+글로벌(global) 설치 경로(path) 확인
+
+```
+$ npm root -g
+```
+
 # 명령어 처리 결과 파일로 저장
 
 일반 출력 리다이렉션
