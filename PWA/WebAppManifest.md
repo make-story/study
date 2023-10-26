@@ -50,9 +50,10 @@ https://web.dev/install-criteria/#criteria
 
 https://web.dev/promote-install/#browser-promotion  
 https://web.dev/install-criteria/  
+https://web.dev/articles/customize-install?hl=ko  
 https://web.dev/define-install-strategy/#pwa-3
 
-> `설치 배너 노출 기준`
+> `설치 배너 노출 기준, https://web.dev/articles/install-criteria?hl=ko`
 > 특정 기준이 충족되면 대부분의 브라우저에서 사용자에게 PWA를 설치할 수 있음을 자동으로 표시
 
 > Android용 Chrome은 사용자에게 미니 정보 표시줄을 표시하지만  
@@ -73,7 +74,9 @@ https://web.dev/add-manifest/#screenshots
 - JPEG 및 PNG 이미지 형식만 지원됩니다.
 
 # Splash screens on mobile
-Chrome은 매니페스트 속성에서 스플래시 화면을 자동으로 생성  
+
+Chrome은 매니페스트 속성에서 스플래시 화면을 자동으로 생성
+
 - name
 - background_color
 - icons
