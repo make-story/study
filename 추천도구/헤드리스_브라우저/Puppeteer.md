@@ -45,3 +45,9 @@ https://github.com/puppeteer/puppeteer/blob/master/LICENSE
 # Lighthouse Node.js 모듈
 
 https://github.com/GoogleChrome/lighthouse
+
+# 코드 자동 생성, 크롬 확장 프로그램 (puppeteer recorder chrome extension)
+
+puppeteer recorder chrome extension
+
+https://chrome.google.com/webstore/detail/deploysentinel-recorder/geggbdbnidkhbnbjoganapfhkpgkndfo
