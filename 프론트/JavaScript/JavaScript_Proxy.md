@@ -2,7 +2,29 @@
 
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy
 
-한 `객체에 대한 기본 작업을 가로채고 재정의`하는 프록시를 만들 수 있습니다.
+`한 객체에 대한 기본 작업을 가로채고 재정의`하는 프록시를 만들 수 있습니다.
+
+study.git/프론트/패턴/Proxy\_패턴.md
+내용 참고!
+
+# `모던 웹을 위한 마이크로 프론트엔드` 책 내용 중
+
+프락시를 사용하여 원하는 개체 액세스 및 함수 호출을 포착할 수 있다.
+
+가장 간단한 프락시 중 하나는 사실 모든 것을 처리하는 프락시다.  
+다음의 짧은 코드는 모든 스텁(sub)의 90%에 대해서는 굳건한 기초가 된다.
+
+```javascript
+const generalProxy = new Proxy(() => generalProxy, {
+  get(target, name) {
+    if (name === Symbol.toPrimitive) {
+      return () => ({}.toString());
+    } else {
+      return generalProxy();
+    },
+  },
+});
+```
 
 # `웹 개발자를 위한 자바스크립트의 모든 것` 책 내용 중
 
@@ -16,14 +38,14 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Pr
 
 ```javascript
 const target = {
-  message1: 'hello',
-  message2: 'everyone',
+  message1: "hello",
+  message2: "everyone",
 };
 
 const handler3 = {
   get(target, prop, receiver) {
-    if (prop === 'message2') {
-      return 'world';
+    if (prop === "message2") {
+      return "world";
     }
     // Reflect 는 중간에서 가로챌 수 있는 JavaScript 작업에 대한 메서드를 제공하는 내장 객체
     return Reflect.get(...arguments);
