@@ -142,5 +142,6 @@ $ npx playwright test example.spec.ts --debug
 https://playwright.dev/docs/codegen-intro
 
 ```
+$ npx playwright codegen <URL>
 $ npx playwright codegen playwright.dev
 ```

@@ -51,3 +51,5 @@ https://github.com/GoogleChrome/lighthouse
 puppeteer recorder chrome extension
 
 https://chrome.google.com/webstore/detail/deploysentinel-recorder/geggbdbnidkhbnbjoganapfhkpgkndfo
+
+https://chrome.google.com/webstore/detail/headless-recorder/djeegiggegleadkkbgopoonhjimgehda?hl=ko
