@@ -28,6 +28,8 @@ $ yarn global remove create-react-app
 $ yarn create react-app ./apps/client --scripts-version 4.0.1 --template typescript
 ```
 
+---
+
 ## CRA 에서 webpack, babel, eslint 설정 가능한 커스터마이징 상태로 변경
 
 ```
@@ -44,7 +46,7 @@ $ yarn eject
 
 ### eject 명령을 실행하지 않고 커스터마이징 가능 상태로 변경
 
-craco 패키지 설치
+#### craco 패키지 설치
 
 ```
 $ yarn add @craco/craco
@@ -61,6 +63,53 @@ package.json
   }
 }
 ```
+
+#### react-app-rewired 패키지 설치
+
+```
+$ npm i -D react-app-rewired customize-cra
+```
+
+package.json
+
+```json
+{
+  "scripts": {
+    "start": "react-app-rewired start", // "react-scripts start",
+    "build": "react-app-rewired build", // "react-scripts build",
+    "test": "react-app-rewired test", // "react-scripts test",
+    "eject": "react-app-rewired eject" // "react-scripts eject"
+  }
+}
+```
+
+tsconfig.json
+
+```json
+{
+  "baseUrl": ".",
+  "paths": {
+    "@components/*": ["src/components/*"],
+    "@customTypes/*": ["src/types/*"]
+  }
+}
+```
+
+config-overrides.js
+
+```javascript
+const { override, addWebpackAlias } = require("customize-cra");
+const path = require("path");
+
+module.exports = override(
+  addWebpackAlias({
+    "@components": path.resolve(__dirname, "src", "components"),
+    "@customTypes": path.resolve(__dirname, "src", "types"),
+  })
+);
+```
+
+---
 
 ## CRA 에서의 env 환경변수
 
