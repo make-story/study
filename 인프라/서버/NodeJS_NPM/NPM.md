@@ -81,7 +81,9 @@ $ npm init -y
   "author": "",
   "license": "MIT",
   "keywords": ["npm 저장소 검색 키워드"],
-  "files": ["npm에 배포할 경우 실제로 패지키에 포함될 파일들, 폴더 이름을 지정하면 폴더안의 파일을 포함"],
+  "files": [
+    "npm에 배포할 경우 실제로 패지키에 포함될 파일들, 폴더 이름을 지정하면 폴더안의 파일을 포함"
+  ],
   "dependencies": {}
 }
 ```
@@ -182,7 +184,7 @@ $ npm ls -g --depth=0
 $ npm root -g
 ```
 
-# 명령어 처리 결과 파일로 저장
+## 명령어 처리 결과 파일로 저장
 
 일반 출력 리다이렉션
 
@@ -193,3 +195,5 @@ $ npm root -g
 $ ls -al > directory.txt
 $ npm list --depth=0 > npm-list.txt
 ```
+
+---
