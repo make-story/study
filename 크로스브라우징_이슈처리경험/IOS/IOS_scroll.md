@@ -31,6 +31,100 @@ UI에서 대부분 모달(팝업이라고도 부른다)이 뜨면
 보통 팝업창 내에 컨텐츠가 길어서 스크롤이 있는 경우에는  
 팝업 내부에만 스크롤이 잘 되게 하기 위해서 Dim 영역 뒤에 있는 body의 scroll은 막는 경우가 많다.
 
+### 1. body 태그, overflow: hidden;
+
+```css
+body::-webkit-scrollbar {
+  display: none;
+}
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+}
+```
+
+또는 HOC
+
+```javascript
+// 스크롤 lock HOC
+export const withScrollLock = <P extends {}>(
+  Feature: React.FC<P>,
+): React.FC<P> => (props: P) => {
+    const body = document.querySelector('body') as HTMLElement;
+
+    useEffect(() => {
+      body.style.overflow = 'hidden';
+
+      return () => {
+        body.style.removeProperty('overflow');
+      };
+    }, []);
+
+    return <Feature { ...props } />;
+  };
+```
+
+```javascript
+// 사용 예
+import { withScrollLock } from "@/helpers";
+
+const Modal = () => {
+  // ...
+};
+
+export default withScrollLock(Modal);
+```
+
+### 2. pointer-events: none;
+
+```css
+body {
+  overflow: hidden;
+  pointer-events: none;
+}
+```
+
+### 3. touchmove eventListener
+
+touchmove 이벤트 리스너를 달아서 e.preventDefault();로 기본 터치 동작을 막아버리는 것
+
+```javascript
+export const withScrollLock = <P extends {}>(
+  Feature: React.FC<P>,
+): React.FC<P> => (props: P) => {
+    const body = document.querySelector('body') as HTMLElement;
+    const lockScroll = e => e.preventDefault();
+
+    useEffect(() => {
+      body.addEventListener('touchmove', lockScroll, { passive: false });
+      body.style.overflow = 'hidden';
+
+      return () => {
+        body.removeEventListener('touchmove', lockScroll, { passive: false });
+        body.style.removeProperty('overflow');
+      };
+    }, []);
+
+    return <Feature { ...props } />;
+  };
+```
+
+### 4. 'body-scroll-lock' NPM 패키지 활용
+
+### 5. position: fixed;
+
+이 방식은  
+body 태그에 position: fixed를 걸기 때문에  
+사용자가 body 스크롤을 어느 정도 내린 상태에서 모달 창을 켰을 때  
+body 스크롤이 맨 위로 가버린다는 문제
+
+이 방법을 해결하기 위해 window.pageYOffset 속성을 이용해서  
+모달 창이 화면에 보여진 시점의 스크롤 위치를 기억해두고,  
+top 속성에 음수 값으로 적용  
+그리고 모달 창이 꺼졌을 때에도 여전히 그 위치에 스크롤이 된 상태여야 하기 때문에  
+window.scrollTo() 메소드를 이용해 스크롤 위치를 이동
+
 ```javascript
 export const withScrollLock = <P extends {}>(
   Feature: React.FC<P>,
