@@ -79,3 +79,31 @@ $ brew install vips
 $ rm -r node_modules/sharp
 $ yarn install --check-files
 ```
+
+---
+
+# UNMET PEER DEPENDENCY
+
+https://blog.outsider.ne.kr/1230
+
+npm v3에서는 이전처럼 자동으로 설치하지 않고(peerDependencies가 꼬이면 피곤하다.)  
+peerDependencies가 충족되지 않으면 다은과 같이 경고가 나타난다.
+
+```bash
+$ npm ls
+/Users/outsider/peer
+├── UNMET PEER DEPENDENCY chai@>= 2.1.2 < 4
+└── chai-as-promised@5.3.0
+
+npm ERR! peer dep missing: chai@>= 2.1.2 < 4, required by chai-as-promised@5.3.0
+```
+
+npm 3 버전부터 npm 6 버전까지는 npm install 과정에서 peerDependencies를 무시  
+npm 7 버전부터는 실제로 peerDependencies를 설치
+
+# invalid
+
+"dependencies" and "devDependencies" with different versions
+
+dependencies 와 devDependencies 명시된 서로 다른 버전  
+또는 해당 패키지에서 유효하지 않은 버전 설치한 경우

@@ -120,8 +120,8 @@ $ npm install -production
 - bundledDependencies
   내 패키지와 함께 제공되는 일련의 패키지들. 타사 라이브러리가 NPM에 없거나 일부 프로젝트를 모듈에 포함하려는 경우 사용할 수 있다.
 
-npm 3버전부터 npm 6버전까지는 npm install 과정에서 peerDependencies를 무시하고 버전이 일치하지 않으면 경고 메시지만 보여줬지만,  
-7버전부터는 실제로 peerDependencies를 설치한다. 그리고 버전이 일치하지 않으면 에러를 낸다.
+`npm 3 버전부터 npm 6 버전까지는 npm install 과정에서 peerDependencies를 무시`하고 버전이 일치하지 않으면 경고 메시지만 보여줬지만,  
+`npm 7 버전부터는 실제로 peerDependencies를 설치`한다. 그리고 버전이 일치하지 않으면 에러를 낸다.
 
 ---
 
