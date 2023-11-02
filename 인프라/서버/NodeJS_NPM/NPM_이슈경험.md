@@ -58,6 +58,8 @@ https://www.npmjs.com/package/node-sass
 
 node-sass 가 버전별로 지원하는 Node.js 버전 필히 확인해야 한다!
 
+또는 package.json 에 명시된 'node-gyp', 'node-sass' 목록에서 삭제하고, 나머지 package 들 설치!
+
 ---
 
 # sharp 설치 오류
