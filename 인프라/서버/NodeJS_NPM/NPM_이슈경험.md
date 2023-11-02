@@ -17,7 +17,7 @@ https://www.korecmblog.com/ERESOLVE-unable-to-resolve-dependency-tree/
 
 4. yarn install
 
-# gyp, node-sass
+# node-gyp, node-sass
 
 ```
 gyp verb `which` failed Error: not found: python2
@@ -35,6 +35,28 @@ $ export PATH="${HOME}/.pyenv/shims:${PATH}"
 
 $ npm install sqlite3
 ```
+
+## node-sass 의 Node.js 지원 버전확인
+
+https://velog.io/@somangoi/node-sass-node-gyp-%EC%97%90%EB%9F%AC%EB%A1%9C-%EC%9D%B8%ED%95%B4-npm-install%EC%9D%B4-%EC%95%88%EB%90%9C%EB%8B%A4%EB%A9%B4
+
+```bash
+make: *** [Release/obj.target/binding/src/binding.o] Error 1
+gyp ERR! build error
+gyp ERR! stack Error: `make` failed with exit code: 2
+gyp ERR! stack     at ChildProcess.onExit (/Users/lotte/github/webpagetest.git/node_modules/node-sass/node_modules/node-gyp/lib/build.js:262:23)
+gyp ERR! stack     at ChildProcess.emit (node:events:526:28)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (node:internal/child_process:291:12)
+gyp ERR! System Darwin 22.6.0
+gyp ERR! command "/usr/local/bin/node" "/Users/lotte/github/webpagetest.git/node_modules/node-sass/node_modules/node-gyp/bin/node-gyp.js" "rebuild" "--verbose" "--libsass_ext=" "--libsass_cflags=" "--libsass_ldflags=" "--libsass_library="
+gyp ERR! cwd /Users/lotte/github/webpagetest.git/node_modules/node-sass
+gyp ERR! node -v v16.14.2
+gyp ERR! node-gyp -v v3.8.0
+```
+
+https://www.npmjs.com/package/node-sass
+
+node-sass 가 버전별로 지원하는 Node.js 버전 필히 확인해야 한다!
 
 ---
 

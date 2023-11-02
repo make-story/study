@@ -83,6 +83,7 @@ $ sudo chown -R 사용자 ms-playwright
 
 - playwright  
   브라우저 실행 및 상호 작용 통합 테스트
+
 - @playwright/test  
   각각의 테스트 (단위테스트)
 
@@ -136,6 +137,24 @@ $ npx playwright test example.spec.ts --debug
 ```
 
 ---
+
+# 관련 도구
+
+## Codegen
+
+작업을 기록하여 테스트를 생성. 어떤 언어로든 저장. https://playwright.dev/docs/codegen
+
+## Playwright inspector
+
+페이지를 검사하고, 선택기를 생성하고, 테스트 실행을 단계별로 진행하고, 클릭 지점을 확인하고, 실행 로그를 탐색합니다.
+
+## Trace Viewer
+
+테스트 실패를 조사하기 위해 모든 정보를 캡처합니다. 극작가 추적에는 테스트 실행 스크린캐스트, 라이브 DOM 스냅샷, 액션 탐색기, 테스트 소스 등이 포함됩니다.
+
+## Playwright Test for VSCode
+
+VSCode 에 plugin 을 설치하면 실행과 디버깅이 유리합니다.
 
 # 테스트 코드 생성기
 
