@@ -141,7 +141,29 @@ https://prettier.io/docs/en/options.html
 $ npm install -D prettier
 ```
 
-`주의! prettier 패키지를 설치해서 사용하는 방식이 아닌, VSCode 의 extension 을 설치해 사용할 수 있다. 즉, VSCode 를 사용하는 개발자는 프로젝트의 prettier 설정파일을 바라보고 있는지, VSCode extension 설치를 통해 구성된 파일을 바라보는지 확인 필수!`
+## 주의! prettier 패키지를 설치해서 사용하는 방식이 아닌, VSCode 의 extension 을 설치해 사용할 수 있다.
+
+즉, `VSCode 를 사용하는 개발자는 프로젝트의 prettier 설정파일을 바라보고 있는지`,  
+`VSCode extension 설치를 통해 구성된 파일을 바라보는지 확인 필수!`
+
+## VSCode 설정
+
+1. VSCode Extenstion 설치
+
+- Prettier 설치
+- 설정 (File > Preferences > Settings 또는 command + ,)에 들어가서 'editor format on save'를 검색, 체크박스에 체크
+- Edit in setting.json 파일에서 editor.formatOnSave 를 true 로 설정
+
+2. 기본 포맷터 설정
+
+- VSCode > Preference (cmd+,) 들어가서 'Default Formatter'를 검색
+- Default Formatter 를 Prettier 로 설정!
+
+- 설정에 들어가서 'prettier' 검색하면, prettier 관련 설정들을 볼 수 있음
+
+3. Prettier의 설정은 아래의 순서로 적용
+
+settings.json < .editorconfig < .prettierrc
 
 # ESLint + Prettier 함께 사용 (typescript-eslint + prettier 함께 사용)
 
