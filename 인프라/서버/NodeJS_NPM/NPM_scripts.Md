@@ -40,6 +40,17 @@ $ npm run compress
 - prestart, start, poststart: Run by the npm start command.
 - prerestart, restart, postrestart: Run by the npm restart command. 주의: npm restart 시에 restart 스크립트를 지정하지 않으면 stop과 start 스크립트가 실행됩니다.
 
+## 예시
+
+```json
+{
+  "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('use Yarn, no NPM')\"",
+  "prebuild": "node -e \"if(process.versions.node.split('.').shift() !== '16') throw new Error('Node.js 버전 확인 필요!')\""
+}
+```
+
+---
+
 # NPM package.json scripts 여러 명령을 동시에 실행
 
 ## 기본적인 방식
