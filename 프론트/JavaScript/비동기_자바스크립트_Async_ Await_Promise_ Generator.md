@@ -173,7 +173,8 @@ Promise.resolve(10)
 function requestData() {
   const p = Promise.resolve(10);
 
-  // then 메서드는 기존 객체를 수정하지 않고, 새로운 프로미스를 반환한다.
+  // then 메서드는 기존 객체를 수정하지 않고,
+  // '새로운 프로미스'를 반환한다.
   p.then(() => {
     return 20;
   });
