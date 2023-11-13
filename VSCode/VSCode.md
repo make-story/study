@@ -6,7 +6,7 @@ https://blog.naver.com/techref/222360517100
 
 설정  
 `Format on Save` 검색 > 체크  
-`defaultFormatter` 검색 > prettier 선택
+`defaultFormatter` 검색 > prettier 선택 (주의! 프로젝트에 prettier 설정이 없더라도, 기본 포맷으로 적용됨!)
 
 ## ESLint
 
