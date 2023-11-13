@@ -45,11 +45,11 @@ https://developer.chrome.com/docs/devtools/memory-problems/heap-snapshots/
 ```javascript
 function setTest1() {
   // window.test1
-  test1 = '123';
+  test1 = "123";
 }
 function setTest2() {
   // window.test2
-  this.test2 = '456';
+  this.test2 = "456";
 }
 ```
 
@@ -71,7 +71,7 @@ function setTest2() {
 ```javascript
 var someResource = getData();
 var intervalTempCode = setInterval(function () {
-  var node = document.getElementById('Node');
+  var node = document.getElementById("Node");
   if (node) {
     // Do stuff with node and someResource.
     node.innerHTML = JSON.stringify(someResource);
@@ -88,19 +88,19 @@ node 로 선언된 객체는 제거 될 수 있으므로, 인터벌 핸들러 �
 `인터벌이 해제가 될 수 없다면, 그 dependency 도 해제 될 수가 없다.`  
 이 말인 즉슨, someResource 는, 해제가 될 수 없다는 뜻이다.
 
-`Observer 의 경우, 더 이상 필요하지 않은 경우 (또는 관련 객체에 접근하지 못하게 하려는 경우) 해당객체를 제거하기 위해 명시적으로 호출하는 것이 중요`하다.
+`Observer (옵져버) 의 경우, 더 이상 필요하지 않은 경우 (또는 관련 객체에 접근하지 못하게 하려는 경우) 해당객체를 제거하기 위해 명시적으로 호출하는 것이 중요`하다.
 
 ```javascript
 // 이 element는 onClick에서 참조됨
-var element = document.getElementById('button');
+var element = document.getElementById("button");
 
 function onClick(event) {
-  element.innerHtml = 'text';
+  element.innerHtml = "text";
 }
 
-element.addEventListener('click', onClick);
+element.addEventListener("click", onClick);
 
-element.removeEventListener('click', onClick);
+element.removeEventListener("click", onClick);
 element.parentNode.removeChild(element); // element 제거!
 
 // 이제 `element`는 더 이상 쓰이 지않는다.
@@ -116,19 +116,19 @@ jQuery와 같은 프레임워크나 라이브러리는 `노드를 없애버리�
 ```javascript
 //
 var elements = {
-  button: document.getElementById('button'),
-  image: document.getElementById('image'),
-  text: document.getElementById('text'),
+  button: document.getElementById("button"),
+  image: document.getElementById("image"),
+  text: document.getElementById("text"),
 };
 
 function doStuff() {
-  image.src = 'http://some.url/image';
+  image.src = "http://some.url/image";
   button.click();
   console.log(text.innerHTML);
 }
 
 function removeButton() {
-  document.body.removeChild(document.getElementById('button')); // element.button 참조는 여전히 메모리에 남아 있음!
+  document.body.removeChild(document.getElementById("button")); // element.button 참조는 여전히 메모리에 남아 있음!
 
   // 이 시점에서도 여전히 elements 에서 button 의 참조를 가지고 있다.
   // 이 경우 button element 는 여전히 메모리에 있으며, GC 에 의해 해제 될 수 없다.
@@ -151,12 +151,12 @@ var replaceThing = function () {
   // 상위 스코프인 originalThing을 참조하는 스코프를 갖게됨
   // 동시에 theThing 도 참조하게됨.
   var unused = function () {
-    if (originalThing) console.log('hi');
+    if (originalThing) console.log("hi");
   };
 
   //
   theThing = {
-    longStr: new Array(1000000).join('*'),
+    longStr: new Array(1000000).join("*"),
     someMethod: function () {
       console.log(someMessage);
     },

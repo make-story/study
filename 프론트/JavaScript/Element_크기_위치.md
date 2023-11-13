@@ -8,7 +8,7 @@
 Viewport의 시작지점 기준
 
 ```javascript
-const target = document.getElementById('target'); // 요소의 id 값이 target이라 가정
+const target = document.getElementById("target"); // 요소의 id 값이 target이라 가정
 const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
 ```
 
@@ -19,7 +19,7 @@ function getAbsoluteTop(element) {
   return window.pageYOffset + element.getBoundingClientRect().top;
 }
 
-const target = document.getElementById('target'); // 요소의 id 값이 target이라 가정
+const target = document.getElementById("target"); // 요소의 id 값이 target이라 가정
 const parentElement = target.parentElement;
 const parentAbsoluteTop = getAbsoluteTop(parentElement);
 const absoulteTop = getAbsoluteTop(target);
@@ -30,7 +30,7 @@ const relativeTop = absoluteTop - parentAbsoluteTop;
 # 절대좌표
 
 ```javascript
-const target = document.getElementById('target'); // 요소의 id 값이 target이라 가정
+const target = document.getElementById("target"); // 요소의 id 값이 target이라 가정
 
 const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
 const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
@@ -58,7 +58,7 @@ let centerY = document.documentElement.clientHeight / 2;
 
 let elem = document.elementFromPoint(centerX, centerY);
 
-elem.style.background = 'red';
+elem.style.background = "red";
 alert(elem.tagName);
 ```
 
@@ -102,8 +102,12 @@ window.innerHeight // 브라우저 윈도우 두께를 제외한 실질적 세�
 window.outerHeight // 브라우저 윈도우 두께를 포함한 브라우저 전체 세로 길이
 
 ```javascript
-window.innerWidth || document.body.clientWidth || document.documentElement.clientWidth;
-window.innerHeight || document.body.clientHeight || document.documentElement.clientHeight;
+window.innerWidth ||
+  document.body.clientWidth ||
+  document.documentElement.clientWidth;
+window.innerHeight ||
+  document.body.clientHeight ||
+  document.documentElement.clientHeight;
 ```
 
 # document(body) 크기
@@ -116,7 +120,7 @@ Math.max(
   document.body.offsetWidth,
   document.documentElement.offsetWidth,
 
-  document.documentElement.clientWidth,
+  document.documentElement.clientWidth
 );
 
 Math.max(
@@ -126,7 +130,7 @@ Math.max(
   document.body.offsetHeight,
   document.documentElement.offsetHeight,
 
-  document.documentElement.clientHeight,
+  document.documentElement.clientHeight
 );
 ```
 
@@ -151,9 +155,11 @@ https://developer.mozilla.org/ko/docs/Web/API/Window/scrollY
 브라우저간 호환성을 위해서는 window.scrollY 대신 window.pageYOffset을 사용하세요
 
 ```javascript
-(window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
+(window.pageYOffset || document.documentElement.scrollTop) -
+  (document.documentElement.clientTop || 0);
 
-(window.pageXOffset || document.documentElement.scrollLeft) - (document.documentElement.clientLeft || 0);
+(window.pageXOffset || document.documentElement.scrollLeft) -
+  (document.documentElement.clientLeft || 0);
 ```
 
 # getBoundingClientRect() 와 offsetWidth, offsetHeight 차이
@@ -180,7 +186,7 @@ offsetWidth 뿐 아니라, 위에서 언급한, clientWidth, scrollWidth 모두 
 ```javascript
 window.matchMedia;
 
-window.matchMedia('(min-width: 760px)').matches; // true or false
+window.matchMedia("(min-width: 760px)").matches; // true or false
 ```
 
 ---
@@ -188,13 +194,13 @@ window.matchMedia('(min-width: 760px)').matches; // true or false
 # sticky
 
 ```javascript
-const navbar = document.querySelector('.navbar');
+const navbar = document.querySelector(".navbar");
 let sticky = navbar.offsetTop;
 const navbarScroll = () => {
   if (window.pageYOffset >= sticky) {
-    navbar.classList.add('sticky');
+    navbar.classList.add("sticky");
   } else {
-    navbar.classList.remove('sticky');
+    navbar.classList.remove("sticky");
   }
 };
 
@@ -202,11 +208,15 @@ window.onscroll = navbarScroll;
 ```
 
 ```javascript
-const stickyElm = document.querySelector('header');
+const stickyElm = document.querySelector("header");
 
-const observer = new IntersectionObserver(([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1), {
-  threshold: [1],
-});
+// 옵져버
+const observer = new IntersectionObserver(
+  ([e]) => e.target.classList.toggle("isSticky", e.intersectionRatio < 1),
+  {
+    threshold: [1],
+  }
+);
 
 observer.observe(stickyElm);
 ```

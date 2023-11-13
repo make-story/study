@@ -45,9 +45,9 @@ https://javascript.plainenglish.io/
 ```
 
 ```javascript
-let target = document.querySelector('#templateTest');
-let test1 = 'ysm';
-let test2 = '유성민';
+let target = document.querySelector("#templateTest");
+let test1 = "ysm";
+let test2 = "유성민";
 let documentFragment;
 
 // 1. 템플릿 엘리먼트
@@ -60,22 +60,22 @@ let documentFragment;
 컴포넌트의 컨트롤러에 해당하는 자바스크립트와 템플릿 뷰에 해당하는 HTML이 분리되어야 한다는 점이다. 
 */
 
-let templateElement = document.querySelector('#templateElement');
+let templateElement = document.querySelector("#templateElement");
 documentFragment = templateElement.content.cloneNode(true); // document.importNode() : 현재 문서가 아닌 외부 문서의 노드를 복사하여 현재 문서에 넣을 수 있도록 해줍니다.
-documentFragment.querySelector('.js_td1').textContent = test1;
-documentFragment.querySelector('.js_td2').textContent = test2;
-target.querySelector('table tbody').appendChild(documentFragment);
+documentFragment.querySelector(".js_td1").textContent = test1;
+documentFragment.querySelector(".js_td2").textContent = test2;
+target.querySelector("table tbody").appendChild(documentFragment);
 
 // 2. 템플릿 리터럴
 let templateLiterals = `
 	<td class="js_td1">${test1}</td>
 	<td class="js_td2">${test2}</td>
 `;
-let tr = document.createElement('tr');
+let tr = document.createElement("tr");
 tr.innerHTML = templateLiterals;
 documentFragment = document.createDocumentFragment();
 documentFragment.appendChild(tr);
-target.querySelector('table tbody').appendChild(documentFragment);
+target.querySelector("table tbody").appendChild(documentFragment);
 
 // 3. lit-html
 /*
@@ -96,8 +96,12 @@ lit-html 템플릿은 일반적인 JavaScript이며 HTML 작성의 친숙함과 
   <!-- shadow dom //-->
 </div>
 <div class="wrap-item">
-  <button class="button-normal" id="shadowDomButton1">ShadowDOM 미적용 코드 삽입</button>
-  <button class="button-normal" id="shadowDomButton2">ShadowDOM 적용 코드 삽입</button>
+  <button class="button-normal" id="shadowDomButton1">
+    ShadowDOM 미적용 코드 삽입
+  </button>
+  <button class="button-normal" id="shadowDomButton2">
+    ShadowDOM 적용 코드 삽입
+  </button>
 </div>
 ```
 
@@ -115,12 +119,12 @@ let templateLiterals = `
 	<span>안녕하세요. 유성민 입니다.</span>
 `;
 // 일반적인 기존 코드 적용
-document.querySelector('#shadowDomButton1').onclick = event => {
-  let none = document.querySelector('#none-shadow');
+document.querySelector("#shadowDomButton1").onclick = (event) => {
+  let none = document.querySelector("#none-shadow");
   none.innerHTML = templateLiterals;
 };
 // 쉐도우돔을 통한 코드 적용
-document.querySelector('#shadowDomButton2').onclick = event => {
+document.querySelector("#shadowDomButton2").onclick = (event) => {
   /*
 	Shadow DOM은 웹 개발의 공통 문제에 대한 솔루션을 제공
 	격리된 DOM: 구성 요소의 DOM은 자체 포함됩니다 (예: document.querySelector()는 구성 요소의 Shadow DOM에 노드를 반환하지 않음).
@@ -129,14 +133,14 @@ document.querySelector('#shadowDomButton2').onclick = event => {
 	*/
 
   // shadow host
-  let shadowHost = document.querySelector('#shadow-host');
+  let shadowHost = document.querySelector("#shadow-host");
   // shadow root - mode: open or closed
-  let shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+  let shadowRoot = shadowHost.attachShadow({ mode: "open" });
   // shadow tree
   shadowRoot.innerHTML = templateLiterals;
   // shadow root 접근
   // attachShadow({mode: 'closed'}) 경우 접근 불가, null 반환
-  console.log(document.querySelector('#shadow-host').shadowRoot);
+  console.log(document.querySelector("#shadow-host").shadowRoot);
 };
 ```
 
@@ -226,7 +230,7 @@ class CurrentTimeElement extends HTMLElement {
   // 성능 최적화와 관련 높음 (사용자가 style 또는 class와 같은 일반적인 속성을 변경할 때 개발자는 쓸데없이 수많은 콜백을 받는 것을 원치 않음)
   static get observedAttributes() {
     // 모니터링 할 속성 이름
-    return ['time'];
+    return ["time"];
   }
 
   // 기본 스팩
@@ -235,7 +239,7 @@ class CurrentTimeElement extends HTMLElement {
   attributeChangedCallback(attrName, oldValue, newValue) {
     //console.log('attributeChangedCallback', attrName);
     // 속성이 추가/제거/변경되었다.
-    if (attrName === 'time') {
+    if (attrName === "time") {
       this.textContent = newValue;
     }
   }
@@ -271,20 +275,20 @@ class CurrentTimeElement extends HTMLElement {
   // getter / setter
   get time() {
     //console.log('get time', this.getAttribute('time'));
-    return this.getAttribute('time');
+    return this.getAttribute("time");
   }
   set time(value) {
     //console.log('set time', value);
-    this.setAttribute('time', value);
+    this.setAttribute("time", value);
   }
 }
 
 // 요소 정의 (확장/업그레이드)
-if (!customElements.get('current-time')) {
-  customElements.define('current-time', CurrentTimeElement); // 정의 (확장/업그레이드)
-  customElements.whenDefined('current-time').then(() => {
+if (!customElements.get("current-time")) {
+  customElements.define("current-time", CurrentTimeElement); // 정의 (확장/업그레이드)
+  customElements.whenDefined("current-time").then(() => {
     // 해당 커스텀앨리먼트 모두 적용(요소업데이트/요소확장)완료
-    console.log('current-time element ready!');
+    console.log("current-time element ready!");
   });
 }
 
@@ -303,22 +307,29 @@ class CurrentTime {
     this.start();
   }
   _init() {
-    // 속성 변경을 모니터
-    this._localeChangedObserver = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'locale') {
-          this.locale = this._el.getAttribute('locale');
+    // 속성 변경을 모니터 (옵져버)
+    this._localeChangedObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "locale"
+        ) {
+          this.locale = this._el.getAttribute("locale");
         }
       });
     });
     this._localeChangedObserver.observe(this._el, {
       attributes: true,
-      attributeFilter: ['locale'],
+      attributeFilter: ["locale"],
     });
-    // 엘리먼트가 DOM에서 제거되었는지 모니터
-    this._disconnectedObserver = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.type === 'childList' && Array.prototype.slice.call(mutation.removedNodes).indexOf(this._el) >= 0) {
+    // 엘리먼트가 DOM에서 제거되었는지 모니터 (옵져버)
+    this._disconnectedObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "childList" &&
+          Array.prototype.slice.call(mutation.removedNodes).indexOf(this._el) >=
+            0
+        ) {
           this.dispose();
         }
       });
@@ -351,13 +362,13 @@ class CurrentTime {
 
 // 요소 확인
 document.addEventListener(
-  'DOMContentLoaded',
+  "DOMContentLoaded",
   () => {
-    document.querySelectorAll('.current-time').forEach(el => {
+    document.querySelectorAll(".current-time").forEach((el) => {
       CurrentTime.create(el);
     });
   },
-  false,
+  false
 );
 ```
 
@@ -399,12 +410,12 @@ document.addEventListener(
 <script type="module">
   // async, await ES8 스펙 (Promise는 ES6 스펙) - async/await는 Promise를 사용
   // 동적으로 선언(커스텀엘리먼트 등)에 필요한 리소스(종속된 import 포함)만 동적 로드가 가능
-  if (document.querySelector('module-1234')) {
+  if (document.querySelector("module-1234")) {
     (async () => {
       // async : 함수 내부에서 await 사용한다는 예약어
-      let moduleSpecifier = '../src/javascript/module/module1234.js';
+      let moduleSpecifier = "../src/javascript/module/module1234.js";
       let module = await import(moduleSpecifier); // await : 비동기 코드실행이 끝난 후 아래 코드 절차(순서)적 실행
-      customElements.define('module-1234', module.default()); // module.default() : export default 호출
+      customElements.define("module-1234", module.default()); // module.default() : export default 호출
     })();
   }
 </script>

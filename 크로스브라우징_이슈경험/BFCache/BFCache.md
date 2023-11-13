@@ -57,5 +57,5 @@ scheduled된 JavaScript task들이 단지 DOM API에 접근한다거나, 해당 
 - Pages with in-progress fetch() or XMLHttpRequest
 - Pages with an open WebSocket or WebRTC connection
 
-pagehide나 freeze 이벤트에서 항상 connection을 close하고, observer를 제거하거나 연결을 끊는 것이 좋다. 이렇게 하면 다른 열린 탭에 영향을 미치지 않고 페이지를 안전하게 캐시할 수 있다.  
+pagehide나 freeze 이벤트에서 항상 connection을 close하고, observer (옵저버)를 제거하거나 연결을 끊는 것이 좋다. 이렇게 하면 다른 열린 탭에 영향을 미치지 않고 페이지를 안전하게 캐시할 수 있다.  
 (당연하겠지만, pageshow나 resume 이벤트에서 bfcache로 부터 복구됬을때 커넥션을 다시 연결 해주도록 하면 된다.)

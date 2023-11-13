@@ -1,4 +1,4 @@
-# Observable을 활용해 Subscriber에게 이벤트 발생을 알린다
+# Observable 을 활용해 Subscriber에게 이벤트 발생을 알린다 (옵져버)
 
 https://patterns-dev-kr.github.io/design-patterns/observer-pattern/  
 https://www.patterns.dev/posts/observer-pattern/
@@ -26,11 +26,11 @@ class Observable {
   }
 
   unsubscribe(func) {
-    this.observers = this.observers.filter(observer => observer !== func);
+    this.observers = this.observers.filter((observer) => observer !== func);
   }
 
   notify(data) {
-    this.observers.forEach(observer => observer(data));
+    this.observers.forEach((observer) => observer(data));
   }
 }
 ```
@@ -39,17 +39,17 @@ subscribe메서드를 통해 Observer를 등록하고 반대로 unsubscribe를 �
 그리고 notify메서드를 통해 모든 Observer에게 이벤트를 전파할 수 있다.
 
 ```javascript
-import React from 'react';
-import { Button, Switch, FormControlLabel } from '@material-ui/core';
-import { ToastContainer, toast } from 'react-toastify';
-import observable from './Observable';
+import React from "react";
+import { Button, Switch, FormControlLabel } from "@material-ui/core";
+import { ToastContainer, toast } from "react-toastify";
+import observable from "./Observable";
 
 function handleClick() {
-  observable.notify('User clicked button!');
+  observable.notify("User clicked button!");
 }
 
 function handleToggle() {
-  observable.notify('User toggled switch!');
+  observable.notify("User toggled switch!");
 }
 
 function logger(data) {
@@ -69,11 +69,14 @@ observable.subscribe(toastify);
 
 export default function App() {
   return (
-    <div className='App'>
-      <Button variant='contained' onClick={handleClick}>
+    <div className="App">
+      <Button variant="contained" onClick={handleClick}>
         Click me!
       </Button>
-      <FormControlLabel control={<Switch name='' onChange={handleToggle} />} label='Toggle me!' />
+      <FormControlLabel
+        control={<Switch name="" onChange={handleToggle} />}
+        label="Toggle me!"
+      />
       <ToastContainer />
     </div>
   );

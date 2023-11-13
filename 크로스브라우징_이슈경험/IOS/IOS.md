@@ -217,7 +217,7 @@ WKWebView - 더 빠른 자바 스크립트 엔진인 Nitro 사용
 WKWebView - JavaScript를 비동기 적으로 처리 : JavaScript와 네이티브 코드 간의 통신은 WKWebView에서 비동기 적으로 처리됩니다. 즉, 일반적으로 더 빠르게 실행
 
 화면에 보이지 않는 상품 숨김처리  
-IntersectionObserver, visibility(hidden/visible) 활용
+IntersectionObserver(옵져버), visibility(hidden/visible) 활용
 
 GPU를 활용하지 못하는 환경에서 애니메이션 최소화 (CPU 사용 최소화)
 
