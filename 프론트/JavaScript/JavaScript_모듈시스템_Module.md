@@ -3,11 +3,16 @@
 https://ko.javascript.info/modules-intro
 
 - AMD
+  Asynchronous Module Definition  
   가장 오래된 모듈 시스템 중 하나로 require.js라는 라이브러리를 통해 처음 개발되었습니다.
 - CommonJS
   Node.js 서버를 위해 만들어진 모듈 시스템입니다.
 - UMD
+  Universal Module Definition  
   AMD와 CommonJS와 같은 다양한 모듈 시스템을 함께 사용하기 위해 만들어졌습니다.
+- ESM
+  ECMAScript Modules  
+  자바스크립트 공식 모듈 시스템
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
@@ -16,6 +21,9 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 https://en.wikipedia.org/wiki/CommonJS
 
 https://web.dev/i18n/ko/commonjs-larger-bundles/
+
+.cjs인 경우 CommonJS  
+package.json 의 "type" 필드 “commonJS” 또는 없는 경우 CommonJS
 
 ## AMD
 
@@ -28,6 +36,9 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/export
 
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/import
+
+.mjs인 경우 ESM  
+package.json 의 "type" 필드 “module” 인 경우 ESM
 
 ---
 
@@ -44,3 +55,9 @@ CommonJS에서는 require()는 동기로 이루어진다. 따라서 promise나 �
 그 다음 ESM 모듈 로더는 가져온 스크립트를 비동기로 다운로드 하여 파싱한다음, import된 스크립트를 가져오고, 더 이상 import 할 것이 없어질 때까지 import를 찾은 다음 dependencies의 모듈 그래프를 만들어 낸다. 그리고, 스크립트는 실행될 준비를 마치게 되며, 그 스크립트에 의존하고 있는 스크립트들도 실행할 준비를 마치게 되고, 마침내 실행된다.
 
 ESM 모듈 내의 모든 자식 스크립트들은 병렬로 다운로드 되지만, 실행은 순차적으로 진행된다.
+
+# CommonJS -> ESM 전환 / ESM 동작 원리
+
+https://tech.kakao.com/2023/10/19/commonjs-esm-migration/
+
+https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
