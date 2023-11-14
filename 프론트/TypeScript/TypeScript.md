@@ -1033,7 +1033,7 @@ function detectOSType(userAgent: string): MOBILE_OS {
 }
 ```
 
-`TypeScript에서 enum을 사용하면 Tree-shaking이 되지 않습니다`  
+`TypeScript에서 enum을 사용하면 트리쉐이킹(Tree shaking)이 되지 않습니다`  
 https://engineering.linecorp.com/ko/blog/typescript-enum-tree-shaking/  
 `그렇다면 enum 말고 어떤 것을 사용하면 좋을까요?`
 

@@ -65,6 +65,19 @@ src 하위에 아래 폴더 구성됨
     - 특정 컨테이너 내부 여러 컴포넌트에서의 공통 비즈니스 로직
       - 이벤트 처리, 데이터 호출, 데이터 가공 등
     - https://patterns-dev-kr.github.io/design-patterns/container-presentational-pattern/
+  - 뱅크셀러드 글 참고
+    - (https://blog.banksalad.com/tech/build-a-website-with-gatsby/)
+    - components
+      - 재사용이 가능한 요소들을 모아 컴포넌트로 구성되어 있습니다. 순수한 데이터 형태를 props로 받아오며, 다양한 container에서 사용 됩니다.
+    - containers
+      - container 는 화면을 구성하기 위한 영역에 해당하며 이며 여러개의 section 을 가지고 있습니다.
+      - (container 내 하위 폴더가 section 입니다.)
+      - (section 은 화면에서 하나의 영역 단위 입니다. 모듈같은 것)
+      - 또한 section 은 여러개의 component 들의 조합으로 구성되어있습니다.
+      - 기본적으로 page와 container는 1:1 매칭 된 구조를 가지고 있으며 데이터를 가져오거나, 비즈니스 로직이 포함됩니다.
+    - pages
+      - pages 에 존재하는 파일 이름을 기준으로 서비스의 경로가 생성됩니다.
+      - 해당 파일은 경로 이름과 SEO 를 위한 title, description 등을 추가하며 콘텐츠들은 모두 container 에서 관리하였습니다.
 
 - 추천방법2:
 
@@ -144,29 +157,29 @@ let a = 1, b = 2;
 
 ```javascript
 // 나쁜 예
-import React from 'react';
-import Button from '../Button';
+import React from "react";
+import Button from "../Button";
 
-import styles from './styles.css';
-import type { User } from '../../types';
-import { getUser } from '../../api';
+import styles from "./styles.css";
+import type { User } from "../../types";
+import { getUser } from "../../api";
 
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { truncate, formatNumber } from '../../utils';
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import { truncate, formatNumber } from "../../utils";
 
 // 좋은 예: 그룹화
 // 1. node_modules 모듈
 // 2. API, State, Type, 내부기능 또는 컴포넌트 등 그룹
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React from "react";
 
-import { getUser } from '../../api'; // 절대경로 또는 alias 활용 추천
-import type { User } from '../../types';
-import { formatNumber, truncate } from '../../utils';
-import Button from '../Button';
-import styles from './styles.css';
+import { getUser } from "../../api"; // 절대경로 또는 alias 활용 추천
+import type { User } from "../../types";
+import { formatNumber, truncate } from "../../utils";
+import Button from "../Button";
+import styles from "./styles.css";
 // API, 타입, 유틸, 스타일 등등 역할별 그룹화
 ```
 
@@ -174,11 +187,11 @@ import styles from './styles.css';
 
 ```javascript
 // 나쁜 예: import 와 로직간 구분을 위한 빈줄 없음
-import { App } from '@/components';
+import { App } from "@/components";
 let a = 1;
 
 // 좋은 예
-import { App } from '@/components';
+import { App } from "@/components";
 
 let a = 1;
 ```
@@ -643,10 +656,15 @@ if (condition) doSomething();
 
 ```javascript
 // 나쁜 예: 조건식이 너무 길어 가독성이 떨어진다.
-while (helloWorld.longName >= thisIsLongLongVariableName || isLongLongVariableNameTwo) {}
+while (
+  helloWorld.longName >= thisIsLongLongVariableName ||
+  isLongLongVariableNameTwo
+) {}
 
 // 좋은 예: 조건식을 변수에 담는다. (조건을 각각 그룹화하여 변수에 담을 수도 있음)
-let condition2 = helloWorld.longName >= thisIsLongLongVariableName || thisIsLongLongVariableNameTwo;
+let condition2 =
+  helloWorld.longName >= thisIsLongLongVariableName ||
+  thisIsLongLongVariableNameTwo;
 
 while (condition2) {}
 ```
@@ -689,7 +707,7 @@ switch (value) {
     return true;
 
   default:
-    throw new Error('여기까지 실행되면 안됩니다.');
+    throw new Error("여기까지 실행되면 안됩니다.");
 }
 ```
 
@@ -730,7 +748,7 @@ let value = (function () {
   // 함수 본체
 
   return {
-    message: 'Hi',
+    message: "Hi",
   };
 })();
 
