@@ -302,6 +302,9 @@ await 혼자서는 동작이 불가능하다는 것을 다들 알고 계실 텐�
 
 ES2022부터는 모듈의 최상위 레벨에서 await를 사용할 수 있게 되었습니다.
 
+Node.js v14.8 이상지원  
+https://nodejs.org/en/blog/release/v14.8.0/
+
 ```javascript
 // todoList.mjs - 비동기로 실행된 결과값을 반환하는 모듈!!!
 let todoList;
@@ -318,6 +321,9 @@ import { todoList } from "./todoList.mjs";
 
 console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
 ```
+
+`활용 예시`  
+https://github.com/tc39/proposal-top-level-await#use-cases
 
 ---
 

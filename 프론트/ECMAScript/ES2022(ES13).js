@@ -1,3 +1,6 @@
+// ES2022 카카오 FE 정리내용 
+// https://fe-developers.kakaoent.com/2022/220728-es2022/
+
 
 /**
  * Top-level Await Operator
@@ -14,35 +17,65 @@ class hello {
  */
 // [기존 비동기 모듈 export 처리를 위한 방식]
 // todoList.mjs
-let todoList;
+let todoList1;
 
 export default (async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-  todoList = await response.json();
+  todoList1 = await response.json();
 })();
 
-export { todoList };
+export { todoList1 };
 
 // index.mjs
-import promise, { todoList } from "./todoList.mjs";
+import promise, { todoList1 } from "./todoList.mjs";
 
 promise.then(() => {
-  console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
+  console.log(todoList1); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
 });
 
 // [비동기 반환값이 있는 모듈을 Top-level await를 활용]
 // todoList.mjs
-let todoList;
+let todoList2;
 
 const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-todoList = await response.json();
+todoList2 = await response.json();
 
-export { todoList };
+export { todoList2 };
 
 // index.mjs
-import { todoList } from "./todoList.mjs";
+import { todoList2 } from "./todoList.mjs";
 
-console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
+console.log(todoList2); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
+
+
+/**
+ * Array.prototype.at()
+ * Negative Indexing을 통해 배열의 뒤에서부터 원소를 가져오는 방법
+ */
+const KakaoEnt = ["Melon", "KakaoPage", "KakaoWebtoon"];
+console.log(KakaoEnt.at(-1)); // KakaoWebtoon
+console.log(KakaoEnt.at(-4)); // undefined
+
+
+/**
+ * Object.hasOwn()
+ * Object.hasOwn() 은 Object.prototype.hasOwnProperty() 의 문제점을 해결하고 보다 간결하게 사용하기 위해 고안된 기능
+ */
+const person = {
+    firstName: "east",
+    hasOwnProperty() {
+        return false;
+    },
+};
+  
+person.hasOwnProperty("fistName"); // return false
+
+// 해결을 위한 기존 방식
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+hasOwnProperty.call(person, "firstName"); // return true
+
+// Object.hasOwn() 방식
+Object.hasOwn(person, "firstName"); // return true
 
 
 /**
