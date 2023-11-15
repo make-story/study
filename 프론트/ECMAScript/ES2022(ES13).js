@@ -1,12 +1,48 @@
 
 /**
  * Top-level Await Operator
- * 처음에는 생성자 내에서만 클래스 필드를 선언할 수 있었지만 이제는 4단계의 제안을 사용하여 생성자를 호출할 필요없이 클래스 자체에서 선언할 수 있다.
+ * 처음에는 생성자 내에서만 클래스 필드를 선언할 수 있었지만 
+ * 이제는 4단계의 제안을 사용하여 생성자를 호출할 필요없이 클래스 자체에서 선언할 수 있다.
  */
 class hello {
     fields = 0;
     title;
 }
+
+/**
+ * Top-level await
+ */
+// [기존 비동기 모듈 export 처리를 위한 방식]
+// todoList.mjs
+let todoList;
+
+export default (async () => {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  todoList = await response.json();
+})();
+
+export { todoList };
+
+// index.mjs
+import promise, { todoList } from "./todoList.mjs";
+
+promise.then(() => {
+  console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
+});
+
+// [비동기 반환값이 있는 모듈을 Top-level await를 활용]
+// todoList.mjs
+let todoList;
+
+const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+todoList = await response.json();
+
+export { todoList };
+
+// index.mjs
+import { todoList } from "./todoList.mjs";
+
+console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
 
 
 /**

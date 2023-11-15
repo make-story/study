@@ -293,6 +293,32 @@ async function getData() {
 }
 ```
 
+# Top-level await
+
+https://fe-developers.kakaoent.com/2022/220728-es2022/
+
+비동기 처리를 위해 사용되는 async/await는 한 세트이기 때문에,  
+await 혼자서는 동작이 불가능하다는 것을 다들 알고 계실 텐데요.
+
+ES2022부터는 모듈의 최상위 레벨에서 await를 사용할 수 있게 되었습니다.
+
+```javascript
+// todoList.mjs - 비동기로 실행된 결과값을 반환하는 모듈!!!
+let todoList;
+
+const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+todoList = await response.json();
+
+export { todoList };
+```
+
+```javascript
+// index.mjs
+import { todoList } from "./todoList.mjs";
+
+console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
+```
+
 ---
 
 ```javascript
