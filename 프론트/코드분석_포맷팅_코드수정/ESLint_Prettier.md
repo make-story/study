@@ -141,7 +141,7 @@ https://prettier.io/docs/en/options.html
 $ npm install -D prettier
 ```
 
-## `Prettier 설정 파일이 있을 때에만 적용하기`
+## VSCode `Prettier 설정 파일이 있을 때에만 적용하기`
 
 `주의!`
 'Editor: Default Formatter' 를 'Prettier - Code Formatter' 설정할 경우,
@@ -156,6 +156,12 @@ https://tesseractjh.tistory.com/220
 
 2. Require Config
    설정 > "Require Config" 설정을 하면 루트 디렉토리에 .prettierrc, .prettierrc.json, .prettierrc.js 등의 파일이 있거나, package.json에 prettier 키가 존재하는 등의 경우에만 Prettier가 적용된다.
+
+`주의!`  
+VSCode 하단바 "Prettier" 이 비활성화 되어 있거나,  
+체크 아이콘이 두개 겹쳐서 노출되는 경우,  
+포맷팅 도구 중복되는 것이 있다는 의미 (예를 들어, JSON 형식은 어떠한 포맷팅 도구 설정기반인지 지정필요)  
+바로 옆 종모양 알림을 클릭하여, 지정해야함!
 
 ## VSCode 설정
 
