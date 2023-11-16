@@ -1,6 +1,9 @@
 # jsconfig
 
-https://code.visualstudio.com/docs/languages/jsconfig  
+https://code.visualstudio.com/docs/languages/jsconfig
+
+https://www.typescriptlang.org/ko/docs/handbook/tsconfig-json.html
+
 jsconfig.json 디렉토리에 파일이 있다는 것은 해당 디렉토리가 JavaScript 프로젝트의 루트임을 나타냅니다.
 
 ```javascript
