@@ -1,20 +1,40 @@
 {
-  "eslint.enable": true, // 이 프로젝트에 ESLint가 활성화되어 있는지 확인합니다.
-  "editor.formatOnSave": true, // VS Code가 저장 시 서식 지정을 허용하는지 확인합니다.
-  "[javascript]": {
-    "editor.formatOnSave": false
-  },
-  "[vue]": {
-    "editor.formatOnSave": false
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.fixAll.eslint": true // ESLint는 저장 시 발생할 수 있는 모든 문제를 해결하려고 노력합니다.
+    "source.fixAll.eslint": true, // ESLint는 저장 시 발생할 수 있는 모든 문제를 해결하려고 노력합니다.
+    "source.organizeImports": true
   },
+  "eslint.enable": false, // 이 프로젝트에 ESLint가 활성화되어 있는지 확인합니다.
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
-  "git.autofetch": true,
+  "eslint.quiet": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "html"
+  ],
   "prettier.enableDebugLogs": true,
+  "prettier.requireConfig": true,
+  "prettier.configPath": ".prettierrc",
+  "git.autofetch": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "json.schemas": [],
   "path-autocomplete.pathMappings": {
     "~": "${folder}/src",
     "@": "${folder}/src"
