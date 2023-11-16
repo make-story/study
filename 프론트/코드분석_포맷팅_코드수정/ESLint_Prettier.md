@@ -141,10 +141,21 @@ https://prettier.io/docs/en/options.html
 $ npm install -D prettier
 ```
 
-## 주의! prettier 패키지를 설치해서 사용하는 방식이 아닌, VSCode 의 extension 을 설치해 사용할 수 있다.
+## `Prettier 설정 파일이 있을 때에만 적용하기`
 
-즉, `VSCode 를 사용하는 개발자는 프로젝트의 prettier 설정파일을 바라보고 있는지`,  
-`VSCode extension 설치를 통해 구성된 파일을 바라보는지 확인 필수!`
+`주의!`
+'Editor: Default Formatter' 를 'Prettier - Code Formatter' 설정할 경우,
+Prettier 설정파일이 없는 프로젝트에서도 코드포맷팅이 자동 설정됨!
+
+특정 프로젝트만 Prettier 적용하기!  
+https://tesseractjh.tistory.com/220
+
+1. settings.json
+   루트 디렉토리에 .vscode 폴더를 만들고 그 안에 settings.json을 만들어서 Format On Save 설정을 활성화할 수 있다.  
+   VSCode 기본 설정에 있는 Format On Save를 해제하고, Prettier 적용을 원하는 프로젝트에서 settings.json으로 개별적으로 설정해주면 된다.
+
+2. Require Config
+   설정 > "Require Config" 설정을 하면 루트 디렉토리에 .prettierrc, .prettierrc.json, .prettierrc.js 등의 파일이 있거나, package.json에 prettier 키가 존재하는 등의 경우에만 Prettier가 적용된다.
 
 ## VSCode 설정
 
