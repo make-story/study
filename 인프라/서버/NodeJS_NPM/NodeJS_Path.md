@@ -13,6 +13,16 @@ macOS 와 Linux 가 이에 속해있다.
 
 path 모듈을 사용하면 폴더와 파일의 경로를 쉽게 조작할 수 있어 위와 같은 경로 구분자 이슈를 쉽게 해결하고, 이외에 파일명에서 파일명, 확장자를 별도로 때어서 활용할 수 있 수 있다.
 
+## ESM 모듈시스템에서 **dirname, **filename
+
+```javascript
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename); // 또는 const __dirname = path.resolve();
+```
+
 ## path.resolve([...paths])
 
 전달된 인자를 오른쪽에서 왼쪽으로 읽으며 상대로와 절대 경로를 구분하고 절대경로를 만들어 반환한다.
