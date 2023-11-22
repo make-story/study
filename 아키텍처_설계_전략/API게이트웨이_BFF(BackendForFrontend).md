@@ -29,7 +29,7 @@ https://medium.com/javarevisited/api-gateway-vs-backend-for-frontend-bff-everyth
 4. 클라이언트에서 서버로의 API 호출 에는 항상 추가 홉이 있습니다.
 5. 관련된 추가 서버 구성 요소로 인한 추가 비용
 
-# BFF(Backend For Frontend) -
+# BFF(Backend For Frontend)
 
 데스크톱, 브라우저, 기본 모바일 애플리케이션, IOT 장치 등과 같은  
 `특정 프런트 엔드 애플리케이션의 요구 사항을 충족하도록 설계된 여러 백엔드`
@@ -42,3 +42,8 @@ https://medium.com/javarevisited/api-gateway-vs-backend-for-frontend-bff-everyth
 
 3. 클라이언트 응용 프로그램이 다른 팀에서 소유하는 경우 BFF를 사용하는 것이 합리적입니다.
    그렇지 않으면 단일 API GW가 있을 때 많은 상호 작용과 오버헤드가 발생합니다.
+
+BFF 란, Front-end 에서 필요한 정보를 Back-end 에 요청하고,  
+Back-end 에서 온 Response 들을 Front-end 에서 처리할 수 있도록 해주는 서비스 입니다.  
+Front-end 와 Back-end 사이에서 Request 를 각 API 에 요청하고,  
+응답받은 Response 를 Front-end 로 전달해주는 역할을 하는데, 마치 Front-end 와 Back-end 사이에서 배달부와 같은 역할을 합니다.
