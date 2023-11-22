@@ -4,6 +4,70 @@ https://real-dongsoo7.tistory.com/70
 
 https://curryyou.tistory.com/440
 
+# 버퍼와 스트림
+
+파일을 읽거나 쓰는 방식에는 크게 두 가지 방식, 즉 버퍼를 이용하는 방식과 스트림을 이용하는 방식이 있습니다.  
+노드는 파일을 읽을 때 메모리에 파일 크기만큼 공간을 마련해두며,  
+`파일 데이터를 메모리에 저장한 뒤 사용자가 조작 할 수 있도록 합니다.`  
+`이때 메모리에 저장된 데이터가 바로 버퍼입니다.`
+
+readFile 방식의 버퍼가 편리하기는 하지만 문제점도 있습니다.  
+만약 용량이 100MB인 파일이 있으면 읽을 때 메모리에 100MB의 버퍼를 만들어야 합니다.  
+이 작업을 동시에 열 개만 해도 1GB에 달하는 메모리가 사용됩니다.
+
+특히 서버처럼 몇 명이 이용할지 모르는 환경에서는 메모리 문제가 발생할 수 있습니다.  
+또한, 모든 내용을 버퍼에 다 쓴 후에야 다음 동작으로 넘어가므로
+파일 읽기, 압축, 파일 쓰기 등의 조작을 연달아 할 때 매번 전체 용량을 버퍼로 처리해야 다음 단계로 넘어갈 수 있습니다.
+
+그래서 `버퍼의 크리를 작게 만든 후 여러 번으로 나눠 보내는 방식이 등장`했습니다.  
+`예를 들면 버퍼 1MB를 만든 후 100MB 파일을 백 번에 걸쳐서 나눠 보내는 것`입니다.  
+이로써 메모리 1MB로 100MB 파일을 전송할 수 있습니다.  
+이를 편리하게 만든 것이 스트림 입니다.  
+스트림 메서드로는 createReadStream, createWriteStream 이 있습니다.
+
+```javascript
+/**
+ * 파일 읽는 스트림
+ */
+const fs = require("fs");
+
+const readStream = fs.createReadStream("./readme3.txt", { highWaterMark: 16 }); // highWaterMark : 버퍼의 크기(기본값 64KB)
+const data = [];
+readStream.on("data", (chunk) => {
+  data.push(chunk);
+  console.log("data :", chunk, chunk.length);
+});
+readStream.on("end", () => {
+  console.log("end :", Buffer.concat(data).toString());
+});
+readStream.on("error", (error) => {
+  console.log("error :", error);
+});
+```
+
+```javascript
+/**
+ * 파일 쓰는 스트림
+ */
+const fs = require("fs");
+
+const writeStream = fs.createWriteStream("./writeme2.txt");
+writeStream.on("finish", () => {
+  console.log("파일 쓰기 완료");
+});
+
+writeStream.write("이 글을 씁니다.\n");
+writeStream.write("한 번 더 씁니다.\n");
+writeStream.end();
+
+// createReadStream 으로 파일을 읽고 그 스트림을 전달받아
+// createWriteStream 으로 파일을 쓸 수도 있습니다. 파일 복사와 비슷합니다.
+// 스트림끼리 연결하는 것을 '파이핑한다'고 표현합니다.
+const readStreamPipe = fs.createReadStream("./readme4.txt");
+const writeStreamPipe = fs.createWriteStream("./writeme3.txt");
+readStreamPipe.pipe(writeStreamPipe);
+```
+
 ## 스트림
 
 1.입출력 데이터를 입출력 순서에 의해서 순차적으로 처리되는 데이터 열  

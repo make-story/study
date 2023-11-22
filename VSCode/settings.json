@@ -2,7 +2,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
+    "source.fixAll": false, // false: return 문 뒤에 있는 'dead code' 제거를 방지
     "source.fixAll.eslint": true, // ESLint는 저장 시 발생할 수 있는 모든 문제를 해결하려고 노력합니다.
     "source.organizeImports": true
   },
