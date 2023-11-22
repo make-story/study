@@ -1,6 +1,8 @@
-# Node.js 스트림과 버퍼
+# Node.js 스트림(Stream)과 버퍼(Buffer)
 
 https://real-dongsoo7.tistory.com/70
+
+https://curryyou.tistory.com/440
 
 ## 스트림
 
