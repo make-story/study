@@ -1,4 +1,15 @@
-# Data Fetching 라이브러리
+# 서버 상태 관리 라이브러리 (data fetching)
+
+https://fe-developers.kakaoent.com/2022/220224-data-fetching-libs/
+
+# 상태 3가지 구분
+
+- Local State: 리액트 컴포넌트 안에서만 사용되는 state
+- Global State: Global Store에 정의되어 프로젝트 어디에서나 접근할 수 있는 state
+- Server State: 서버로부터 받아오는 state
+
+기존에는 리덕스와 같은 상태 관리 라이브러리에 Global State와 Server State를 전부 포함하는 방법으로 프로그래밍을 했었는데요,  
+위와 같은 data fetching 라이브러리를 사용함으로써 상태 관리 라이브러리에서 비동기 로직을 제거하여 관심사가 분리되고 선언적으로 프로그래밍할 수 있게 되었습니다.
 
 # SWR
 
@@ -36,7 +47,8 @@ redux-thunk, redux-saga 등을 이용해서 비동기 작업을 수행하고
 
 ## 대체: React Query 가 Redux 를 대체할까?
 
-Redux 는 전역상태 관리 도구, React Query 는 서버와 클라이언트 간의 비동기 작업 도구  
+Redux 는 전역상태 관리 도구,  
+React Query 는 서버와 클라이언트 간의 상태(캐싱 등) 관리 도구  
 즉, 각 도구의 역할이 다르다!
 
 ---
