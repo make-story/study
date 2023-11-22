@@ -13,6 +13,22 @@ https://www.javascriptstuff.com/what-are-css-modules/
 CSS 모듈은 동일 프로젝트 소스 안에 CSS 클래스 이름이 중복되어도 새로운 이름이 입혀져 중복 및 관리의 위험성이 적고 CSS 네이밍 규칙이 간소화 됩니다.  
 다만 한 곳에서 모든 것을 작성하지 않기 때문에 별도로 많은 CSS 파일을 만들어 관리해야 하는 단점이 있습니다.
 
+```javascript
+import styles from "../styles/Home.module.css";
+
+export default function Home() {
+  return <div className={styles.homepage}></div>;
+}
+```
+
+```javascript
+import styles from "../styles/Home.module.scss";
+
+export default function Home() {
+  return <div className={styles.homepage}></div>;
+}
+```
+
 ## CSS 전처리기(Preprocessor)
 
 자신만의 특별한 구문(Syntax)을 가지고 CSS를 생성하는 프로그램입니다.  
