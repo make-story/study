@@ -3,6 +3,19 @@
 - offset : 브라우저 좌측, 상단 기준 위치 값을 반환
 - position : 부모 element 기준 위치 값을 반환
 
+# offsetLeft/offsetTop, offsetWidth/offsetHeight, offsetParent
+
+패딩과 보더 포함 (일반적으로 element 크기 등을 구할 떄 사용)
+offsetWidth/offsetHeight -> display: none 되어 있는 것에 주의! (visibility: hidden 경우는 값 반환가능)
+
+# clientLeft/clientTop, clientWidth/clientHeight
+
+패딩 포함 (실제로 보여지고 있는 컨텐츠가 얼마만큼의 공간을 차지하고 있는지 확인)
+
+# scrollLeft/scrollTop, scrollWidth/scrollHeight
+
+보이는 것과 상관 없이 실제 컨텐츠 영역 (전체 스크롤바를 사용하게 되어 숨겨진 영역까지 포함)
+
 # Viewport의 시작지점을 기준으로한 상대좌표
 
 Viewport의 시작지점 기준
@@ -46,6 +59,18 @@ const absoluteTop = scrolledTopLength + relativeTop; // 절대좌표
 - pageX/pageY : <html> element in CSS pixels. (html 기준 스크롤값 포함 위치)
 - clientX/clientY : viewport in CSS pixels. (브라우저 기준 스크롤값 제외 위치)
 
+# 이벤트 타겟
+
+```javascript
+let event = (typeof e === "object" && e.originalEvent) || e || window.event; // originalEvent: jQuery Event
+let self = event.currentTarget; // event listener element (event 실행 element)
+let target = event.target || event.srcElement; // event 가 발생한 element
+let touch = event.touches; // touchstart
+```
+
+`event.srcElement 비표준, 더 이상 사용되지 않음`  
+https://developer.mozilla.org/en-US/docs/Web/API/Event/srcElement
+
 # elementFromPoint(x, y)
 
 document.elementFromPoint(x, y)을 호출하면 창 기준 좌표 (x, y)에서 가장 가까운 중첩 요소를 반환
@@ -63,19 +88,6 @@ alert(elem.tagName);
 ```
 
 ---
-
-# offsetLeft/offsetTop, offsetWidth/offsetHeight, offsetParent
-
-패딩과 보더 포함 (일반적으로 element 크기 등을 구할 떄 사용)
-offsetWidth/offsetHeight -> display: none 되어 있는 것에 주의! (visibility: hidden 경우는 값 반환가능)
-
-# clientLeft/clientTop, clientWidth/clientHeight
-
-패딩 포함 (실제로 보여지고 있는 컨텐츠가 얼마만큼의 공간을 차지하고 있는지 확인)
-
-# scrollLeft/scrollTop, scrollWidth/scrollHeight
-
-보이는 것과 상관 없이 실제 컨텐츠 영역 (전체 스크롤바를 사용하게 되어 숨겨진 영역까지 포함)
 
 # window(브라우저창) 크기
 
@@ -141,8 +153,9 @@ x.getBoundingClientRect(); // top, bottom, left, right, [width, height (IE9 이�
 ```
 
 `문서의 스크롤값 미포함`
-정확한 계산을 위해 스크롤값 'window.pageYOffset' 또는 'window.scrollY' 을 더해줘야 한다.  
-일부 오래된 브라우저는 scrollY 대신 pageYOffset만 지원하는 경우가 있지만, 노후 환경을 신경쓰지 않아도 된다면 둘 중 아무거나 사용해도 괜찮습니다.
+`정확한 계산을 위해 스크롤값 'window.pageYOffset' 또는 'window.scrollY' 을 더해줘야 한다.`  
+일부 오래된 브라우저는 scrollY 대신 pageYOffset 만 지원하는 경우가 있지만,  
+노후 환경을 신경쓰지 않아도 된다면 둘 중 아무거나 사용해도 괜찮습니다.
 
 ```javascript
 document.documentElement; // <html> element // 표준
