@@ -1,12 +1,24 @@
 # 불변 객체 (불변성)
 
-객체의 구조는 같으나 메모리 상의 주소는 다름
+객체의 구조는 같으나 메모리 상의 주소가 다른 경우 있음
 즉, `값의 메모리 주소와 구조는 변하지 않은 것 (메모리 영역에서 상태나 값을 변경할 수 없는 것)`
-그리하여 값의 비교를 단순화 할 수 있는 것 (객체 !== 객체)
+그리하여 값의 비교를 단순화(얕은 비교) 할 수 있는 것 (객체 !== 객체)
+
+## 참고자료
+
+https://en.wikipedia.org/wiki/Immutable_object
+
+https://ui.toast.com/posts/ko_20220217
+
+불변 객체가 뭘까? 간단히 말해서 생성 후에 상태를 바꿀 수 없는 객체를 말한다.
+
+그럼 상태도 바꿀 수 없는 객체를 왜 사용할까?  
+상태를 바꿀 수 없기 때문에 동시에 여러 곳에서 사용하더라도 해당 객체를 사용하는 쪽에서는 안전하게 사용할 수 있다.  
+(얕은 비교를 했을 경우, 다른 쪽에서 값을 변경하면 이를 알 수가 없다.)
 
 ## 불변성의 중요성
 
-기존의 값을 직접 수정하지 않으면서 새로운 값을 만들어 내는 것을 '불변성을 지킨다'라고 합니다.
+`기존의 값을 직접 수정하지 않으면서 새로운 값을 만들어 내는 것을 '불변성을 지킨다'라고 합니다.`
 
 ```javascript
 const array = [1, 2, 3, 4, 5];
@@ -58,6 +70,23 @@ nextTodos[0] = {
 console.log(todos[0] === nextTodos[0]); // 새로운 객체를 할당해 주었기에 false
 ```
 
+## 리액트에서 불변성을 강조하는 부분
+
+https://legacy.reactjs.org/docs/rendering-elements.html#updating-the-rendered-element
+
+state 를 직접 변경하지 말라  
+https://legacy.reactjs.org/docs/state-and-lifecycle.html#do-not-modify-state-directly
+
+```javascript
+// Wrong
+this.state.comment = "Hello";
+```
+
+```javascript
+// Correct
+this.setState({ comment: "Hello" });
+```
+
 ## 리덕스에서 불변성
 
 리덕스에서 불변성을 유지해야 하는 이유는 내부적으로 데이터가 변경되는 것을 감지하기 위해 얕은 비교(shallow equality) 검사를 하기 때문입니다.  
@@ -70,11 +99,31 @@ console.log(todos[0] === nextTodos[0]); // 새로운 객체를 할당해 주었�
 불변성을 지켜야하는 이유는 redux 는 이전 state와 바뀐 state를 구분하는 방법이  
 `참조값이 바뀌었는지 확인하고, 참조값이 바뀌면, state 가 바뀌었다고 redux 가 인식하여, 해당 state를 사용하는 컴포넌트에게 리렌더링을 요청하기 때문`입니다.
 
-그렇기 때문에, state.test = action.test 와 같이 직접적으로 state를 변경하면 참조값이 변하지 않아 redux 는 값이 바뀌었다고 인식하지 않고 리렌더링 되지 않습니다.
+그렇기 때문에, state.test = action.test 와 같이 직접적으로 state를 변경하면  
+참조값이 변하지 않아 redux 는 값이 바뀌었다고 인식하지 않고 리렌더링 되지 않습니다.
 
 state.test = {...test, action.test}  
 또는 immer 라는 라이브러리를 사용하여 쉽게 불변성을 유지합니다.
 (값의 구조는 그대로 이나, 메모리 주소는 변경하여, state 가 변경되었다는 것을 인지시킴)
+
+## Object.assign() 문제점
+
+Object.assign() 사용하여 객체를 복사할 경우,  
+해당 객체의 내부 객체 중 참조가 있을 경우
+
+```json
+{ "a": { "b": {} } }
+```
+
+참조를 그대로 복사하여 기존과 같은 참조를 지니게 되기 때문
+
+```javascript
+// 아래와 같이 스프레드 연산자로 이를 해결할 수 있다.
+// 객체 내부에 또 다른 객체가 계속 있다면, 이를 복사하는 코드는 복잡해 진다.
+const obj = { a: 1, b: { c: 2 } };
+const obj2 = { ...obj, b: { ...obj.b } };
+console.log(obj.b === obj2.b); // false
+```
 
 ---
 
