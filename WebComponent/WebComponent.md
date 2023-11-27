@@ -1,13 +1,15 @@
 # Web Component
 
-> 실행예제
-> http://makeapi.net/test/webcomponents.html
+- 실행예제
+  http://makeapi.net/test/webcomponents.html
 
-> 정리문서
-> http://makestory.net/media/#/view/59
+- 정리문서
+  http://makestory.net/media/#/view/59
 
-> PPT 발표자료
-> http://makestory.net/media/#/view/774
+- PPT 발표자료
+  http://makestory.net/media/#/view/774
+
+## 참고자료
 
 https://medium.com/@mariusbongarts/will-web-components-replace-frontend-frameworks-535891d779ba
 
@@ -15,8 +17,18 @@ https://medium.com/@mariusbongarts/the-complete-web-component-guide-part-1-custo
 
 https://javascript.plainenglish.io/
 
-> Betteridge's 법칙  
-> https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines
+웹 컴포넌트가 프론트엔드 프레임워크를 대신할까?  
+https://yozm.wishket.com/magazine/detail/1193/
+
+크롬 브라우저에서 동작한 모든 웹사이트의 15% 이상이 커스텀 엘리먼트(Custom Element) 를 하나 이상 등록한 것으로 나타났습니다.  
+https://chromestatus.com/metrics/feature/timeline/popularity/1689
+
+## Betteridge's 법칙
+
+"글 제목에 물음표가 들어가 있으면 그 답은 "아니오"일 가능성이 크다. - Ian Betteridge"  
+https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines
+
+예를 들어, "웹 컴포넌트가 프론트엔드 프레임워크를 대신할까?" 질문에 "아니오" 라고 답할 가능성이 높다.
 
 ---
 
