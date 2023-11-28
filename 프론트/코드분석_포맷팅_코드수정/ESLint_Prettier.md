@@ -147,8 +147,9 @@ $ npm install -D prettier
 'Editor: Default Formatter' 를 'Prettier - Code Formatter' 설정할 경우,
 Prettier 설정파일이 없는 프로젝트에서도 코드포맷팅이 자동 설정됨!
 
-특정 프로젝트만 Prettier 적용하기!  
+`특정 프로젝트만 Prettier 적용하기!`  
 https://tesseractjh.tistory.com/220
+https://velog.io/@chee9835/vscode-%EC%97%90%EC%84%9C-prettier-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
 
 1. settings.json
    루트 디렉토리에 .vscode 폴더를 만들고 그 안에 settings.json을 만들어서 Format On Save 설정을 활성화할 수 있다.  

@@ -1,4 +1,6 @@
+// https://code.visualstudio.com/docs/getstarted/settings#_default-settings
 {
+  // editor
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
@@ -6,6 +8,8 @@
     "source.fixAll.eslint": true, // ESLint는 저장 시 발생할 수 있는 모든 문제를 해결하려고 노력합니다.
     "source.organizeImports": true // 사용하지 않는 import 제거
   },
+
+  // eslint
   "eslint.enable": false, // 이 프로젝트에 ESLint가 활성화되어 있는지 확인합니다.
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
@@ -18,11 +22,26 @@
     "vue",
     "html"
   ],
+
+  // prettier
   "prettier.enableDebugLogs": true,
   "prettier.requireConfig": true, // 루트 디렉토리에 .prettierrc, .prettierrc.json, .prettierrc.js 등의 파일이 있거나, package.json에 prettier 키가 존재하는 등의 경우에만 Prettier가 적용
   "prettier.configPath": ".prettierrc",
+  // .prettierrc 같은 설정파일 없이도 vscode 의 setting.json 통해 세부 설정을 할 수 있다.
+  // .prettierrc 파일과 settings.json 파일에 상이한 코드 스타일이 있다면, .prettierrc 파일이 우선적으로 적용
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 80,
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": true,
+  "prettier.trailingComma": "none",
+  "prettier.bracketSpacing": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.endOfLine": "auto",
+
+  // git
   "git.autofetch": true,
-  // "editor.defaultFormatter" 설정 없이, "[javascript]", "[json]" 등 각 포맷별 지정
+
+  // 적용하려는 형식마다 개별적으로 설정
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -35,7 +54,11 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+
+  // json
   "json.schemas": [],
+
+  // path
   "path-autocomplete.pathMappings": {
     "~": "${folder}/src",
     "@": "${folder}/src"

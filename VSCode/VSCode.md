@@ -2,11 +2,13 @@
 
 https://blog.naver.com/techref/222360517100
 
-## prettier
+## Prettier
 
 설정  
 `Format on Save` 검색 > 체크  
 `defaultFormatter` 검색 > prettier 선택 (주의! 프로젝트에 prettier 설정이 없더라도, 기본 포맷으로 적용됨!)
+
+"study.git/프론트/코드분석*포맷팅*코드수정/ESLint_Prettier.md" 자료 참고!!
 
 ## ESLint
 
