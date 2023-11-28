@@ -14,7 +14,7 @@ https://mytory.net/archives/8982
 3. 디자인
 4. 코드 작성
 
-# 공통값
+# 공통값 (CSS 모든 프로퍼티에 적용될 수 있는 공통값)
 
 - inherit  
   프로퍼티 값을 부모 요소에서 강제로 상속합니다.  
@@ -22,14 +22,6 @@ https://mytory.net/archives/8982
 
 - initial  
   `프로퍼티 값을 관련 CSS 모듈에서 정의하는 초깃값으로 정합니다.`
-
-또는
-
-```css
-& * {
-  all: revert;
-}
-```
 
 - unset
   inherit 와 initial 의 효과를 섞습니다.  

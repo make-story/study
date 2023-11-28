@@ -42,3 +42,19 @@
   https://csstools.github.io/sanitize.css/
 - ress - Mordern CSS reset
   https://github.com/filipelinhares/ress
+
+---
+
+# CSS 프로퍼티 기본값(초기값)으로 모두 설정
+
+```css
+& * {
+  all: revert;
+}
+```
+
+```css
+& * {
+  all: revert !important;
+}
+```
