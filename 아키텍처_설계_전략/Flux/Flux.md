@@ -15,6 +15,8 @@ MVC 패턴에서 컨트롤러(Controller)는 모델(Model)의 데이터를 조�
 
 # FSA(Flux Standard Action)
 
+https://haruair.github.io/flux/docs/overview.html
+
 https://www.infoq.com/news/2014/05/facebook-mvc-flux/
 
 https://github.com/redux-utilities/flux-standard-action
