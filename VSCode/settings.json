@@ -4,7 +4,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": false, // false: return 문 뒤에 있는 'dead code' 제거를 방지
     "source.fixAll.eslint": true, // ESLint는 저장 시 발생할 수 있는 모든 문제를 해결하려고 노력합니다.
-    "source.organizeImports": true
+    "source.organizeImports": true // 사용하지 않는 import 제거
   },
   "eslint.enable": false, // 이 프로젝트에 ESLint가 활성화되어 있는지 확인합니다.
   "eslint.format.enable": true,
@@ -19,9 +19,10 @@
     "html"
   ],
   "prettier.enableDebugLogs": true,
-  "prettier.requireConfig": true,
+  "prettier.requireConfig": true, // 루트 디렉토리에 .prettierrc, .prettierrc.json, .prettierrc.js 등의 파일이 있거나, package.json에 prettier 키가 존재하는 등의 경우에만 Prettier가 적용
   "prettier.configPath": ".prettierrc",
   "git.autofetch": true,
+  // "editor.defaultFormatter" 설정 없이, "[javascript]", "[json]" 등 각 포맷별 지정
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
