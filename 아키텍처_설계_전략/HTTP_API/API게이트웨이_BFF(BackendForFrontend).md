@@ -1,5 +1,8 @@
 https://medium.com/javarevisited/api-gateway-vs-backend-for-frontend-bff-everything-you-need-to-know-90154a1e693f
 
+토스의 게이트웨이  
+https://toss.tech/article/slash23-server
+
 # API 게이트웨이 또는 BFF 없이 직접 클라이언트에서 API 호출할 경우 단점
 
 1. 서비스가 커지고 시스템이 복잡해지면 클라이언트는 모든 엔드포인트를 기억해야 합니다.

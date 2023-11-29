@@ -44,7 +44,9 @@ Yarn berry는 수많은 파일을 설치하는 대신에 한 개의 텍스트 �
 
 ## Plug'n'Play 켜기
 
-버전을 Berry로 설정하면 Yarn Berry를 사용할 수 있습니다.
+https://toss.tech/article/node-modules-and-yarn-berry
+
+`버전을 Berry로 설정하면 Yarn Berry를 사용할 수 있습니다.`
 
 ```
 $ npm install -g yarn

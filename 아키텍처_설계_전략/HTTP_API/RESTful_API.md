@@ -1,3 +1,19 @@
+# API란 무엇인가요?
+
+https://aws.amazon.com/ko/what-is/restful-api/
+
+애플리케이션 프로그래밍 인터페이스(API)는 다른 소프트웨어 시스템과 통신하기 위해 따라야 하는 규칙을 정의합니다.
+
+웹 API는 클라이언트와 웹 리소스 사이의 게이트웨이라고 생각할 수 있습니다.
+
+# REST란 무엇인가요?
+
+https://aws.amazon.com/ko/what-is/restful-api/
+
+Representational State Transfer(REST)는 API 작동 방식에 대한 조건을 부과하는 소프트웨어 아키텍처입니다.
+
+---
+
 # `스프링 5와 Vue.js 2로 시작하는 모던 웹 어플리캐이션 개발` 책 내용 중
 
 REST 아키텍처의 제약 조건을 준수하는 웹 서비스 API를 RESTful API라고 부른다.
