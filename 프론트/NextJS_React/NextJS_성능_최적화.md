@@ -124,25 +124,6 @@ module.exports = {
 };
 ```
 
-## 모노레포 + Next.js v12 인 경우
-
-'.next/standalone' 경로에 빌드
-
-빌드하고자 하는 root 경로와 실제 root 경로가 명확하게 일치하지 않아, 원하는 패키지의 하위 라이브러리를 받아오지 못합니다. 따라서 요구하는 라이브러리를 찾을 수 없다는 Not Found 에러를 뱉으면서 빌드가 멈춥니다.
-
-https://nextjs.org/docs/pages/api-reference/next-config-js/output#caveats
-
-아래의 옵션으로 해결 가능
-
-```javascript
-module.exports = {
-  experimental: {
-    // this includes files from the monorepo base two directories up
-    outputFileTracingRoot: path.join(__dirname, "../../"),
-  },
-};
-```
-
 ## 실행
 
 standalone 으로 걸러낸 서버의 실행은 다음과 같이 할 수 있습니다. next start와 유사한 기능입니다.
@@ -150,3 +131,12 @@ standalone 으로 걸러낸 서버의 실행은 다음과 같이 할 수 있습�
 ```bash
 $ node standalone/server.js
 ```
+
+--------
+
+# Next.js import 최적화  
+
+Next.js 13.5 이상부터 패키지 import 최적화  
+https://nextjs.org/blog/next-13-5  
+
+https://vercel.com/blog/how-we-optimized-package-imports-in-next-js
