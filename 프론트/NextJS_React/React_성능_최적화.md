@@ -110,9 +110,46 @@ export const TestUseMemo = ({ value1, value2 }) => {
   // useMemo Hook 은 계산량이 많은 함수의 반환값을 재활용하는 용도로 사용된다.
   // useMemo Hook 의 첫 번째 매개변수로 함수를 입력한다. useMemo Hook 은 이 함수가 반환한 값을 기억한다.
   // useMemo Hook 의 두 번째 매개변수는 의존성 배열이다. 의존성 배열이 변경되지 않으면 이전에 반환된 값을 재사용한다.
-  const value = useMemo(() => getExpensiveJob(value1, value2), [value1, value2]);
+  const value = useMemo(
+    () => getExpensiveJob(value1, value2),
+    [value1, value2],
+  );
   return <p>{`value is ${value}`}</p>;
 };
+```
+
+## useMemo(calculateValue, dependencies) dependencies 값 비교
+
+https://react.dev/reference/react/useMemo
+
+`Object.is()` 사용
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+
+```javascript
+// Case 1: Evaluation result is the same as using ===
+Object.is(25, 25); // true
+Object.is('foo', 'foo'); // true
+Object.is('foo', 'bar'); // false
+Object.is(null, null); // true
+Object.is(undefined, undefined); // true
+Object.is(window, window); // true
+Object.is([], []); // false
+const foo = { a: 1 };
+const bar = { a: 1 };
+const sameFoo = foo;
+Object.is(foo, foo); // true
+Object.is(foo, bar); // false
+Object.is(foo, sameFoo); // true
+
+// Case 2: Signed zero
+Object.is(0, -0); // false
+Object.is(+0, -0); // false
+Object.is(-0, -0); // true
+
+// Case 3: NaN
+Object.is(NaN, 0 / 0); // true
+Object.is(NaN, Number.NaN); // true
 ```
 
 # useCallback + React.memo 를 사용해야 할 때
@@ -129,11 +166,13 @@ https://yceffort.kr/2022/04/best-practice-useCallback-useMemo
   각각의 값을 독립적으로 선언하게 되면 이에대한 상태변경여부를 파악할수 있어 상태가 최적화
 
 ```typescript
-const { gift, onlineProducts, loading } = useSelector(({ gift, dialog, loading }: RootState) => ({
-  gift,
-  onlineProducts: gift?.onlineProducts,
-  loading: loading[giftActionType.GET_ONLINE_PRODUCTS_REVIEW_TYPE],
-}));
+const { gift, onlineProducts, loading } = useSelector(
+  ({ gift, dialog, loading }: RootState) => ({
+    gift,
+    onlineProducts: gift?.onlineProducts,
+    loading: loading[giftActionType.GET_ONLINE_PRODUCTS_REVIEW_TYPE],
+  }),
+);
 ```
 
 ```typescript
@@ -146,7 +185,9 @@ const { count, prevCount } = useSelector((state: RootState) => ({
 ```typescript
 // 최적화
 const count = useSelector((state: RootState) => state.countReducer.count);
-const prevCount = useSelector((state: RootState) => state.countReducer.prevCount);
+const prevCount = useSelector(
+  (state: RootState) => state.countReducer.prevCount,
+);
 ```
 
 - `방법2) equalityFn`  
@@ -270,7 +311,9 @@ function MyComponent() {
   return (
     <div>
       <Tabs onTabSelect={handleTabSelect} />
-      <Suspense fallback={<Glimmer />}>{tab === 'photos' ? <Photos /> : <Comments />}</Suspense>
+      <Suspense fallback={<Glimmer />}>
+        {tab === 'photos' ? <Photos /> : <Comments />}
+      </Suspense>
     </div>
   );
 }
@@ -371,7 +414,10 @@ import SSRCompatibleSuspense from './asyncHandler/SSRCompatibleSuspense';
 
 function AsyncTest() {
   return (
-    <ErrorBoundary renderFallback={({ error }) => <ErrorComponent error={error} />} resetKey={resetKey}>
+    <ErrorBoundary
+      renderFallback={({ error }) => <ErrorComponent error={error} />}
+      resetKey={resetKey}
+    >
       <SSRCompatibleSuspense fallback={<LoadingComponent />}>
         <GetData />
       </SSRCompatibleSuspense>
