@@ -12,6 +12,10 @@ https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html
 
 https://github.com/labs42io/clean-code-typescript#solid
 
+## `프론트엔드와 SOLID 원칙`
+
+https://fe-developers.kakaoent.com/2023/230330-frontend-solid/
+
 ## SOLID
 
 컴퓨터 프로그래밍에서 SOLID란 로버트 마틴이 2000년대 초반에 명명한 객체 지향 프로그래밍 및 설계의 다섯 가지 기본 원칙을 마이클 페더스가 두문자어 기억술로 소개한 것이다. 프로그래머가 시간이 지나도 유지 보수와 확장이 쉬운 시스템을 만들고자 할 때 이 원칙들을 함께 적용할 수 있다. SOLID 원칙들은 소프트웨어 작업에서 프로그래머가 소스 코드가 읽기 쉽고 확장하기 쉽게 될 때까지 소프트웨어 소스 코드를 리팩터링하여 코드 냄새를 제거하기 위해 적용할 수 있는 지침이다. 이 원칙들은 애자일 소프트웨어 개발과 적응적 소프트웨어 개발의 전반적 전략의 일부다.

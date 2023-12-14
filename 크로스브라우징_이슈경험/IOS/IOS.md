@@ -38,12 +38,12 @@ object 태그는 click 이벤트가 무시되는 문제
 
 ```javascript
 // 아래와 같이 String 포맷을 Date에 넣었을 경우 에러 발생
-new Date("2021-11-15T01:00:00+0900");
-new Date("2022-03-25T02:00:59.999+0900");
+new Date('2021-11-15T01:00:00+0900');
+new Date('2022-03-25T02:00:59.999+0900');
 
 // 아래와 같이 해줘야 한다.
-new Date("2021-11-15T01:00:00+09:00");
-new Date("2022-03-25T02:00:59.999+09:00");
+new Date('2021-11-15T01:00:00+09:00');
+new Date('2022-03-25T02:00:59.999+09:00');
 ```
 
 # safearea, Safe Area, 노치 제어 (하단바)
@@ -108,7 +108,7 @@ https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document
-document.documentElement.style.setProperty("--vh", `${vh}px`);
+document.documentElement.style.setProperty('--vh', `${vh}px`);
 ```
 
 ```css
@@ -321,3 +321,5 @@ padding-bottom: calc(constant(safe-area-inset-button) - 5px);
 
 https://github.com/ionic-team/cordova-plugin-ionic-webview/issues/49  
 https://webkit.org/blog/7929/designing-websites-for-iphone-x/
+
+---
