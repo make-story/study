@@ -47,4 +47,8 @@ https://medium.com/@_diana_lee/github-gitlab%EC%9C%BC%EB%A1%9C-%ED%98%91%EC%97%8
 `이 후, 코드를 보면서 마스터 브랜치의 코드와 내 새로운 코드를 하나하나 비교해가면서 수정해 나가야 한다.`  
 수정이 완료 되면 변경사항을 Commit, Push하면 된다. (위의 2, 3번 과정과 동일하다)
 
+## GUI 충돌 해결 도구
+
+P4Merge
+
 ---
