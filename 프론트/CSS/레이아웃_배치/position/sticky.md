@@ -88,3 +88,17 @@ https://tech.lezhin.com/2019/03/20/css-sticky
   </body>
 </html>
 ```
+
+# position sticky 깨지는 이슈! sticky 사용 전 필수 상식
+
+https://blog.pumpkin-raccoon.com/119
+
+## 원인1: 부모 컴포넌트의 overflow
+
+보통 이런 이슈의 원인은 대부분 sticky의 부모 컴포넌트 중 한 곳에, css를 잘못 설정하였기 때문입니다.  
+sticky를 사용하기 위해서는 `sticky 상단의 부모 혹은 조상 컴포넌트에 overflow 속성을 사용하면 안됩니다`
+
+## 원인2: 위치 미설정
+
+사소한 실수이지만 위치값 (top, left, right, bottom)을 설정하지 않아서 에러가 발생하는 경우도 있습니다.  
+sticky는 기준이 되는 위치를 설정하기 위해 네 가지 값 중에서 최소한 하나는 꼭 필요하니 기억해 주세요!
