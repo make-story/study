@@ -10,7 +10,7 @@
   },
 
   // eslint
-  "eslint.enable": false, // 이 프로젝트에 ESLint가 활성화되어 있는지 확인합니다.
+  "eslint.enable": true, // 이 프로젝트에 ESLint가 활성화되어 있는지 확인합니다.
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
   "eslint.quiet": true,

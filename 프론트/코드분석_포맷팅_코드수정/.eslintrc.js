@@ -156,7 +156,7 @@ module.exports = {
       }, //import 시 확장자명은 사용하지 않는다.
     ],
     // import 순서 규칙 설정 - eslint-plugin-import - https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
-    // 코드 저장시 설정된 값 자동 반영을 위해서는 사용중인 IDE 도구(예: VSCode) 추가 설정 필요
+    // 코드 저장시 설정된 값 자동 반영을 위해서는 사용중인 IDE 도구(예: VSCode) 추가 설정 필요 - settings.json
     // vscode 의 경우 CTRL + SHIFT + P 입력 후, ESLint: Restart ESLint Server 선택해서 다시 실행
     'import/order': [
       'error',
