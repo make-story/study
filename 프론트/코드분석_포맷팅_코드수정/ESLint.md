@@ -6,19 +6,19 @@ https://www.daleseo.com/eslint-config/
 
 ```json
 {
-    "root": true,
-    "plugins": ["@typescript-eslint"],
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-    "parser": "@typescript-eslint/parser",
-    "rules": {
-        "@typescript-eslint/strict-boolean-expressions": [
-            2,
-            {
-                "allowString": false,
-                "allowNumber": false
-            }
-        ]
-    }
+  "root": true,
+  "plugins": ["@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "@typescript-eslint/strict-boolean-expressions": [
+      2,
+      {
+        "allowString": false,
+        "allowNumber": false
+      }
+    ]
+  }
 }
 ```
 
@@ -31,37 +31,77 @@ default 는 true 인데, 이 값이 true 가 아니면, eslintrc 파일을 찾�
 
 ## parser
 
-각 코드 파일을 검사할 파서를 설정  
-기본 설정은 espree 이고, @typescript-eslint/eslint-plugin 처럼 특정 플러그인을 사용한다면 해당 플러그인에서 제공하는 parser 로 설정하면 된다.
+https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
+
+말 그대로 코드를 분석하기 위한 파싱툴인데, 기본값은 espree 이다.  
+하지만 보통 js 워크스페이스에서는 @babel/eslint-parser 를 사용하고  
+ts 워크스페이스인 경우 @typescript-eslint/parser 를 사용한다.  
+사실 plugin:@typescript-eslint/recommended 를 포함시키면 @typescript-eslint/parser 가 자동으로 포함되기도 한다.
 
 ## plugins
 
-플러그인은 일련의 규칙 집합이며, 플러그인을 추가하여도 규칙은 적용되지 않습니다.  
-(규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 extends 에 추가해주어야 적용이 됩니다.)
+https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 
-plugin 추가 후 매번 적용가능 한 extends 를 확인하는 것이 번거롭기 때문에,  
-대부분의 플러그인은 recommended 나 strict, all 등의 자체 설정을 제공함
+### eslint-plugin-\*
 
-우선 plugin 종류는 여러 가지 있는데,  
+플러그인은 일련의 규칙(룰) 집합이며, 플러그인을 추가하여도 규칙은 적용되지 않습니다.
+
+예를 들면 eslint-plugin-react 는 리액트와 관련된 룰을 정의한 패키지이다.
+만약 룰을 사용하고 싶다면 아래와 같이 정의해야 한다.
+
+```json
+{
+  "plugins": ["react"],
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  }
+}
+```
+
+하지만 이런식으로 매번 모든 룰에 대해 분석하고 파악해서 일일히 작성하기엔 너무 귀찮은 일이다.  
+때문에 `대부분의 플러그인은 recommended 나 strict, all 등의 자체 설정을 제공하는 것`이다.
+
+eslint-plugin-react의 경우 recommended와 all 두가지의 config를 제공하는데 다음과 같이 사용할 수 있다.
+
+```json
+{
+  "extends": ["plugin:react/recommended"]
+}
+```
+
+https://github.com/jsx-eslint/eslint-plugin-react/blob/master/index.js
+
+plugin 종류는 여러 가지 있는데,  
 예를 들어
 
--   eslint-config-airbnb-base: 에어비엔비 린트 플러그인
--   eslint-config-next: Next.js 전용 린트 플러그인
--   eslint-plugin-react: 리액트 전용 플러그인
--   eslint-plugin-prettier: 린트 위에 사용할 프리티어 플러그인
--   eslint-config-prettier: 요건 린트 설정과 중복되는 부분이 있으면 프리티어 룰에서 제외하는 플러그인
--   @typescript-eslint/eslint-plugin: : 타입스크립트 전용 린트
+- eslint-config-airbnb-base: 에어비엔비 린트 플러그인
+- eslint-config-next: Next.js 전용 린트 플러그인
+- eslint-plugin-react: 리액트 전용 플러그인
+- eslint-plugin-prettier: 린트 위에 사용할 프리티어 플러그인
+- eslint-config-prettier: 요건 린트 설정과 중복되는 부분이 있으면 프리티어 룰에서 제외하는 플러그인
+- @typescript-eslint/eslint-plugin: : 타입스크립트 전용 린트
 
 ## extends
 
-eslint rule 설정이 저장되어 있는 외부 file 을 extends 하는 부분이다.
-(extends 는 추가한 플러그인에서 사용할 규칙을 설정하는 것)
+https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 
-예를 들어,  
-extends 에 eslint:recommended, plugin:@typescript-eslint/recommended 를 설정하면,  
-사용하려는 해당 플러그인에서 기본적으로 제공하는 rule set 이 적용된다.
+### eslint-config-\*
 
-변경하고 싶은 부분이 있다면 rules 쪽에서 커스터마이징 하면 된다.
+eslint-plugin-_ 패키지들이나 룰들을 모아서 설정으로 만든 것이 eslint-config-_ 패키지다.  
+예를들면, eslint-config-airbnb 는
+eslint, eslint-plugin-import, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-jsx-a11y 의 룰들을 조합한 설정 패키지이고 아래와 같이 정의해서 사용한다.
+
+```json
+{
+  "extends": ["airbnb"]
+}
+```
+
+eslint-plugin-\* 패키지의 설정은
+extends 에서 plugin:패키지네임/설정네임으로 사용할 수 있는데  
+eslint-config-\* 패키지의 설정은
+바로 '\*'를 써주기만 하면 된다. 플러그인 패키지를 plugins에 단축어로 쓰던 것과 동일하다.
 
 ## rules
 
@@ -78,11 +118,11 @@ https://eslint.org/docs/latest/use/configure/language-options#specifying-environ
 
 ```json
 {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-    }
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  }
 }
 ```
 
@@ -105,12 +145,12 @@ globals 를 이용하여 사용자 전역 변수를 추가할 수 있습니다.
 
 parserOptions은 ESLint 사용을 위해 지원하려는 JavaScript 언어 옵션을 지정할 수 있습니다.
 
--   ecmaVersion: 사용할 ECMAScript 버전을 설정
--   sourceType: parser의 export 형태를 설정
--   ecmaFeatures: ECMAScript의 언어 확장 기능을 설정
-    -   globalReturn: 전역 스코프의 사용 여부 (node, commonjs 환경에서 최상위 스코프는 module)
-    -   impliedStric: strict mode 사용 여부
-    -   jsx: ECMScript 규격의 JSX 사용 여부
+- ecmaVersion: 사용할 ECMAScript 버전을 설정
+- sourceType: parser의 export 형태를 설정
+- ecmaFeatures: ECMAScript의 언어 확장 기능을 설정
+  - globalReturn: 전역 스코프의 사용 여부 (node, commonjs 환경에서 최상위 스코프는 module)
+  - impliedStric: strict mode 사용 여부
+  - jsx: ECMScript 규격의 JSX 사용 여부
 
 ```javascript
 {
@@ -137,14 +177,14 @@ https://www.daleseo.com/eslint-config/
 
 ```json
 {
-    "overrides": [
-        {
-            "files": "**/*.+(ts|tsx)",
-            "parser": "@typescript-eslint/parser",
-            "plugins": ["@typescript-eslint"],
-            "extends": ["plugin:@typescript-eslint/recommended"]
-        }
-    ]
+  "overrides": [
+    {
+      "files": "**/*.+(ts|tsx)",
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    }
+  ]
 }
 ```
 
@@ -152,20 +192,16 @@ https://www.daleseo.com/eslint-config/
 
 ```json
 {
-    "overrides": [
-        {
-            "files": ["**/__tests__/**/*", "**/*.{spec,test}.*"],
-            "env": {
-                "jest/globals": true
-            },
-            "plugins": ["jest", "testing-library"],
-            "extends": [
-                "plugin:jest/recommended",
-                "plugin:jest-dom/recommended",
-                "plugin:testing-library/react"
-            ]
-        }
-    ]
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*", "**/*.{spec,test}.*"],
+      "env": {
+        "jest/globals": true
+      },
+      "plugins": ["jest", "testing-library"],
+      "extends": ["plugin:jest/recommended", "plugin:jest-dom/recommended", "plugin:testing-library/react"]
+    }
+  ]
 }
 ```
 
@@ -178,11 +214,11 @@ https://www.daleseo.com/eslint-config/
 
 ```json
 {
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
+  "settings": {
+    "react": {
+      "version": "detect"
     }
+  }
 }
 ```
 
@@ -197,6 +233,6 @@ ESLint는 린트(lint)를 수행할 때 기본적으로 node_modules 폴더나 .
 
 ```json
 {
-    "ignorePatterns": ["build", "dist", "public"]
+  "ignorePatterns": ["build", "dist", "public"]
 }
 ```

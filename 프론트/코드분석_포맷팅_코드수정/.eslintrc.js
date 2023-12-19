@@ -34,9 +34,15 @@ ESLint 와 Prettier 충돌 해결
 eslint-config-prettier : eslint에서 prettier와 겹치는 포매팅룰을 삭제합니다.
 eslint-plugin-prettier : eslint에 prettier의 포매팅 기능을 추가합니다.
 eslint-config-pretteir로 eslint의 원래 포매팅 기능을 없애버리고, eslint-plugin-prettier로 prettier의 포매팅 기능을 사용합니다.
+
+-
+eslint-plugin-*
+eslint-config-*
+https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 */
 
 /**
+ * https://eslint.org/docs/latest/use/configure/configuration-files
  * https://eslint.org/docs/latest/use/getting-started#configuration
  * https://eslint.org/docs/latest/rules/
  */
@@ -76,12 +82,14 @@ module.exports = {
     parser: 'typescript-eslint-parser',
   },
 
-  // 플러그인은 일련의 규칙 집합이며, 플러그인을 추가하여도 규칙은 적용되지 않습니다.
-  // (규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 extends 에 추가해주어야 적용이 됩니다.)
+  // 플러그인은 일련의 규칙(rules) 집합이며, 플러그인을 추가하여도 규칙(rules)은 적용되지 않습니다.
+  // (규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 추가해주어야 적용이 됩니다.)
+  // https://stackoverflow.com/questions/53189200/whats-the-difference-between-plugins-and-extends-in-eslint
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
 
-  // eslint rule 설정이 저장되어 있는 외부 file 을 extends 하는 부분이다.
-  // (extends 는 추가한 플러그인에서 사용할 규칙을 설정하는 것)
+  // 패키지들이나 룰들을 모아서 설정으로 만든 것
+  // eslint-plugin-* 패키지의 설정은 extends 에서 plugin:패키지네임/설정네임으로 사용할 수 있는데
+  // eslint-config-* 패키지의 설정은 바로 *를 써주기만 하면 된다.
   // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
   // plugin:prettier/recommended : eslint-plugin-prettier + eslint-config-prettier 동시 적용
   // prettier/@typescript-eslint : prettier 규칙과 충돌하는 @typescript-eslint/eslint-plugin 규칙 비활성화
@@ -102,7 +110,7 @@ module.exports = {
   ignorePatterns: ['dist/', 'node_modules/'],
 
   // 직접 lint rule 을 적용하는 부분
-  // extends로 자동으로 설정된 rules 중에, 특정 rule을 끄거나, erorr를 warning으로 나오도록 변경하는 등 설정을 바꿀 수 있다.
+  // extends 로 자동으로 설정된 rules 중에, 특정 rule을 끄거나, erorr를 warning으로 나오도록 변경하는 등 설정을 바꿀 수 있다.
   // https://eslint.org/docs/latest/rules/
   rules: {
     quotes: ['error', 'double'], //더블 쿼터 사용
