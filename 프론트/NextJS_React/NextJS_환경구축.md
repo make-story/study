@@ -77,6 +77,7 @@ $ yarn add -D eslint-config-prettier eslint-plugin-prettier
 $ yarn add -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
 
 # next 규칙 플러그인
+# 기존 구성 마이그레이션 - https://nextjs.org/docs/pages/building-your-application/configuring/eslint#migrating-existing-config
 $ yarn add -D @next/eslint-plugin-next
 
 # airbnb 규칙
@@ -93,6 +94,11 @@ $ yarn add -D eslint-plugin-jest
 ```
 
 .eslinitrc.json
+
+https://nextjs.org/docs/pages/building-your-application/configuring/eslint
+
+- Strict (엄격) : { "extends": "next/core-web-vitals" }
+- Base (기본) : { "extends": "next" }
 
 ```json
 {
