@@ -83,11 +83,12 @@ module.exports = {
   // eslint rule 설정이 저장되어 있는 외부 file 을 extends 하는 부분이다.
   // (extends 는 추가한 플러그인에서 사용할 규칙을 설정하는 것)
   // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
-  // plugin:prettier/recommended: eslint-plugin-prettier + eslint-config-prettier 동시 적용
-  // prettier/@typescript-eslint: prettier 규칙과 충돌하는 @typescript-eslint/eslint-plugin 규칙 비활성화
+  // plugin:prettier/recommended : eslint-plugin-prettier + eslint-config-prettier 동시 적용
+  // prettier/@typescript-eslint : prettier 규칙과 충돌하는 @typescript-eslint/eslint-plugin 규칙 비활성화
   extends: [
     //'next/core-web-vitals', // Next.js 공식 : 엄격모드, ELint를 처음 설정하는 개발자에게 권장되는 구성
-    //'next', // Next.js 공식 : 기본모드
+    //'next', // Next.js 공식 : 기본모드'
+    'plugin:@next/next/recommended', // next/core-web-vitals 등을 사용할 경우 주석처리
     'plugin:@typescript-eslint/recommended',
     //'plugin:react/recommended', // 리액트 추천 룰셋
     //'plugin:import/recommended', // import 추천 롤셋
