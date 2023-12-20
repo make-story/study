@@ -4,6 +4,130 @@
 - props 가 바뀌었을 때
 - 부모 컴포넌트가 렌더링 었을 때 하위 컴포넌트의 경우
 
+```jsx
+import React, { useState, useCallback, PropsWithChildren } from 'react';
+
+const ChildComponent = () => {
+  console.log('ChildComponent is rendering!');
+  return <div>Hello World!</div>;
+};
+const ChildComponentMemo = React.memo(ChildComponent);
+
+const ChildComponentProps = ({
+  onClick,
+}: PropsWithChildren<{ onClick: any }>) => {
+  console.log('ChildComponent is rendering!', onClick);
+  return <div>Hello World!</div>;
+};
+const ChildComponentPropsMemo = React.memo(ChildComponentProps);
+
+const ParentComponent = () => {
+  console.log('ParentComponent is rendering!');
+  const [toggle, setToggle] = useState(false);
+
+  return (
+    <div>
+      {/* React.memo 사용하여 리렌더 방지 */}
+      <ChildComponentMemo />
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </div>
+  );
+};
+
+const ParentComponentChildren = ({ children }: PropsWithChildren) => {
+  console.log('ParentComponent is rendering!');
+  const [toggle, setToggle] = useState(false);
+
+  return (
+    <div>
+      {/* React 컴포넌트를 children 로 받아 리렌더 방지 */}
+      {children}
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </div>
+  );
+};
+
+const ParentComponentProps = () => {
+  console.log('ParentComponent is rendering!');
+  const [toggle, setToggle] = useState(false);
+  const onClick = useCallback(() => {
+    console.log('Click!!!');
+  }, []);
+
+  return (
+    <div>
+      {/*<ChildComponentPropsMemo onClick={() => console.log('Click!!!')} />*/}
+      {/* useCallback 사용하여 리렌더 방지!!!!! */}
+      <ChildComponentPropsMemo onClick={onClick} />
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </div>
+  );
+};
+
+const ParentComponentValue = ({
+  value,
+}: PropsWithChildren<{ value: number }>) => {
+  const [toggle, setToggle] = useState(false);
+
+  // 현재 컴포넌트가 리렌터될 때 마다, props 로 받은 value 값이 변할 것인가??
+  console.log(value);
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </div>
+  );
+};
+
+const Index = ({ test }: any) => {
+  console.log(test);
+  const randomNumber = () => {
+    return Math.random();
+  };
+
+  return (
+    <>
+      <div>
+        <h1>React.memo 활용 리렌더 방지</h1>
+        <ParentComponent />
+        <h1>children 활용 리렌더 방지</h1>
+        <ParentComponentChildren>
+          <ChildComponent />
+        </ParentComponentChildren>
+        <h1>리렌더할 때 Porps 로 넘기는 값이 변하는지 여부</h1>
+        <ParentComponentValue value={randomNumber()} />
+        <h1>React.memo 활용 props 값 리렌더 방지</h1>
+        <ParentComponentProps />
+      </div>
+    </>
+  );
+};
+```
+
 ---
 
 # React 렌더링 최적화 기법
@@ -43,6 +167,293 @@ useCallback 은 함수를 정의하는 것 뿐만 아니라 그의 의존성 배
 결론적으로는 함수 컴포넌트를 실행할 때 useCallback 으로 감싸져 있다면 초기 렌더링이 더 느리거나, 렌더링 속도 개선 부분에 있어서는 유의미하지 않다.
 
 React.memo() 적용되어 있고, props 로 함수를 받는다면, 해당 함수에 useCallback 이 적용되어 있어야, React.memo() 에서 함수 주소가 변경안되었다는 것을 알고 리렌더를 방지해 준다!
+
+---
+
+# children prop 에 대한 고찰
+
+https://velog.io/@2ast/React-children-prop%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0feat.-%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%B5%9C%EC%A0%81%ED%99%94
+
+```jsx
+<ParentComponent>
+	<ChildComponent/>
+</ParantComponent>
+```
+
+```jsx
+const ParantComponent = props => {
+  return <>{props.children}</>;
+};
+```
+
+부모 컴포넌트 내부에서는 자식 컴포넌트 정보에 접근할 수 있는데, 바로 이때 사용되는 것이 children prop 이다.
+
+## children prop 은 언제 사용되는 걸까?
+
+```jsx
+import React, { useState } from 'react';
+
+const ChildComponent = () => {
+  console.log('ChildComponent is rendering!');
+  return <div>Hello World!</div>;
+};
+
+const ParentComponent = () => {
+  console.log('ParentComponent is rendering!');
+  const [toggle, setToggle] = useState(false);
+  return (
+    <>
+      <ChildComponent />
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </>
+  );
+};
+
+const Container = () => {
+  return (
+    <div>
+      <ParentComponent />
+    </div>
+  );
+};
+```
+
+Container > ParentComponent > ChildComponent 구조로 프로젝트가 구성되어 있다.  
+이 상황에서 만약 re-render 버튼을 눌러 ParentComponent의 리렌더링을 유발하면 어떻게 될까?  
+당연히 ParentComponent가 리렌더 되는 순간 ChildComponent도 함께 리렌더 될 것이다.
+
+이 현상은 아주 비효율적이다.  
+ParentComponent의 toggle state 변경은 ChildComponent와는 무관함에도 무의미하게 ChildComponent가 리렌더링 되는 것이기 때문이다.  
+따라서 `이 문제를 해결하기 위해 React.memo를 사용`하기도 한다.
+
+```jsx
+import React, { useState } from 'react';
+
+const ChildComponent = () => {
+  console.log('ChildComponent is rendering!');
+  return <div>Hello World!</div>;
+};
+const ChildMemo = React.memo(ChildComponent);
+
+const ParentComponent = () => {
+  console.log('ParentComponent is rendering!');
+  const [toggle, setToggle] = useState(false);
+  return (
+    <div>
+      <ChildMemo />
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </div>
+  );
+};
+
+const Container = () => {
+  return (
+    <div>
+      <ParentComponent />
+    </div>
+  );
+};
+```
+
+하지만 굳이 React.memo를 사용하지 않고도 렌더링 최적화를 달성할 수 있다.  
+children prop 을 활용하는 것이다.
+
+```jsx
+import React, { useState } from 'react';
+
+const ChildComponent = () => {
+  console.log('ChildComponent is rendering!');
+  return <div>Hello World!</div>;
+};
+
+const ParentComponent = ({ children }) => {
+  console.log('ParentComponent is rendering!');
+  const [toggle, setToggle] = useState(false);
+  return (
+    <div>
+      {children}
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </div>
+  );
+};
+
+const Container = () => {
+  return (
+    <div>
+      <ParentComponent>
+        {/* HTML 태그가 아닌, 리액트 컴포넌트만 children 으로 사용했다는 것을 인지하고 다음글을 읽어가야 함! */}
+        <ChildComponent />
+      </ParentComponent>
+    </div>
+  );
+};
+```
+
+children prop 을 사용하면 React.memo 등의 도구를 사용하지 않고도 구조적으로 렌더링 최적화를 달성할 수 있다.
+
+## React.memo를 무효화하는 children prop ?
+
+children 을 prop 으로 갖는 컴포넌트에는 React.memo 가 적용되지 않고 항상 렌더링 된다는 사실
+
+```jsx
+import React, { useState } from 'react';
+
+const ParentComponent = ({ children }) => {
+  console.log('ParentComponent is rendering!');
+  return <div>{children}</div>;
+};
+
+const ParentMemo = React.memo(ParentComponent);
+
+const Container = () => {
+  console.log('Container is rendering!');
+  const [toggle, setToggle] = useState(false);
+  return (
+    <>
+      <ParentMemo>
+        {/* children 으로 HTML 태그 사용! */}
+        <div>Hello World!</div>
+      </ParentMemo>
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-redner!
+      </button>
+    </>
+  );
+};
+```
+
+Brandon Dail 이라는 분이 올린 트윗  
+내용을 요약하자면 children prop은 매 렌더링마다 값이 달라지므로 React.memo가 동작하지 않는다는 것  
+https://www.developerway.com/posts/react-elements-children-parents
+
+- JSX 상의 태그 표현은 사실상 React.createElement 라는 javascript 코드의 다른 형태였고, 새로운 react element 를 생성해 반환하는 역할을 한다.
+- react element 는 단지 화면 정보를 담고 있는 object 에 불과하다.
+- react element 는 값이 변하지 않는 상수이며, element 의 변경은 곧 새로운 element 를 생성한다는 것을 의미한다. (re-render = re-create)
+
+React.memo 란 무엇인가?  
+props가 변하지 않는 한 component 의 렌더링을 방지하는 역할을 수행한다.  
+반대로 말하면 React.memo 가 무효화되었다는 것은 props 에 변화가 생겼다는 것을 의미한다.  
+즉, 매 렌더링 마다 children prop 은 다른 값으로 변경되고 있었던 것이다.
+
+- 매 렌더링마다 react element 들은 새롭게 생성되고, 그로인해 object 의 참조값이 변경된다.
+- children 으로 전달되는 react element 또한 매번 새롭게 생성되기 때문에 prop 이 변경되었다고 판단하여 memo 가 렌더링을 방지해주지 못하는 것이다.
+
+## Parent 가 re-render될 때 children 은 렌더링 되지 않는 이유
+
+결론부터 말하자면 react 에서 children이란 말 그대로 prop 일 뿐이며, ParentComponent 에 children 속성을 주는 것과 완전히 동일한 표현이기 때문이다.  
+즉, 아래 두 표현은 완전히 동일한 의미를 갖고 있다.
+
+```jsx
+<ParentComponent>
+	<ChildComponent/>
+</ParentComponent>
+
+<ParentComponent children={<ChildConponent/>}/>
+```
+
+```jsx
+import React, { useState } from 'react';
+
+const Child = () => {
+	console.log("ChildComponent is rendering!");
+	return <div>Hello World!</div>
+};
+
+const Parent = ({children}) => {
+	console.log("ParentComponent is rendering!");
+  const [toggle, setToggle] useState(false);
+	return (
+    <div>
+ 		    {children}
+        <button onClick={()=>{setToggle(!toggle);}}>
+        	re-render
+        </button>
+    </div>
+  );
+}
+
+const Container = () => {
+	return (
+    <div>
+    	<Parent children={<Child/>}/>
+    </div>
+  );
+}
+```
+
+코드를 보면 Parent 는 children 으로 Child 를 받고 있다.  
+정확히 말하면 화면 정보를 담고 있는 object 형태의 react element 를 받고 있는 것이고, 해당 element의 출처는 React.createElement 함수의 반환값이다.  
+즉 Container component 가 렌더링 될 때 React.createElement(Child,null,null)을 실행하여 그 반환값을 Parent 에 children 으로 넘겨주고 있는 있는 것이다.  
+쉽게 말해서 React.createElement 는 object 를 반환하는 함수, children 은 object 그 자체이다.
+
+React.createElement(Child,null,null)이 실행되는 것은 Container 가 렌더링되며 Parent 에 props 을 넘겨줄 때 뿐이므로,  
+이 상황에서 Parent 가 리렌더링 된다고 해도 이전 렌더링에서 전달받은 children 값을 그대로 사용할 뿐이다.  
+즉, Parent 의 children 은 애초에 object 형태인 상수로 전달받았기 때문에 렌더링 이전과 비교해서 값이 달라질리 없고, 따라서 re-render 되지도 않는 것이다.
+
+마지막으로 Parent 가 re-render 될 때 정말로 props 로 받은 값들이 갱신되지 않고 이전 렌더링에 받은 값을 그대로 사용하는지 알아보기 위해 random 함수를 사용해 간단한 실험을 설계해 보았다.
+
+```jsx
+import React, { useState } from 'react';
+
+const ParentComponentValue = ({ value }) => {
+  const [toggle, setToggle] = useState(false);
+  console.log(value);
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        re-render
+      </button>
+    </div>
+  );
+};
+
+const Container = () => {
+  const randomNumber = () => {
+    return Math.random();
+  };
+
+  return (
+    <div>
+      <ParentComponent value={randomNumber()} />
+    </div>
+  );
+};
+```
+
+re-render 버튼을 몇번을 눌러도 동일한 랜덤 값이 출력되고 있음을 확인할 수 있다.
+
+## 정리하자면
+
+- React.createElement 는 매번 새로운 object를 반환하는 함수이며, children 은 그 결과 반환된 object 이다.
+- children prop 은 말 그대로 prop 이고, 한번 전달된 prop 은 상위 컴포넌트가 리렌더 되지 않는한 갱신되지 않고 유지된다.
+- 이전 렌더 시점과 비교해서 react element 가 달라지지 않았다면 그 내용이 변경되지 않았다 판단, 렌더링되지 않는다.
 
 ---
 
@@ -120,7 +531,7 @@ function App() {
 
 function Parent({ children, lastChild }) {
   return (
-    <div className="parent">
+    <div className='parent'>
       <ChildA />
       {children}
       {lastChild}
@@ -196,11 +607,11 @@ https://velog.io/@mogulist/understanding-react-rerender-easily
 그런데, 과연 실제로 효과가 있는 것일까요?
 
 ```javascript
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from 'react';
 
 export default function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <h2>Rerendering Example</h2>
       <Parent />
     </div>
@@ -213,7 +624,7 @@ const useValue = () => {
   useEffect(() => {
     value < 3 &&
       setTimeout(() => {
-        setValue((value) => value + 1);
+        setValue(value => value + 1);
       }, 1500);
   }, [value]);
 
@@ -247,9 +658,9 @@ const Parent = () => {
   );
 };
 
-const ChildA = () => <GrandChildren color="red" />;
-const ChildB = ({ value }: any) => <GrandChildren color="blue" />;
-const ChildC = ({ onClick }: any) => <GrandChildren color="green" />;
+const ChildA = () => <GrandChildren color='red' />;
+const ChildB = ({ value }: any) => <GrandChildren color='blue' />;
+const ChildC = ({ onClick }: any) => <GrandChildren color='green' />;
 const MemoizedChildA = React.memo(ChildA);
 const MemoizedChildC = React.memo(ChildC);
 
