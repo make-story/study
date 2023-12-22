@@ -50,7 +50,13 @@ $ tsc --strictNullChecks sayHello.ts
 
 ## tsconfig.json
 
-tsconfig.json 은 타입스크립트 컴파일러 설정이 담겨 있는 파일 입니다.
+https://www.typescriptlang.org/docs/handbook/tsconfig-json.html  
+
+디렉터리에 tsconfig.json 파일이 있다는 것은 해당 디렉터리가 TypeScript 프로젝트의 루트임을 나타냅니다.   
+(루트가 아닌 모노레포 같은 곳에서는 tsconfig.base.json 파일을 만들고 이를 각 어플리케이션 레벨에서 상속하여 사용)
+
+tsconfig.json 파일은 프로젝트를 컴파일하는데 필요한 파일과 컴파일러 옵션을 지정합니다.   
+(JavaScript 프로젝트는 jsconfig.json 파일을 사용할 수 있습니다.)  
 
 ```bash
 $ tsc --init
