@@ -10,6 +10,12 @@ https://nextjs.org/docs/app/building-your-application/routing#the-app-router
 
 Next.js 13에서는 app 경로를 이용해서 페이지 구성과 라우팅 기능을 구현할 수 있다.
 
+https://nextjs.org/docs/app/building-your-application/rendering/server-components
+
+`React Server Components, RSC 사용가능!!!`
+
+> 기존 Pages 단위 서버렌더링이 아닌 컴포넌트 단위(/app/\*) 서버 렌더 컴포넌트 구성가능
+
 ### Streaming
 
 app/ 디렉토리 내에서 이루어지는 기능인데, 서버 사이드 단에서 컴포넌트를 점진적으로 렌더링 한 뒤 스트리밍 방식으로 클라이언트에게 전달하는 방식이다.
@@ -39,10 +45,10 @@ app/ 에서 React Suspense 기반으로 구현된 새로운 data fetch 하는 �
 
 ```javascript
 // app/page.js
-import { use } from "react";
+import { use } from 'react';
 
 async function getData() {
-  const res = await fetch("...");
+  const res = await fetch('...');
   const name: string = await res.json();
   return name;
 }
@@ -53,7 +59,7 @@ export default function Page() {
   // so you can return Date, Map, Set, etc.
   const name = use(getData());
 
-  return "...";
+  return '...';
 }
 ```
 
@@ -83,13 +89,13 @@ next 12 버전에서 소개되었던 Middleware가 여러 피드백을 통해 �
 
 ```javascript
 // middleware.ts
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   // Clone the request headers and set a new header `x-version`
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-version", "13");
+  requestHeaders.set('x-version', '13');
 
   // You can also set request headers in NextResponse.rewrite
   const response = NextResponse.next({
@@ -100,7 +106,7 @@ export function middleware(request: NextRequest) {
   });
 
   // Set a new response header `x-version`
-  response.headers.set("x-version", "13");
+  response.headers.set('x-version', '13');
   return response;
 }
 ```
@@ -109,12 +115,12 @@ export function middleware(request: NextRequest) {
 
 ```javascript
 // middleware.ts
-import { NextRequest, NextResponse } from "next/server";
-import { isAuthenticated } from "@lib/auth";
+import { NextRequest, NextResponse } from 'next/server';
+import { isAuthenticated } from '@lib/auth';
 
 // Limit the middleware to paths starting with `/api/`
 export const config = {
-  matcher: "/api/:function*",
+  matcher: '/api/:function*',
 };
 
 export function middleware(request: NextRequest) {
@@ -124,11 +130,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        message: "Auth failed",
+        message: 'Auth failed',
       },
       {
         status: 401,
-      }
+      },
     );
   }
 }
