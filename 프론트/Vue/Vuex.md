@@ -62,3 +62,49 @@ https://github.com/vuejs/vuex/issues/863#issuecomment-329510765
   }
 }
 ```
+
+# Vuex - 여러 작업을 동기적으로 디스패치해야 하는 경우
+
+```
+dispatch(type: string, payload?: any, options?: Object): Promise<any>
+dispatch(action: Object, options?: Object): Promise<any>
+```
+
+```javascript
+// Chaining dispatch calls
+this.$store
+  .dispatch('action1')
+  .then(() => this.$store.dispatch('action2'))
+  .then(() => this.$store.dispatch('action3'))
+  .catch(error => {
+    // Handle errors if any of the actions fail
+    console.error(error);
+  });
+```
+
+```javascript
+// Using async/await
+try {
+  await this.$store.dispatch('action1');
+  await this.$store.dispatch('action2');
+  await this.$store.dispatch('action3');
+} catch (error) {
+  // Handle errors if any of the actions fail
+  console.error(error);
+}
+```
+
+https://stackoverflow.com/questions/64471277/vuex-does-dispatch-return-a-promise-so-that-you-can-chain-them
+
+```javascript
+export const actions = {
+  async doSomethingMaster({ dispatch }) {
+    await dispatch('doSomething');
+    await dispatch('doSomething2');
+    await dispatch('doSomething3');
+  },
+  doSomething() {},
+  doSomething2() {},
+  doSomething3() {},
+};
+```
