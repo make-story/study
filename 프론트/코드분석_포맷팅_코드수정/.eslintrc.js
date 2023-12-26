@@ -25,6 +25,13 @@ ESLint + Next.js
 https://nextjs.org/docs/pages/building-your-application/configuring/eslint#eslint-config
 $ npm install -D eslint-config-next
 
+'eslint-config-next' 포함된 패키지
+https://github.com/vercel/next.js/blob/canary/packages/eslint-config-next/package.json
+eslint, typescript
+@typescript-eslint/parser
+eslint-import-resolver-node, eslint-import-resolver-typescript, eslint-plugin-import
+eslint-plugin-jsx-a11y, eslint-plugin-react, eslint-plugin-react-hooks
+
 -
 웹팩에서 로더로 실행
 $ npm install -D eslint-loader
