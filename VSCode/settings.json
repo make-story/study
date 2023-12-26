@@ -11,7 +11,7 @@
 
   // eslint
   "eslint.enable": true, // 이 프로젝트에 ESLint가 활성화되어 있는지 확인합니다.
-  "eslint.format.enable": true,
+  "eslint.format.enable": true, // ESLint를 검증된 파일의 포맷터로 활성화
   "eslint.alwaysShowStatus": true,
   "eslint.quiet": true,
   "eslint.validate": [
