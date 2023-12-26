@@ -1,5 +1,7 @@
 # 컴포넌트 패턴
 
+Render Props 패턴, 합성 컴포넌트 패턴(Compound Component Pattern), 제어 컴포넌트 패턴(Controlled Props Pattern), Props Getter 패턴, State Reducer 패턴
+
 https://fe-developers.kakaoent.com/2022/221110-ioc-pattern/
 
 # 상속 보다는 조합 (공식페이지)
@@ -20,8 +22,7 @@ https://kentcdodds.com/blog/inversion-of-control
 
 https://speakerdeck.com/jenncreighton/the-how-and-why-of-flexible-react-components-289aa486-464a-4dea-b89a-6f92d0af6606
 
-API를 사용하는 쪽으로 특정 역할을 넘기는 패턴을  
-제어역전(Inversion of Control, IoC)
+`API를 사용하는 쪽으로 특정 역할을 넘기는 패턴을 제어역전(Inversion of Control, IoC)` 
 
 `개발된 컴포넌트가 기획 요건 변경 또는 추가에 따른 복잡도 증가 상황`  
 `props 를 변경 또는 추가해가며 확장하는 상황`  
