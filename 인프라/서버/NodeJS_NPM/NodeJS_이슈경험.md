@@ -30,3 +30,9 @@ $ sudo rm /usr/local/lib/dtrace/node.d
 
 $ brew uninstall node
 ```
+
+# An unexpected error occurred: "ENOTDIR: not a directory
+
+https://lightrun.com/answers/securingsincity-react-ace-yarn-upgrade-to-940-fails-with-enotdir
+
+$ [ -f 'node_modules/react-ace/dist/react-ace.min.js' ] && rm -rf node_modules/react-ace && yarn install
