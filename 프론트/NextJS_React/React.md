@@ -54,11 +54,6 @@ UI 데이터가 변경되면 화면을 다시 그려야 한다.
 
 ---
 
-# map 반복문 렌더시 key 값 - 리렌더링 주의!
-
-문제 : 데이터 리스트 추가에 따라 컴포넌트가 append 되는 부분만 렌더하는 것이 아닌, 전체 리스트를 다시 렌더링 하는 경우가 있다.
-원인 : 반복문 React key 속성값 랜덤인 경우 재렌더링 발생!
-
 # 리액트 컴포넌트 내부 변수선언 주의! (리렌더링에 따라 초기화가 안되어야 하는 값)
 
 useRef 를 사용
@@ -335,7 +330,9 @@ $ yarn eject
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-const html = ReactDOMServer.renderToString(<div>Hello Server Side Rendering!</div>);
+const html = ReactDOMServer.renderToString(
+  <div>Hello Server Side Rendering!</div>,
+);
 
 console.log(html);
 ```

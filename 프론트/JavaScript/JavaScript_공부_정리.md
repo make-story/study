@@ -135,3 +135,146 @@ for (let i = 1; i <= 5; i++) {
   setTimeout(() => console.log(i), i * 1000);
 }
 ```
+
+# `모던 리액트 Deep Dive` 책 내용 중
+
+## 자바스크립트의 또 다른 비교 공식, Object.is - p29
+
+Object.js 는 '===' 와 동일하게 타입이 다르면 그냥 false 다.
+
+'===' 와도 차이가 존재
+
+```javascript
+-0 === +0; // true
+Object.is(-0, +0); // false
+
+Number.NaN ==== NaN; // false
+Object.is(Number.NaN, NaN); // true
+
+NaN === 0 / 0; // false
+Object.is(NaN, 0 / 0); // true
+```
+
+한 가지 주의해야 할 점은, Object.is 를 사용한다 하더라도 객체 비교에는 별 차이가 없다는 것이다.
+
+```javascript
+Object.is({}, {}); // false
+```
+
+## 리액트에서의 동등 비교 - p30
+
+```typescript
+function is(x: any, y: any) {
+  return (x === y && (x !== 0 || 1 / x === 1 / y)) || (x !== x && y !== y);
+}
+
+const objectIs: (x: any, y: any) => boolean =
+  typeof Object.is === 'function' ? Object.is : is;
+
+export default objectIs;
+```
+
+리액트에서는 이 objectIs 를 기반으로 동등 비교를 하는 shalloEqual 이라는 함수를 만들어 사용한다.
+
+https://github.com/facebook/react/blob/main/packages/shared/shallowEqual.js
+
+```typescript
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @flow
+ */
+
+import is from './objectIs';
+import hasOwnProperty from './hasOwnProperty';
+
+/**
+ * Performs equality by iterating through keys on an object and returning false
+ * when any key has values which are not strictly equal between the arguments.
+ * Returns true when the values of all keys are strictly equal.
+ */
+function shallowEqual(objA: mixed, objB: mixed): boolean {
+  if (is(objA, objB)) {
+    return true;
+  }
+
+  if (
+    typeof objA !== 'object' ||
+    objA === null ||
+    typeof objB !== 'object' ||
+    objB === null
+  ) {
+    return false;
+  }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  for (let i = 0; i < keysA.length; i++) {
+    const currentKey = keysA[i];
+    if (
+      !hasOwnProperty.call(objB, currentKey) ||
+      // $FlowFixMe[incompatible-use] lost refinement of `objB`
+      !is(objA[currentKey], objB[currentKey])
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export default shallowEqual;
+```
+
+## 클로저를 사용할 때 주의할 점 - p65
+
+```javascript
+for (var i = 0; i < 5; i++) {
+  setTimeout(function () {
+    console.log(i);
+  }, i * 1000);
+}
+```
+
+실제로 위 코드를 실행하면 0, 1, 2, 3, 4초 뒤에 5만 출력된다.
+
+그 이유는 i 가 전역 변수로 작동하기 때문이다.  
+자바스크립트는 기본적으로 함수 레벨 스코프를 따르고 있기 때문에 var 는 for 문의 존재와 상관없이  
+해당 구문이 선언된 함수 레벨 스코프를 바라보고 있으므로  
+함수 내부 실행이 아니라면 전역 스코프에 var i 가 등록돼 있을 것이다.
+
+for 문을 다 순회한 이후, 태스크 큐에 있는 setTimeout 을 실행하려고 했을 때,  
+이미 전역 레벨에 있는 i 는 5 로 업데이트가 완료돼 있다.
+
+이를 올바르게 수정하는 방법은  
+첫째, 함수 레벨 스코프가 아닌 블록 레벨 스코프를 갖는 let 으로 수정하는 것이다.  
+두 번째로는 클로저를 제대로 활용하는 것이다.
+
+```javascript
+for (var i = 0; i < 5; i++) {
+  setTimeout(
+    (function (sec) {
+      return function () {
+        console.log(sec);
+      };
+    })(i),
+    i * 1000,
+  );
+}
+```
+
+`클로저의 기본 개념, "함수와 함수가 선언된 어휘적 환경의 조합"을 주의깊게 살표봐야 클로저를 제대로 활용할 수 있다.`  
+(유성민 생각: 클로저는 함수 선언시점의 스코프체인 정보를 가지고 반환되는 함수를 말한다.)
+
+## 태스크 큐와 마이크로 태스크 큐 - p76
+
+## 타입 기반 라이브러리 사용을 위해 @types 모듈 설치하기 - p114
