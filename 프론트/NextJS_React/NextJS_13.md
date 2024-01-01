@@ -140,7 +140,8 @@ export function middleware(request: NextRequest) {
 }
 ```
 
-현재는 Middleware로부터 response 보내는 부분은 experimental 단계에서 next.config.js에서 experimental.allowMiddlewareResponseBody 설정을 별도로 해주어야 한다.
+현재는 Middleware 로부터 response 보내는 부분은 experimental 단계에서  
+next.config.js 에서 experimental.allowMiddlewareResponseBody 설정을 별도로 해주어야 한다.
 
 ```javascript
 const nextConfig = {

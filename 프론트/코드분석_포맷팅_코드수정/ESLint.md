@@ -44,7 +44,7 @@ https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 
 ### eslint-plugin-\*
 
-플러그인은 일련의 규칙(룰) 집합이며, 플러그인을 추가하여도 규칙은 적용되지 않습니다.
+`플러그인은 일련의 규칙(룰) 집합이며, 플러그인을 추가하여도 규칙은 적용되지 않습니다.` (rules 집합)
 
 예를 들면 eslint-plugin-react 는 리액트와 관련된 룰을 정의한 패키지이다.
 만약 룰을 사용하고 싶다면 아래와 같이 정의해야 한다.
@@ -62,7 +62,8 @@ https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 하지만 이런식으로 매번 모든 룰에 대해 분석하고 파악해서 일일히 작성하기엔 너무 귀찮은 일이다.  
 때문에 `대부분의 플러그인은 recommended 나 strict, all 등의 자체 설정을 제공하는 것`이다.
 
-eslint-plugin-react의 경우 recommended와 all 두가지의 config를 제공하는데 다음과 같이 사용할 수 있다.
+eslint-plugin-react 의 경우  
+recommended 와 all 두가지의 config 를 제공하는데 다음과 같이 사용할 수 있다.
 
 ```json
 {
@@ -75,11 +76,8 @@ https://github.com/jsx-eslint/eslint-plugin-react/blob/master/index.js
 plugin 종류는 여러 가지 있는데,  
 예를 들어
 
-- eslint-config-airbnb-base: 에어비엔비 린트 플러그인
-- eslint-config-next: Next.js 전용 린트 플러그인
 - eslint-plugin-react: 리액트 전용 플러그인
 - eslint-plugin-prettier: 린트 위에 사용할 프리티어 플러그인
-- eslint-config-prettier: 요건 린트 설정과 중복되는 부분이 있으면 프리티어 룰에서 제외하는 플러그인
 - @typescript-eslint/eslint-plugin: : 타입스크립트 전용 린트
 
 ## extends
@@ -88,7 +86,7 @@ https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 
 ### eslint-config-\*
 
-eslint-plugin-_ 패키지들이나 룰들을 모아서 설정으로 만든 것이 eslint-config-_ 패키지다.  
+`eslint-plugin-_ 패키지들이나 룰들을 모아서 설정으로 만든 것이 eslint-config-_ 패키지다.` (plugins 또는 rules 집합)  
 예를들면, eslint-config-airbnb 는
 eslint, eslint-plugin-import, eslint-plugin-react, eslint-plugin-react-hooks, eslint-plugin-jsx-a11y 의 룰들을 조합한 설정 패키지이고 아래와 같이 정의해서 사용한다.
 
@@ -102,6 +100,20 @@ eslint-plugin-\* 패키지의 설정은
 extends 에서 plugin:패키지네임/설정네임으로 사용할 수 있는데  
 eslint-config-\* 패키지의 설정은
 바로 '\*'를 써주기만 하면 된다. 플러그인 패키지를 plugins에 단축어로 쓰던 것과 동일하다.
+
+- eslint-config-airbnb-base: 에어비엔비 린트 플러그인
+- eslint-config-next: Next.js 전용 린트 플러그인
+- eslint-config-prettier: 요건 린트 설정과 중복되는 부분이 있으면 프리티어 룰에서 제외하는 플러그인
+
+### eslint-config-next
+
+eslint-config-next 포함된 패키지
+https://github.com/vercel/next.js/blob/canary/packages/eslint-config-next/package.json
+
+'모던 리액트 Deep Dive' 책 내용 중  
+eslint-config-next Next.js 기반 프로젝트에서 사용하도록 만들어진 ESLint 설정으로,  
+`구글과 협업해 만든 핵심 웹 지표(core web vital)에 도움이 되는 규칙들이 내장돼 있다.`  
+Next.js 기반 프로젝트라면 꼭 사용하는 것을 추천하며, eslint-config-airbnb 와 같은 기존에 사용하던 규칙이 있다면 이에 추가로 함께 사용하는 것을 추천한다.
 
 ## rules
 

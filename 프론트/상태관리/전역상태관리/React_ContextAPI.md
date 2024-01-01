@@ -43,7 +43,9 @@ const ColorProvider = ({ children /*props.children*/ }) => {
 
   // Context 와 컴포넌트 연결 (값 변경)
   // Provider 를 사용할 떄는 value 값을 명시해 주어야 제대로 작동!!
-  return <ColorContext.Provider value={value}>{children}</ColorContext.Provider>;
+  return (
+    <ColorContext.Provider value={value}>{children}</ColorContext.Provider>
+  );
 };
 
 const ColorConsumer = ColorContext.Consumer;
@@ -172,7 +174,9 @@ const Provider = ({ children }) => {
 
   return (
     <SetSomeObjectConteext.Provider value={setSomeObj}>
-      <SomeObjectContext.Provider value={someObj}>{children}</SomeObjectContext.Provider>
+      <SomeObjectContext.Provider value={someObj}>
+        {children}
+      </SomeObjectContext.Provider>
     </SetSomeObjectConteext.Provider>
   );
 };
@@ -226,3 +230,14 @@ https://github.com/facebook/react/issues/15156#issuecomment-474590693
 제일 권장되는 방법은 1번이지만,  
 여러 Context를 만들어 Provider로 주입할 때  
 Provider Hell 이라 불리는 중첩 Provider로 인한 가독성 문제가 생긴다.
+
+---
+
+# '모던 리액트 Deep Dive' 책 내용 중 - p343
+
+리액트 16.3 버전 이전에도 context 가 존재했으며, 이를 다루기 위한 getChildContext() 를 제공했었다.  
+그러나 이 방식에는 몇 가지 문제점이 있었는데,  
+첫 번째로 상위 컴포넌트가 렌더링되면 getChildContext 도 호출됨과 동시에 shouldComponentUpdate 가 항상 true 를 반환해 불필요하게 렌더링이 일어난다는 점,  
+getChildContext 를 사용하기 위해서는 context 를 인수로 받아야 하는데 이 때문에 컴포넌트와 결합도가 높아지는 등의 단점이 있었다.
+
+https://github.com/acdlite/rfcs/blob/1e25818e47037a7de80e95793c4129e9887d6f2b/text/0000-new-version-of-context.md
