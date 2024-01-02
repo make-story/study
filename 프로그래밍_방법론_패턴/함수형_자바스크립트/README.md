@@ -1,5 +1,74 @@
 `현실에서의 실행 경험`
 
+# 챗GPT 답변
+
+JavaScript에서 반복되는 코드를 함수형 프로그래밍으로 효율화하는 방법은 여러 가지가 있습니다.  
+몇 가지 일반적인 방법은 다음과 같습니다
+
+1. 고차 함수(Higher-Order Functions) 사용
+
+map, filter, reduce와 같은 고차 함수를 사용하여 배열을 조작합니다.  
+예를 들어, 반복문 대신 map을 사용하여 배열의 각 요소를 변환하거나, filter를 사용하여 조건에 맞는 요소만 선택할 수 있습니다.
+
+2. 순수 함수(Pure Functions) 활용
+
+부작용을 최소화하고 입력에만 의존하는 순수 함수를 작성합니다.  
+상태를 변경하는 대신 값을 반환하도록 합니다.
+
+3. 재귀 함수(Recursive Functions) 활용
+
+반복 대신 재귀를 사용하여 문제를 해결할 수 있습니다.  
+주의해야 할 점은 적절한 종료 조건을 설정하여 무한 재귀에 빠지지 않도록 하는 것입니다.
+
+4. 커링(Currying) 및 함수 합성(Composition)
+
+함수를 여러 개의 작은 함수로 나누어 작성하고, 필요에 따라 조합합니다.  
+함수 합성을 통해 코드를 더 모듈화하고 가독성을 높일 수 있습니다.
+
+5. 모나드(Monads) 사용
+
+모나드를 활용하여 부작용을 추상화하고, 코드를 더 안전하게 만들 수 있습니다.
+
+6. ES6+ 기능 활용
+
+화살표 함수, 펼침 연산자, 비구조화 할당 등을 사용하여 간결하고 효율적인 코드를 작성합니다.
+
+# 함수 내부 if 조건문 깊이를 줄이는 방법으로 빠르게 리턴하는 방법 추천
+
+```javascript
+function test1() {
+  const a = '';
+  if (a) {
+    const { b, c } = { b: '', c: '' };
+    if (b && c) {
+      const d = 0;
+      if (d) {
+        // ...비즈니스 실행코드
+      }
+    }
+  }
+}
+
+function test2() {
+  const a = '';
+  if (!a) {
+    return;
+  }
+
+  const { b, c } = { b: '', c: '' };
+  if (!b || !c) {
+    return;
+  }
+
+  const d = 0;
+  if (!d) {
+    return;
+  }
+
+  // ...비즈니스 실행코드
+}
+```
+
 # 클로저
 
 `함수가 생성되는 시점의 스코프 체인을 기억하고 접근가능한 함수` - 내부함수
@@ -17,8 +86,11 @@ const instructors = [
 ];
 
 const findByLibrary =
-  (libarary = '기념 도서관') =>
+  (
+    libarary = '기념 도서관', // 공통 코드에서 구분해야하는 것 (조건, 필터 등)
+  ) =>
   instructor => {
+    // 공통 코드
     return instructor.libraries.includes(libarary);
   };
 const librarian = instructors.find(findByLibrary('미디어교육정보 도서관'));
@@ -198,7 +270,10 @@ sailors
 # new Map : 키-값 데이터 관리
 
 ```javascript
-const filters = new Map().set('견종', '래브라도레트리버').set('크기', '대형견').set('색상', '갈색');
+const filters = new Map()
+  .set('견종', '래브라도레트리버')
+  .set('크기', '대형견')
+  .set('색상', '갈색');
 ```
 
 ```javascript
