@@ -18,6 +18,10 @@ https://blog.logrocket.com/fetch-api-node-js/
 Node.js v20 내장됨  
 https://dev.to/cjreads665/nodejs-2060-say-goodbye-to-dotenv-2ijl
 
+```
+$ node --env-file .env
+```
+
 # import 에서 확장자까지 명확하게 쓰는 것 중요?
 
 Relative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'
