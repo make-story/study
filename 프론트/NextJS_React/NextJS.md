@@ -216,6 +216,8 @@ $ yarn build-export
 # next 빌드 (ssr, isr 등 out 폴더로 내보내기 안됨)
 $ next build
 # 빌드 결과 내보내기
+# (주의! Next.js 13 이상에서 next export 제거 됨 - https://nextjs.org/docs/pages/building-your-application/deploying/static-exports#version-history)
+# (Next.js 13 이상 부터, next.config.js 에 output: 'export' 설정으로 제어)
 $ next export
 ```
 
