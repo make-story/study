@@ -30,27 +30,6 @@ https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines
 
 예를 들어, "웹 컴포넌트가 프론트엔드 프레임워크를 대신할까?" 질문에 "아니오" 라고 답할 가능성이 높다.
 
-## 관련 라이브러리
-
-https://npmtrends.com/@polymer/polymer-vs-@stencil/core-vs-hybrids-vs-lit-element-vs-slim-js
-
-## `Lit-element`
-
-https://www.npmjs.com/package/lit-element
-
-https://lit.dev/  
-https://lit.dev/docs/frameworks/react/
-
-https://betterprogramming.pub/how-to-build-a-web-component-with-lit-elements-d88684a46e56
-
-### 리액트 Lit
-
-https://lit.dev/docs/frameworks/react/
-
-## @podium
-
-https://podium-lib.io/
-
 ---
 
 > Template
