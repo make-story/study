@@ -14,11 +14,17 @@
 2. 프로젝트 루트의 babel.config.js 파일이 전체 설정 파일이다.  
 3. 전체 설정 파일과 지역 설정 파일을 병합한다.  
 
-$ npm install -D @babel/core 
-$ npm install -D babel-plugin-module-resolver babel-plugin-styled-components
+-
+https://github.com/tleunen/babel-plugin-module-resolver
+$ npm install -D babel-plugin-module-resolver 
 
-Next.js
-Babel 구성이 있는 경우 Next.js 는 JavaScript/Typescript 컴파일에 SWC 사용을 자동으로 선택 해제하고   
+-
+SSR Styled-components
+$ npm install -D babel-plugin-styled-components
+
+-
+Next.js SWC 와 Babel
+Babel 구성파일이 있는 경우 Next.js 는 JavaScript/Typescript 컴파일에 SWC 사용을 자동으로 선택 해제하고   
 Next.js 11에서 사용된 것과 동일한 방식으로 Babel 을 사용
 */
 module.exports = {
