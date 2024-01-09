@@ -1,5 +1,8 @@
 # API Mocking, 더미데이터, 목데이터
 
+참고: 테스트 데이터 API  
+https://jsonplaceholder.typicode.com/todos/1
+
 ## MSW (Mock Service Worker)
 
 https://mswjs.io/
@@ -19,15 +22,15 @@ index.js
 
 ```javascript
 // src/index.js
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
 // 개발 환경에서만 실행되도록 환경 변수를 확인하는 과정이 필요하다.
-if (process.env.NODE_ENV === "development") {
-  const { worker } = require("./mocks/worker");
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/worker');
   worker.start();
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 ```

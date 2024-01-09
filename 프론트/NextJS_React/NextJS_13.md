@@ -1,6 +1,17 @@
 # Next.js 13 신규 기능
 
+https://nextjs.org/blog/next-13
+
 https://helloinyong.tistory.com/345
+
+- app 디렉토리(beta): 더 쉽고 빠르며 더 간단한 클라이언트
+  - Layout - 불필요한 리렌더링를 방지하고 복잡한 인터페이스를 쉽게 배치함
+  - React Server Components - React에 Server Components를 지원
+  - Streaming - UI의 렌더링을 점진적으로 렌더링
+- turbopack: 최대 700배 빠른 Rust 기반의 webpack 대체
+- 새로운 next/image: 더 빨라진 지연 로딩
+- 새로운 @next/font(beta): 레이아웃 이동이 없는 자체 호스팅 글꼴
+- 개선된 next/link: 간소화된 API
 
 ## app/
 
