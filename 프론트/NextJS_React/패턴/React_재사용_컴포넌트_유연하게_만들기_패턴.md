@@ -1,4 +1,4 @@
-# 컴포넌트 고민
+# 컴포넌트 고민 / 재사용 / 컴포넌트 유연하게 만들기 / 유연한 설계
 
 `https://leetrue-log.vercel.app/react-component-gomin`
 

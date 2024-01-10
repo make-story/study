@@ -59,6 +59,8 @@ src 하위에 아래 폴더 구성됨
 
 ### 비즈니스 로직 관리
 
+`study.git/프론트/NextJS_React/패턴/React_관심사분리_공통로직_비즈니스로직_관리.md` 참고!
+
 - 추천방법1:
 
   - 댄 아브라모프(Dan Abramov)의 프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리
@@ -157,29 +159,29 @@ let a = 1, b = 2;
 
 ```javascript
 // 나쁜 예
-import React from "react";
-import Button from "../Button";
+import React from 'react';
+import Button from '../Button';
 
-import styles from "./styles.css";
-import type { User } from "../../types";
-import { getUser } from "../../api";
+import styles from './styles.css';
+import type { User } from '../../types';
+import { getUser } from '../../api';
 
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { truncate, formatNumber } from "../../utils";
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { truncate, formatNumber } from '../../utils';
 
 // 좋은 예: 그룹화
 // 1. node_modules 모듈
 // 2. API, State, Type, 내부기능 또는 컴포넌트 등 그룹
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import React from "react";
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import { getUser } from "../../api"; // 절대경로 또는 alias 활용 추천
-import type { User } from "../../types";
-import { formatNumber, truncate } from "../../utils";
-import Button from "../Button";
-import styles from "./styles.css";
+import { getUser } from '../../api'; // 절대경로 또는 alias 활용 추천
+import type { User } from '../../types';
+import { formatNumber, truncate } from '../../utils';
+import Button from '../Button';
+import styles from './styles.css';
 // API, 타입, 유틸, 스타일 등등 역할별 그룹화
 ```
 
@@ -187,11 +189,11 @@ import styles from "./styles.css";
 
 ```javascript
 // 나쁜 예: import 와 로직간 구분을 위한 빈줄 없음
-import { App } from "@/components";
+import { App } from '@/components';
 let a = 1;
 
 // 좋은 예
-import { App } from "@/components";
+import { App } from '@/components';
 
 let a = 1;
 ```
@@ -707,7 +709,7 @@ switch (value) {
     return true;
 
   default:
-    throw new Error("여기까지 실행되면 안됩니다.");
+    throw new Error('여기까지 실행되면 안됩니다.');
 }
 ```
 
@@ -748,7 +750,7 @@ let value = (function () {
   // 함수 본체
 
   return {
-    message: "Hi",
+    message: 'Hi',
   };
 })();
 

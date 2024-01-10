@@ -2,6 +2,8 @@
 
 코딩컨벤션
 
+`study.git/구조화_표준화_체계화_프로세스화/가이드_코딩스타일_JavaScript.md` 참고!
+
 - 추천방법1:
 
   - 댄 아브라모프(Dan Abramov)의 프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리
@@ -25,6 +27,12 @@
     - 전반적으로 재사용 가능한 로직을 prop으로 컴포넌트에게 제공
     - 또는 특정 컨테이너 또는 컴포넌트 실행을 위한 선행조건 적용
     - https://patterns-dev-kr.github.io/design-patterns/hoc-pattern/
+
+- 추천방법4:
+
+  - GraphQL 서버에서 작업
+    - 데이터 호출이 동기적으로 필요할 때
+    - 매쉬업이 필요할 때
 
 ## 관심사 분리를 위한 프레젠테이션(Presentational), 컨테이너(Container) 컴포넌트 구분하기
 
@@ -60,13 +68,60 @@ export default function ShopProducts() {
 }
 ```
 
-`useHook 사용` MVVM 모델
+## `useHook 사용` MVVM 모델
 
 https://www.youtube.com/watch?v=bjVAVm3t5cQ
 
 - 컨테이너에는 useHook(사용자훅) 을 import
 - useHook(사용자훅) 내부에서는 API Fetch 및 데이터 가공하여 제공
 - 컨테이너는 useHook(사용자훅) 상태를 하위 View 에 제공
+
+## 컴포지션 (합성, Composition)
+
+리액트 공식 페이지 글  
+`React는 강력한 합성 모델을 가지고 있으며, 상속 대신 합성을 사용하여 컴포넌트 간에 코드를 재사용하는 것이 좋습니다.`
+
+https://ko.legacy.reactjs.org/docs/composition-vs-inheritance.html
+
+children prop을 사용하여 자식 엘리먼트를 출력에 그대로 전달하는 것이 좋습니다.
+
+```jsx
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+  );
+}
+```
+
+```jsx
+function WelcomeDialog() {
+  return (
+    <FancyBorder color='blue'>
+      <h1 className='Dialog-title'>Welcome</h1>
+      <p className='Dialog-message'>Thank you for visiting our spacecraft!</p>
+    </FancyBorder>
+  );
+}
+```
+
+또는
+
+```jsx
+function SplitPane(props) {
+  return (
+    <div className='SplitPane'>
+      <div className='SplitPane-left'>{props.left}</div>
+      <div className='SplitPane-right'>{props.right}</div>
+    </div>
+  );
+}
+
+function App() {
+  return <SplitPane left={<Contacts />} right={<Chat />} />;
+}
+```
 
 ---
 
