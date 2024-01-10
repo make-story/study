@@ -10,6 +10,15 @@ https://velog.io/@zinukk/d-krgvcbsc
 - Queue에 할 일이 있는지 확인
 - CallStack 비어있으면 일감을 Queue -> CallStack으로 이동
 
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Event_loop
+
+자바스크립트는 싱글쓰레드, 콜스택방식  
+호출스택 (setTimeout 비동기 프레임 있음) ->  
+백그라운드 이동(setTimeout, Ajax, 이벤트리스너, 파일리더 등) ->  
+태스크큐 대기 ->  
+이벤트루프가 태스크 큐의 콜백을 호출스택으로 올림 ->  
+호출스택 실행
+
 ## 태스크큐 vs 마이크로태스크큐
 
 Event Loop 는 두 가지 종류의 작업 큐, 즉 "태스크 큐(task queue)"와 "마이크로태스크 큐(microtask queue)"를 갖고 있다.  
