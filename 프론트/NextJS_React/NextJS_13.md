@@ -105,9 +105,41 @@ app 디렉토리에서 돌아가는 모든 컴포넌트는 기본적으로 Serve
 
 https://velog.io/@surim014/building-a-blog-with-Next.js-13-and-React-Server-Components
 
-### Data Fetching
+### Data Fetching (서버 컴포넌트, 클라이언트 컴포넌트)
 
 https://github.com/XionWCFM/Nextjs-docs-Korean-translation/blob/main/nextjsdocs/BuildingYourApplication/DataFetching/Fetching.md
+
+https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#use-in-client-components
+
+https://github.com/acdlite/rfcs/blob/first-class-promises/text/0000-first-class-support-for-promises.md
+
+서버 컴포넌트에서 async와 await를 도입하고 클라이언트 컴포넌트를 위한 새로운 use() 훅 사용
+
+서버 컴포넌트에서 async와 await을 사용하여 데이터를 가져올 수 있습니다.
+
+```jsx
+// app/page.tsx
+
+async function getData() {
+  const res = await fetch('https://api.example.com/...');
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
+
+export default async function Page() {
+  const data = await getData();
+
+  return <main></main>;
+}
+```
 
 app/ 에서 React Suspense 기반으로 구현된 새로운 data fetch 하는 방식이다.
 
