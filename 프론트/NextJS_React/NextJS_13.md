@@ -27,16 +27,37 @@ https://nextjs.org/docs/app/building-your-application/rendering/server-component
 
 > 기존 Pages 단위 서버렌더링이 아닌 컴포넌트 단위(/app/\*) 서버 렌더 컴포넌트 구성가능
 
-### 리액트 서버 컴포넌트 (RSC)
+### 리액트 서버 컴포넌트 (RSC, React 18 버전부터 도입된 개념)
+
+https://tech.kakaopay.com/post/react-server-components/
 
 https://patterns-dev-kr.github.io/rendering-patterns/react-server-components/#%EC%84%9C%EB%B2%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8
 
-- 서버 컴포넌트의 코드는 클라이언트에 전송되지 않는다.
-  대부분 React SSR구현들은 컴포넌트 코드가 자바스크립트 번들에 포함되 클라이언트에 전송된다. 이는 인터렉션을 지연시킨다.
-- 서버 컴포넌트는 컴포넌트 트리 내 아무 곳이라도 백엔드에 접근할 수 있다.
-  Next.js를 사용할때는 getServerProps()를 통하여 백엔드에 접근했지만 이 것은 페이지 단위로만 제한되어 있었다. npm에 올라간 모든 컴포넌트는 이렇게 할 수 없다.
-- 서버 컴포넌트는 클라이언트 컴포넌트 트리의 상태를 유지한채로 서버로부터 다시 받아올 수 있다.
-  이는 주요 전송 메커니즘이 HTML보다 더 다양한 케이스르 커버할 수 있기 때문이다. 따라서 검색 결과 텍스트, 포커스, 텍스트 선택 등의 클라이언트 상태를 날리지 않은 상태로 검색 결과 목록과 같은 서버렌더링 영역이 리패칭될 수 있다.
+- 서버 컴포넌트의 코드는 클라이언트로 전달되지 않습니다.  
+  하지만 서버 사이드 렌더링의 모든 컴포넌트의 코드는 자바스크립트 번들에 포함되어 클라이언트로 전송됩니다.
+- 서버 컴포넌트는 페이지 레벨에 상관없이 모든 컴포넌트에서 서버에 접근 가능합니다.  
+  하지만 Next.js의 경우 가장 top level의 페이지에서만 getServerProps()나 getInitialProps()로 서버에 접근 가능합니다.
+- 서버 컴포넌트는 클라이언트 상태를 유지하며 refetch 될 수 있습니다.
+  서버 컴포넌트는 HTML이 아닌 특별한 형태로 컴포넌트를 전달하기 때문에 필요한 경우 포커스, 인풋 입력값 같은 클라이언트 상태를 유지하며 여러 번 데이터를 가져오고 리렌더링하여 전달할 수 있습니다.
+  하지만 SSR의 경우 HTML로 전달되기 때문에 새로운 refetch가 필요한 경우 HTML 전체를 리렌더링 해야 하며 이로 인해 클라이언트 상태를 유지할 수 없습니다.
+
+RSC 반환값 예
+
+```
+M1:{"id":"./src/SearchField.client.js","chunks":["client5"],"name":""}
+M2:{"id":"./src/EditButton.client.js","chunks":["client1"],"name":""}
+S3:"react.suspense"
+J0:["$","div",null,{"className":"main","children":[["$","section",null,{"className":"col sidebar","children":[["$","section",null,{"className":"sidebar-header","children":[["$","img",null,{"className":"logo","src":"logo.svg","width":"22px","height":"20px","alt":"","role":"presentation"}],["$","strong",null,{"children":"React Notes"}]]}],["$","section",null,{"className":"sidebar-menu","role":"menubar","children":[["$","@1",null,{}],["$","@2",null,{"noteId":null,"children":"New"}]]}],["$","nav",null,{"children":["$","$3",null,{"fallback":["$","div",null,{"children":["$","ul",null,{"className":"notes-list skeleton-container","children":[["$","li",null,{"className":"v-stack","children":["$","div",null,{"className":"sidebar-note-list-item skeleton","style":{"height":"5em"}}]}],["$","li",null,{"className":"v-stack","children":["$","div",null,{"className":"sidebar-note-list-item skeleton","style":{"height":"5em"}}]}],["$","li",null,{"className":"v-stack","children":["$","div",null,{"className":"sidebar-note-list-item skeleton","style":{"height":"5em"}}]}]]}]}],"children":"@4"}]}]]}],["$","section","null",{"className":"col note-viewer","children":["$","$3",null,{"fallback":["$","div",null,{"className":"note skeleton-container","role":"progressbar","aria-busy":"true","children":[["$","div",null,{"className":"note-header","children":[["$","div",null,{"className":"note-title skeleton","style":{"height":"3rem","width":"65%","marginInline":"12px 1em"}}],["$","div",null,{"className":"skeleton skeleton--button","style":{"width":"8em","height":"2.5em"}}]]}],["$","div",null,{"className":"note-preview","children":[["$","div",null,{"className":"skeleton v-stack","style":{"height":"1.5em"}}],["$","div",null,{"className":"skeleton v-stack","style":{"height":"1.5em"}}],["$","div",null,{"className":"skeleton v-stack","style":{"height":"1.5em"}}],["$","div",null,{"className":"skeleton v-stack","style":{"height":"1.5em"}}],["$","div",null,{"className":"skeleton v-stack","style":{"height":"1.5em"}}]]}]]}],"children":["$","div",null,{"className":"note--empty-state","children":["$","span",null,{"className":"note-text--empty-state","children":"Click a note on the left to view something! 🥺"}]}]}]}]]}]
+M5:{"id":"./src/SidebarNote.client.js","chunks":["client6"],"name":""}
+J4:["$","ul",null,{"className":"notes-list","children":[["$","li","1",{"children":["$","@5",null,{"id":1,"title":"Meeting Notes","expandedChildren":["$","p",null,{"className":"sidebar-note-excerpt","children":"This is an example note. It contains Markdown!"}],"children":["$","header",null,{"className":"sidebar-note-header","children":[["$","strong",null,{"children":"Meeting Notes"}],["$","small",null,{"children":"12/30/20"}]]}]}]}],["$","li","2",{"children":["$","@5",null,{"id":2,"title":"A note with a very long title because sometimes you need more words","expandedChildren":["$","p",null,{"className":"sidebar-note-excerpt","children":"You can write all kinds of amazing notes in this app! These note live on the server in the notes..."}],"children":["$","header",null,{"className":"sidebar-note-header","children":[["$","strong",null,{"children":"A note with a very long title because sometimes you need more words"}],["$","small",null,{"children":"12/30/20"}]]}]}]}],["$","li","3",{"children":["$","@5",null,{"id":3,"title":"I wrote this note today","expandedChildren":["$","p",null,{"className":"sidebar-note-excerpt","children":"It was an excellent note."}],"children":["$","header",null,{"className":"sidebar-note-header","children":[["$","strong",null,{"children":"I wrote this note today"}],["$","small",null,{"children":"12/30/20"}]]}]}]}],["$","li","4",{"children":["$","@5",null,{"id":4,"title":"Make a thing","expandedChildren":["$","p",null,{"className":"sidebar-note-excerpt","children":"It's very easy to make some words bold and other words italic with Markdown. You can even link to React's..."}],"children":["$","header",null,{"className":"sidebar-note-header","children":[["$","strong",null,{"children":"Make a thing"}],["$","small",null,{"children":"12/30/20"}]]}]}]}],["$","li","6",{"children":["$","@5",null,{"id":6,"title":"Test Noteeeeeeeasd","expandedChildren":["$","p",null,{"className":"sidebar-note-excerpt","children":"Test note's text"}],"children":["$","header",null,{"className":"sidebar-note-header","children":[["$","strong",null,{"children":"Test Noteeeeeeeasd"}],["$","small",null,{"children":"11/29/22"}]]}]}]}],["$","li","7",{"children":["$","@5",null,{"id":7,"title":"asdasdasd","expandedChildren":["$","p",null,{"className":"sidebar-note-excerpt","children":"asdasdasd"}],"children":["$","header",null,{"className":"sidebar-note-header","children":[["$","strong",null,{"children":"asdasdasd"}],["$","small",null,{"children":"11/29/22"}]]}]}]}]]}]
+```
+
+M 으로 시작하는 라인은 클라이언트 번들에서 컴포넌트 함수를 조회하는 데 필요한 정보와 클라이언트 컴포넌트의 module.reference를 정의합니다.  
+J 로 시작하는 라인은 앞에서 M 라인이 정의한 클라이언트 컴포넌트를 참조하는 것으로 실제 리액트 컴포넌트의 element 트리를 정의합니다.  
+S 는 리액트 서스펜스에 관한 부분입니다.
+
+RSC는 모든 데이터를 기다리는 것이 아니라 한행이 완성되면  
+그 행을 즉각적으로 반영하여 작업을 하고 아직 그릴 수 없는 부분은 체크만 해두고 넘어간다는 것
 
 ### 파일명 규칙
 
