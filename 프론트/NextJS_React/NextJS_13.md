@@ -27,6 +27,42 @@ https://nextjs.org/docs/app/building-your-application/rendering/server-component
 
 > 기존 Pages 단위 서버렌더링이 아닌 컴포넌트 단위(/app/\*) 서버 렌더 컴포넌트 구성가능
 
+### 리액트 서버 컴포넌트 (RSC)
+
+https://patterns-dev-kr.github.io/rendering-patterns/react-server-components/#%EC%84%9C%EB%B2%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8
+
+- 서버 컴포넌트의 코드는 클라이언트에 전송되지 않는다.
+  대부분 React SSR구현들은 컴포넌트 코드가 자바스크립트 번들에 포함되 클라이언트에 전송된다. 이는 인터렉션을 지연시킨다.
+- 서버 컴포넌트는 컴포넌트 트리 내 아무 곳이라도 백엔드에 접근할 수 있다.
+  Next.js를 사용할때는 getServerProps()를 통하여 백엔드에 접근했지만 이 것은 페이지 단위로만 제한되어 있었다. npm에 올라간 모든 컴포넌트는 이렇게 할 수 없다.
+- 서버 컴포넌트는 클라이언트 컴포넌트 트리의 상태를 유지한채로 서버로부터 다시 받아올 수 있다.
+  이는 주요 전송 메커니즘이 HTML보다 더 다양한 케이스르 커버할 수 있기 때문이다. 따라서 검색 결과 텍스트, 포커스, 텍스트 선택 등의 클라이언트 상태를 날리지 않은 상태로 검색 결과 목록과 같은 서버렌더링 영역이 리패칭될 수 있다.
+
+### 파일명 규칙
+
+https://nextjs.org/docs/app/building-your-application/routing#file-conventions
+
+https://velog.io/@asdf99245/Next.js-app-router-%EA%B3%B5%EC%8B%9D%EB%AC%B8%EC%84%9C-%EC%A0%95%EB%A6%AC
+
+- layout
+  세그먼트 및 해당 하위 항목에 대한 공유 UI
+- page
+  경로의 고유한 UI 및 경로에 공개적으로 액세스 가능
+- loading
+  세그먼트 및 해당 하위 항목에 대한 UI 로드 중
+- not-found
+  세그먼트 및 해당 하위 항목에 대한 UI를 찾을 수 없습니다.
+- error
+  세그먼트 및 해당 하위 항목에 대한 오류 UI
+- global-error
+  전역 오류 UI
+- route
+  서버 측 API 엔드포인트
+- template
+  전문적으로 다시 렌더링된 레이아웃 UI
+- default
+  병렬 경로 에 대한 대체 UI
+
 ### Streaming
 
 app/ 디렉토리 내에서 이루어지는 기능인데, 서버 사이드 단에서 컴포넌트를 점진적으로 렌더링 한 뒤 스트리밍 방식으로 클라이언트에게 전달하는 방식이다.
