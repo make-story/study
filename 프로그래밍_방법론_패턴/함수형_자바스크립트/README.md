@@ -1,5 +1,39 @@
 `현실에서의 실행 경험`
 
+# 순수함수 / 불변성 / 선언형 함수
+
+https://saengmotmi.netlify.app/javascript-study/2022-05-13-monad/
+
+## 순수함수
+
+함수의 동작이 함수 인자에만 의존하므로 동일한 입력에는 항상 같은 값을 반환함.
+따라서 함수 실행에 따른 부수 효과(side effect)가 없음.  
+무상태성(stateless)을 지향하여 외부 변수에 접근 후 이를 변화시키는 등의 동작이 없음.
+
+```javascript
+// 순수함수
+const sum = (a, b) => a + b;
+
+// 부수 효과 함수
+let result = 0;
+const sumWithSideEffect = (a, b) => {
+  result += a;
+  result += b;
+  return result;
+};
+```
+
+## 불변성
+
+데이터의 변경이 필요한 경우 원본 데이터 구조를 변경하지 않고 복사본을 만들어서 사용함.
+
+```javascript
+const obj = { count: 1 };
+
+// { ...obj, count: obj.count + 1 } // immutable (불변성)
+// obj.count += 1 // mutable (구조변경)
+```
+
 https://boxfoxs.tistory.com/434
 
 함수형 프로그래밍에서 배열의 값을 변경할 수 있는 메소드를 사용해서는 안됩니다.  
@@ -11,6 +45,29 @@ https://boxfoxs.tistory.com/434
 // 원본 배열을 수정하는 것 대신 아래와 같이 새로운 배열을 만들어 사용하세요.
 const arr2 = [...arr, 38, 52];
 const even = filter(x => x % 2 === 0, arr);
+```
+
+## 선언형 함수
+
+명령형 프로그램이 ‘어떻게(How)’에 집중하는 반면,  
+선언형 프로그래밍은 ‘무엇을(What)’에 집중하는 패러다임.
+
+```javascript
+// Imperative (How)
+const newArr = [];
+for (let i = 0; i < arr.length; i++) {
+  if (arr[i].length !== 0) {
+    newArr.push(arr[i].charAt(0).toUpperCase() + arr[i].substring(1));
+  }
+}
+```
+
+```javascript
+// Declarative (What)
+function convert(s) {
+  return s.charAt(0).toUpperCase() + s.substring(1);
+}
+const newArr2 = arr.filter(v => v.length !== 0).map(v => convert(v));
 ```
 
 # 챗GPT 답변
