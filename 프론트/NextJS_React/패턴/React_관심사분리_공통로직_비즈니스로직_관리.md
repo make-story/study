@@ -34,6 +34,11 @@
     - 데이터 호출이 동기적으로 필요할 때
     - 매쉬업이 필요할 때
 
+- RSC(React Server Component):
+
+  - Next.js "/app" 폴더 내부에는 RSC 관련 코드(서버단 Fetch, 서버단 렌더 프레젠테이션 컴포넌트) 외 비즈니스 로직 존재 불가
+  - https://nextjs.org/docs/app/building-your-application/routing#component-hierarchy
+
 ## 관심사 분리를 위한 프레젠테이션(Presentational), 컨테이너(Container) 컴포넌트 구분하기
 
 https://www.patterns.dev/posts/presentational-container-pattern/

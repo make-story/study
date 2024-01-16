@@ -104,6 +104,11 @@ src 하위에 아래 폴더 구성됨
     - 데이터 호출이 동기적으로 필요할 때
     - 매쉬업이 필요할 때
 
+- RSC(React Server Component):
+
+  - Next.js "/app" 폴더 내부에는 RSC 관련 코드(서버단 Fetch, 서버단 렌더 프레젠테이션 컴포넌트) 외 비즈니스 로직 존재 불가
+  - https://nextjs.org/docs/app/building-your-application/routing#component-hierarchy
+
 ### 신규 NPM(도구, 라이브러리, 프레임워크 등등) 설치시, 파트 전체 대화채널(워크챗, ABC챗)에 공유
 
 - 예: [공유] XXX 설치하려고 합니다. XXX를 해결하기 위한 목적입니다.
