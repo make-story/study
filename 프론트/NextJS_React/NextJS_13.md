@@ -13,6 +13,37 @@ https://helloinyong.tistory.com/345
 - 새로운 @next/font(beta): 레이아웃 이동이 없는 자체 호스팅 글꼴
 - 개선된 next/link: 간소화된 API
 
+Next.js 13 버전부터는 모든 컴포넌트가 서버 컴포넌트이기 때문에  
+12 버전에서 사용하던 getStaticProps 함수나 getServerSideProps 함수가 필요 없어졌습니다.
+
+https://mycodings.fly.dev/blog/2022-11-16-nextjs-13-how-to-ssg-isr-and-not-found
+
+https://nextjs.org/blog/next-13#data-fetching
+
+https://nextjs.org/docs/app/api-reference/functions/fetch
+
+```javascript
+// Static Site Generation (SSG)
+// This request should be cached until manually invalidated.
+// Similar to `getStaticProps`.
+// `force-cache` is the default and can be omitted.
+fetch(URL, { cache: 'force-cache' }); // 'force-cache'라고 옵션을 주면 이름에서도 알 수 있듯이 캐시를 강제한다는 뜻이기 때문에 정적 사이트로 만들라는 의미
+
+// Server-Side Rendering (SSR)
+// This request should be refetched on every request.
+// Similar to `getServerSideProps`.
+fetch(URL, { cache: 'no-store' }); // 캐시를 만들지 말라는 뜻으로 무조건 서버사이드로 작동
+
+// Incremental Static Regeneration (ISR)
+// This request should be cached with a lifetime of 10 seconds.
+// Similar to `getStaticProps` with the `revalidate` option.
+fetch(URL, { next: { revalidate: 10 } }); // 10초마다 캐시를 갱신
+```
+
+```
+$ npm run build
+```
+
 ## app/
 
 (beta)
