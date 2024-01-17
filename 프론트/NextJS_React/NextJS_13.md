@@ -60,6 +60,8 @@ https://nextjs.org/docs/app/building-your-application/rendering/server-component
 
 ### 리액트 서버 컴포넌트 (RSC, React 18 버전부터 도입된 개념)
 
+`study.git/프론트/NextJS_React/React_서버컴포넌트.md` 참고
+
 https://tech.kakaopay.com/post/react-server-components/
 
 https://patterns-dev-kr.github.io/rendering-patterns/react-server-components/#%EC%84%9C%EB%B2%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8

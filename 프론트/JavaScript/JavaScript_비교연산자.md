@@ -1,3 +1,9 @@
+# 비교 연산자
+
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Expressions_and_operators#%EB%B9%84%EA%B5%90_%EC%97%B0%EC%82%B0%EC%9E%90
+
+https://ko.javascript.info/comparison
+
 # 문자열 비교
 
 https://codechacha.com/ko/javascript-compare-strings/
@@ -9,11 +15,11 @@ https://codechacha.com/ko/javascript-compare-strings/
 - 문자열 길이가 짧아서 같은 Index에 문자가 없으면 더 작은 문자열로 계산됩니다.
 
 ```javascript
-const str1 = "abcd";
-const str2 = "ab";
-const str3 = "abd";
-const str4 = "aba";
-const str5 = "bbcd";
+const str1 = 'abcd';
+const str2 = 'ab';
+const str3 = 'abd';
+const str4 = 'aba';
+const str5 = 'bbcd';
 
 console.log(str1 > str2); // true
 console.log(str1 < str3); // true
