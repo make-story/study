@@ -989,10 +989,20 @@ console.log(m.q == z.q); // true
 
 /*
 -
-이터레이터
+이터레이터 (Iterator)
 ES6 에는 새로운 이터레이션 객체 인터페이스, 루프가 도입됐고 덕분에 자바스크립트 알고리즘도 새로운 능력을 발휘할 기반이 마련되었다.
-*/
 
+-
+크롬 개발자 도구에서 
+new URLSearchParams("?gil=test&log=what&gillog=holy").entries()
+실행해 보면
+
+[[Prototype]]: URLSearchParams Iterator
+	next: ƒ next()
+	constructor: ƒ URLSearchParams Iterator()
+
+행태로 출력되는 것을 알 수 있음.
+*/
 
 
 /*
