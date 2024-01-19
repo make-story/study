@@ -1,4 +1,4 @@
-# Node.js 환경에서 TypeScript 실행
+# Node.js 환경에서 TypeScript 실행 - "ts-node"
 
 https://velog.io/@woongbeee/Typescript%EB%A5%BC-Node.js-%EC%97%90%EC%84%9C-%EC%8B%A4%ED%96%89%ED%95%A0-%EB%95%8C-ts-node-%EC%98%A4%EB%A5%98
 
@@ -114,3 +114,9 @@ tsconfig.json
     "esm":true
 }
 ```
+
+---
+
+# tsx 활용 TypeScript 컴파일!!
+
+https://www.npmjs.com/package/tsx

@@ -1,4 +1,4 @@
-# React
+# React Best Practices
 
 https://www.freecodecamp.org/korean/news/best-practices-for-react/
 
@@ -77,7 +77,10 @@ import { useMemo, useState } from 'react';
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState('');
   // ✅ Does not re-run getFilteredTodos() unless todos or filter change
-  const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter]);
+  const visibleTodos = useMemo(
+    () => getFilteredTodos(todos, filter),
+    [todos, filter],
+  );
   // ...
 }
 ```
