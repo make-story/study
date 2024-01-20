@@ -2,6 +2,10 @@
 
 https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 
+```bash
+$ npm install eslint-plugin-import --save-dev
+```
+
 ```json
 {
   "rules": {
@@ -18,12 +22,17 @@ https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 
 # 계층 간 의존성 제어
 
-import/no-restricted-paths
+https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-restricted-paths.md
+
+```bash
+$ npm install eslint-plugin-import --save-dev
+```
 
 https://www.kimcoder.io/blog/clean-frontend-architecture
 
 타입스크립트를 사용하는 경우, import/resolver 추가 설정 필요  
-https://github.com/import-js/eslint-plugin-import#typescript
+https://github.com/import-js/eslint-plugin-import#typescript  
+https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#typescript
 
 ```json
 {
@@ -80,3 +89,7 @@ https://github.com/import-js/eslint-plugin-import#typescript
   }
 }
 ```
+
+# Node.js 규칙
+
+eslint-plugin-node
