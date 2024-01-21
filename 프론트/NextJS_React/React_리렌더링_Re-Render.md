@@ -5,6 +5,8 @@
 - 부모 컴포넌트가 렌더링 었을 때 하위 컴포넌트의 경우 (자식 컴포넌트란 부모 컴포넌트의 JSX 안에 사용된 모든 컴포넌트들)
   - <Parent><Child><Child></Child></Child></Parent> Parent 가 부모, Child 가 하위 컴포넌트
 
+`monorepo.git/apps/nextjs-test/src/pages/test/index.tsx` 참고!
+
 ```jsx
 import React, { useState, useCallback, PropsWithChildren } from 'react';
 
