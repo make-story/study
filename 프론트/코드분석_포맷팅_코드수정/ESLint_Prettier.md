@@ -164,6 +164,40 @@ VSCode 하단바 "Prettier" 이 비활성화 되어 있거나,
 포맷팅 도구 중복되는 것이 있다는 의미 (예를 들어, JSON 형식은 어떠한 포맷팅 도구 설정기반인지 지정필요)  
 바로 옆 종모양 알림을 클릭하여, 지정해야함!
 
+`특정 파일에만 적용`
+
+```json
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  // 적용하려는 형식마다 개별적으로 설정
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[svelte]": {
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.formatOnSave": true
+  }
+}
+```
+
 ## VSCode 설정
 
 1. VSCode Extenstion 설치
