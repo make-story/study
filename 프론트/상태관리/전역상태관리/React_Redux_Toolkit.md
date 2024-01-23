@@ -1,9 +1,72 @@
-# redux-toolkit
+# Redux Toolkit (TypeScript 지원)
 
-https://kyounghwan01.github.io/blog/React/redux/redux-toolkit
+https://redux-toolkit.js.org/
 
 ```
 $ npm install react-redux @reduxjs/toolkit
+```
+
+- Redux 와 비교
+  - Redux Toolkit을 사용하면 `리듀서, 액션타입, 액션 생성함수, 초기상태를 하나의 함수로 편하게 선언`
+  - `Typescript 지원`
+  - `Immer 가 내장`되어있기 때문에, 불변성을 유지하기 위하여 번거로운 코드들을 작성하지 않고 원하는 값을 직접 변경하면 알아서 불변셩 유지되면서 상태가 업데이트
+
+```javascript
+import { createSlice } from '@reduxjs/toolkit';
+
+// 리듀서와 액션 생성 함수를 한방에 만들 수 있음
+const msgboxSlice = createSlice({
+  name: 'msgbox',
+  initialState: {
+    open: false,
+    message: '',
+  },
+  reducers: {
+    open(state, action) {
+      state.open = true;
+      state.message = action.payload;
+    },
+    close(state) {
+      state.open = false;
+    },
+  },
+});
+
+export default msgboxSlice;
+```
+
+> 리덕스를 사용 할 때, TypeScript를 사용하지 않으면,  
+> 우리가 컴포넌트에서 상태를 조회할때, 그리고 액션생성 함수를 사용 할 때 자동완성이 되지 않으므로 실수하기가 쉽습니다.
+
+```javascript
+// Typescript 사용
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+type MsgboxState = {
+  open: boolean,
+  message: string,
+};
+
+const initialState: MsgboxState = {
+  open: false,
+  message: '',
+};
+
+const msgboxSlice = createSlice({
+  name: 'msgbox',
+  initialState,
+  reducers: {
+    open(state, action: PayloadAction<string>) {
+      state.open = true;
+      state.message = action.payload;
+    },
+    close(state) {
+      state.open = false;
+    },
+  },
+});
+
+export default msgboxSlice;
 ```
 
 ## Redux 와 Redux Toolkit 차이점
@@ -14,6 +77,8 @@ https://redux-toolkit.js.org/introduction/getting-started
 immer, redux, redux-devtools-extension 자체 내장
 
 ## 사용하는 이유
+
+https://kyounghwan01.github.io/blog/React/redux/redux-toolkit
 
 `redux`를 아무 라이브러리 없이 사용할 때 (actionType 정의 -> 액션 함수 정의 -> 리듀서 정의) 1개의 액션을 생성합니다.  
 이렇게 필요하지만 너무 많은 코드가 생성되니 `redux-actons`라는 것을 사용하게 되었고,  
@@ -55,14 +120,14 @@ isLoading 나 error 나 데이터 캐싱 등 서버 상태를 다루기 위해
 
 https://velog.io/@760kry/Redux-Toolkit
 
-## `CreateSlice` 를 통해 Action 과 Reducer 를 한 번에 정의할 수 있다.
+## 1. `CreateSlice` 를 통해 Action 과 Reducer 를 한 번에 정의할 수 있다.
 
 문자열 이름(name), 초기 상태 값(initialState), 상태 업데이트 방법(reducers)을 정의
 
 store/slice/user.ts
 
 ```typescript
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
   name: null,
@@ -70,7 +135,7 @@ export const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setUserName: (state, action) => {
@@ -87,7 +152,7 @@ export const { setUser, setUserLoading } = userSlice.actions;
 export default userSlice.reducer;
 ```
 
-## `combineReducers` 는 Reducer 들을 모두 합쳐주는 것이다.
+## 2. `combineReducers` 는 Reducer 들을 모두 합쳐주는 것이다.
 
 이것이 중요한 이유는 store에서 reducer를 단 1개만 받을 수 있기 때문이다.  
 따라서 combineReducers에서 Reducer들을 모두 합쳐주고 store에서 모두 합쳐진 reducer를 사용하면 된다.
@@ -95,8 +160,8 @@ export default userSlice.reducer;
 rootReducer.ts
 
 ```typescript
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import userReducer from "./store/slice/user";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import userReducer from './store/slice/user';
 
 /*
  * combineReducers 를 사용하여 사용할 리듀서를 사용할 키값과 함께 정의한다.
@@ -108,16 +173,16 @@ const rootReducer = combineReducers({
 export default rootReducer;
 ```
 
-## `configureStore` 는 슬라이스에서 리듀서 함수를 가져와서 스토어에 추가한다.
+## 3. `configureStore` 는 슬라이스에서 리듀서 함수를 가져와서 스토어에 추가한다.
 
 store.ts
 
 ```typescript
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import logger from "redux-logger";
-import createSagaMiddleware from "redux-saga";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
 
-import rootReducer from "./rootReducer";
+import rootReducer from './rootReducer';
 
 //const sagaMiddleware = createSagaMiddleware();
 
@@ -127,7 +192,7 @@ import rootReducer from "./rootReducer";
 const store = configureStore({
   reducer: rootReducer,
   devTools: true,
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     // 기본 미들웨어 설정
     // 공식문서: https://redux-toolkit.js.org/api/getDefaultMiddleware
     //
@@ -172,46 +237,46 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export default store;
 ```
 
-## React 에 `Redux 스토어 전달`하기
+## 4. React 에 `Redux 스토어 전달`하기
 
 `<Provider>를 감싸 생성된 저장소(store)를 전달`한다.
 
 src/index.tsx
 
 ```typescript
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-import store from "src/services/store";
+import store from 'src/services/store';
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 reportWebVitals();
 ```
 
-## 상태 변경 및 확인
+## 5. 상태 변경 및 확인
 
 react-redux에서 제공하는 useDispatch, useSelector로 상태 관리를 한다.
 
 ```typescript
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "src/services/store";
-import { setUserName } from "src/services/store/slice/user";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'src/services/store';
+import { setUserName } from 'src/services/store/slice/user';
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -221,7 +286,7 @@ const MainPage = () => {
 
   return (
     <div>
-      <button onClick={() => dispatch(setUserName("raeyoung"))}>test</button>
+      <button onClick={() => dispatch(setUserName('raeyoung'))}>test</button>
     </div>
   );
 };
@@ -231,69 +296,17 @@ export default MainPage;
 
 ---
 
-## Redux Toolkit (TypeScript 지원)
+# RTK Query
 
-https://redux-toolkit.js.org/
+https://redux-toolkit.js.org/rtk-query/overview
 
-- Redux 와 비교
-  - Redux Toolkit을 사용하면 `리듀서, 액션타입, 액션 생성함수, 초기상태를 하나의 함수로 편하게 선언`
-  - `Typescript 지원`
-  - `Immer 가 내장`되어있기 때문에, 불변성을 유지하기 위하여 번거로운 코드들을 작성하지 않고 원하는 값을 직접 변경하면 알아서 불변셩 유지되면서 상태가 업데이트
+RTK 쿼리는 강력한 데이터 가져오기 및 캐싱 도구입니다.
 
-```javascript
-import { createSlice } from "@reduxjs/toolkit";
+# Next.js 13 이상 대응
 
-// 리듀서와 액션 생성 함수를 한방에 만들 수 있음
-const msgboxSlice = createSlice({
-  name: "msgbox",
-  initialState: {
-    open: false,
-    message: "",
-  },
-  reducers: {
-    open(state, action) {
-      state.open = true;
-      state.message = action.payload;
-    },
-    close(state) {
-      state.open = false;
-    },
-  },
-});
+일반적인 실수는 서버 컴포넌트와 Context 를 함께 쓰려고 하는 것과  
+App Router 에 Provider 를 배치하는 것입니다.
 
-export default msgboxSlice;
-```
+`클라이언트 컴포넌트 트리에 Provider 를 배치하고, 서버 컴포넌트 트리에 해당 클라이언트 컴포넌트를 포함해야 한다!`
 
-> 리덕스를 사용 할 때, TypeScript를 사용하지 않으면,  
-> 우리가 컴포넌트에서 상태를 조회할때, 그리고 액션생성 함수를 사용 할 때 자동완성이 되지 않으므로 실수하기가 쉽습니다.
-
-```javascript
-// Typescript 사용
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type MsgboxState = {
-  open: boolean,
-  message: string,
-};
-
-const initialState: MsgboxState = {
-  open: false,
-  message: "",
-};
-
-const msgboxSlice = createSlice({
-  name: "msgbox",
-  initialState,
-  reducers: {
-    open(state, action: PayloadAction<string>) {
-      state.open = true;
-      state.message = action.payload;
-    },
-    close(state) {
-      state.open = false;
-    },
-  },
-});
-
-export default msgboxSlice;
-```
+https://hackernoon.com/how-to-manage-state-in-nextjs-13-using-redux-toolkit

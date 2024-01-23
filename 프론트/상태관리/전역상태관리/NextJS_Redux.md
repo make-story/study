@@ -2,10 +2,15 @@
 
 https://slog.website/post/14
 
+`예체 참고!`  
+https://github.com/phryneas/ssr-experiments
+
 Next.js 의 SSR(서버사이드 렌더링) 에 next-redux-wrapper 를 이용하여 Redux를 적용하는 방법  
 Next.js 의 `getInitialProps, getServerSideProps 등에서 store 에 접근`을 하기 위해 `next-redux-wrapper` 라는 라이브러리가 필요  
 또 `부가적으로 Server Side 일 때의 Redux Store 와 Client Side 일 때의 Redux Store 를 합쳐주는 역할`도 하기 때문에
 Next.js에서 Redux를 적용하려면 해당 라이브러리가 필요
+
+`23년 12월 기준, next-redux-wrapper 개발한 개발자에 따르면 Next.js 13 이상 버전에서 next-redux-wrapper 적용 가이드는 아직 없는 상황이라고 함`
 
 ```
 $ yarn add next-redux-wrapper redux redux-devtools-extension
@@ -54,7 +59,10 @@ import { AnyAction, CombinedState, combineReducers } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 import counter, { ICounterState } from './counter';
 
-const rootReducer = (state: IState | undefined, action: AnyAction): CombinedState<IState> => {
+const rootReducer = (
+  state: IState | undefined,
+  action: AnyAction,
+): CombinedState<IState> => {
   switch (action.type) {
     // 서버 사이드 데이터를 클라이언트 사이드 Store에 통합.
     case HYDRATE:
@@ -108,7 +116,10 @@ import wrapper from '../stores';
 
 // ...
 
-App.getInitialProps = async ({ Component, ctx }: AppContext): Promise<AppInitialProps> => {
+App.getInitialProps = async ({
+  Component,
+  ctx,
+}: AppContext): Promise<AppInitialProps> => {
   let pageProps = {};
 
   if (Component.getInitialProps) {

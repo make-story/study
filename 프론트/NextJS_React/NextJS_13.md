@@ -288,3 +288,38 @@ const nextConfig = {
 
 module.exports = nextConfig;
 ```
+
+# Next.js App Router 쓸 때 흔한 실수 10가지
+
+`클라이언트 컴포넌트 트리에 Provider 를 배치하고, 서버 컴포넌트 트리에 해당 클라이언트 컴포넌트를 포함해야 한다!`
+
+- Using Route Handlers with Server Components
+  - 서버 컴포넌트에서 라우트 핸들러를 호출하지 마세요.
+  - 대신 라우트 핸들러 내부에 배치하려는 로직을 서버 컴포넌트에서 직접 호출하세요.
+- Static or dynamic Route Handlers
+  - 라우트 핸들러는 GET 메서드를 사용할 때 기본적으로 캐시됩니다.
+  - GET 라우트 핸들러에서 리턴한 JSON 데이터는 다른 빌드가 일어날 때 까지 변경되지 않습니다.
+- Route Handlers and Client Components
+  - Form을 만들 때 라우터 핸들러 대신 Server Action을 활용할 수 있습니다.
+- Using Suspense with Server Components
+  - Suspense의 위치는 데이터 패칭을 수행하는 비동기 컴포넌트보다 높은 곳에 위치해야 합니다.
+  - Suspense가 비동기 컴포넌트 내부에 있으면 작동하지 않습니다.
+- Using the incoming request
+  - 서버 컴포넌트는 들어오는 요청(Incoming Request)의 객체에 접근할 수 없습니다.
+  - 대신, 서버 컴포넌트는 들어오는 요청에 접근할 수 있는 function과 props를 제공합니다.
+  - `cookies()`, `headers()`, `params`, `searchParams`와 같은 옵션을 사용하세요.
+- Using Context providers with App Router
+  - 두 가지 일반적인 실수는 서버 컴포넌트와 Context를 함께 쓰려고 하는 것과 App Router에 Provider를 배치하는 것입니다.
+  - 클라이언트 컴포넌트 트리에 Provider를 배치하고, 서버 컴포넌트 트리에 해당 클라이언트 컴포넌트를 포함하세요.
+- Using Server and Client Components together
+  - 서버 컴포넌트는 클라이언트 컴포넌트를 자식으로 둘 수 있습니다.
+  - 클라이언트 컴포넌트는 서버 컴포넌트를 자식으로 둘 수 있습니다.
+- Adding “use client” unnecessarily
+  - 모든 파일에 `use client`를 추가할 필요는 없습니다.
+  - 클라이언트 바운더리에 있으면, 클라이언트 컴포넌트의 형제 자매는 클라이언트 컴포넌트가 됩니다.
+- Not revalidating data after mutations
+  - 개발자들의 일반적인 실수 중 하나는 data를 변경(mutate)하고나서 revalidate 하는 작업을 까먹는 것입니다.
+  - 데이터 변경 이후, `next/cache`의 `revalidatePath()`을 실행하세요. 그래야 화면에 보여지는 데이터가 업데이트 됩니다.
+- Redirects inside of try/catch blocks
+  - `return redirect()` 대신 `redirect()`를 사용하세요.
+  - `redirect()` 함수는 Typescript의 `never` 타입을 사용하므로 return을 붙일 필요가 없습니다.

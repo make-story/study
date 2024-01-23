@@ -171,7 +171,7 @@ function App() {
 - Stateless 컴포넌트  
   Stateless 컴포넌트를 만드는 데 `함수형이나 클래스를 사용`하면 됩니다.
 
-## Props와 State
+## Props 와 State
 
 - props
 
@@ -290,9 +290,17 @@ class Counter extends React.Component<CounterProps, CounterState> {
 }
 ```
 
+## Prop Drilling (드릴링)
+
+리액트의 컴포넌트 트리(상위 컴포넌트 > 하위 > 하위 > ...)에서 데이터를 전달하기 위해서 필요한 과정을 의미
+
+https://react-ko.dev/learn/passing-data-deeply-with-context
+
+https://kentcdodds.com/blog/prop-drilling
+
 ---
 
-# PureComponent란?
+# PureComponent (순수 컴포넌트)란?
 
 `React.PureComponent`  
 동일한 props와 state라는 전제 하에 동일한 결과 값이 확실히 반환된다면 컴포넌트를 순수하다고(pure) 말합니다.
