@@ -13,7 +13,11 @@ https://helloinyong.tistory.com/345
 - 새로운 @next/font(beta): 레이아웃 이동이 없는 자체 호스팅 글꼴
 - 개선된 next/link: 간소화된 API
 
-`SSR / SSG / ISR 관련`  
+공식 블로그 내용 중
+`app디렉토리는 현재 베타 버전이므로 아직 프로덕션에서는 사용하지 않는 것이 좋습니다.`
+
+## `SSR / SSG / ISR 관련`
+
 Next.js 13 버전부터는 모든 컴포넌트가 서버 컴포넌트이기 때문에  
 12 버전에서 사용하던 getStaticProps 함수나 getServerSideProps 함수가 필요 없어졌습니다.
 

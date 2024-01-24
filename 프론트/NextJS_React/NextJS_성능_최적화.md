@@ -10,8 +10,8 @@ next.js는 이미지 자동 최적화 기능이 구현되어 사이즈를 변경
 따라서 큰 이미지라도 작은 뷰포트에서는 작게 리사이즈되어 서빙된다. 이미지 최적화 기능은 next.js 에서 Image컴포넌트를 import하여 <img> 엘리먼트를 사용하듯이 쓸 수 있다.
 
 ```javascript
-import Image from "next/image";
-<Image src="/logo.png" alt="Logo" width={500} height={500} />;
+import Image from 'next/image';
+<Image src='/logo.png' alt='Logo' width={500} height={500} />;
 ```
 
 ## 코드 스플리팅
@@ -82,6 +82,40 @@ async function renderAndCache(req, res) {
 }
 ```
 
+## SSR 캐시
+
+https://github.com/vercel/next.js/blob/canary/examples/ssr-caching/pages/index.tsx
+
+```tsx
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+
+export default function Index({
+  time,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  return (
+    <main>
+      <h1>SSR Caching with Next.js</h1>
+      <time dateTime={time}>{time}</time>
+    </main>
+  );
+}
+
+export const getServerSideProps: GetServerSideProps<{ time: string }> = async ({
+  res,
+}) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  );
+
+  return {
+    props: {
+      time: new Date().toISOString(),
+    },
+  };
+};
+```
+
 ## 기존적으로 압축(gzip) 제공
 
 기능 사용 안할 경우
@@ -120,7 +154,7 @@ https://nextjs.org/docs/pages/api-reference/next-config-js/output#automatically-
 
 ```javascript
 module.exports = {
-  output: "standalone",
+  output: 'standalone',
 };
 ```
 
@@ -132,11 +166,11 @@ standalone 으로 걸러낸 서버의 실행은 다음과 같이 할 수 있습�
 $ node standalone/server.js
 ```
 
---------
+---
 
-# Next.js import 최적화  
+# Next.js import 최적화
 
 Next.js 13.5 이상부터 패키지 import 최적화  
-https://nextjs.org/blog/next-13-5  
+https://nextjs.org/blog/next-13-5
 
 https://vercel.com/blog/how-we-optimized-package-imports-in-next-js
