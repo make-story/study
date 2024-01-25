@@ -32,7 +32,7 @@ if (condition1 && condition2) {
 }
 ```
 
-### Optional Chaning
+### Optional Chaning (옵셔널 체이닝)
 
 ```javascript
 const adventurer = {
@@ -40,6 +40,8 @@ const adventurer = {
   cat: { name: 'Dinah' },
 };
 
+null?.test; // undefined
+undefined?.test; // undefined
 const catName = adventurer.cat?.name; // 'Dinah'
 const dogName = adventurer.dog?.name; // undefined
 ```
