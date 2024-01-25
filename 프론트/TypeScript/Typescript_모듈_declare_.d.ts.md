@@ -180,3 +180,35 @@ TS에는 두 가지의 모듈 선언 방법이 있다.
 # Declaration Reference
 
 https://www.typescriptlang.org/ko/docs/handbook/declaration-files/by-example.html
+
+# Typescript 에서 JavaScript npm 모듈 import 시 오류를 해결하는 방법 (NPM 모듈 중 타입 선언이 없는 모듈의 경우)
+
+https://kimchanjung.github.io/programming/2020/07/05/typescipt-import-js-module-error/
+
+d.ts 파일 생성
+
+```tsx
+// @types/모듈명/index.d.ts
+declare module '모듈명';
+```
+
+d.ts 파일 생성 위치
+
+```
+app /src
+    /node_modules
+    /assets
+    /@types <= 폴더를 생성
+           /모듈명 <= 모듈명과 같은 폴더명을 생성
+                /index.d.ts <= index.d.ts파일 생성
+```
+
+tsconfig 확인
+
+```json
+{
+  "compilerOptions": {
+    "typeRoots": ["./@types", "./node_modules/@types"]
+  }
+}
+```

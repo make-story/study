@@ -12,6 +12,13 @@ https://aws.amazon.com/ko/what-is/restful-api/
 
 Representational State Transfer(REST)는 API 작동 방식에 대한 조건을 부과하는 소프트웨어 아키텍처입니다.
 
+# parameter(params) 와 payload 차이
+
+https://okky.kr/questions/291237
+
+HTTP GET : Parameter (//url/page?params=test)
+HTTP POST : payload (body 에 담기는 data)
+
 ---
 
 # `스프링 5와 Vue.js 2로 시작하는 모던 웹 어플리캐이션 개발` 책 내용 중
@@ -75,7 +82,7 @@ API는 비즈니스 실체에 초점을 맞춰 구현 세부 사항을 숨기기
 - 사용자 컬렉션: /v1/users
 - ID가 567인 유저: /v1/users/567
 
-> 참고: '/v1/' 같은 버전 관리형태도 필요!
+> 참고: `'/v1/' 같은 버전 관리형태도 필요!`
 
 ## HTTP 메소드를 통한 작업 정의
 
