@@ -24,3 +24,43 @@ angaulrjs의 단점을 개선해 더 간결하고 쓰기 쉬운 Vue.js를 만들
 
 `Vite는 esbuild와 브라우저 모듈을 이용한 개발모드, 개발 서버, 프록시 서버, 번들툴, 코드 스프리팅, HMR 등` 지금까지 나왔던 Snowpack의 컨셉과  
 `다른 번들 도구에서 제공하는 기능을 하나로 모은 프론트엔드 번들 도구`였습니다.
+
+# 이슈 경험 - NPM Package 개발 및 배포
+
+https://gusrb3164.github.io/web/2022/10/24/package-exports/
+
+## Vite React
+
+https://stackoverflow.com/questions/70519656/referenceerror-react-is-not-defined-migrating-from-cra-to-vite-and-nx
+
+https://github.com/remix-run/remix/issues/7885
+
+```
+$ yarn add @vitejs/plugin-react
+```
+
+```javascript
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+});
+```
+
+## Vite TypeScript
+
+TypeScript를 Vite와 함께 사용할 때 TypeScript의 모듈을 확인하는 동작이 tsconfig.json의 baseUrl 및 paths 구성에 의존하는데, ESLint는 기본적으로 이 구성을 읽지 않는다.
+
+ESLint가 프로젝트의 모듈 경로를 올바르게 확인하도록 하려면 Vite 구성 파일에서 vite-tsconfig-paths 플러그인을 사용할 수 있다. 이 플러그인은 tsconfig.json에서 baseUrl 및 paths 구성을 읽고 ESLint에서 사용할 수 있도록 한다.
+
+https://velog.io/@otterji/Vite-typescript-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-path-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
+
+## Vite TypeScript 컴포넌트 \*.d.ts 파일 생성
+
+https://jgjgill-blog.netlify.app/post/create-your-own-component-library/
+
+```
+$ yarn add vite-plugin-dts
+```

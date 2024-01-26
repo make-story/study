@@ -1,5 +1,8 @@
 # 하이드레이션 (hydrate, hydration)
 
+공식페이지 참고  
+`https://react.dev/reference/react-dom/client/hydrateRoot#hydrating-server-rendered-html`
+
 `https://velog.io/@leehyunho2001/Hydrate`
 
 https://helloinyong.tistory.com/315

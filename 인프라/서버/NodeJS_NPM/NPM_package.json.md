@@ -5,6 +5,35 @@ https://docs.npmjs.com/cli/v10/configuring-npm/package-json
 Next.js package.json 참고  
 https://github.com/vercel/next.js/blob/canary/package.json
 
+## exports
+
+https://gusrb3164.github.io/web/2022/10/24/package-exports/
+
+exports 옵션을 활용하면 sub path 로 라이브러리를 참조하기 쉽게 만들어주고,
+module 옵션처럼 sub module의 esm 파일까지 추가로 지원할 수 있습니다.
+
+`webpack 4 에서는 exports 옵션을 아직 지원하지 않아서 번들링 될 때 라이브러리들의 exports를 참조하지 못하는 이슈가 있습니다.`
+
+package.json
+
+```json
+{
+  "exports": {
+    "./plugin": {
+      "types": "./dist/types/plugin/index.d.ts",
+      "module": "./dist/plugin/esm/index.js",
+      "default": "./dist/plugin/index.js"
+    }
+  }
+}
+```
+
+```jsx
+import plugin from 'my-library/plugin';
+```
+
+---
+
 ## name
 
 패키지를 게시(publish)하려는 경우 package.json에서 가장 중요한 사항은 필수인 이름 및 버전 필드입니다.
