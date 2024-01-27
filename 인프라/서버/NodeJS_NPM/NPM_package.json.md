@@ -128,7 +128,7 @@ node_modules
     ㄴreact ^17.0.0 (peer dependancy)
 ```
 
-> 실제로 패키지에서 직접 require(import) 하지는 않더라도 호환성이 필요한 경우 명시한다.
+> `실제로 패키지에서 직접 require(import) 하지는 않더라도 호환성이 필요한 경우 명시한다.`
 
 ## bundleDependencies
 
