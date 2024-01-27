@@ -101,12 +101,33 @@ https://docs.npmjs.com/cli/v10/commands/npm-version
 }
 ```
 
+## dependencies
+
+프로젝트에서 실제로 의존하고 호출하는 의존성 모듈 (필히 설치되어야 하는 모듈)
+
+```bash
+$ npm install
+```
+
+## devDependencies
+
+devDependencies 에 명시된 의존성 모듈은  
+운영환경에서는 "--production" 플래그를 사용하여 설치되지 않도록 할 수 있음  
+("--production" 플래그를 붙이면 devDependencies 를 제외한 의존성 파일만을 내려받게 됩니다.)
+
+```bash
+$ npm install --production
+```
+
 ## peerDependencies
 
 https://velog.io/@johnyworld/Peer-Dependencies-%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC
 
+https://medium.com/angular-in-depth/npm-peer-dependencies-f843f3ac4e7f
+
 이 라이브러리를 사용하게 될 프로젝트에게,  
 예를 들어 react ^17.0.0 버전을 사용해주세요! 라고 알려주는 것과 비슷하다.
+(즉, 현 패키지가 다른 패키지의 `특정 버전과 호환`된다는 것을 뜻한다)
 
 ```json
 {
@@ -130,9 +151,16 @@ node_modules
 
 > `실제로 패키지에서 직접 require(import) 하지는 않더라도 호환성이 필요한 경우 명시한다.`
 
+`npm 3 버전부터 npm 6 버전까지는 npm install 과정에서 peerDependencies를 무시`하고 버전이 일치하지 않으면 경고 메시지만 보여줬지만,  
+`npm 7 버전부터는 실제로 peerDependencies를 설치`한다. 그리고 버전이 일치하지 않으면 에러를 낸다.
+
 ## bundleDependencies
 
+내 패키지와 함께 제공되는 일련의 패키지들. 타사 라이브러리가 NPM에 없거나 일부 프로젝트를 모듈에 포함하려는 경우 사용할 수 있다.
+
 ## optionalDependencies
+
+선택적인 의존성으로 없거나 설치에 실패해도 npm 패키지 설치 과정이 중단되지 않아 다른 라이브러리 설치에 영향을 주지 않는 의존성들
 
 ## overrides
 
