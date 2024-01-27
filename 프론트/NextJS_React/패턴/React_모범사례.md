@@ -2,6 +2,9 @@
 
 https://www.freecodecamp.org/korean/news/best-practices-for-react/
 
+패턴 / 안티패턴  
+https://reactpatterns.js.org/docs
+
 ---
 
 Effect
