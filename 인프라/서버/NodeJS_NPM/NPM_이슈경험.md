@@ -17,6 +17,8 @@ https://www.korecmblog.com/ERESOLVE-unable-to-resolve-dependency-tree/
 
 4. yarn install
 
+`peerDependencies 항목은 현재 NPM 패키지가 명학환 버전의 패키지가 필요하고 설치한다는 것 의미! 그에 따라 npm 또는 yarn 이 peerDependencies 항목의 의존성 모듈 설치함!`
+
 # node-gyp, node-sass
 
 ```

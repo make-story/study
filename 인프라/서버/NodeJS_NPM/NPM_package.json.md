@@ -103,6 +103,33 @@ https://docs.npmjs.com/cli/v10/commands/npm-version
 
 ## peerDependencies
 
+https://velog.io/@johnyworld/Peer-Dependencies-%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC
+
+이 라이브러리를 사용하게 될 프로젝트에게,  
+예를 들어 react ^17.0.0 버전을 사용해주세요! 라고 알려주는 것과 비슷하다.
+
+```json
+{
+  "peerDependencies": {
+    "react": "^17.0.0"
+  }
+}
+```
+
+위와 같이 명시할 경우,  
+라이브러리(NPM 패키지)를 사용하는 곳에서의 react 버전이 다르면,  
+아래와 같이 설치됨
+
+```
+node_modules
+ㄴreact ^16.0.0 (dependancy)
+ㄴmy-ui-library ^0.0.1 (dependancy)
+  ㄴnode_modules
+    ㄴreact ^17.0.0 (peer dependancy)
+```
+
+> 실제로 패키지에서 직접 require(import) 하지는 않더라도 호환성이 필요한 경우 명시한다.
+
 ## bundleDependencies
 
 ## optionalDependencies

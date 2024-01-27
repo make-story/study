@@ -13,7 +13,7 @@ React와 함께 facebook에서 만들었고 npm과 yarn 패키지로 제공된�
 
 - index.html, index.js를 포함한 웹페이지에 필요한 기본 디렉토리 구성
 - react, react-dom, react-scripts 및 dependency 라이브러리 설치
-- react-scripts를 사용하여 package.json에 npm command 정의
+- react-scripts를 사용하여 package.json에 npm command (package.json 의 scripts) 정의
 
 ```
 $ yarn create react-app <<프로젝트 폴더명>>
@@ -26,6 +26,54 @@ https://www.npmjs.com/package/react-scripts/v/3.4.4?activeTab=versions
 ```
 $ yarn global remove create-react-app
 $ yarn create react-app ./apps/client --scripts-version 4.0.1 --template typescript
+```
+
+## react-scripts
+
+https://www.npmjs.com/package/react-scripts
+
+react-scripts 는 React 애플리케이션을 빌드, 테스트 및 실행하기 위한 설정 및 스크립트를 제공하는 패키지입니다.  
+이 패키지는 Create React App 프로젝트를 시작하면 자동으로 포함되며, React 애플리케이션 개발을 시작하는 데 편리한 도구를 제공합니다.
+
+package.json (create-react-app 으로 설치된 프로젝트의 경우)
+
+```json
+{
+  "name": "test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": ["react-app", "react-app/jest"]
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
 ```
 
 ---
@@ -98,14 +146,14 @@ tsconfig.json
 config-overrides.js
 
 ```javascript
-const { override, addWebpackAlias } = require("customize-cra");
-const path = require("path");
+const { override, addWebpackAlias } = require('customize-cra');
+const path = require('path');
 
 module.exports = override(
   addWebpackAlias({
-    "@components": path.resolve(__dirname, "src", "components"),
-    "@customTypes": path.resolve(__dirname, "src", "types"),
-  })
+    '@components': path.resolve(__dirname, 'src', 'components'),
+    '@customTypes': path.resolve(__dirname, 'src', 'types'),
+  }),
 );
 ```
 
