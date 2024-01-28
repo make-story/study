@@ -19,3 +19,40 @@ function test(payload: MenuPageCornerIdType) {
   console.log(payload);
 }
 test(MenuPageCornerId.LIVE);
+
+// ---------
+
+/**
+ * https://yceffort.kr/2021/05/value-of-typescript
+ */
+
+const object1 = {
+  a: 1,
+  b: 2,
+  c: 3,
+};
+type objectShape1 = typeof object1;
+/*
+type objectShape = {
+  a: number
+  b: number
+  c: number
+}
+*/
+
+const object2 = {
+  a: 1,
+  b: 2,
+  c: 3,
+} as const;
+type objectShape2 = typeof object2;
+/*
+type objectShape = {
+  readonly a: 1
+  readonly b: 2
+  readonly c: 3
+}
+*/
+
+type keys = keyof objectShape2; // "a" | "b" | "c"
+type values = objectShape2[keys]; // 1 | 2 | 3
