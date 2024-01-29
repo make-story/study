@@ -4,9 +4,6 @@ https://nextjs.org/blog/next-13
 
 https://helloinyong.tistory.com/345
 
-`핵심은 pages 단위 서버렌더링에서 컴포넌트 단위 서버렌더링 가능!`  
-Next.js 13 버전부터는 기본적으로 app directory 는 서버 컴포넌트를 사용
-
 - app 디렉토리(beta): 더 쉽고 빠르며 더 간단한 클라이언트
   - Layout - 불필요한 리렌더링를 방지하고 복잡한 인터페이스를 쉽게 배치함
   - React Server Components - React에 Server Components를 지원
@@ -16,8 +13,14 @@ Next.js 13 버전부터는 기본적으로 app directory 는 서버 컴포넌트
 - 새로운 @next/font(beta): 레이아웃 이동이 없는 자체 호스팅 글꼴
 - 개선된 next/link: 간소화된 API
 
-13버전 공식 블로그 내용 중
-`app디렉토리는 현재 베타 버전이므로 아직 프로덕션에서는 사용하지 않는 것이 좋습니다.`
+`핵심은 pages 단위 서버렌더링에서 컴포넌트 단위 서버렌더링 가능!` - 서버 컴포넌트!  
+Next.js 13 버전부터는 기본적으로 app directory 는 서버 컴포넌트를 사용
+
+13버전 공식 블로그 내용 중 (https://nextjs.org/blog/next-13#new-app-directory-beta)  
+`app디렉토리는 현재 베타 버전이므로 아직 프로덕션에서는 사용하지 않는 것이 좋습니다.` 라고 명시됨
+
+`"use client";` 는 클라이언트에서만 렌더링 된다는 뜻이 아니라, 클라이언트에서도 렌더링 된다는 뜻 (즉 클라이언트단 하이드레이션 된다는 것)  
+즉, 서버와 클라이언트 모두 렌더링 된다는 것 (https://www.youtube.com/watch?v=t0UocUiR5-8)
 
 ## 표준 API Fetch - 모던 리액트 Deep Dive 책 내용 중 (p741)
 
