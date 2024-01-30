@@ -29,6 +29,10 @@ const ChildrenTest = ({ children }: PropsWithChildren) => {
 export default ChildrenTest;
 ```
 
+# Function as Child Component
+
+https://reactpatterns.js.org/docs/function-as-child-component/
+
 ```tsx
 import React, { PropsWithChildren, ReactElement, useMemo } from 'react';
 
