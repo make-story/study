@@ -115,6 +115,11 @@ const App = () => {
 ```tsx
 import { Children } from 'react';
 
+/*const App = ({ list }: { list: any[] }) => {
+  return list.map((item: any) => {
+    return <div key={item.id}>{item.name}</div>;
+  });
+};*/
 const App = ({ list }: { list: any[] }) => {
   return Children.toArray(list.map((item: any) => <li>{item.name}</li>));
 };
