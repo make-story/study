@@ -56,3 +56,16 @@ type objectShape = {
 
 type keys = keyof objectShape2; // "a" | "b" | "c"
 type values = objectShape2[keys]; // 1 | 2 | 3
+
+// ----------
+
+const LOG_GROUP_KEY = 'logGroup' as const;
+
+type TypedAnyFunction = (...payload: any[]) => any;
+type TypedAnyObject = { [key: string | number | symbol]: any };
+type TypedLogGroupKey = typeof LOG_GROUP_KEY;
+
+interface OptionsParam {
+  [LOG_GROUP_KEY]?: string;
+}
+// OptionsParam[TypedLogGroupKey]
