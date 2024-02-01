@@ -2,12 +2,12 @@
 
 ```javascript
 // CommonJs
-const gulp = require("gulp");
-const babel = require("gulp-babel");
+const gulp = require('gulp');
+const babel = require('gulp-babel');
 
 // ESModule
-import gulp from "gulp";
-import babel from "gulp-babel";
+import gulp from 'gulp';
+import babel from 'gulp-babel';
 ```
 
 ## CommonJS -> ESM 방식 사용
@@ -40,6 +40,13 @@ import babel from "gulp-babel";
 
 3. import 로 .js 파일 할 때, 필히 확장자까지 입력 (예: import './test.js')
 
+## import 에서 확장자까지 명확하게 쓰는 것 중요?
+
+Relative import paths need explicit file extensions in EcmaScript imports when '--moduleResolution' is 'node16' or 'nodenext'
+
+번들러 입장에서도 확장자까지 기입하는 것이 중요하다고 함  
+https://main.vitejs.dev/guide/performance.html#reduce-resolve-operations
+
 # Node.js 에서 바벨횔용 ES6 코드 실행
 
 ```
@@ -71,11 +78,11 @@ v16.0.0, v14.18.0 지원 (import, require 방식)
 node 내부 모듈 구분
 
 ```javascript
-import fs from "node:fs";
-import http from "node:http";
-import https from "node:https";
-import path from "node:path";
-import { parse } from "node:url";
-import os from "node:os";
-import cluster from "node:cluster";
+import fs from 'node:fs';
+import http from 'node:http';
+import https from 'node:https';
+import path from 'node:path';
+import { parse } from 'node:url';
+import os from 'node:os';
+import cluster from 'node:cluster';
 ```
