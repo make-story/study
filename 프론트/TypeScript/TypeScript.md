@@ -1,5 +1,6 @@
-> 참고페이지  
-> https://typescript-kr.github.io/
+# 참고 자료
+
+https://typescript-kr.github.io/
 
 https://evan-moon.github.io/2021/08/22/tsconfig-compiler-options-modules/
 
@@ -26,11 +27,19 @@ https://evan-moon.github.io/2021/08/22/tsconfig-compiler-options-modules/
   3 - 깨끗한 코드와 더 나은 소프트웨어 아키텍처를 위해 복제하는 대신 하나의 Interface만 사용한다.  
   https://dev.to/luizcalaca/how-to-use-in-typescript-type-or-interface-47jk
 
-# @type/react 버전 관련 이슈
+`TypeScript 의 기본개념과 환경설정`
 
-https://stackoverflow.com/questions/71842787/next-js-typescript-error-you-do-not-have-the-required-packages-installed
+https://pozafly.github.io/typescript/typescript-env/#allowImportingTsExtensions-TypeScript-version-5-%EB%B6%80%ED%84%B0
 
----
+TypeScript는 크게 2가지 기능을 제공한다.
+
+- 타입체크
+- 컴파일 (tsc)
+
+컴파일은 Compile stage에서 이루어지는데, 또다시 컴파일에서 이루어지는 프로세스는 2가지다.
+
+- 타입체크
+- 트랜스파일
 
 # 타입스크립트 프로젝트 생성
 
