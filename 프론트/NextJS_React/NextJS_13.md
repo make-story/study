@@ -222,7 +222,7 @@ export default function Page() {
 }
 ```
 
-## Turbopack
+## 터보팩 (Turbopack)
 
 (alpha)
 Rust 기반의 새로운 번들러
@@ -242,7 +242,7 @@ OpenGraph를 위한 Social card도 제공한다
 
 ## Middleware API Updates
 
-next 12 버전에서 소개되었던 Middleware가 여러 피드백을 통해 개선된 점을 소개한다.
+next 12 버전에서 소개되었던 Middleware 가 여러 피드백을 통해 개선된 점을 소개한다.
 
 아래와 같이 쉽게 request의 header 값을 세팅할 수 있다.
 
@@ -312,6 +312,45 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+```
+
+# Modularize Imports 적용하기 - 트리쉐이킹(Tree Shaking)
+
+`study.git/프론트/성능_최적화/프론트엔드_성능_최적화.md` 내용 참고
+
+```javascript
+// next.config.js
+
+module.exports = {
+  swcMinify: true,
+  experimental: {
+    modularizelmports: {
+      lodash: {
+        transform: 'lodash/{{member}}',
+      },
+    },
+  },
+};
+```
+
+```
+위의 코드처럼 사용할 수 있는데 간단하게 내가 수정하고자 하는 라이브러리를 {{member}} 을 통해 가변 값을 설정하면 된다.
+```
+
+이 외에 regex도 사용할 수 있다.
+이제 위와 같이 설정하면 이렇게 변화한다.
+
+```javascript
+// before import
+import { remove } from 'lodash';
+
+# before real import
+import _ from 'lodash';
+
+const remove = _.remove;
+
+# after
+import { remove } from 'lodash';
 ```
 
 # Next.js App Router 쓸 때 흔한 실수 10가지

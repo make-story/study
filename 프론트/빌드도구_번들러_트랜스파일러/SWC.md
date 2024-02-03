@@ -1,4 +1,4 @@
-# SWC (Speedy Web Compiler)
+# SWC (Speedy Web Compiler) - Babel 대체가능한 도구
 
 https://swc.rs/docs/getting-started
 
@@ -27,7 +27,7 @@ $ npm run build | gnomon --type=elapsed-total
 
 ---
 
-# Next.js
+# Next.js SWC
 
 https://nextjs.org/docs/advanced-features/compiler
 
@@ -44,7 +44,7 @@ module.exports = {
 
 `Next.js 12 이후 버전에서 SWC 대신 바벨을 사용하도록 설정하는 방법은 매우 간단`
 (Next.js 12 버전부터는 기본 설정을 통해 SWC 사용권장)  
-프로젝트에 바벨 설정 파일(예: .babelrc) 파일이 존재하면 SWC 가 아닌, 바벨로 트랜스파일 작동함
+`중요!!! 프로젝트에 바벨 설정 파일(예: .babelrc) 파일이 존재하면 SWC 가 아닌, 바벨로 트랜스파일 작동함!!!`
 
 Next.js 13 버전부터 기본값이 true 로 변경됐다. ('모던 리액트 Deep Dive' 책 내용 중)
 
@@ -54,6 +54,18 @@ Next.js 13 버전부터 기본값이 true 로 변경됐다. ('모던 리액트 D
 {
     "presets": ["next/babel"] // Next.js 프로젝트 빌드를 위한 플러그인들이 모여있는 프리셋입니다.
 }
+```
+
+## Next.js SWC - Parsing error: Cannot find module 'next/babel'
+
+루트 경로에 있는 `ESLint 설정(예: .eslintrc.json) 파일의 extends 부분에 'next/babel' 추가!`
+
+```json
+{ "extends": ["next/babel"] }
+```
+
+```json
+{ "extends": ["next"] }
 ```
 
 ## '모던 리액트 Deep Dive' 책 내용 중

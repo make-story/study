@@ -73,6 +73,17 @@ NODE_ENV=production node server.js
 
 # 설정 (next.config.js)
 
+## next.config.ts - 설정파일 TypeScript 적용 계획
+
+https://github.com/vercel/next.js/issues/5318  
+https://github.com/vercel/next.js/discussions/35969
+
+2018년 9월 28일 기준, 트랜스파일링은 사용자가 해야하며, Next.js 는 계획이 없다는 댓글 존재
+
+2023년 기준, 실험중
+
+https://github.com/devjiwonchoi/next-config-ts-preview
+
 ## 넥스트의 번들 파일 분석하기
 
 `넥스트는 프로젝트 루트의 .next 폴더 밑에 번들 파일을 생성`한다.
