@@ -24,6 +24,25 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Event_loop
 Event Loop 는 두 가지 종류의 작업 큐, 즉 "태스크 큐(task queue)"와 "마이크로태스크 큐(microtask queue)"를 갖고 있다.  
 두 큐 모두 비동기 작업이 완료될 때까지 그 작업을 대기시키는 역할을 하지만, 두 큐는 처리 방식과 우선순위에 있어서 몇 가지 차이점이 있다.
 
+태스크 큐: setTimeout, setInterval, setImmediate
+마이크로 태스크 큐: process.nextTick, Promise, queueMicrotask, MutationObserver
+
+```javascript
+// timeout_vs_immediate.js
+setTimeout(() => {
+  console.log('timeout');
+}, 0);
+setImmediate(() => {
+  console.log('immediate');
+});
+```
+
+## 렌더링은 언제 실행될까?
+
+태스크 큐를 실행하기에 앞서 먼저 마이크로 태스크 큐를 실행하고,  
+이 마이크로 태스크 큐를 실행한 뒤에 렌더링이 일어난다.  
+각 마이크로 태스크 큐 작업이 끝날 때마다 한 번씩 렌더링할 기회를 얻게 된다.
+
 ## 태스크큐
 
 태스크 큐는 "매크로태스크(macrotasks)"를 관리합니다.  
