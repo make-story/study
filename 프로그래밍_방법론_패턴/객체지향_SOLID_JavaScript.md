@@ -1,8 +1,60 @@
-# Javascript에서도 SOLID 원칙이 통할까? (객체지향 5 원칙)
+# JavaScript 에서도 SOLID 원칙이 통할까? (객체지향 5 원칙)
 
 https://velog.io/@teo/Javascript%EC%97%90%EC%84%9C%EB%8F%84-SOLID-%EC%9B%90%EC%B9%99%EC%9D%B4-%ED%86%B5%ED%95%A0%EA%B9%8C?fbclid=IwAR3Q9yeXJNSYNOqMWF-CBqtZHNpf8FSZ9BspxCLRPFYzdouJ2EvySeyzFRc
 
-## `객체지향 5원칙 (SOLID)은 구시대의 유물 ?`
+## 요약
+
+S  
+Single Responsibility Principle
+
+- `순수함수`
+- 함수 하나는 하나의 책임과 기능
+- 컴포넌트를 너무 자잘하게 쪼개면 전체 로직을 한눈에 파악하기 어렵게 만들고 코드 네비게이션에 들어가는 공수를 늘어나게 만듭니다. 단일한 동작을 갖도록 코딩하는 것은 “컴포넌트” 가 아니라 순수한 함수 한정이 되어야 합니다.
+  - https://fe-developers.kakaoent.com/2023/230330-frontend-solid/
+- SRP라는 원칙으로 도달할 아키텍처 영역이라기보다는 클린 코드의 영역으로 볼 수 있습니다.
+- 같은 이유로 변경될 코드들은 모으고. 다른 이유로 변경될 코드들은 흩어라.
+
+O  
+Open-Closed Principle
+
+- `고차함수`
+- 확장은 가능(열려있음) / 외부코드 수정에 따른 영향은 불가(닫혀있음)
+- 함수 내부 분기가 아닌 함수를 변수를 받아 처리
+- 공통기능은 미들웨어
+- 새로운 기능을 개발할때 기존에 개발된 함수를 수정하면서 코드를 개발하고 있다면 OCP 원칙을 위배한 코드를 작성하고 있을 확률이 엄청 높음
+
+L  
+Liskov Substitution Principle
+
+- `예측가능한 상속 관계`
+- 하위클래스가 상위 클래스의 자리를 에러 없이 맡을 수 있는지 확인
+- 상속(is-a)으로 이어진 관계에서 예상 못할 행동을 하지 말라
+- 인터페이스나 상위 정의된 부분과 실제 구현된 부분이 ‘예상’과 다르다면 잘못 사용하게 될 가능성
+- 상위클래스는 정의 / 하위클래스는 구현
+
+I  
+Interface Segregation Principle
+
+- `인터페이스 정의 세분화`
+- 한번에 모든 것이 있는 인터페이스가 아닌, 세분화(사용하는 것만)된 인터페이스를 정의
+- 사용하지 않은 것 까지 인터페이스가 강요해서는 안됨
+- 사용자가 필요하지 않은 것들에 의존하게 되지 않도록, 인터페이스를 작게 유지하라.
+- 인터페이스는 꼭 하나의 일을 해야 하며, 추가적인 행위 그룹은 반드시 다른 인터페이스로 분리되어 추상화 되어야 한다.
+
+D  
+Dependency Inversion Principle
+
+- `추상화`
+- 의존(종속)은 구체가 아닌 추상과 이뤄져야 한다.
+- 추상화하는 방향으로 의존하라. 상위 레벨 모듈이 하위 레벨 세부 사항에 의존해서는 안된다.
+- 추상화에 의존, 구체화에 의존하지 않음
+- 리액트 컴포넌트 내부에서 데이터를 반환하는 커스텀훅(추상화)을 만들고, 세부 내용은 커스텀훅 내부에서 axios 호출
+
+## React S(SRP-단일 책임 원칙)
+
+https://react.dev/learn/thinking-in-react
+
+## `객체지향 5원칙 (SOLID)은 구시대의 유물?`
 
 https://mangsby.com/blog/programming/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-5%EC%9B%90%EC%B9%99-solid%EC%9D%80-%EA%B5%AC%EC%8B%9C%EB%8C%80%EC%9D%98-%EC%9C%A0%EB%AC%BC%EC%9D%B8%EA%B0%80/
 
@@ -22,9 +74,15 @@ https://doublem.org/SOLID_SRP_OCP/
 
 https://doublem.org/SOLID_LSP_ISP_DIP/
 
-## SOLID
+---
 
-컴퓨터 프로그래밍에서 SOLID란 로버트 마틴이 2000년대 초반에 명명한 객체 지향 프로그래밍 및 설계의 다섯 가지 기본 원칙을 마이클 페더스가 두문자어 기억술로 소개한 것이다. 프로그래머가 시간이 지나도 유지 보수와 확장이 쉬운 시스템을 만들고자 할 때 이 원칙들을 함께 적용할 수 있다. SOLID 원칙들은 소프트웨어 작업에서 프로그래머가 소스 코드가 읽기 쉽고 확장하기 쉽게 될 때까지 소프트웨어 소스 코드를 리팩터링하여 코드 냄새를 제거하기 위해 적용할 수 있는 지침이다. 이 원칙들은 애자일 소프트웨어 개발과 적응적 소프트웨어 개발의 전반적 전략의 일부다.
+# SOLID
+
+컴퓨터 프로그래밍에서 SOLID 란  
+로버트 마틴이 2000년대 초반에 명명한 객체 지향 프로그래밍 및 설계의 다섯 가지 기본 원칙을 마이클 페더스가 두문자어 기억술로 소개한 것이다.  
+프로그래머가 시간이 지나도 유지 보수와 확장이 쉬운 시스템을 만들고자 할 때 이 원칙들을 함께 적용할 수 있다.  
+SOLID 원칙들은 소프트웨어 작업에서 프로그래머가 소스 코드가 읽기 쉽고 확장하기 쉽게 될 때까지 소프트웨어 소스 코드를 리팩터링하여 코드 냄새를 제거하기 위해 적용할 수 있는 지침이다.  
+이 원칙들은 애자일 소프트웨어 개발과 적응적 소프트웨어 개발의 전반적 전략의 일부다.
 
 https://ko.wikipedia.org/wiki/SOLID_(%EA%B0%9D%EC%B2%B4_%EC%A7%80%ED%96%A5_%EC%84%A4%EA%B3%84)
 
@@ -88,6 +146,28 @@ https://maxkim-j.github.io/posts/js-pure-function
 3. 함수 외부의 어떠한 값을 변화시켜서는 안된다.
 
 `순수함수는 너무나도 SRP의 원칙에 들어맞는 모양`이 되게 됩니다.
+
+### 컴포넌트
+
+https://fe-developers.kakaoent.com/2023/230330-frontend-solid/
+
+단일한 “동작”만 가진 컴포넌트로 쪼개야 한다고 오해할 수 있습니다.  
+동작으로 쪼개다 보면 그 기준이 애매하기도 하고 과할 정도로 자잘하게 컴포넌트가 쪼개질 수 있습니다.  
+컴포넌트를 너무 자잘하게 쪼개면 전체 로직을 한눈에 파악하기 어렵게 만들고 코드 네비게이션에 들어가는 공수를 늘어나게 만듭니다.  
+`단일한 동작을 갖도록 코딩하는 것은 “컴포넌트” 가 아니라 순수한 함수 한정이 되어야 합니다.`  
+이는 SRP라는 원칙으로 도달할 아키텍처 영역이라기보다는 클린 코드의 영역으로 볼 수 있습니다.
+
+```tsx
+function SingleSection({ title, more, items }) {
+  return (
+    <Section>
+      <Section.Title title={title} />
+      <Section.More text={more} />
+      <Section.SingleListView items={items} />
+    </Section>
+  );
+}
+```
 
 ## O - OCP / 개방-폐쇄 원칙 (Open/Closed Principle)
 
@@ -163,6 +243,77 @@ https://github.com/labs42io/clean-code-typescript#liskov-substitution-principle-
 
 리스코프 치환 원칙은 상속을 받아 만든 하위타입의 제약조건들이 상위 타입에서 먼저 선언한 조건들과 충돌이 날 경우 유지보수가 힘들어 진다는 문제점이 있기 때문에 만들어진 것입니다.  
 따라서 `계층도간의 is-a 관계를 만족한다고 하더라도 하위 타입에서 가변성을 가지면서 상위 타입에서 정의한 조건과 일치하지 않는다면 상속을 받지 말아야 합니다.`
+
+위반사례: 실무
+
+- GET method 의 REST API로 정의했는데 실제 동작에선 DB 상태를 변경
+- API 응답으로 주기로 약속한 모델을 화면마다 다르게 내려줌(화면별로 필드 존재 유무가 달라지거나, nullable 여부가 달라지는)
+- Label 이라 해놓고 체크 박스 기능 요구
+- 필드명이 같은 것을 기준으로 타입스크립트 인터페이스 정의를 무지성으로 상속 관계로 만듦
+
+위반사례: 코드
+
+```javascript
+// 코드가 스스로 자신의 클래스 타입을 확인한다면, 그건 정말로 원칙을 위반 한 것입니다.
+function AnimalLegCount(a: Array<Animal>) {
+    for(int i = 0; i <= a.length; i++) {
+        if(typeof a[i] == Lion)
+            return LionLegCount(a[i]);
+        if(typeof a[i] == Mouse)
+            return MouseLegCount(a[i]);
+        if(typeof a[i] == Snake)
+            return SnakeLegCount(a[i]);
+    }
+}
+
+AnimalLegCount(animals);
+```
+
+위와 같은 것이 LSP 원칙을 위한한 모습입니다. (또한 OCP를 위반한 것이기도 합니다.)
+
+아래는 수정된 코드
+
+```javascript
+function AnimalLegCount(a: Array<Animal>) {
+  for (let i = 0; i <= a.length; i++) {
+    a[i].LegCount();
+  }
+}
+AnimalLegCount(animals);
+```
+
+AnimalLegCount()는 전달된 Animal의 타입에 대해서는 관심이 없고, 오직 다리의 숫자를 세는 것에만 관심이 있습니다.
+
+파라미터는 Animal 타입(Animal 클래스나 Animal의 하위 클래스)이어야만 한다는 것이 위 코드에서 알 수 있는 전부입니다.
+
+Animal 클래스는 이제 LegCount() 메소드만 구현/정의 하기만 하면 됩니다.
+
+```javascript
+class Animal {
+    //...
+    LegCount();
+}
+```
+
+그리고 하위 클래스들은 LegCount()메소드를 구현해야만 하죠.
+
+```javascript
+class Lion extends Animal {
+  //...
+  LegCount() {
+    //...
+  }
+}
+
+class Mouse extends Animal {
+  //...
+  LegCount() {
+    //...
+  }
+}
+
+// ...
+```
 
 ### 함수형 프로그래밍에서는요?
 
@@ -299,3 +450,84 @@ axios의 레이어를 통해서 서버와의 데이터를 주고 받습니다.
 만약 Component에서 axios를 호출하거나 fetch를 바로 호출을 한다면 구체적인 부분에 의존을 하면 안된다는 DIP 원칙에 어긋나기에 좋은 설계가 아닐 수 있겠지요.
 
 또한 레이어를 벗어나 axios를 다루는 모듈에서 컴포넌트의 props을 조작하는 등 레이어의 범위를 벗어나는 코드 역시 DIP에 어긋나는 설계입니다.
+
+https://doublem.org/SOLID_LSP_ISP_DIP/
+
+위반사례
+
+```javascript
+class XMLHttpService extends XMLHttpRequestService {}
+
+class Http {
+    constructor(private xmlhttpService: XMLHttpService) { }
+    get(url: string , options: any) {
+        this.xmlhttpService.request(url,'GET');
+    }
+    post() {
+        this.xmlhttpService.request(url,'POST');
+    }
+    //...
+}
+```
+
+상위 코드의 Http 클래스는 XMLHttpService 클래스에 의존하도록 되어있습니다.  
+간혹, xmlhttpService 외에 다른 Http 연결 서비스를 사용 하고 싶을 수도 있습니다.  
+이럴때, 코드를 편집하기 위해서는 모든 Http 인스턴스(사용중인)를 고려하여 조심스레 수정해야합니다.  
+이는 OCP 원칙 위반이기도 합니다.
+
+따라서 ‘Connection 인터페이스’를 만들어, 사용중인 Http 서비스 타입들에 대해 덜 신경 써야합니다.
+
+```typescript
+interface Connection {
+  request(url: string, opts: any);
+}
+```
+
+request 메소드를 갖고 있는 Connection 인터페이스를 이용하여 Http를 개선 할 수 있습니다.  
+Connection 인터페이스 타입의 Argument를 Http 클래스로 전송합니다.
+
+```typescript
+class Http {
+  constructor(private httpConnection: Connection) {}
+
+  get(url: string, options: any) {
+    this.httpConnection.request(url, 'GET');
+  }
+  post() {
+    this.httpConnection.request(url, 'POST');
+  }
+  //...
+}
+```
+
+Http에 전달된 Http 연결 서비스 유형에 관계없이 네트워크 연결 유형을 알지 않고도 쉽게 네트워크에 연결할 수 있습니다.  
+이제 XMLHttpService 클래스를 다시 구현하여 Connection 인터페이스를 구현할 수 있습니다.
+
+```typescript
+class XMLHttpService implements Connection {
+  xhr = new XMLHttpRequest();
+  //...
+  request(url: string, opts: any) {
+    xhr.open();
+    xhr.send();
+  }
+}
+```
+
+많은 Http Connection 타입을 만들고 Http 클래스에 에러와 같은 야단법석한 일들은 피해서 전송 할 수 있습니다.
+
+```typescript
+class NodeHttpService implements Connection {
+  request(url: string, opts: any) {
+    //...
+  }
+}
+class MockHttpService implements Connection {
+  request(url: string, opts: any) {
+    //...
+  }
+}
+```
+
+우리는 고수준의 모듈과 저수준의 모듈이 추상에 의존하고 있음을 볼 수 있습니다.  
+`Http 클래스(고수준의 모듈)은 Connection 인터페이스(추상)에 의존하고 있으며, Http 서비스 타입들(저수준의모듈) 또한 Connection 인터페이스에 의존`하고 있습니다.

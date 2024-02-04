@@ -69,7 +69,8 @@ https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#t
           {
             "target": "src/core",
             "from": "src/components",
-            "message": "\n의존성 규칙에 어긋나는 참조입니다."
+            "except": ["**/common/**"],
+            "message": "\n의존성 규칙에 어긋나는 참조입니다. (core 에서 components 를 참조할 수 없습니다. 단, common  제외)"
           },
           {
             "target": "src/core",
