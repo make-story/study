@@ -1,5 +1,9 @@
 # UI 컴포넌트 개발 도구
 
+Storybook을 사용하면  
+디자이너는 컴포넌트가 제대로 구현 되었는지 한 눈에 확인할 수 있고,  
+개발자는 컴포넌트의 API를 쉽게 확인할 수 있습니다.
+
 ## @storybook/react vs bit vs catalog vs mondorepo vs react-styleguidist
 
 https://www.npmtrends.com/bit-vs-mondorepo-vs-react-styleguidist-vs-catalog-vs-@storybook/react  
