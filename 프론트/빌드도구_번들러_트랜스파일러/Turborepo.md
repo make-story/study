@@ -2,21 +2,21 @@
 
 JavaScript 및 TypeScript 코드베이스를 위한 고성능 빌드 시스템 (모노레포 구조에서 도움되는 도구)
 
-Turborepo의 주요 미션은 모노레포 환경에서 개발자가 조금 더 쉽고 빠르게 개발할 수 있도록 빌드 도구를 제공하는 것  
+Turborepo의 주요 미션은 모노레포 환경에서 개발자가 조금 더 쉽고 빠르게 개발할 수 있도록 빌드 도구를 제공하는 것
 
 별도의 코드 작업 없이 JSON 설정으로 터보를 사용할 수 있습니다.
 
-`여러 packages 병렬 빌드 실행 가능`  
+`여러 packages 병렬 빌드 실행 가능`
 
 https://engineering.linecorp.com/ko/blog/monorepo-with-turborepo
 
 https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks
 
-## 기존 모노레포에 적용  
+## 기존 모노레포에 적용
 
-https://turbo.build/repo/docs/getting-started/existing-monorepo  
+https://turbo.build/repo/docs/getting-started/existing-monorepo
 
-### 설치  
+### 설치
 
 ```bash
 yarn global add turbo
@@ -32,50 +32,39 @@ yarn add turbo -DW # devDependency, install workspace root
 }
 ```
 
-### 파이프라인 구성  
+### 파이프라인 구성
 
 파이프라인의 각 명령어들은 하나의 태스크 단위이며 이 단위가 '병렬 처리 및 의존성의 범위'가 됩니다.
 
 ```json
 {
-    "baseBranch": "origin/main",
-    "pipeline": {
-      "build": {
-        // ^는 커맨드 실행 전 dependencies 혹은 devDependencies의 위상 의존성을 가질 때 명시해 줍니다(https://turborepo.org/docs/glossary#topological-order).
-        // 의존성 빌드 명령이 실행된 후 build 커맨드가 실행됩니다.
-        "dependsOn": [
-          "^build"
-        ],
-        // 기본 캐시 폴더를 지정합니다.
-        "outputs": [
-          ".next/**",
-          "lib/**",
-          "storybook-static/**"
-        ]
-      },
-      "cypress:ci": {
-        "dependsOn": [
-          // 특정 패키지를 지정하고 싶다면 '패키지명#스크립트'로 하면 됩니다.
-          "@linecorp/uvp#build"
-        ]
-      },
-      // 아무런 명시가 없다면 의존성이 없다는 것을 의미하며, 이는 언제든지 실행될 수 있다는 것을 의미합니다.
-      // 작업이 가능할 때마다 실행합니다.
-      "lint": {},
-      "deploy": {
-        // 의존성을 여러 개 지정할 경우 터보가 똑똑하게 순서를 맞춰서 진행해 줍니다. 위 'Profile in browser'의 이미지를 참고해 주세요.
-        "dependsOn": [
-          "build",
-          "cypress:ci",
-          "snapshots",
-          "lint"
-        ]
-      },
-      // 개발 환경과 같이 핫 로딩이 필요할 경우 캐시를 비활성화할 수 있습니다.
-      "dev": {
-        "cache": false
-      }
-   }
+  "baseBranch": "origin/main",
+  "pipeline": {
+    "build": {
+      // ^는 커맨드 실행 전 dependencies 혹은 devDependencies의 위상 의존성을 가질 때 명시해 줍니다(https://turborepo.org/docs/glossary#topological-order).
+      // 의존성 빌드 명령이 실행된 후 build 커맨드가 실행됩니다.
+      "dependsOn": ["^build"],
+      // 기본 캐시 폴더를 지정합니다.
+      "outputs": [".next/**", "lib/**", "storybook-static/**"]
+    },
+    "cypress:ci": {
+      "dependsOn": [
+        // 특정 패키지를 지정하고 싶다면 '패키지명#스크립트'로 하면 됩니다.
+        "@linecorp/uvp#build"
+      ]
+    },
+    // 아무런 명시가 없다면 의존성이 없다는 것을 의미하며, 이는 언제든지 실행될 수 있다는 것을 의미합니다.
+    // 작업이 가능할 때마다 실행합니다.
+    "lint": {},
+    "deploy": {
+      // 의존성을 여러 개 지정할 경우 터보가 똑똑하게 순서를 맞춰서 진행해 줍니다. 위 'Profile in browser'의 이미지를 참고해 주세요.
+      "dependsOn": ["build", "cypress:ci", "snapshots", "lint"]
+    },
+    // 개발 환경과 같이 핫 로딩이 필요할 경우 캐시를 비활성화할 수 있습니다.
+    "dev": {
+      "cache": false
+    }
+  }
 }
 ```
 
@@ -129,11 +118,102 @@ yarn add turbo -DW # devDependency, install workspace root
 }
 ```
 
-
 ### 파이프라인 실행
 
 ```bash
 npx turbo run deploy
 # 또는
 turbo run build
+```
+
+### 파이프라인 설정 - 의존관계가 있는 경우
+
+https://github.com/vercel/turbo/discussions/1347
+
+```json
+{
+  "name": "a",
+  "dependencies": {
+    "c": "*"
+  },
+  "scripts": {
+    "build": "echo a"
+  }
+}
+```
+
+```json
+{
+  "name": "b",
+  "scripts": {
+    "build": "echo b"
+  }
+}
+```
+
+```json
+{
+  "name": "c",
+  "dependencies": {
+    "b": "*"
+  },
+  "scripts": {
+    "build": "echo c"
+  }
+}
+```
+
+```json
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"]
+    }
+  }
+}
+```
+
+또는
+
+```json
+{
+  "name": "a",
+  "scripts": {
+    "build": "echo a"
+  }
+}
+```
+
+```json
+{
+  "name": "b",
+  "scripts": {
+    "build": "echo b"
+  }
+}
+```
+
+```json
+{
+  "name": "c",
+  "scripts": {
+    "build": "echo c"
+  }
+}
+```
+
+```json
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "a#build": {
+      "dependsOn": ["c#build"]
+    },
+    "b#build": {},
+    "c#build": {
+      "dependsOn": ["b#build"]
+    }
+  }
+}
 ```
