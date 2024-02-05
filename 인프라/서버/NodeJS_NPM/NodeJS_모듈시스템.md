@@ -219,8 +219,8 @@ https://main.vitejs.dev/guide/performance.html#reduce-resolve-operations
 
 https://youthfulhps.dev/javascript/nodejs-module-system/#conditional-exports
 
-node.js는 CommonJS와 ESM을 함께 지원하기 위해 exports 기능을 추가했다.  
-패키지를 사용하는 쪽에서 해당 패키지를 불러올 때 CommonJS의 require 혹은 ESM의 import 중 어느 구문을 통해 모듈을 불러왔는지에 따라 해당 패키지의 번들을 조건적으로 제공할 수 있게 된다.
+`node.js 는 CommonJS 와 ESM 을 함께 지원하기 위해 exports 기능을 추가`했다.  
+패키지를 사용하는 쪽에서 해당 패키지를 불러올 때 CommonJS 의 require 혹은 ESM의 import 중 어느 구문을 통해 모듈을 불러왔는지에 따라 해당 패키지의 번들을 조건적으로 제공할 수 있게 된다.
 
 ```javascript
 // package.json
