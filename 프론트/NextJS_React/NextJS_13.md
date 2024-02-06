@@ -387,3 +387,53 @@ import { remove } from 'lodash';
 - Redirects inside of try/catch blocks
   - `return redirect()` 대신 `redirect()`를 사용하세요.
   - `redirect()` 함수는 Typescript의 `never` 타입을 사용하므로 return을 붙일 필요가 없습니다.
+
+# Next.js API Route
+
+https://nextjs.org/docs/app/building-your-application/routing/route-handlers
+
+https://nextjs.org/docs/app/api-reference/functions/next-response
+
+스트리밍
+
+```javascript
+// app/api/route.ts
+
+// https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream#convert_async_iterator_to_stream
+function iteratorToStream(iterator: any) {
+  return new ReadableStream({
+    async pull(controller) {
+      const { value, done } = await iterator.next();
+
+      if (done) {
+        controller.close();
+      } else {
+        controller.enqueue(value);
+      }
+    },
+  });
+}
+
+function sleep(time: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, time);
+  });
+}
+
+const encoder = new TextEncoder();
+
+async function* makeIterator() {
+  yield encoder.encode('<p>One</p>');
+  await sleep(200);
+  yield encoder.encode('<p>Two</p>');
+  await sleep(200);
+  yield encoder.encode('<p>Three</p>');
+}
+
+export async function GET() {
+  const iterator = makeIterator();
+  const stream = iteratorToStream(iterator);
+
+  return new Response(stream);
+}
+```

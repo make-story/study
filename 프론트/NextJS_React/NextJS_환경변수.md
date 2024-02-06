@@ -54,3 +54,11 @@ API 키 등의 공개하고 싶지 않은 값을 저장하기 위해 사용합�
 
 .env.development 와 .env.development.local 은 개발 서버를 작동시킬 때,  
 .env.production 과 .env.production.local 은 빌드 시 또는 프로덕션 환경에서 (서버를) 작동시킬 때 사용합니다.
+
+## Next.js NODE_ENV 기본 설정 값
+
+https://nextjs.org/docs/messages/non-standard-node-env
+
+- production: When your application is built with next build
+- development: When your application is run with next dev
+- test: When your application is being tested (e.g. jest)
