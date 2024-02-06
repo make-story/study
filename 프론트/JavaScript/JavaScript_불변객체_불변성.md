@@ -32,7 +32,7 @@ nextArrayGood[0] = 100;
 console.log(array === nextArrayGood); // 다른 배열이기 때문에 false
 
 const object = {
-  foo: "bar",
+  foo: 'bar',
   value: 1,
 };
 
@@ -79,12 +79,12 @@ https://legacy.reactjs.org/docs/state-and-lifecycle.html#do-not-modify-state-dir
 
 ```javascript
 // Wrong
-this.state.comment = "Hello";
+this.state.comment = 'Hello';
 ```
 
 ```javascript
 // Correct
-this.setState({ comment: "Hello" });
+this.setState({ comment: 'Hello' });
 ```
 
 ## 리덕스에서 불변성
@@ -104,7 +104,8 @@ this.setState({ comment: "Hello" });
 
 state.test = {...test, action.test}  
 또는 immer 라는 라이브러리를 사용하여 쉽게 불변성을 유지합니다.
-(값의 구조는 그대로 이나, 메모리 주소는 변경하여, state 가 변경되었다는 것을 인지시킴)
+(값의 구조는 그대로 이나, 메모리 주소는 변경하여, state 가 변경되었다는 것을 인지시킴)  
+(Redux Toolkit 의 createReducer API 는 내부적으로 자동으로 Immer 를 사용합니다.)
 
 ## Object.assign() 문제점
 
@@ -145,8 +146,8 @@ console.log(obj.b === obj2.b); // false
 
 ```javascript
 let user = {
-  name: "const",
-  gender: "male",
+  name: 'const',
+  gender: 'male',
 };
 
 function changeName(user, newName) {
@@ -155,9 +156,9 @@ function changeName(user, newName) {
   return newUser;
 }
 
-let user2 = changeName(user, "epitone");
+let user2 = changeName(user, 'epitone');
 if (user !== user2) {
-  console.log("유저 정보가 변경되었습니다.");
+  console.log('유저 정보가 변경되었습니다.');
 }
 
 console.log(user.name, user2.name); // epitone epitone
@@ -173,8 +174,8 @@ console.log(user === user2); // true
 
 ```javascript
 let user = {
-  name: "const",
-  gender: "male",
+  name: 'const',
+  gender: 'male',
 };
 
 function changeName(user, newName) {
@@ -184,9 +185,9 @@ function changeName(user, newName) {
   };
 }
 
-let user2 = changeName(user, "epitone");
+let user2 = changeName(user, 'epitone');
 if (user !== user2) {
-  console.log("유저 정보가 변경되었습니다.");
+  console.log('유저 정보가 변경되었습니다.');
 }
 
 console.log(user.name, user2.name); // const epitone
@@ -203,8 +204,8 @@ changeName 함수는 새로운 객체를 만들면서 변경할 필요가 없는
 
 ```javascript
 let user = {
-  name: "const",
-  gender: "male",
+  name: 'const',
+  gender: 'male',
 };
 
 function copyObject(target) {
@@ -216,9 +217,9 @@ function copyObject(target) {
 }
 
 let user2 = copyObject(user);
-user2.name = "epitone";
+user2.name = 'epitone';
 if (user !== user2) {
-  console.log("유저 정보가 변경되었습니다.");
+  console.log('유저 정보가 변경되었습니다.');
 }
 
 console.log(user.name, user2.name); // const epitone
@@ -238,7 +239,7 @@ copyObject 함수를 활용해서 객체를 만들었을 때, 가장 아쉬운 �
 ```javascript
 function copyObjectDeep(target) {
   let result = {};
-  if (typeof target === "object" && target !== null) {
+  if (typeof target === 'object' && target !== null) {
     for (let prop in target) {
       result[prop] = copyObjectDeep(target[prop]);
     }

@@ -74,7 +74,7 @@ export default msgboxSlice;
 https://velog.io/@inwoong100/Redux-toolkit%EA%B3%BC-Redux%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90  
 https://redux-toolkit.js.org/introduction/getting-started
 
-immer, redux, redux-devtools-extension 자체 내장
+`immer, redux, redux-devtools-extension 자체 내장`
 
 ## 사용하는 이유
 
@@ -84,10 +84,10 @@ https://kyounghwan01.github.io/blog/React/redux/redux-toolkit
 이렇게 필요하지만 너무 많은 코드가 생성되니 `redux-actons`라는 것을 사용하게 되었고,  
 불변성을 지켜야하는 원칙 때문에 `immer`를 사용하게되고,  
 store 값을 효율적으로 핸들링하여 불필요 리렌더링을 막기 위해 `reselect`를 쓰게 되었으며,  
-비동기를 수월하게 하기위해, `thunk나 saga`를 설치하여 redux를 더 효율적으로 사용하게 됩니다.  
+비동기를 수월하게 하기위해, `thunk 나 saga`를 설치하여 redux를 더 효율적으로 사용하게 됩니다.  
 지금 말한 것만 총 4~5개의 라이브러리를 설치하여야 위처럼 사용할 수 있습니다.
 
-그런데, `redux-toolkit은 redux가 공식적으로 만든 라이브러리`로, `saga를 제외한 위 기능 모두 지원`합니다.  
+그런데, `redux-toolkit 은 redux 가 공식적으로 만든 라이브러리`로, `saga 를 제외한 위 기능 모두 지원`합니다.  
 또한 typeScript 사용자를 위해 action type, state type 등 TypeScript를 사용할 때 필요한 Type Definition을 공식 지원합니다.
 
 ## 지원하는 기능
@@ -98,6 +98,29 @@ store 값을 효율적으로 핸들링하여 불필요 리렌더링을 막기 �
 - redux-thunk
 - Flux Standard Action 강제화
 - Type Definition
+
+## immer
+
+```javascript
+const todosReducer = createReducer([], (builder) => {
+  builder.addCase('todos/todoAdded', (state, action) => {
+    // "mutate" the array by calling push()
+    state.push(action.payload)
+  })
+})​
+```
+
+```javascript
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState: [],
+  reducers: {
+    todoAdded(state, action) {
+      state.push(action.payload);
+    },
+  },
+});
+```
 
 ---
 
