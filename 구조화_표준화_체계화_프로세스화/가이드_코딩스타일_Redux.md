@@ -71,7 +71,10 @@ import { produce } from 'immer';
 
 import { BRANDS_ALL_ACTION_TYPE } from './action';
 import { IAllBrandListResponse } from 'src/display/types/brand/response';
-import { IBrandsAllState, IBrandsAllAction } from 'src/display/types/brand/index';
+import {
+  IBrandsAllState,
+  IBrandsAllAction,
+} from 'src/display/types/brand/index';
 
 // 리듀서 초기값(결과값), 타입정의 필수
 const initialState: IBrandsAllState = {
@@ -79,7 +82,10 @@ const initialState: IBrandsAllState = {
 };
 
 // 리듀서 브랜드 전체보기
-const reducer: Reducer<IBrandsAllState, IBrandsAllAction> = (state = initialState, action) => {
+const reducer: Reducer<IBrandsAllState, IBrandsAllAction> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case BRANDS_ALL_ACTION_TYPE.SUCCESS:
       return produce(state, draft => {

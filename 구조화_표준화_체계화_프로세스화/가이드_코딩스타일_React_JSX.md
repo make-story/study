@@ -380,7 +380,10 @@ function EditCalendarEvent() {
 
   return (
     <>
-      <input value={event.title} onChange={e => updateEvent({ title: e.target.value })} />
+      <input
+        value={event.title}
+        onChange={e => updateEvent({ title: e.target.value })}
+      />
       {/* ... */}
     </>
   );
@@ -411,7 +414,10 @@ function EditCalendarEvent() {
 
   return (
     <>
-      <input value={event.title} onChange={e => updateEvent({ title: e.target.value })} />
+      <input
+        value={event.title}
+        onChange={e => updateEvent({ title: e.target.value })}
+      />
       {/* ... */}
     </>
   );
@@ -449,7 +455,10 @@ function EditCalendarEvent() {
 
   return (
     <>
-      <input value={event.title} onChange={e => updateEvent({ type: 'updateTitle', title: 'Hello' })} />
+      <input
+        value={event.title}
+        onChange={e => updateEvent({ type: 'updateTitle', title: 'Hello' })}
+      />
       {/* ... */}
     </>
   );

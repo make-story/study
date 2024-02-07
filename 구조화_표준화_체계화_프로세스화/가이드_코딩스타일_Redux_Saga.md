@@ -71,15 +71,19 @@ import { AppState } from '@/store';
 import { DisplayState } from '@/project2/store/display/displaySlice';
 import { createSelector } from '@reduxjs/toolkit';
 
-export const displaySelector = ({ project2 }: AppState): DisplayState => project2.display;
+export const displaySelector = ({ project2 }: AppState): DisplayState =>
+  project2.display;
 
 /**
  * createSelector 을 이용해 새로운 값을 반환하면
  * 해당 값은 다시 리렌더링 되더라도 연산을 새로 수행하는 대신 이전에 캐싱해두었던 값을 반환
  */
-export const displayReselect = createSelector(displaySelector, (display): any => {
-  return display.value;
-});
+export const displayReselect = createSelector(
+  displaySelector,
+  (display): any => {
+    return display.value;
+  },
+);
 ```
 
 ---
@@ -107,7 +111,10 @@ https://github.com/redux-utilities/flux-standard-action
 import { AnyAction } from 'redux';
 import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { loadingActionType, loadingActionCreator } from '@src/common/stores/loading/action';
+import {
+  loadingActionType,
+  loadingActionCreator,
+} from '@src/common/stores/loading/action';
 
 // API요청/응답 공통 Saga함수 (제너레이터 함수 생성하여 반환)
 export function createRequestSaga(actionType: string, reuqest: any) {
@@ -156,11 +163,17 @@ import { AnyAction } from 'redux';
 import { call, delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { createRequestSaga } from '../createRequestSaga';
-import { moduleActionType, moduleActionCreator } from '@src/project/stores/module/action';
+import {
+  moduleActionType,
+  moduleActionCreator,
+} from '@src/project/stores/module/action';
 import * as api from '@src/project/api/module';
 
 // 테스트
-const fetchModuleTest = createRequestSaga(moduleActionType.FETCH_MODULE_TEST, api.fetchModuleTest1);
+const fetchModuleTest = createRequestSaga(
+  moduleActionType.FETCH_MODULE_TEST,
+  api.fetchModuleTest1,
+);
 const fetchModuleContentTest = createRequestSaga(
   moduleActionType.FETCH_MODULE_CONTENT_TEST,
   api.fetchModuleContentTest1,
@@ -169,7 +182,10 @@ const fetchModuleContentTest = createRequestSaga(
 // Saga 미들웨어 - 액션타입 등록
 export function* watchModuleSaga() {
   yield takeLatest(moduleActionType.FETCH_MODULE_TEST, fetchModuleTest);
-  yield takeEvery(moduleActionType.FETCH_MODULE_CONTENT_TEST, fetchModuleContentTest);
+  yield takeEvery(
+    moduleActionType.FETCH_MODULE_CONTENT_TEST,
+    fetchModuleContentTest,
+  );
 }
 ```
 
@@ -181,8 +197,10 @@ const FETCH_MODULE_TEST = 'module/FETCH_MODULE_TEST';
 const FETCH_MODULE_TEST_SUCCESS = 'module/FETCH_MODULE_TEST_SUCCESS';
 const FETCH_MODULE_TEST_FAILURE = 'module/FETCH_MODULE_TEST_FAILURE';
 const FETCH_MODULE_CONTENT_TEST = 'module/FETCH_MODULE_CONTENT_TEST';
-const FETCH_MODULE_CONTENT_TEST_SUCCESS = 'module/FETCH_MODULE_CONTENT_TEST_SUCCESS';
-const FETCH_MODULE_CONTENT_TEST_FAILURE = 'module/FETCH_MODULE_CONTENT_TEST_FAILURE';
+const FETCH_MODULE_CONTENT_TEST_SUCCESS =
+  'module/FETCH_MODULE_CONTENT_TEST_SUCCESS';
+const FETCH_MODULE_CONTENT_TEST_FAILURE =
+  'module/FETCH_MODULE_CONTENT_TEST_FAILURE';
 
 export const moduleActionType = {
   FETCH_MODULE_TEST,
@@ -238,7 +256,10 @@ export const initialState = {
 };
 
 // 리듀서 함수 - combineReducers 에 등록
-export default function reducer(state: IState = initialState, action: AnyAction) {
+export default function reducer(
+  state: IState = initialState,
+  action: AnyAction,
+) {
   const { type, payload, meta } = action;
 
   switch (type) {
@@ -246,12 +267,14 @@ export default function reducer(state: IState = initialState, action: AnyAction)
     case moduleActionType.FETCH_MODULE_TEST_SUCCESS:
       console.log('module > reducer > FETCH_MODULE_TEST_SUCCESS', action);
       return produce(state, (draft: { moduleData: any }) => {
-        draft.moduleData = payload?.components?.map((item: any, index: number) => {
-          return {
-            ...modulePrivateState,
-            ...(item || {}),
-          };
-        });
+        draft.moduleData = payload?.components?.map(
+          (item: any, index: number) => {
+            return {
+              ...modulePrivateState,
+              ...(item || {}),
+            };
+          },
+        );
       });
     case moduleActionType.FETCH_MODULE_TEST_FAILURE:
       console.log('module > reducer > FETCH_MODULE_TEST_FAILURE', action);
@@ -259,12 +282,18 @@ export default function reducer(state: IState = initialState, action: AnyAction)
 
     // 테스트
     case moduleActionType.FETCH_MODULE_CONTENT_TEST_SUCCESS:
-      console.log('module > reducer > FETCH_MODULE_CONTENT_TEST_SUCCESS', action);
+      console.log(
+        'module > reducer > FETCH_MODULE_CONTENT_TEST_SUCCESS',
+        action,
+      );
       return produce(state, (draft: { moduleContentData: any }) => {
         draft.moduleContentData[meta || 'test'] = payload;
       });
     case moduleActionType.FETCH_MODULE_CONTENT_TEST_FAILURE:
-      console.log('module > reducer > FETCH_MODULE_CONTENT_TEST_FAILURE', action);
+      console.log(
+        'module > reducer > FETCH_MODULE_CONTENT_TEST_FAILURE',
+        action,
+      );
       return state;
 
     default:
