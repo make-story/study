@@ -1,3 +1,55 @@
+# package.json
+
+노드 프로젝트에 대한 정보, 설정, 사용중인 패키지를 기록하는 파일  
+패키지에 대한 정보(의존성 등)를 명시
+
+https://docs.npmjs.com/cli/v9/configuring-npm/package-json#dependencies
+
+```json
+{
+  "name": "패키지명",
+  "version": "1.0.0",
+  "description": "패키지설명",
+  "author": "",
+  "license": "MIT",
+  "keywords": ["npm 저장소 검색 키워드"],
+  "files": [
+    "npm에 배포할 경우 실제로 패지키에 포함될 파일들, 폴더 이름을 지정하면 폴더안의 파일을 포함"
+  ],
+  "dependencies": {}
+}
+```
+
+## package.json 생성
+
+```
+$ npm init -y
+```
+
+-y를 입력하지 않으면 package.json에 들어가 값들을 직접 입력하면서 package.json을 생성할 수 있으며 -y를 입력할 경우 기본값으로 설정
+
+## Git URLs as Dependencies
+
+참고: 종속성은 tarball 또는 git URL로도 저장소 지정 가능 (install url)
+
+```
+{
+  "dependencies": {
+    "bar": "<protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>[#<commit-ish> | #semver:<semver>]"
+  }
+}
+```
+
+## Local Paths
+
+```
+{
+  "dependencies": {
+    "bar": "file:../foo/bar"
+  }
+}
+```
+
 # package.json 항목 설명
 
 https://docs.npmjs.com/cli/v10/configuring-npm/package-json
