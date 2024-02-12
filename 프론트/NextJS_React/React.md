@@ -2,6 +2,38 @@
 
 https://ko.reactjs.org/docs/hello-world.html
 
+## 버전별 참고사항
+
+### 리액트 버전 16.8 부터 훅(Hook)이라는 기능이 추가
+
+### 리액트 버전 17 이상에서는 기본적으로 JSX 에서 React 를 import 하지 않아도 됩니다.
+
+https://pozafly.github.io/react/declarative-meaning-of-react-rendering-process/#Rendering
+
+React 17 import 구문을 사용하지 않아도 되는 이유는 \_jsx() 함수로 JSX가 변환되기 때문이다.
+
+TypeScript 에러가 발생할 경우
+
+tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
+}
+```
+
+.eslintrc
+
+```json
+{
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  }
+}
+```
+
 ---
 
 `실전 리액트 프로그래밍` 책 내용 중

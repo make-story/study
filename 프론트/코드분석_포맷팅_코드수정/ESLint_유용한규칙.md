@@ -1,29 +1,5 @@
 # eslint-plugin-import
 
-## import 순서 규칙
-
-https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
-
-https://pozafly.github.io/environment/putting-rules-into-import-syntax-with-eslint/#%EA%B7%B8%EB%A3%B9%EC%97%90-%EB%A7%9E%EA%B2%8C-%EC%88%9C%EC%84%9C-%EB%A7%9E%EC%B6%94%EA%B8%B0
-
-```bash
-$ npm install eslint-plugin-import --save-dev
-```
-
-```json
-{
-  "rules": {
-    "import/order": [
-      "error",
-      {
-        "groups": [["builtin", "external"], "internal", ["parent", "sibling"], "index"],
-        "newlines-between": "always"
-      }
-    ]
-  }
-}
-```
-
 ## 계층 간 의존성 제어 (Dependency diagram)
 
 https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-restricted-paths.md
@@ -142,6 +118,53 @@ allowImportingTsExtensions 옵션은 확장자를 사용할 수 있게 만들어
 
 VSCode import 자동완성 설정 변경  
 Import Module Specifier Ending 옵션에서 .js / .ts를 선택하면 자동완성으로 import 할 경우 자동으로 확장자를 붙여준다.
+
+## import 순서 규칙
+
+https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
+
+https://pozafly.github.io/environment/putting-rules-into-import-syntax-with-eslint/#%EA%B7%B8%EB%A3%B9%EC%97%90-%EB%A7%9E%EA%B2%8C-%EC%88%9C%EC%84%9C-%EB%A7%9E%EC%B6%94%EA%B8%B0
+
+```bash
+$ npm install eslint-plugin-import --save-dev
+```
+
+```json
+{
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external"], "internal", ["parent", "sibling"], "index"],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}
+```
+
+## React가 17 버전으로 업데이트되면서, import React from 'react'; 구문을 사용하지 않아도 동작
+
+https://pozafly.github.io/environment/putting-rules-into-import-syntax-with-eslint/#%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EB%8C%80%EC%8B%A0-%EC%A0%88%EB%8C%80-%EA%B2%BD%EB%A1%9C%EB%AA%A8%EB%93%88-%EB%B3%84%EC%B9%AD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+
+```json
+{
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "react", // import React from 'react'; 방지 - React 17 이상에서는 기본적으로 JSX 에서 React 를 import하지 않아도 됩니다.
+            "importNames": ["default"],
+            "message": "import React from 'react' makes bundle size larger."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 ## 상대 경로 대신 절대 경로(모듈 별칭) 사용하기
 
