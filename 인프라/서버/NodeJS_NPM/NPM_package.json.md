@@ -57,16 +57,48 @@ https://docs.npmjs.com/cli/v10/configuring-npm/package-json
 Next.js package.json 참고  
 https://github.com/vercel/next.js/blob/canary/package.json
 
-## exports
+## `exports` - 모듈시스템 (CommonJS, ESM, TypeScript)
+
+`exports 필드는 node v12.7.0 버전에 추가된 필드`  
+`cjs 와 esm 을 동시에 지원할 수 있게 해 준다.`  
+https://nodejs.org/api/packages.html#exports
+
+https://junghyeonsu.com/posts/deploy-simple-util-npm-library/
+
+exports 필드는 모두 . 으로 시작하는 상대 경로로 작성되어야 한다.  
+해당 경로는 라이브러리의 subpath 를 의미하고  
+그 안의 객체에는 import, require, types, default 와 같은 conditional 필드가 존재한다.
+
+https://nodejs.org/api/packages.html#conditional-exports
+
+exports 필드에서 import 는 esm 환경에서 사용되고,  
+require 는 cjs 환경에서 사용된다.
 
 https://gusrb3164.github.io/web/2022/10/24/package-exports/
 
 exports 옵션을 활용하면 sub path 로 라이브러리를 참조하기 쉽게 만들어주고,
-module 옵션처럼 sub module의 esm 파일까지 추가로 지원할 수 있습니다.
+module 옵션처럼 sub module 의 esm 파일까지 추가로 지원할 수 있습니다.
 
 `webpack 4 에서는 exports 옵션을 아직 지원하지 않아서 번들링 될 때 라이브러리들의 exports를 참조하지 못하는 이슈가 있습니다.`
 
 package.json
+
+```json
+{
+  "exports": {
+    ".": {
+      // 라이브러리의 subpath
+      // https://nodejs.org/api/packages.html#conditional-exports
+      "types": "./index.d.ts", // typescript를 사용하는 경우 사용될 파일을 명시한 conditional 필드 (types 필드는 항상 맨 위에 위치해야 한다.)
+      "import": "./index.js", // esm 환경에서 사용될 파일을 명시한 conditional 필드
+      "require": "./index.cjs", // cjs 환경에서 사용될 파일을 명시한 conditional 필드
+      "default": "./index.js" // default 환경에서 사용될 파일을 명시한 conditional 필드
+    }
+  }
+}
+```
+
+또는
 
 ```json
 {

@@ -217,6 +217,8 @@ https://main.vitejs.dev/guide/performance.html#reduce-resolve-operations
 
 ## 두 모듈 시스템 지원하기
 
+`study.git/인프라/서버/NodeJS_NPM/NPM_CommonJS_ESM_TypeScript_모듈시스템.md` 참고!
+
 https://youthfulhps.dev/javascript/nodejs-module-system/#conditional-exports
 
 `node.js 는 CommonJS 와 ESM 을 함께 지원하기 위해 exports 기능을 추가`했다.  
