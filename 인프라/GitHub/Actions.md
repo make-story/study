@@ -156,11 +156,29 @@ jobs 는 필수 값으로, 해당 액션에서 수행할 잡을 의미한다.
 한 개 이상 설정할 수 있으며, 여러 개를 지정하면 병렬로 실행된다.
 
 - jobs.build
-  build 는 GitHub Action 의 예약어가 아니다. 임의로 지정한 이름으로, name 과 같은 역할을 한다고 보면 된다.
+  build 는 GitHub Action 의 예약어가 아니다. 임의로 지정한 이름으로, name 과 같은 역할을 한다고 보면 된다.  
+  jobs 의 하위 항목이므로 반드시 들여쓰기를 해야한다.
 - jobs.build.runs-on
-  어느 환경에서 해당 작업이 실행될지를 결정한다.
+  어느 환경에서 해당 작업이 실행될지를 결정한다.  
+  `별도의 러너를 설정하고 싶지 않고, 깃허브에서 제공하는 서버를 쓰고 싶다면 ubuntu-latest 를 선언하면 된다.`  
+  만약 커스텀 러너를 쓴다면 해당 러너명을 지정하면 된다.  
+  커스텀 러너를 쓰고 싶다면 저장소의 Strrings -> Actions -> Runners 에 추가할 수 있다.
 - jobs.build.steps
   이제 해당 잡에서 순차적으로 수행할 작업을 정의한다.
+  - uses
+    actions/checkout@v3 해당 스텝에서 작업을 actions/checkout@v3 을 사용해서 작업하겠다는 것을 의미한다.  
+    actions/checkout@v3 은 깃허브에서 제공하는 기본 액션으로, 별도 파라미터를 제공하지 않으면 해당 브랜치의 마지막 커밋을 기준으로 체크아웃한다.  
+    최신 코드를 기준으로 작동해야 하는 CI 액션에서는 필수적으로 사용된다.
+  - uses
+    actions/setup-node@v3 해당 스텝에서 작업을 actions/setup-node@v3 를 사용해서 작업하겠다는 것을 의미한다.  
+     actions/setup-node@v3 역시 깃허브에서 제공하는 기본 액션으로, 해당 러너에 Node.js 를 설치한다.  
+     with.node-version.16 을 함께 지정했는데, 이름에서 유추할 수 있는 것처럼 Node.js 16 버전을 설치한다.
+  - name:
+    'install dependencies' 해당 스텝의 명칭을 지정했다. 여기서는 의존성을 설치하는 작업을 수행한다.  
+    working-directory 는 터미널의 cd 명령과 비슷한 역할을 하는데, 뒤이어 수행할 작업을 해당 디렉토리에서 수행하겠다는 뜻이다. 만약 그냥 루트에서 실행해도 된다면 따로 지정하지 않아도 된다.  
+    그리고 run 을 통해 수행할 작업을 명시 했다. 여기서는 의존성을 설치하기 위해 npm ci 를 선언했다. (npm ci 는 npm install 과 다르게 package-lock.json 파일만 보고 의존성 설치)
+  - name:
+    'build' CI 를 위한 작업, git checkout, Node.js 설치, 의존성 설치까지 마무리했으니 마지막 작업으로 빌드를 수행한다.
 
 ## 깃허브에서 제공하는 기본 액션 - p557
 
@@ -168,12 +186,109 @@ https://docs.github.com/ko/actions
 
 ### actions/checkout
 
+깃허브 저장소를 체크아웃하는 액션이다.
+
 ### actions/setup-node
+
+Node.js 를 설치하는 액션이다.
 
 ### actions/github-script
 
+GitHub API 가 제공하는 기능을 사용할 수 있도록 도와주는 액션이다.
+
 ### actions/stale
+
+오래된 이슈나 PR 을 자동으로 닫거나 더 이상 커뮤니케이션하지 못하도록 닫는다.
 
 ### actions/dependency-review-action
 
+의존성 그래프에 대한 변경, 즉 package.json, package-lock.json, pmp-lock.yaml 등의 내용이 변경됐을 때 실행되는 액션으로, 의존성을 분석해 보안 또는 라이선스에 문제가 있다면 이를 알려준다.
+
 ### actions/codeql-action
+
+깃허브의 코드 분석 솔루션인 code-ql 을 활용해 저장소 내 코드의 취약점을 분석해 준다.
+
+---
+
+# NPM 배포 자동화
+
+https://blog.outsider.ne.kr/1559
+
+https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow
+
+```yml
+name: Bump Version
+
+on: workflow_dispatch
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: git config --global user.email "github-actions@example.com"
+      - run: git config --global user.name "GitHub Actions"
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - run: npm version patch
+      - run: git push origin master --tags
+      - uses: actions/upload-artifact@v2
+        with:
+          name: src
+          path: ./
+```
+
+## 버전체크 actions
+
+https://github.com/technote-space/package-version-check-action
+
+---
+
+# NPM 패키지 자동배포
+
+https://jinyisland.kr/post/changeset/
+
+https://github.com/changesets/changesets
+
+```yml
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Send a Slack notification if a publish happens
+        if: steps.changesets.outputs.published == 'true'
+        # You can do something when a publish happens.
+        run: my-slack-bot send-notification --message "A new version of ${GITHUB_REPOSITORY} was published!"
+```

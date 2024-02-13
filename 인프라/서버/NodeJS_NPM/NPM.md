@@ -18,3 +18,23 @@ npm 은 자바스크립트 프로그래밍 언어를 위한 패키지 관리자
 $ npm set registry "http://registry.npmjs.org/"
 $ npm config get registry
 ```
+
+# npm install / npm ci
+
+## npm ci (Continuous Integration, 지속적 통합) 의 특징은 다음과 같다.
+
+- package-lock.json 이 무조건 존재해야하만 하고, 만약 없으면 에러를 낸다.
+- package-lock.json 파일을 기반으로 의존성을 설치하고, package.json 은 버전 매칭 밸리데이션 용도로 사용한다.  
+  즉, package-lock.json 과 package.json 사이의 버전이 매칭이 안되면 에러를 낸다.
+- npm ci 실행하면 먼저 node_modules 삭제한 후, 의존성을 한번에 설치한다.
+
+오직 package-lock.json 을 읽고 의존성 목록을 설치  
+이러한 흐름으로써, `개발 환경이 아닌 CI 환경에서는 npm install 보다는 적합한 방안`으로 여겨진다.
+
+yarn 에서도 npm ci 와 같은 기능을 제공
+
+```bash
+$ yarn install --frozen-lockfile
+```
+
+https://github.com/yarnpkg/yarn/issues/4147

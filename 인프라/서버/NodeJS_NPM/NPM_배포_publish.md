@@ -22,6 +22,34 @@ NVM 은 node version manager 로 노드 버전을 쉽게 변경하고 관리할 
 
 ---
 
+# NPM 설정된 저장소 확인
+
+package.json
+
+```json
+{
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
+```
+
+또는 .npmrc
+(@그룹 - NPM Scope)
+
+```
+@ysm:registry=https://registry.npmjs.org/
+```
+
+또는 npm config
+
+```bash
+$ npm config list
+$ npm config get registry
+```
+
+---
+
 # 패키지 네이밍 룰
 
 https://www.npmjs.com/package/validate-npm-package-name
@@ -35,9 +63,18 @@ https://docs.npmjs.com/package-name-guidelines
 - 패키지 이름에는 공백이 없어야 합니다.
 - ~)('!\* 문자가 포함되면 안됩니다.
 
-## 패키지 그룹(또는 범위) '@'
+## `패키지 그룹(또는 범위) '@' - NPM Scope`
+
+https://docs.npmjs.com/using-npm/scope.html/
+
+`그룹명을 지정할 것이며, NPM 공유저장소에 배포할 것이라면, 필히 사전에 그룹(Scope) 생성가능한지 확인필요! (중복 등)`  
+https://www.npmjs.com/org/create
 
 package.json
+
+```
+$ npm init --scope=<그룹명>
+```
 
 ```javascript
 {
@@ -63,39 +100,192 @@ https://docs.npmjs.com/about-scopes
 https://docs.npmjs.com/creating-and-publishing-scoped-public-packages
 https://stackoverflow.com/questions/36667258/what-is-the-meaning-of-the-at-prefix-on-npm-packages
 
-예를 들어, @tistory/\* 의 이름을 가진 패키지는 private npm 서버를 바라보도록 설정
+### NPM Scope 의 사용
+
+NPM Scope 패키지는 일반 패키지와 동일하게 배포할 수는 없다.  
+배포를 위해서는 두 가지의 NPM Registry 형태로만 가능하다.
+
+1. 비공개 패키지 게시 권한이 있는 개인 Registry
+
+개인 비공개 패키지를 배포하기 위해서는 $7의 결제가 필요하다.  
+만약 개인 비공개 Registry로 업그레이드하였다면 npm publish 또는 npm publish --access=restricted 로 모듈을 게시 할 수 있다.
+
+2. 조직(Organizations)으로 생성된 Registry
+
+조직(Organizations) 생성  
+NPM에 로그인 후 개인 Package 항목으로 가서 생성
+
+https://www.npmjs.com/org/create
+
+### @makeapi/\* 의 이름을 가진 패키지는 private npm 서버를 바라보도록 설정
 
 ```
 # 설정
-$ npm config set @tistory:registry http://localhost:4873
+$ npm config set @makeapi:registry http://localhost:4873
 
 # 설정확인
-$ npm config get @tistory:registry
+$ npm config get @makeapi:registry
 
 # 설정제거
-$ npm config rm @tistory:registry
+$ npm config rm @makeapi:registry
 ```
 
 명령어를 입력하면 .npmrc 파일에 저장
 또는 .npmrc 파일을 직접 생성하여 추가
 
 ```
-@tistory:registry=http://localhost:4873
+@makeapi:registry=http://localhost:4873
 ```
 
-.npmrc 파일을 두고 관리할 경우, 위 처럼 매번 npm 명령어에서 --registry 를 명시하는 부분 생략이 가능하게 됨
+.npmrc 파일을 두고 관리할 경우, 매번 npm 명령어에서 --registry 를 명시하는 부분 생략이 가능하게 됨
 
 ```
 # before
 $ npm install react
-$ npm install --registry http://localhost:4873 @tistory/module1
+$ npm install --registry http://localhost:4873 @makeapi/module1
 ```
 
 ```
 # after
 $ npm install react
-$ npm install @tistory/module1
+$ npm install @makeapi/module1
 ```
+
+---
+
+# NPM 모듈 만들어서 배포
+
+http://makestory.net/media/#/view/856
+
+## 배포전 로컬환경에서 테스트 (모노레포가 아닌 환경)
+
+신규 개발 또는 수정한 패키지에서 아래 명령 실행
+
+npm link 를 명령어를 실행시키면 npm 이 해당 폴더에 링크를 생성해주고 다른 폴더에서 링크된 패키지를 사용할 수 있도록 해줍니다.
+
+```
+$ npm link
+```
+
+## 로그인
+
+```
+$ npm login
+Username: yusungmin
+Password:
+Email: (this IS public)
+```
+
+### OTP 인증
+
+```
+npm notice Please check your email for a one-time password (OTP)
+Enter one-time password from your authenticator app:
+```
+
+위와 같은 메시지가 나오면, `OTP 인증`이 필요하다는 것
+https://docs.npmjs.com/configuring-two-factor-authentication
+
+`NPM 인증 관련 페이지`  
+https://www.npmjs.com/settings/yusungmin/tfa  
+본인 인증 접속 -> `Authorization and Publishing` 선택 -> App으로 QR코드 찍어서 해당 URL이동 -> App에 설치된 OTP 실행됨 -> OTP 값 입력
+
+## .npmrc 파일 이용 로그인
+
+auth base64 생성
+
+```
+$ echo -n 'myuser:mypassword' | openssl base64
+```
+
+.npmrc
+
+```
+email=이메일정보
+_auth=키
+```
+
+## 로그인 확인
+
+```
+$ npm whoami
+```
+
+# NPM 저장소에 패키지 존재여부 확인
+
+```
+$ npm info 패키지명
+```
+
+---
+
+# Tag 를 붙여 배포
+
+https://docs.npmjs.com/cli/v7/commands/npm-publish  
+https://docs.npmjs.com/cli/v7/commands/npm-dist-tag
+
+```
+$ npm publish --tag stg
+```
+
+## 환경 단위 Tag 예
+
+--tag dev
+--tag qa  
+--tag stg  
+--tag latest
+
+# Tag 붙은 버전 나열
+
+```
+$ npm dist-tag ls
+```
+
+## Tag 의 마지막 버전 설치
+
+```
+$ yarn add <name>@<tag>
+```
+
+## Tag 의 버전지정 설치
+
+```
+$ yarn add apcp-css@1.0.0-stg.0
+```
+
+---
+
+# 배포!
+
+```
+$ npm publish
+```
+
+또는 '@그룹' 의 경우
+('@그룹' 경우는 기본 private 배포로 설정됨)
+
+```
+$ npm publish --access=public
+```
+
+## 배포된 패키지는 72시간이 지나면 삭제할 수 없어서 불필요한 패키지라면 미리 삭제하자.
+
+```
+$ npm unpublish <PACKAGE_NAME> -f
+```
+
+## 배포 중 대부분의 오류
+
+1. NPM Registry 가입 후 E-Mail 인증을 하지 않은 경우
+   E-Mail 인증을 시도하자.
+2. 패키지의 이름이 이미 다른 패키지와 중복이 된 경우
+   package.json의 name 속성을 바꿔주자.
+3. 이미 같은 버전으로 배포가 된 경우
+   npm version [major, minor, path, x.x.x] 명령어로 버전을 올려 배포하자.
+
+## npm 저장소 확인 (사설 저장소 확인은 별도)
+
+https://www.npmjs.com/settings/yusungmin/packages
 
 ---
 
@@ -184,122 +374,13 @@ modified:   README.md
 
 ---
 
-# NPM 모듈 만들어서 배포
-
-http://makestory.net/media/#/view/856
-
-## 로그인
-
-```
-$ npm login
-Username: yusungmin
-Password:
-Email: (this IS public)
-```
-
-```
-npm notice Please check your email for a one-time password (OTP)
-Enter one-time password from your authenticator app:
-```
-
-위와 같은 메시지가 나오면, `OTP 인증`이 필요하다는 것
-https://docs.npmjs.com/configuring-two-factor-authentication
-
-`NPM 인증 관련 페이지`  
-https://www.npmjs.com/settings/yusungmin/tfa  
-본인 인증 접속 -> `Authorization and Publishing` 선택 -> App으로 QR코드 찍어서 해당 URL이동 -> App에 설치된 OTP 실행됨 -> OTP 값 입력
-
-## .npmrc 파일 이용 로그인
-
-auth base64 생성
-
-```
-$ echo -n 'myuser:mypassword' | openssl base64
-```
-
-.npmrc
-
-```
-email=이메일정보
-_auth=키
-```
-
-## 로그인 확인
-
-```
-$ npm whoami
-```
-
----
-
-# Tag 를 붙여 배포
-
-https://docs.npmjs.com/cli/v7/commands/npm-publish  
-https://docs.npmjs.com/cli/v7/commands/npm-dist-tag
-
-```
-$ npm publish --tag stg
-```
-
-## 환경 단위 Tag 예
-
---tag dev
---tag qa  
---tag stg  
---tag latest
-
-# Tag 붙은 버전 나열
-
-```
-$ npm dist-tag ls
-```
-
-## Tag 의 마지막 버전 설치
-
-```
-$ yarn add <name>@<tag>
-```
-
-## Tag 의 버전지정 설치
-
-```
-$ yarn add apcp-css@1.0.0-stg.0
-```
-
----
-
-# 배포!
-
-```
-$ npm publish
-```
-
-## 배포된 패키지는 72시간이 지나면 삭제할 수 없어서 불필요한 패키지라면 미리 삭제하자.
-
-```
-$ npm unpublish <PACKAGE_NAME> -f
-```
-
-## 배포 중 대부분의 오류
-
-1. NPM Registry 가입 후 E-Mail 인증을 하지 않은 경우
-   E-Mail 인증을 시도하자.
-2. 패키지의 이름이 이미 다른 패키지와 중복이 된 경우
-   package.json의 name 속성을 바꿔주자.
-3. 이미 같은 버전으로 배포가 된 경우
-   npm version [major, minor, path, x.x.x] 명령어로 버전을 올려 배포하자.
-
-## npm 저장소 확인 (사설 저장소 확인은 별도)
-
-https://www.npmjs.com/settings/yusungmin/packages
-
----
-
 ## Changeset - 모노레포 구성에서 NPM 패키지 배포
 
 Changeset 은 멀티 패키지 환경(monorepo)에서 상호 의존하는 패키지들의 일관성을 유지하기 위한 라이브러리
 
 https://github.com/changesets/changesets
+
+https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md
 
 https://turbo.build/repo/docs/handbook/publishing-packages/versioning-and-publishing
 
@@ -340,7 +421,7 @@ $ yarn add @changesets/cli && yarn changeset init
 - access: 액세스 권한 설정 (restricted, public)
 - baseBranch: 변경 감지를 위한 대상 브랜치
 - updateInternalDependencies: 종속된 패키지가 변경될 때 같이 업데이트 patch
-- commit: false를 통해 사용자가 직접 커밋
+- commit: false 를 통해 사용자가 직접 커밋
 
 ### changeset command
 
@@ -371,7 +452,7 @@ $ yarn changeset version
 ```
 
 이 단계 이후 changeset publish 명령어를 사용해 내부적으로 .npmrc 파일을 참조해 레지스트리에 배포  
-자동 배포를 원하시면 publish를 GitHub Actions에 스크립트를 작성하고 push를 수행
+`자동 배포를 원하시면 publish 를 GitHub Actions 에 스크립트를 작성하고 push를 수행`
 
 ### publish
 

@@ -268,6 +268,14 @@ $ npm ls -g --depth=0
 $ npm root -g
 ```
 
+## 패키지가 어디에 설치돼 있는지 확인
+
+```
+$ npm ls react
+```
+
+npm ls 는 'list installed packages' 라는 뜻으로 설치된 패키지가 왜 어떤 의존성 때문에 설치됐는지 확인할 수 있는 명령어
+
 ## 명령어 처리 결과 파일로 저장
 
 일반 출력 리다이렉션
