@@ -33,6 +33,12 @@ https://docs.npmjs.com/cli/v10/configuring-npm/package-json#dependencies
 }
 ```
 
+`모던 리액트 Deep Dive` 책 내용 중 - p567
+
+1. 기존 버전과 호환되지 않게 API 가 바뀌면 major 버전을 올리고,
+2. 기존 버전과 호환되면서 새로운 기능을 추가할 때는 minor 버전을 올리고,
+3. 기존 버전과 호환되면서 버그를 수정한 것이라면 patch 버전을 올린다.
+
 `NestJS 로 배우는 백엔드 프로그래밍` 책 내용 중
 
 ```
