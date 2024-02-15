@@ -2,7 +2,7 @@
 
 코딩컨벤션
 
-`study.git/구조화_표준화_체계화_프로세스화/가이드_코딩스타일_JavaScript.md` 참고!
+`study.git/구조화_표준화_체계화_프로세스화/가이드_비즈니스_로직.md` 참고!
 
 - 추천방법1:
 
@@ -26,7 +26,9 @@
   - withXXX 고차 컴포넌트(HOC)로 분리 (사용자 Hook 방식을 우선 고민)
     - 전반적으로 재사용 가능한 로직을 prop으로 컴포넌트에게 제공
     - 또는 특정 컨테이너 또는 컴포넌트 실행을 위한 선행조건 적용
-    - https://patterns-dev-kr.github.io/design-patterns/hoc-pattern/
+    - 리액트 공식페이지 참고 (내용 중, 기존 믹스인 방식의 어려움)
+      - https://reactjs-kr.firebaseapp.com/docs/higher-order-components.html
+      - https://patterns-dev-kr.github.io/design-patterns/hoc-pattern/
 
 - 추천방법4:
 

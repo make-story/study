@@ -9,6 +9,8 @@
 
 # 고차 컴포넌트(HOC, Higher Order Component)
 
+리액트 공식페이지 참고 (내용 중, 기존 믹스인 방식의 어려움)  
+https://reactjs-kr.firebaseapp.com/docs/higher-order-components.html  
 https://ko.legacy.reactjs.org/docs/higher-order-components.html
 
 고차 컴포넌트는 컴포넌트를 가져와 새 컴포넌트를 반환하는 함수입니다.
@@ -128,10 +130,15 @@ import React from 'react';
 import withLoader from './withLoader';
 
 function DogImages(props) {
-  return props.data.message.map((dog, index) => <img src={dog} alt='Dog' key={index} />);
+  return props.data.message.map((dog, index) => (
+    <img src={dog} alt='Dog' key={index} />
+  ));
 }
 
-export default withLoader(DogImages, 'https://dog.ceo/api/breed/labrador/images/random/6');
+export default withLoader(
+  DogImages,
+  'https://dog.ceo/api/breed/labrador/images/random/6',
+);
 ```
 
 ---
