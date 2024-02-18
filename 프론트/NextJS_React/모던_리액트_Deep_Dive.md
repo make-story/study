@@ -10,11 +10,6 @@ https://github.com/wikibook/react-deep-dive-example
 
 ...
 
-리액트에서 배열에 key 를 쓰지 않으면 콘솔에 경고가 출력되기 때문에 key 를 유일한 값으로 추가하는 것이 일반적이지만 정작 왜 추가해야하는지 모르는 경우가 많다.  
-왜 key 가 필요할까?
-
-`리액트에서 key 는 리렌더링이 발생하는 동안 형제 요소들 사이에서 동일한 요소를 식별하는 값이다.`
-
 ## 리액트의 렌더링 프로세스 - p176
 
 ...
@@ -53,11 +48,7 @@ https://github.com/wikibook/react-deep-dive-example
 
 ## 리액트 개발 도구 활용하기 - p403
 
-컴포넌트, useHooks 함수 선언을 익명함수가 아닌 기명함수로 선언해야 디버깅이 쉬움!!  
-(만약 익명 함수로 선언돼 있다면 Anonymous 라는 이름으로 컴포넌트를 보여준다.)
-
-컴포넌트에 displayName 을 설정하면 리액트 개발자 도구에서 컴포넌트명을 확인할 수 있다.
-고차 컴포넌트의 경우 이러한 기법을 유용하게 사용할 수 있다. - p408 예제 참고
+...
 
 ## 메모리 탭 - p445
 
@@ -76,3 +67,5 @@ https://github.com/wikibook/react-deep-dive-example
 ...
 
 ## Next.js 13 과 리액트 18 - p715
+
+...
