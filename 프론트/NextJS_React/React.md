@@ -334,8 +334,12 @@ https://kentcdodds.com/blog/prop-drilling
 
 # PureComponent (순수 컴포넌트)란?
 
+https://react-ko.dev/learn/keeping-components-pure
+
+https://ko.react.dev/learn/keeping-components-pure
+
 `React.PureComponent`  
-동일한 props와 state라는 전제 하에 동일한 결과 값이 확실히 반환된다면 컴포넌트를 순수하다고(pure) 말합니다.
+동일한 props 와 state 라는 전제 하에 동일한 결과 값이 확실히 반환된다면 컴포넌트를 순수하다고(pure) 말합니다.
 
 ```javascript
 const HelloWorld = ({ name }) => <div>{`Hi ${name}`}</div>;
