@@ -53,7 +53,18 @@ UI 처리, API 호출, DB 관리 등의 코드가 같은 곳에 있으면 복잡
 - 비즈니스 로직이 없다.
 - 상태값이 없다. 단, 마우스 오버(mouse over)와 같은 UI효과를 위한 상태값은 제외한다.
 
-### Presentational & Container 분리는 이제 그만?
+### `Presentational 컴포넌트에서 전역상태 접근 가능할까?`
+
+https://lunit.gitbook.io/redux-in-korean/basics/usagewithreact#presentational-container
+
+|                      | Presentational 컴포넌트           | Container 컴포넌트                                |
+| -------------------- | --------------------------------- | ------------------------------------------------- |
+| 목적                 | 어떻게 보여질 지 (마크업, 스타일) | 어떻게 동작할 지 (데이터 불러오기, 상태 변경하기) |
+| Redux와 연관됨       | 아니오                            | 예                                                |
+| 데이터를 읽기 위해   | props에서 데이터를 읽음           | Redux 상태를 구독                                 |
+| 데이터를 바꾸기 위해 | props에서 콜백을 호출             | Redux 액션을 보냄                                 |
+
+### `Presentational & Container 분리는 이제 그만?`
 
 Dan Abramov  
 https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0

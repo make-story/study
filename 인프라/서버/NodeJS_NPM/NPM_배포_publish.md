@@ -171,6 +171,9 @@ $ npm link
 
 ```
 $ npm login
+# 또는
+$ npm login --registry {repositoyURL}
+
 Username: yusungmin
 Password:
 Email: (this IS public)
