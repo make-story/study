@@ -2,6 +2,8 @@
 
 https://yozm.wishket.com/magazine/detail/1620/
 
+https://github.com/taowen/vite-howto
+
 # 이슈경험
 
 ## NPM Package 관련 설정 - CommonJS / ESM 모듈시스템 지원

@@ -5,6 +5,20 @@ https://www.freecodecamp.org/korean/news/best-practices-for-react/
 패턴 / 안티패턴  
 https://reactpatterns.js.org/docs
 
+https://kinsta.com/blog/react-best-practices
+
+https://github.com/react-boilerplate/react-boilerplate-cra-template
+
+https://github.com/PacktPublishing/React-18-Design-Patterns-and-Best-Practices-Fourth-Edition
+https://github.com/PacktPublishing/React-17-Design-Patterns-and-Best-Practices-Third-Edition
+
+`https://github.com/codica2/react-app-best-practice/tree/master/src/views/components`
+
+AirBnb HOC
+https://github.com/airbnb/react-create-hoc/blob/master/src/index.js
+
+https://github.com/garbalau-github/react-best-practices
+
 ---
 
 Effect
