@@ -25,6 +25,10 @@ https://github.com/redux-utilities/flux-standard-action
 }
 ```
 
+## 리덕스 잘 사용하기
+
+https://velog.io/@velopert/using-redux-in-2021
+
 # Redux 에 넣을 수 있는 상태값 타입
 
 https://ko.redux.js.org/tutorials/essentials/part-4-using-data/#storing-dates-for-posts
@@ -698,7 +702,14 @@ const CounterContainer = () => {
   const onIncrease = useCallback(() => dispatch(increase()), [dispatch]);
   const onDecrease = useCallback(() => dispatch(decrease()), [dispatch]);
   const onTest = useCallback(() => dispatch(test('YSM TEST!!!')), [dispatch]);
-  return <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} onTest={onTest} />;
+  return (
+    <Counter
+      number={number}
+      onIncrease={onIncrease}
+      onDecrease={onDecrease}
+      onTest={onTest}
+    />
+  );
 };
 
 // connect 함수를 활용하여 컴포넌트 연동하는 방식 참고 (비추천) - Redux 상태와 React 컴포넌트간 연결
@@ -903,7 +914,9 @@ const CounterContainer = () => {
   // 숫자가 바뀌어서 컴포넌트가 리렌더링될 때마다 onIncrease 함수와 onDecrease 함수가 새롭게 만들어지고 있으므로 최적화 필요
   const onIncrease = useCallback(() => dispatch(increase()), [dispatch]);
   const onDecrease = useCallback(() => dispatch(decrease()), [dispatch]);
-  return <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />;
+  return (
+    <Counter number={number} onIncrease={onIncrease} onDecrease={onDecrease} />
+  );
 };
 
 // connect 함수가 아닌 useSelector Hook 를 사용할 경우는 바로 반환
