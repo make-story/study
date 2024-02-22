@@ -40,7 +40,11 @@ https://kentcdodds.com/blog/inversion-of-control
 
 ## Compound Component (합성 컴포넌트) 라는 개념
 
+https://www.patterns.dev/react/compound-pattern
+
 https://kentcdodds.com/blog/compound-components-with-react-hooks
+
+https://im-developer.tistory.com/238
 
 ## 컴포넌트를 props로 전달하기
 

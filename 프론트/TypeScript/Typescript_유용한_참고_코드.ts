@@ -20,7 +20,23 @@ function test(payload: MenuPageCornerIdType) {
 }
 test(MenuPageCornerId.LIVE);
 
-// ---------
+// --
+
+type Padding1 = 'small' | 'medium' | 'large';
+const padding1: Record<Padding1, number> = {
+  small: 1,
+  medium: 2,
+  large: 3,
+};
+
+const padding2 = {
+  small: 1,
+  medium: 2,
+  large: 3,
+};
+type Padding2 = keyof typeof padding2; // "small" | "medium" | "large"
+
+// --
 
 /**
  * https://yceffort.kr/2021/05/value-of-typescript
@@ -57,7 +73,7 @@ type objectShape = {
 type keys = keyof objectShape2; // "a" | "b" | "c"
 type values = objectShape2[keys]; // 1 | 2 | 3
 
-// ----------
+// --
 
 const LOG_GROUP_KEY = 'logGroup' as const;
 
@@ -70,7 +86,7 @@ interface OptionsParam {
 }
 // OptionsParam[TypedLogGroupKey]
 
-// ----------
+// --
 
 export interface Observable {
   observe(handler: Function): void;
@@ -111,4 +127,4 @@ user.observe((key: string, value: any) => {
 });
 user.name = 'John';
 
-// ----------
+// --

@@ -1,6 +1,17 @@
-# 컴포넌트 패턴
+# `컴포넌트 패턴`
 
-Render Props 패턴, 합성 컴포넌트 패턴(Compound Component Pattern), 제어 컴포넌트 패턴(Controlled Props Pattern), Props Getter 패턴, State Reducer 패턴
+- Render Props 패턴
+  - 컴포넌트가 렌더링 함수를 프로퍼티로 전달받아 사용하는 방법
+- 합성 컴포넌트 패턴 (Compound Component Pattern)
+  - 리액트의 Context/Provider를 사용하여 여러 종류의 컴포넌트가 하나의 로직을 공유할 수 있게 하는 방법
+  - https://fe-developers.kakaoent.com/2022/220731-composition-component/
+- 제어 컴포넌트 패턴 (Controlled Props Pattern)
+  - 제어 컴포넌트 패턴은 컴포넌트 내부에 정의된 state나 useState 상태 값과 해당 상태 값을 변경하는 로직들을 사용하지 않고, 프로퍼티를 통해 외부에서 들어온 상태 값과 콜백 함수를 사용함으로써 외부에서 컴포넌트의 상태를 컨트롤할 수 있게 합니다.
+- Props Getter 패턴
+  - 제어 컴포넌트 패턴에서는 상태 값 프로퍼티와 해당 값을 컨트롤하는 콜백 함수 프로퍼티들을 ‘같이’넘겨주어야 합니다.
+  - 컴포넌트 내부에서 사용하는 콜백 함수들을 외부로 전달
+- State Reducer 패턴
+  - useReducer훅을 통해 reducer를 사용하여 컴포넌트의 상태 관리
 
 https://fe-developers.kakaoent.com/2022/221110-ioc-pattern/
 
@@ -22,13 +33,13 @@ https://kentcdodds.com/blog/inversion-of-control
 
 https://speakerdeck.com/jenncreighton/the-how-and-why-of-flexible-react-components-289aa486-464a-4dea-b89a-6f92d0af6606
 
-`API를 사용하는 쪽으로 특정 역할을 넘기는 패턴을 제어역전(Inversion of Control, IoC)` 
+`API를 사용하는 쪽으로 특정 역할을 넘기는 패턴을 제어역전(Inversion of Control, IoC)`
 
 `개발된 컴포넌트가 기획 요건 변경 또는 추가에 따른 복잡도 증가 상황`  
 `props 를 변경 또는 추가해가며 확장하는 상황`  
 위와 같은 상황에서는 컴포넌트 사용이 점차 어려워 짐
 
-props가 많아지는 경우 발생하는 문제
+props 가 많아지는 경우 발생하는 문제
 
 - 개발자가 각 props가 어떤 역할을 하는지 파악하기 어려워진다.
 - 파악하기 어려운 props를 설명해주기 위한 주석이나 문서 작성 및 관리 필요

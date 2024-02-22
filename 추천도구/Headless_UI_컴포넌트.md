@@ -20,8 +20,10 @@ https://news.hada.io/topic?id=5660
 
 Component 기반 UI 라이브러리는 `기능과 스타일이 존재하는 라이브러리`를 말하며, 대표적으로 Material UI, Ant Design가 있다.
 
-https://mui.com/
-https://ant.design/
+- MUI(Material-UI)
+  https://mui.com/
+- Ant Design
+  https://ant.design/
 
 장점
 
@@ -38,9 +40,12 @@ https://ant.design/
 
 Headless는 `기능은 있지만 스타일이 없는 라이브러리`로, Headless UI, Radix UI, Reach UI 등이 있다.
 
-https://headlessui.dev/
-https://www.radix-ui.com/  
-https://github.com/reach/reach-ui
+- Headless UI
+  https://headlessui.dev/
+- Radix UI
+  https://www.radix-ui.com/
+- Reach UI
+  https://github.com/reach/reach-ui
 
 장점
 
@@ -55,3 +60,73 @@ https://github.com/reach/reach-ui
 
 디자인이 그렇게 중요하지 않고, 커스텀할 곳이 많지 않다면 Component 기반 라이브러리를 사용하면 된다.  
 하지만 만약 반응형에 따라 디자인이 달라지고, 기능 변경이나 추가가 많이 발생한다면 Headless 라이브러리가 유지보수에 더 좋을 것 같다.
+
+`Material UI, Reach UI등 많은 UI 라이브러리가 Compound 컴포넌트를 사용`
+
+```jsx
+import * as React from 'react'
+
+type CheckboxContextProps = {
+  id: string
+  isChecked: boolean
+  onChange: () => void
+}
+
+type CheckboxProps = CheckboxContextProps & React.PropsWithChildren<{}>
+
+const CheckboxContext = React.createContext<CheckboxContextProps>({
+  id: '',
+  isChecked: false,
+  onChange: () => {},
+})
+
+const CheckboxWrapper = ({
+  id,
+  isChecked,
+  onChange,
+  children,
+}: CheckboxProps) => {
+  const value = {
+    id,
+    isChecked,
+    onChange,
+  }
+  return (
+    <CheckboxContext.Provider value={value}>
+      {children}
+    </CheckboxContext.Provider>
+  )
+}
+
+const useCheckboxContext = () => {
+  const context = React.useContext(CheckboxContext)
+  return context
+}
+
+const Checkbox = ({ ...props }) => {
+  const { id, isChecked, onChange } = useCheckboxContext()
+  return (
+    <input
+      type="checkbox"
+      id={id}
+      checked={isChecked}
+      onChange={onChange}
+      {...props}
+    />
+  )
+}
+
+const Label = ({ children, ...props }: React.PropsWithChildren<{}>) => {
+  const { id } = useCheckboxContext()
+  return (
+    <label htmlFor={id} {...props}>
+      {children}
+    </label>
+  )
+}
+
+CheckboxWrapper.Checkbox = Checkbox
+CheckboxWrapper.Label = Label
+
+export default CheckboxWrapper
+```
