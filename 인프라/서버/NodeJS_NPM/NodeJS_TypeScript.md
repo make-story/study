@@ -1,54 +1,142 @@
-# Node.js 환경에서 TypeScript 실행 - "ts-node"
+# Node.js 환경에서 TypeScript 실행
 
 https://velog.io/@woongbeee/Typescript%EB%A5%BC-Node.js-%EC%97%90%EC%84%9C-%EC%8B%A4%ED%96%89%ED%95%A0-%EB%95%8C-ts-node-%EC%98%A4%EB%A5%98
 
-Node.js + Express + Typescript + GraphQL 환경
+## tsc 활용
 
-ts-node 설치 및 서버 실행
+tsconfig.server.json
 
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "_dist",
+    "noEmit": false
+  },
+  "include": ["server.ts"]
+}
 ```
+
+```bash
+$ tsc --project tsconfig.server.json
+$ NODE_ENV=development node _dist/server.js
+```
+
+에러가 발생할 경우
+
+```bash
+$ yarn add tsc-alias
+```
+
+```bash
+$ npx tsc && tsc-alias
+```
+
+## tsx 활용
+
+https://www.npmjs.com/package/tsx
+
+## `ts-node` 활용
+
+```bash
 $ yarn add ts-node
 $ ts-node server.ts
 ```
 
-nodemin 으로 node 실행할 경우
+### nodemon 으로 node 실행할 경우
 
 ```
 $ nodemon --exec ts-node ./index.ts
 ```
 
-## path alias
+### server.ts 실행
+
+tsconfig.server.json
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs", // Next.js - next.config.js 파일 지원
+    "noEmit": false
+  },
+  "include": ["server.ts"]
+}
+```
+
+package.json
+
+```json
+{
+  "scripts": {
+    "dev": "nodemon --watch '*.tsx' --exec 'ts-node' --project tsconfig.server.json server.ts "
+  }
+}
+```
+
+### ECMAScript Module (ESM)
+
+https://github.com/TypeStrong/ts-node?tab=readme-ov-file#commonjs-vs-native-ecmascript-modules
+
+package.json
+
+```json
+{
+  "type": "module"
+}
+```
+
+tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "module": "ESNext" // or ES2015, ES2020
+  },
+  "ts-node": {
+    // Tell ts-node CLI to install the --loader automatically, explained below
+    "esm": true
+  }
+}
+```
+
+실행
+
+```bash
+$ node --loader ts-node/esm --inspect server.ts
+```
+
+### path alias
 
 https://blog.naver.com/PostView.naver?blogId=psj9102&logNo=222653630355&parentCategoryNo=&categoryNo=66&viewDate=&isShowPopularPosts=true&from=search
 
 alias 선언 후 에러가 발생할 경우
 
-```
+```bash
 $ yarn add tsconfig-paths
 ```
 
 package.json
 
-```
+```json
 "scripts": {
-    "dev": "nodemon --exec ts-node -r tsconfig-paths/register ./main.ts"
+  "dev": "nodemon --exec ts-node -r tsconfig-paths/register ./main.ts"
 }
 ```
 
-## tsc 빌드
+또는
 
-```
-$ npx tsc -p tsconfig.json
-```
+tsconfig.json
 
-에러가 발생할 경우
-
-```
-$ yarn add tsc-alias
-```
-
-```
-$ npx tsc && tsc-alias
+```json
+{
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
 ```
 
 ---
@@ -103,20 +191,18 @@ tsconfig.json
 
 package.json
 
-```
-"type:"module"
+```json
+{
+  "type": "module"
+}
 ```
 
 tsconfig.json
 
-```
-"ts-node":{
-    "esm":true
+```json
+{
+  "ts-node": {
+    "esm": true
+  }
 }
 ```
-
----
-
-# tsx 활용 TypeScript 컴파일!!
-
-https://www.npmjs.com/package/tsx
