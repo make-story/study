@@ -75,6 +75,47 @@ type values = objectShape2[keys]; // 1 | 2 | 3
 
 // --
 
+type MessageCallback = (message: string) => void;
+type ConnectionCallback = (ws: WebSocket) => void;
+type OpenCallback = () => void;
+
+interface CallbackMap {
+  message?: MessageCallback;
+  connection?: ConnectionCallback;
+  open?: OpenCallback;
+}
+
+// interface key 리스트를 타입으로 변환
+type KeysOf<T> = {
+  [K in keyof T]: K;
+}[keyof T];
+// interface value 리스트를 타입으로 변환
+type ValuesOf<T> = T[keyof T];
+
+// --
+
+type ValidateCallback<T> = {
+  [K in keyof T]: T[K] extends (...args: infer Args) => void
+    ? (...args: Args) => void
+    : never;
+};
+type ValidatedCallbacks = ValidateCallback<CallbackMap>;
+
+// Usage example:
+const validatedCallbacks: ValidatedCallbacks = {
+  message: (message: string) => {
+    // Your implementation here
+  },
+  connection: (ws: WebSocket) => {
+    // Your implementation here
+  },
+  open: () => {
+    // Your implementation here
+  },
+};
+
+// --
+
 const LOG_GROUP_KEY = 'logGroup' as const;
 
 type TypedAnyFunction = (...payload: any[]) => any;

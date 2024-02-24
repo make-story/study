@@ -4,7 +4,7 @@ https://typescript-kr.github.io/pages/tutorials/dom-manipulation.html
 
 https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html
 
-# Element Type
+# `Element Type`
 
 https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelement.html
 
@@ -18,7 +18,7 @@ const content: HTMLElement = document.querySelector('#content');
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 ```
 
-# JavaScript Event
+# `JavaScript Event`
 
 https://developer.mozilla.org/ko/docs/Web/API#%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4
 
@@ -27,8 +27,6 @@ const Test = () => (
   <button onClick={(event: MouseEvent<HTMLButtonElement>) => {}}>test</button>
 );
 ```
-
-# 이벤트 핸들러 타입
 
 https://velog.io/@leehaeun0/TypeScript-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%9F%AC-%ED%83%80%EC%9E%85-%EA%B0%84%EB%8B%A8%ED%95%98%EA%B2%8C-%EC%93%B0%EA%B8%B0
 
@@ -59,6 +57,11 @@ function Component() {
   const handleChange: ComponentProps<'input'>['onChange'] = e => {
     console.log(e.target.value);
   };
+  const onStop = useCallback<
+    (event: ComponentProps<'button'>['onClick']) => void
+  >(event => {
+    // ...
+  }, []);
 
   return <input onChange={handleChange} />;
 }
