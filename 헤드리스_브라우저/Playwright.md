@@ -22,8 +22,9 @@ https://playwright.dev/docs/intro
 
 https://www.infoq.com/news/2020/01/playwright-browser-automation/
 
-## Playwright vs Puppeteer
+## Selenium(셀레늄) vs Playwright(플레이라이트) vs Puppeteer(퍼피티어)
 
+https://www.browserstack.com/guide/playwright-vs-selenium  
 https://www.browserstack.com/guide/playwright-vs-puppeteer  
 https://npmtrends.com/playwright-vs-puppeteer
 
