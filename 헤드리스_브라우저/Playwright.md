@@ -50,6 +50,15 @@ Puppeteer의 주요 기능에는 스크린샷 테스트, 성능 테스트, 웹 �
 참고: 테스트 프레임워크  
 https://www.browserstack.com/guide/top-javascript-testing-frameworks
 
+## Playwright 의 Selenium Grid 연동
+
+https://playwright.dev/docs/selenium-grid
+
+## 웹 자동화는 Selenium 대신 Playwright를 쓰자
+
+2022-11-14 작성된 글  
+https://news.hada.io/topic?id=7809
+
 ---
 
 # 설치
