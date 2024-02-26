@@ -1,8 +1,14 @@
 # Node.js 환경에서 TypeScript 실행
 
+https://velog.io/@mero/typescript-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%84%A4%EC%A0%95
+
 https://velog.io/@woongbeee/Typescript%EB%A5%BC-Node.js-%EC%97%90%EC%84%9C-%EC%8B%A4%ED%96%89%ED%95%A0-%EB%95%8C-ts-node-%EC%98%A4%EB%A5%98
 
-## tsc 활용
+## tsx 활용
+
+https://www.npmjs.com/package/tsx
+
+## `tsc` 활용
 
 tsconfig.server.json
 
@@ -25,7 +31,15 @@ $ tsc --project tsconfig.server.json
 $ NODE_ENV=development node _dist/server.js
 ```
 
-에러가 발생할 경우
+### tsc-alias
+
+https://www.npmjs.com/package/tsc-alias
+
+tsconfig.json 파일은 컴파일할 때만 참고되는 파일이기 때문에  
+js 파일에는 그 path 별칭들이 적용되지 않는다.  
+(즉, 컴파일된 결과물을 보면 import 경로 형태가 '@/\*' 그대로 들어가 있어, 경로를 못찾게 되면서 에러가 발생!)
+
+tsc-alias 패키지를 깔고 컴파일 시에 옵션으로 넣어주면 해당 별칭들을 실제 경로로 바꿔서 컴파일을 해준다.
 
 ```bash
 $ yarn add tsc-alias
@@ -35,15 +49,65 @@ $ yarn add tsc-alias
 $ npx tsc && tsc-alias
 ```
 
-## tsx 활용
+package.json
 
-https://www.npmjs.com/package/tsx
+```json
+{
+  "scripts": {
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json"
+  }
+}
+```
+
+또는
+
+```json
+{
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "build:watch": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\")"
+  }
+}
+```
 
 ## `ts-node` 활용
 
 ```bash
 $ yarn add ts-node
 $ ts-node server.ts
+```
+
+### path alias
+
+https://blog.naver.com/PostView.naver?blogId=psj9102&logNo=222653630355&parentCategoryNo=&categoryNo=66&viewDate=&isShowPopularPosts=true&from=search
+
+alias 선언 후 에러가 발생할 경우
+
+tsc-alias 과 같은 경로 별칭 문제를 해결할 때쓰는 것인데  
+다른 점은 ts-node 명령어로 실행시킬 때 이 문제를 해결 시키는 패키지라는 점이다.
+
+```bash
+$ yarn add tsconfig-paths
+```
+
+package.json
+
+```json
+"scripts": {
+  "dev": "nodemon --exec ts-node -r tsconfig-paths/register ./main.ts"
+}
+```
+
+또는
+
+tsconfig.json
+
+```json
+{
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
 ```
 
 ### nodemon 으로 node 실행할 경우
@@ -107,36 +171,6 @@ tsconfig.json
 
 ```bash
 $ node --loader ts-node/esm --inspect server.ts
-```
-
-### path alias
-
-https://blog.naver.com/PostView.naver?blogId=psj9102&logNo=222653630355&parentCategoryNo=&categoryNo=66&viewDate=&isShowPopularPosts=true&from=search
-
-alias 선언 후 에러가 발생할 경우
-
-```bash
-$ yarn add tsconfig-paths
-```
-
-package.json
-
-```json
-"scripts": {
-  "dev": "nodemon --exec ts-node -r tsconfig-paths/register ./main.ts"
-}
-```
-
-또는
-
-tsconfig.json
-
-```json
-{
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  }
-}
 ```
 
 ---
