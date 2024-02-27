@@ -1,5 +1,11 @@
 # 웹팩 플러그인 (plugin)
 
+## 빌드 성능 측정
+
+### Speed Measure Plugin
+
+https://github.com/stephencookdev/speed-measure-webpack-plugin
+
 ## 빌드 결과 정보
 
 ### WebpackBundleTracker
@@ -19,7 +25,7 @@ https://www.npmjs.com/package/webpack-stats-plugin
 웹팩이 번들링 도중에 분석한 다양한 정보 파일로 반환
 
 ```javascript
-const { StatsWriterPlugin } = require("webpack-stats-plugin");
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 module.exports = {
   plugins: [
