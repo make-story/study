@@ -1,19 +1,20 @@
 # `컴포넌트 패턴`
 
+https://fe-developers.kakaoent.com/2022/221110-ioc-pattern/
+
 - Render Props 패턴
-  - 컴포넌트가 렌더링 함수를 프로퍼티로 전달받아 사용하는 방법
+  - 컴포넌트가 렌더링 함수를 프로퍼티(props)로 전달받아 사용하는 방법
 - 합성 컴포넌트 패턴 (Compound Component Pattern)
   - 리액트의 Context/Provider를 사용하여 여러 종류의 컴포넌트가 하나의 로직을 공유할 수 있게 하는 방법
   - https://fe-developers.kakaoent.com/2022/220731-composition-component/
 - 제어 컴포넌트 패턴 (Controlled Props Pattern)
   - 제어 컴포넌트 패턴은 컴포넌트 내부에 정의된 state나 useState 상태 값과 해당 상태 값을 변경하는 로직들을 사용하지 않고, 프로퍼티를 통해 외부에서 들어온 상태 값과 콜백 함수를 사용함으로써 외부에서 컴포넌트의 상태를 컨트롤할 수 있게 합니다.
+  - 프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리하는 패턴과 유사
 - Props Getter 패턴
-  - 제어 컴포넌트 패턴에서는 상태 값 프로퍼티와 해당 값을 컨트롤하는 콜백 함수 프로퍼티들을 ‘같이’넘겨주어야 합니다.
+  - 제어 컴포넌트 패턴에서는 상태 값 프로퍼티와 해당 값을 컨트롤하는 콜백 함수 프로퍼티들을 ‘같이’넘겨주어야 하는 문제가 있음
   - 컴포넌트 내부에서 사용하는 콜백 함수들을 외부로 전달
 - State Reducer 패턴
-  - useReducer훅을 통해 reducer를 사용하여 컴포넌트의 상태 관리
-
-https://fe-developers.kakaoent.com/2022/221110-ioc-pattern/
+  - useReducer 훅을 통해 reducer를 사용하여 컴포넌트의 상태 관리
 
 # 상속 보다는 조합 (공식페이지)
 
@@ -21,7 +22,128 @@ https://fe-developers.kakaoent.com/2022/221110-ioc-pattern/
 
 https://legacy.reactjs.org/docs/composition-vs-inheritance.html
 
-## 조합과 제어의 역전 IoC
+## 합성 컴포넌트 패턴 (Compound Component Pattern)
+
+```jsx
+/** CompoundCounter.tsx */
+interface ICounterContextValue {
+  count?: number;
+  onChange?: (count: number) => void;
+  onIncrement?: () => void;
+  onDecrement?: () => void;
+}
+
+// CounterContext
+const CounterContext =
+  (createContext < ICounterContextValue) |
+  (undefined >
+    {
+      count: 0,
+    });
+
+// Counter 컴포넌트는 단순히 children을 CounterContext.Provider로 래핑
+const Counter = function ({ children }: { children?: ReactNode }) {
+  const [count, setCount] = useState(0);
+
+  const onChange = function (value: number) {
+    setCount(value);
+  };
+
+  const onIncrement = function () {
+    setCount(prev => prev + 1);
+  };
+
+  const onDecrement = function () {
+    setCount(prev => prev - 1);
+  };
+
+  return (
+    <CounterContext.Provider
+      value={{
+        count,
+        onChange,
+        onIncrement,
+        onDecrement,
+      }}
+    >
+      {children}
+    </CounterContext.Provider>
+  );
+};
+
+/** Counter.Input */
+export const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> =
+  function ({ value, ...others }) {
+    // CounterContext를 사용하여 Counter 관련 로직을 공유
+    const counterContext = useContext(CounterContext);
+    const isCompounded = counterContext !== undefined;
+
+    return (
+      <input value={isCompounded ? counterContext?.count : value} {...others} />
+    );
+  };
+Counter.Input = Input;
+
+/** Counter.CountButton */
+export const CountButton: React.FC<
+  ButtonHTMLAttributes<HTMLButtonElement> & { countType: 'plus' | 'minus' },
+> = function ({ onClick, countType = 'plus', ...others }) {
+  // CounterContext를 사용하여 Counter 관련 로직을 공유
+  const counterContext = useContext(CounterContext);
+  const isCompounded = counterContext !== undefined;
+
+  const onClickButton: MouseEventHandler<HTMLButtonElement> = function (event) {
+    if (isCompounded) {
+      if (countType === 'plus') {
+        counterContext.onIncrement?.();
+      } else {
+        counterContext.onDecrement?.();
+      }
+    } else {
+      onClick?.(event);
+    }
+  };
+
+  return (
+    <button onClick={onClickButton} {...others}>
+      +
+    </button>
+  );
+};
+Counter.CountButton = CountButton;
+```
+
+```jsx
+/** App.tsx */
+function App1() {
+  return (
+    <div>
+      <CompoundedCounter>
+        <CompoundedCounter.CountButton countType='plus' />
+        <CompoundedCounter.Input />
+        <CompoundedCounter.CountButton countType='minus' />
+      </CompoundedCounter>
+    </div>
+  );
+}
+
+function App2() {
+  return (
+    <div>
+      <CompoundedCounter>
+        <CompoundedCounter.CountButton countType='plus' />
+        <CompoundedCounter.CountButton countType='minus' />
+        <CompoundedCounter.Input />
+      </CompoundedCounter>
+    </div>
+  );
+}
+```
+
+각각의 분리된 컴포넌트들은 Counter라는 도메인에 더 이상 종속되지 않고  
+각각 본연의 기능과 역할(SRP: Single Responsibility Principle)로도 사용할 수 있게 되었습니다.
+
+## 조합과 제어의 역전 IoC - props 가 많아지고 복잡해지는 문제 해결 방안
 
 https://brunch.co.kr/@finda/556
 
@@ -120,6 +242,101 @@ const dogs = animals.filter(animal => animal.species === 'dog');
 
 필터링 기능만 제공하고 어떻게 필터링할지는 사용자에게 맡기고 있습니다.  
 따라서 필터링 로직에 어떠한 변화가 생기든 기존 filter 함수는 그대로 남아있을 수 있습니다.
+
+## Vue slot 와 같은 React 사용
+
+https://medium.com/@srph/react-imitating-vue-slots-eab8393f96fd
+
+BaseLayout
+
+```vue
+<template>
+  <base-layout>
+    <template slot="header">
+      <h1>Here might be a page title</h1>
+    </template>
+
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
+
+    <template slot="footer">
+      <p>Here's some contact info</p>
+    </template>
+  </base-layout>
+</template>
+```
+
+```vue
+<template>
+  <div class="container">
+    <header>
+      <slot name="header"></slot>
+    </header>
+    <main>
+      <slot></slot>
+    </main>
+    <footer>
+      <slot name="footer"></slot>
+    </footer>
+  </div>
+</template>
+```
+
+```jsx
+function Header() {
+  return null;
+}
+
+function Body() {
+  return null;
+}
+
+function Footer() {
+  return null;
+}
+
+class BaseLayout extends React.Component {
+  static Header = Header;
+  static Body = Body;
+  static Footer = Footer;
+
+  render() {
+    const { children } = this.props;
+    const header = children.find(child => child.type === Header);
+    const body = children.find(child => child.type === Body);
+    const footer = children.find(child => child.type === Footer);
+
+    return (
+      <div class='container'>
+        <header>{header ? header.props.children : null}</header>
+        <main>{body ? body.props.children : null}</main>
+        <footer>{footer ? footer.props.children : null}</footer>
+      </div>
+    );
+  }
+}
+
+export default BaseLayout;
+```
+
+```jsx
+const layout = (
+  <BaseLayout>
+    <BaseLayout.Header>
+      <h1>Here might be a page title</h1>
+    </BaseLayout.Header>
+
+    <BaseLayout.Body>
+      <p>A paragraph for the main content.</p>
+      <p>And another one.</p>
+    </BaseLayout.Body>
+
+    <BaseLayout.Footer>
+      <p>Place some contact info here.</p>
+    </BaseLayout.Footer>
+  </BaseLayout>
+);
+```
 
 ## 조합의 대표적인 사례
 
