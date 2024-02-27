@@ -26,6 +26,16 @@ https://legacy.reactjs.org/docs/composition-vs-inheritance.html
 
 ```jsx
 /** CompoundCounter.tsx */
+import {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  MouseEventHandler,
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+} from 'react';
+
 interface ICounterContextValue {
   count?: number;
   onChange?: (count: number) => void;
@@ -33,7 +43,6 @@ interface ICounterContextValue {
   onDecrement?: () => void;
 }
 
-// CounterContext
 const CounterContext =
   (createContext < ICounterContextValue) |
   (undefined >
@@ -50,11 +59,11 @@ const Counter = function ({ children }: { children?: ReactNode }) {
   };
 
   const onIncrement = function () {
-    setCount(prev => prev + 1);
+    setCount((prev: number) => prev + 1);
   };
 
   const onDecrement = function () {
-    setCount(prev => prev - 1);
+    setCount((prev: number) => prev - 1);
   };
 
   return (
