@@ -1,8 +1,22 @@
 # Node.js 환경에서 TypeScript 실행
 
+Express  
 https://velog.io/@mero/typescript-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%84%A4%EC%A0%95
 
 https://velog.io/@woongbeee/Typescript%EB%A5%BC-Node.js-%EC%97%90%EC%84%9C-%EC%8B%A4%ED%96%89%ED%95%A0-%EB%95%8C-ts-node-%EC%98%A4%EB%A5%98
+
+tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "baseURL": "./",
+    "ourDir": "dist" // 컴파일 결과물 생성 위치 지정
+  },
+  "include": ["server.ts"] // 컴파일할 파일의 범위를 지정
+}
+```
 
 ## tsx 활용
 
@@ -31,7 +45,7 @@ $ tsc --project tsconfig.server.json
 $ NODE_ENV=development node _dist/server.js
 ```
 
-### tsc-alias
+### `tsc-alias`
 
 https://www.npmjs.com/package/tsc-alias
 
@@ -77,7 +91,7 @@ $ yarn add ts-node
 $ ts-node server.ts
 ```
 
-### path alias
+### `tsconfig-paths` - path alias
 
 https://blog.naver.com/PostView.naver?blogId=psj9102&logNo=222653630355&parentCategoryNo=&categoryNo=66&viewDate=&isShowPopularPosts=true&from=search
 
