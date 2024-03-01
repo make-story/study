@@ -22,7 +22,7 @@ https://www.npmjs.com/search?q=%40module-federation
 
 - Expose
   컨테이너가 외부에 노출한 원격 모듈의 목록을 나타내는 설정이다.
-  간단하게는 내보낼 모듈이름: 로컬 모듈 경로로 표현할 수 있으며 Webpack 설정의 일부를 보면 이해가 빠를 것이다.
+  간단하게는 { "내보낼 모듈이름": "로컬 모듈 경로" } 로 표현할 수 있으며 Webpack 설정의 일부를 보면 이해가 빠를 것이다.
 
 - 공유 모듈
   여러 컨테이너에서 같이 사용하는 모듈을 말하며 런타임에 한 번만 로딩된다.
@@ -37,27 +37,52 @@ https://www.npmjs.com/search?q=%40module-federation
 `Host 프로젝트는 Remote 프로젝트의 컴포넌트를 불러와서 화면에 보여줍니다.`
 
 ```javascript
+// 리모트
 new ModuleFederationPlugin({
   name: 'app2',
+  filename: 'static/chunks/remoteEntry.js',
+  // 내보낼 모듈
   exposes: {
     './Button': './src/Button',
   },
+  // shared 를 설정하면, 호스트나 여러 원격 모듈에서 사용되는 공통된 패키지를 중복으로 불러오는 걸 방지
+  shared: {},
+  // 옵션
+  extraOptions: {},
 });
 ```
 
-app 라는 컨테이너는 로컬 모듈 "./src/Button" 을 "./Button" 이라는 이름의 원격 모듈로 Expose(노출)한다는 의미다.  
+app2 라는 컨테이너는  
+로컬 모듈 "./src/Button" 을 "./Button" 이라는 이름의  
+원격 모듈로 Expose(노출)한다는 의미다.
+
 원격 모듈을 사용하는 컨테이너(app1)에서는 다음과 같이 설정한다.
 
 ```javascript
+const remotes = isServer => {
+  const location = isServer ? 'ssr' : 'chunks';
+  return {
+    remote: `remote@http://localhost:8080/_next/static/${location}/remoteEntry.js`, // React.lazy(() => import("remote/<내보내기 exposes 모듈명>"));
+  };
+};
+
+// 호스트
 new ModuleFederationPlugin({
-  name: "app1",
+  name: 'app1',
+  filename: 'static/chunks/remoteEntry.js',
+  // 원격 모듈 가져오기
+  //remotes: remotes(isServer),
   remotes: {
     app2: `app2@http://localhost:3002/remoteEntry.js`,
   },
-}),
+  // shared 를 설정하면, 호스트나 여러 원격 모듈에서 사용되는 공통된 패키지를 중복으로 불러오는 걸 방지
+  shared: {},
+  // 옵션
+  extraOptions: {},
+});
 
 // import하여 Button 컴포넌트를 사용할 수 있다.
-const RemoteButton = React.lazy(() => import("app2/Button"));
+const RemoteButton = React.lazy(() => import('app2/Button'));
 ```
 
 ## 동작원리
