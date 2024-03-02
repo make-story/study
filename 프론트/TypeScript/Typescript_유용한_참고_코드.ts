@@ -23,6 +23,7 @@ test(MenuPageCornerId.LIVE);
 // --
 
 type Padding1 = 'small' | 'medium' | 'large';
+//     ^?
 const padding1: Record<Padding1, number> = {
   small: 1,
   medium: 2,
