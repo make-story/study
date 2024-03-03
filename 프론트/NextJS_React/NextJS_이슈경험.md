@@ -10,6 +10,16 @@ https://github.com/vercel/next.js/issues/47121#issuecomment-1499044345
 $ npx next telemetry disable
 ```
 
+## getServerSideProps 페이지별 공통 로직
+
+'import a single getServerSideProps method to multiple pages in Nextjs'
+
+https://stackoverflow.com/questions/70233905/import-a-single-getserversideprops-method-to-multiple-pages-in-nextjs
+
+https://stackoverflow.com/questions/71812273/how-to-combine-multiple-getserversideprops-function
+
+https://www.frontend-devops.com/blog/pipe-serverside-props-in-nextjs
+
 ## parsing error cannot find module 'next/babel'
 
 Next.js 13 또는 14  
@@ -140,6 +150,14 @@ https://reactpatterns.js.org/docs/function-as-child-component/
 { "extends": ["next"] }
 ```
 
+## Next.js 13 'TypeError: trace.getSpan is not a function'
+
+https://github.com/vercel/next.js/issues/46632
+
+```
+yarn add @opentelemetry/api @opentelemetry/resources @opentelemetry/semantic-conventions @opentelemetry/sdk-trace-node @opentelemetry/instrumentation
+```
+
 ## Next.js 13 이상 next/font 에러
 
 https://velog.io/@fo_rdang/Next.js-Next.js%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-build-%ED%95%98%EA%B8%B0
@@ -168,76 +186,7 @@ export default const Home = () => {
 
 해결방법은 next.config.js 에서 reactStrictMode 값을 비활성화 하면 됩니다.
 
----
-
-# React
-
-...
-
-# Redux, Redux-Saga 세팅
-
-https://github.com/kirill-konshin/next-redux-wrapper#usage-with-redux-saga
-
-# createWrapper, Wrapper Life-Cycle
-
-https://velog.io/@henrynoowah/Next.js-Redux-Wrapper
-
-# getServerSideProps 페이지별 공통 로직
-
-'import a single getServerSideProps method to multiple pages in Nextjs'
-
-https://stackoverflow.com/questions/70233905/import-a-single-getserversideprops-method-to-multiple-pages-in-nextjs
-
-https://stackoverflow.com/questions/71812273/how-to-combine-multiple-getserversideprops-function
-
-https://www.frontend-devops.com/blog/pipe-serverside-props-in-nextjs
-
-# 이슈 참고
-
-https://jicjjang.github.io/posts/next-redux-wrapper-settings
-
-# Next.js 13 'TypeError: trace.getSpan is not a function'
-
-https://github.com/vercel/next.js/issues/46632
-
-```
-yarn add @opentelemetry/api @opentelemetry/resources @opentelemetry/semantic-conventions @opentelemetry/sdk-trace-node @opentelemetry/instrumentation
-```
-
-# 'Hooks can only be called inside the body of a function component.'
-
-```
-Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons
-1. You might have mismatching versions of React and the renderer (such as React DOM)
-2. You might be breaking the Rules of Hooks
-3. You might have more than one copy of React in the same app
-See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
-```
-
-1. React와 React DOM의 버전이 일치하지 않을 수 있습니다.
-2. Hooks 규칙을 위반했을 수 있습니다.
-3. 같은 앱에 React가 한 개 이상있을 수 있습니다.
-
-## Hooks 규칙 위반
-
-- 함수 컴포넌트 본문의 최상위 레벨에서 호출하세요.
-- 사용자 정의 Hook 본체의 최상위 레벨에서 호출하세요.
-
-```jsx
-function Counter() {
-  // ✅ 권장: 함수 컴포넌트의 최상위 레벨
-  const [count, setCount] = useState(0);
-  // ...
-}
-
-function useWindowWidth() {
-  // ✅ 권장: 사용자 정의 Hook의 최상위 레벨
-  const [width, setWidth] = useState(window.innerWidth);
-  // ...
-}
-```
-
-# 'async/await is not yet supported in Client Components, only Server Components. This error is often caused by accidentally adding 'use client' to a module that was originally written for the server.'
+## 'async/await is not yet supported in Client Components, only Server Components. This error is often caused by accidentally adding 'use client' to a module that was originally written for the server.'
 
 https://stackoverflow.com/questions/77078222/error-async-await-is-not-yet-supported-in-client-components-in-next-js
 
