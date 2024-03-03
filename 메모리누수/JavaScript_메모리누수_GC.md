@@ -2,7 +2,42 @@
 
 가비지 컬렉팅 언어의 메모리 누수의 주된 원인은 '원치 않는 참조' (unwanted references)다.
 
-## Mark-and-sweep
+## 가비지 컬렉션(Garbage Collection)
+
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Memory_management#%EA%B0%80%EB%B9%84%EC%A7%80_%EC%BD%9C%EB%A0%89%EC%85%98
+
+https://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection
+
+메모리를 사용하는 모든 프로그램은 메모리에 대한 메카니즘을 필요로한다.  
+C, C++에서는 아래 표에서 보여지는 것과 같이 malloc(), free()에 의해 이뤄진다.  
+우리는 프로그래머에게 더이상 필요하지 않은 힙 메모리를 거둬들여야 한다는 책임이 있다는 것을 알고 있다.  
+만약에 프로그램이 사용하지 않는 힙을 거둬들이지 않고 메모리가 고갈될 때까지 할당을 지속한다면 프로그램 충돌이 발생할 것이다. 우리는 이것을 `memory leak`이라고 부른다.
+
+1. 참조-세기(Reference-counting) 가비지 콜렉션
+
+이 알고리즘은 "더 이상 필요없는 오브젝트"를 "어떤 다른 오브젝트도 참조하지 않는 오브젝트"라고 정의  
+문제는 순환 참조  
+함수내에서 두 객체가 서로 참조하는 속성으로 생성되어 순환 구조를 생성하는 경우
+
+```javascript
+var a = {},
+  b = {};
+a.c = b;
+b.c = a;
+```
+
+함수의 실행이 종료되면 두 객체는 불필요해지므로 할당된 메모리는 회수되어야 한다.  
+그러나 두 객체가 서로를 참조하고 있으므로, 참조-세기 알고리즘은 둘 다 가비지 컬렉션의 대상으로 표시하지 않는다.
+
+2. 표시하고-쓸기(Mark-and-sweep) 알고리즘
+
+이 알고리즘은 "더 이상 필요없는 오브젝트"를 "닿을 수 없는 오브젝트"로 정의  
+이 알고리즘은 roots 라는 오브젝트의 집합을 가지고 있다(자바스크립트에서는 전역 변수들을 의미한다)  
+주기적으로 가비지 콜렉터는 roots로 부터 시작하여 roots가 참조하는 오브젝트들, roots가 참조하는 오브젝트가 참조하는 오브젝트들 검사  
+그리고 닿을 수 있는 오브젝트가 아닌 닿을 수 없는 오브젝트에 대해 가비지 콜렉션을 수행  
+`2012년 기준으로 모든 최신 브라우저들은 가비지 콜렉션에서 표시하고-쓸기 알고리즘을 사용`
+
+### Mark-and-sweep
 
 대부분의 가비지 컬렉팅 언어는 `mark-and-sweep`이라는 잘 알려진 알고리즘을 사용한다.  
 이 알고리즘은 아래와 같은 방식으로 동작한다.
@@ -21,15 +56,6 @@
 
 ---
 
-# Garbage Collection 살펴보기
-
-https://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection
-
-메모리를 사용하는 모든 프로그램은 메모리에 대한 메카니즘을 필요로한다.  
-C, C++에서는 아래 표에서 보여지는 것과 같이 malloc(), free()에 의해 이뤄진다.  
-우리는 프로그래머에게 더이상 필요하지 않은 힙 메모리를 거둬들여야 한다는 책임이 있다는 것을 알고 있다.  
-만약에 프로그램이 사용하지 않는 힙을 거둬들이지 않고 메모리가 고갈될 때까지 할당을 지속한다면 프로그램 충돌이 발생할 것이다. 우리는 이것을 `memory leak`이라고 부른다.
-
 ## garbage collection 실행에 대한 더 많은 정보
 
 https://github.com/bretcope/node-gc-profiler
@@ -45,11 +71,11 @@ https://developer.chrome.com/docs/devtools/memory-problems/heap-snapshots/
 ```javascript
 function setTest1() {
   // window.test1
-  test1 = "123";
+  test1 = '123';
 }
 function setTest2() {
   // window.test2
-  this.test2 = "456";
+  this.test2 = '456';
 }
 ```
 
@@ -71,7 +97,7 @@ function setTest2() {
 ```javascript
 var someResource = getData();
 var intervalTempCode = setInterval(function () {
-  var node = document.getElementById("Node");
+  var node = document.getElementById('Node');
   if (node) {
     // Do stuff with node and someResource.
     node.innerHTML = JSON.stringify(someResource);
@@ -92,15 +118,15 @@ node 로 선언된 객체는 제거 될 수 있으므로, 인터벌 핸들러 �
 
 ```javascript
 // 이 element는 onClick에서 참조됨
-var element = document.getElementById("button");
+var element = document.getElementById('button');
 
 function onClick(event) {
-  element.innerHtml = "text";
+  element.innerHtml = 'text';
 }
 
-element.addEventListener("click", onClick);
+element.addEventListener('click', onClick);
 
-element.removeEventListener("click", onClick);
+element.removeEventListener('click', onClick);
 element.parentNode.removeChild(element); // element 제거!
 
 // 이제 `element`는 더 이상 쓰이 지않는다.
@@ -116,19 +142,19 @@ jQuery와 같은 프레임워크나 라이브러리는 `노드를 없애버리�
 ```javascript
 //
 var elements = {
-  button: document.getElementById("button"),
-  image: document.getElementById("image"),
-  text: document.getElementById("text"),
+  button: document.getElementById('button'),
+  image: document.getElementById('image'),
+  text: document.getElementById('text'),
 };
 
 function doStuff() {
-  image.src = "http://some.url/image";
+  image.src = 'http://some.url/image';
   button.click();
   console.log(text.innerHTML);
 }
 
 function removeButton() {
-  document.body.removeChild(document.getElementById("button")); // element.button 참조는 여전히 메모리에 남아 있음!
+  document.body.removeChild(document.getElementById('button')); // element.button 참조는 여전히 메모리에 남아 있음!
 
   // 이 시점에서도 여전히 elements 에서 button 의 참조를 가지고 있다.
   // 이 경우 button element 는 여전히 메모리에 있으며, GC 에 의해 해제 될 수 없다.
@@ -151,12 +177,12 @@ var replaceThing = function () {
   // 상위 스코프인 originalThing을 참조하는 스코프를 갖게됨
   // 동시에 theThing 도 참조하게됨.
   var unused = function () {
-    if (originalThing) console.log("hi");
+    if (originalThing) console.log('hi');
   };
 
   //
   theThing = {
-    longStr: new Array(1000000).join("*"),
+    longStr: new Array(1000000).join('*'),
     someMethod: function () {
       console.log(someMessage);
     },
