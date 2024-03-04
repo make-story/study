@@ -1,3 +1,5 @@
+# 자바스크립트 용량 최소화 (Minify)
+
 https://terser.org/
 https://try.terser.org/
 
