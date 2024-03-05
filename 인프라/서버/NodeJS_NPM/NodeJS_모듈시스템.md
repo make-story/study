@@ -41,6 +41,8 @@ add(1, 2);
 Node.js 12 부터 ECMAScript Modules 라는 새로운 Module System 이 추가되면서,  
 기존의 CommonJS 라는 Module System 까지, 라이브러리는 두 가지 Module System 을 지원해야 하게 되었습니다.  
 (ESM 지원 자체는 v8.5.0 부터 지원하지만, 안정성을 위해 v12 LTS 이상이 권장된다고 한다.)
+https://nodejs.org/docs/latest-v8.x/api/esm.html  
+https://nodejs.org/docs/latest-v12.x/api/esm.html
 
 https://pozafly.github.io/typescript/typescript-env/#module
 
