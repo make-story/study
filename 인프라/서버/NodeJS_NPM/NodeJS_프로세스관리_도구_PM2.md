@@ -1,4 +1,6 @@
-# 참고
+# PM2
+
+## 참고
 
 https://velog.io/@jsi06138/PM2%EB%A1%9C-%EB%AC%B4%EC%A4%91%EB%8B%A8-%EB%B0%B0%ED%8F%AC-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0  
 https://www.samsungsds.com/kr/insights/1256264_4627.html  
@@ -7,17 +9,28 @@ https://nodejs.org/dist/latest-v6.x/docs/api/cluster.html#cluster_how_it_works
 
 https://velog.io/@ckstn0777/Clustering-in-Action
 
-# forever / nodemon / pm2 / supervisor
-
-https://npmtrends.com/forever-vs-nodemon-vs-pm2-vs-supervisor  
-https://pixeljets.com/blog/using-supervisorctl-for-node-processes-common-gotchas/
-
 ---
+
+PM2 는 로드 밸런서가 내장된 Node.js 애플리케이션용 생산 프로세스 관리자
 
 # 설치
 
 ```
 $ npm install pm2@latest -g
+```
+
+# 실행
+
+지역 node_modules 에서 실행 시
+
+```bash
+$ node ./node_modules/pm2/bin/pm2
+```
+
+또는
+
+```bash
+$ node ./node_modules/.bin/pm2
 ```
 
 # 프로세스 관리

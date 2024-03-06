@@ -170,3 +170,35 @@ user.observe((key: string, value: any) => {
 user.name = 'John';
 
 // --
+
+/**
+ * promise
+ * https://bobbyhadz.com/blog/typescript-function-return-type-promise
+ */
+
+// ✅ Named function
+function getPromise(): Promise<number> {
+  return Promise.resolve(5);
+}
+
+// 👇️ Unwrap promise type if necessary
+// 👇️ type T = number
+type T = Awaited<ReturnType<typeof getPromise>>;
+
+// ✅ Named async function
+async function getPromise2(): Promise<number> {
+  return 10;
+}
+
+// ✅ Arrow function
+const getPromise3 = (): Promise<string> => {
+  return Promise.resolve('bobbyhadz.com');
+};
+
+async function getPromise4(): Promise<string | null> {
+  if (Math.random() > 0.5) {
+    return null;
+  }
+
+  return 'bobbyhadz.com';
+}

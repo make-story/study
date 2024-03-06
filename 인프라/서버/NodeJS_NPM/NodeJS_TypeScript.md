@@ -18,6 +18,18 @@ tsconfig.json
 }
 ```
 
+## 정리: 비교
+
+2023년 2월 1일 기준
+
+https://stackoverflow.com/questions/37979489/how-to-watch-and-reload-ts-node-when-typescript-files-change
+
+- nodemon 과 ts-node 는 매우 안정적이지만 명시적으로 구성해야 하며 다소 느립니다.
+- node-dev 와 ts-node 는 nodemon 보다 훨씬 적은 구성이 필요하지만 여전히 느립니다.
+- ts-node-dev 는 빠르지만 신뢰할 수 없습니다.
+
+`(권장, 최소한의 구성으로 가장 빠른 속도) tsx`
+
 ## tsx 활용
 
 https://www.npmjs.com/package/tsx
@@ -124,10 +136,34 @@ tsconfig.json
 }
 ```
 
+### swc 활용
+
+```bash
+$ yarn add @swc/core @swc/helpers
+```
+
+tsconfig.json
+
+```json
+{
+  "ts-node": {
+    "swc": true
+  }
+}
+```
+
 ### nodemon 으로 node 실행할 경우
 
+```bash
+$ nodemon --exec ts-node ./server.ts
+# 또는
+$ nodemon --watch "./**" --ext "ts,json" --ignore "**/*.spec.ts" --exec "ts-node server.ts"
 ```
-$ nodemon --exec ts-node ./index.ts
+
+### pm2 로 node 실행할 경우
+
+```bash
+$ node ./node_modules/.bin/pm2 start ts-node -- --project tsconfig.json server.ts
 ```
 
 ### server.ts 실행
