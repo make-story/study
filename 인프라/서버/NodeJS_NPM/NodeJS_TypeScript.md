@@ -155,40 +155,30 @@ tsconfig.json
 ### nodemon 으로 node 실행할 경우
 
 ```bash
-$ nodemon --exec ts-node ./server.ts
+$ nodemon --exec ts-node --project tsconfig.json server.ts
 # 또는
-$ nodemon --watch "./**" --ext "ts,json" --ignore "**/*.spec.ts" --exec "ts-node server.ts"
+$ nodemon --watch "./**" --ext "ts,json" --ignore "**/*.spec.ts" --exec "ts-node --project tsconfig.json server.ts"
+```
+
+또는 nodemon.json 파일생성 후 nodemon 명령 실행
+
+```json
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "ignore": ["**/*.spec.ts"],
+  "exec": "ts-node --project tsconfig.json server.ts"
+}
+```
+
+```bash
+$ nodemon
 ```
 
 ### pm2 로 node 실행할 경우
 
 ```bash
 $ node ./node_modules/.bin/pm2 start ts-node -- --project tsconfig.json server.ts
-```
-
-### server.ts 실행
-
-tsconfig.server.json
-
-```json
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "module": "commonjs", // Next.js - next.config.js 파일 지원
-    "noEmit": false
-  },
-  "include": ["server.ts"]
-}
-```
-
-package.json
-
-```json
-{
-  "scripts": {
-    "dev": "nodemon --watch '*.tsx' --exec 'ts-node' --project tsconfig.server.json server.ts "
-  }
-}
 ```
 
 ### ECMAScript Module (ESM)
