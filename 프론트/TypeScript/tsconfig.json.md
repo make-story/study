@@ -1,5 +1,7 @@
 https://www.typescriptlang.org/
 
+`https://www.typescriptlang.org/tsconfig`
+
 https://www.typescriptlang.org/docs/handbook/compiler-options.html
 
 https://yamoo9.gitbook.io/typescript/cli-env/tsconfig

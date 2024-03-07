@@ -41,6 +41,14 @@ TypeScript는 크게 2가지 기능을 제공한다.
 - 타입체크
 - 트랜스파일
 
+## 타입스크립트 참고
+
+- intersectionobserver TypeScript 의 기본 타입을 재정의할 경우 에러
+  `Type 'string' is not assignable to type 'number'`
+  `Type error: Type 'Document | Element | null' is not assignable to type 'Element | null | undefined'.`
+  `Type 'Document' is missing the following properties from type 'Element': assignedSlot, attributes, classList, className, and 58 more.`
+  https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.intersectionobserver.html
+
 # 타입스크립트 프로젝트 생성
 
 ```bash
@@ -55,6 +63,12 @@ $ cd <프로젝트명>
 
 ```bash
 $ tsc --strictNullChecks sayHello.ts
+```
+
+## cli 타입 체크 명령
+
+```
+tsc --noemit
 ```
 
 ## tsconfig.json
@@ -127,22 +141,6 @@ webpack 과 webpack-dev-server 버전이 서로간 충돌
 
 ```bash
 $ yarn add eslint eslint-plugin-import @typescript-eslint/parser
-```
-
----
-
-## 타입스크립트 참고
-
-- intersectionobserver TypeScript 의 기본 타입을 재정의할 경우 에러
-  `Type 'string' is not assignable to type 'number'`
-  `Type error: Type 'Document | Element | null' is not assignable to type 'Element | null | undefined'.`
-  `Type 'Document' is missing the following properties from type 'Element': assignedSlot, attributes, classList, className, and 58 more.`
-  https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.intersectionobserver.html
-
-# cli 타입 체크 명령
-
-```
-tsc --noemit
 ```
 
 ---
@@ -388,15 +386,43 @@ console.log(Color.Red); // red
 console.log(Color['Green']); // green
 ```
 
-## Void - 반환값 없는 함수
+## Enum
 
-`Void는 일반적으로 값을 반환하지 않는 함수에서 사용`
+enum은 열거형 변수로 정수를 하나로 합칠 때 편리한 기능입니다.  
+임의의 숫자나 문자열을 할당할 수 있으며 하나의 유형으로 사용해서 버그를 줄일 수 있습니다.
+enum은 TypeScript가 자체적으로 구현하는 기능입니다.
 
 ```typescript
-function hello(msg: string): void {
-  console.log(`Hello ${msg}`);
+// 아무것도 지정하지 않은 경우에는 0부터 숫자를 매깁니다.
+enum MOBILE_OS {
+  IOS, // 0
+  ANDROID, // 1
+}
+// 임의의 숫자나 문자열을 할당할 수도 있습니다
+enum MOBILE_OS {
+  IOS = 'iOS',
+  ANDROID = 'Android',
+}
+// 아래와 같이 유형으로 사용할 수도 있습니다
+const os: MOBILE_OS = MOBILE_OS.IOS;
+function detectOSType(userAgent: string): MOBILE_OS {
+  // 생략
 }
 ```
+
+`TypeScript에서 enum을 사용하면 트리쉐이킹(Tree shaking)이 되지 않습니다`  
+https://engineering.linecorp.com/ko/blog/typescript-enum-tree-shaking/  
+`그렇다면 enum 말고 어떤 것을 사용하면 좋을까요?`
+
+```typescript
+const MOBILE_OS = {
+  IOS: 'iOS',
+  Android: 'Android',
+} as const;
+type MOBILE_OS = (typeof MOBILE_OS)[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
+```
+
+---
 
 ## Never
 
@@ -406,6 +432,67 @@ function hello(msg: string): void {
 function error(message: string): never {
   throw new Error(message);
 }
+```
+
+## Never
+
+Never은 절대 발생하지 않을 값을 나타내며, 어떠한 타입도 적용할 수 없습니다.
+
+```typescript
+// 빈 배열을 타입으로 잘못 선언한 경우, Never를 볼 수 있습니다.
+const never: [] = [];
+never.push(3); // Error - TS2345: Argument of type '3' is not assignable to parameter of type 'never'.
+```
+
+## unknown 과 any 의 차이, 그리고 never
+
+unknown은 TypeScript의 탑 타입(Top Type)입니다.  
+TypeScript에 존재하고, 존재 할 수 있는 모든 타입들을 포함하여 어떤 값이든 가질 수 있지만,  
+그로 인해 모든 타입이 공통적으로 할 수 있는 연산 외에는 할 수 있는 것이 아무것도 없습니다.  
+그래서 이름 그대로 값이 어떤 타입인지 알 수 없는(unknown) 타입이기 때문에 `unknown 타입 변수는 사용할 때 어떤 타입인지 다시 한번 명시를 해주어야 합니다.`
+
+`unknown 타입 변수에 대해 타입 검사가 된 후에는 타입을 명시해주지 않아도 됩니다.`
+
+```javascript
+const flag: unknown = true;
+if (flag === true) {
+  // if 조건문에서 엄격한 비교를 통해 boolean 값인지 확인했으므로
+  // 새 boolean 변수에 대입을 할 때에는 타입을 명시하지 않아도 됨
+  const something: boolean = flag;
+
+  // ...
+}
+
+if (typeof maybe === 'string') {
+  // typeof 연산자를 사용하여 타입을 확인한 뒤에도 타입을 명시하지 않아도 됨
+  const text: string = maybe;
+}
+```
+
+`any`
+JavaScript로 작성된 모듈을 최소한의 수정으로 사용하거나,  
+혹은 기존의 JavaScript 코드를 TypeScript로 재작성하는 작업을 할 때 이 any라는 마법 같은 타입을 사용하면 별다른 작업 없이 코드가 동작하지만,  
+반대로 타입 검사를 항상 만족하므로 의도치 않은 형 변환이나 전혀 예상하지 못한 의도되지 않은 타입의 값이 대입되는 등 여러 사이드 이펙트를 일으켜 안전성이 낮아지기 때문에 조심해야 합니다.
+
+`never`
+
+```javascript
+// never 변수에는 어떤 값도 할당할 수 없습니다.
+// 그래서 아래의 두 코드는 TypeScript에서 컴파일 오류가 발생합니다.
+const first: never = 42;
+const second: never = 'some text';
+```
+
+아래와 같이 어떠한 값도 반환하지 않는 함수라면 반환 타입을 never로 명시하여 어떠한 값도 반환하지 않음을 알려줄 수 있습니다.
+
+```javascript
+const fetchFriendsOfUser = (username: string): never => {
+  throw new Error('Not Implemented');
+}
+
+// never를 사용하여 특정 타입 값을 할당받지 않도록 하는것도 가능합니다
+// NonString 타입은 어떤 타입이든 될 수 있지만 string 타입인 경우는 never로 추론하여 string 타입의 값이 할당되지 못하도록 할 수 있습니다.
+type NonString<T> = T extends string ? never : T;
 ```
 
 ---
@@ -830,231 +917,6 @@ type Window = {
 
 // Error: Duplicate identifier 'Window'.
 // 타입은 안된다.
-```
-
----
-
-## function
-
-`화살표 함수를 이용해 타입을 지정`
-
-```typescript
-// myFunc는 2개의 숫자 타입 인수를 가지고, 숫자 타입을 반환하는 함수.
-let myFunc: (arg1: number, arg2: number) => number;
-
-myFunc = function (x, y) {
-  return x + y;
-};
-```
-
-`함수 타입을 인터페이스로 정의하는 경우, 호출 시그니처(Call signature)라는 것을 사용`
-
-```typescript
-interface IUser {
-  name: string;
-}
-interface IGetUser {
-  (name: string): IUser;
-}
-
-// 매개 변수 이름이 인터페이스와 일치할 필요가 없습니다.
-// 또한 타입 추론을 통해 매개 변수를 순서에 맞게 암시적 타입으로 제공할 수 있습니다.
-const getUser: IGetUser = function (n) {
-  // n is name: string
-  // Find user logic..
-  // ...
-  return user;
-};
-getUser('Heropy');
-```
-
-## 타입 주석 (함수 선언문에서 매개변수, 반환값)
-
-타입스크립트 함수 선언문은 자바스크립트 `함수 선언문에서 매개변수와 함수 반환값(return type)에 타입 주석`을 붙이는 다음 형태로 구성됩니다.
-
-```
-function 함수이름(매개변수1: 타입1, 매개변수2: 타입2[, ...]): 반환타입 {
-	// 함수몸통...
-}
-```
-
-```typescript
-function add(a: number, b: number): number {
-  return a + b;
-}
-```
-
-## 함수 시그니처 (함수의 타입)
-
-변수에 타입이 있듯이 함수 또한 타입이 있는데, `함수의 타입을 함수 시그니처(function signature)`라고 합니다.  
-함수의 시그니처는 다음과 같은 형태로 표현합니다.
-
-```
-(매개변수1 타입, 매개변수2 타입[, ...]) => 반환값 타입
-```
-
-```typescript
-let printMe: (string, number) => void = function (
-  name: string,
-  age: number,
-): void {
-  // ...
-};
-```
-
-```typescript
-type stringNumberFunc = (string, number) => void; // type 키워드로 타입 별칭 만들기
-
-let f: stringNumberFunc = function (a: string, b: number): void {};
-let g: stringNumberFunc = function (c: string, d: number): void {};
-```
-
----
-
-## Class
-
-`인터페이스로 클래스를 정의하는 경우, implements 키워드를 사용`
-
-```typescript
-interface IUser {
-  name: string;
-  getName(): string;
-}
-
-class User implements IUser {
-  constructor(public name: string) {}
-  getName() {
-    return this.name;
-  }
-}
-
-const neo = new User('Neo');
-neo.getName(); // Neo
-```
-
-Construct signature  
-`new 키워드를 사용해야 하는 경우`
-
-```typescript
-interface ICat {
-  name: string;
-}
-interface ICatConstructor {
-  new (name: string): ICat; // Construct signature
-}
-
-class Cat implements ICat {
-  constructor(public name: string) {}
-}
-function makeKitten(c: ICatConstructor, n: string) {
-  return new c(n); // ok
-}
-
-const kitten = makeKitten(Cat, 'Lucy');
-console.log(kitten);
-```
-
-============================================================
-
-## Never
-
-Never은 절대 발생하지 않을 값을 나타내며, 어떠한 타입도 적용할 수 없습니다.
-
-```typescript
-// 빈 배열을 타입으로 잘못 선언한 경우, Never를 볼 수 있습니다.
-const never: [] = [];
-never.push(3); // Error - TS2345: Argument of type '3' is not assignable to parameter of type 'never'.
-```
-
----
-
-## unknown과 any의 차이, 그리고 never
-
-unknown은 TypeScript의 탑 타입(Top Type)입니다.  
-TypeScript에 존재하고, 존재 할 수 있는 모든 타입들을 포함하여 어떤 값이든 가질 수 있지만,  
-그로 인해 모든 타입이 공통적으로 할 수 있는 연산 외에는 할 수 있는 것이 아무것도 없습니다.  
-그래서 이름 그대로 값이 어떤 타입인지 알 수 없는(unknown) 타입이기 때문에 `unknown 타입 변수는 사용할 때 어떤 타입인지 다시 한번 명시를 해주어야 합니다.`
-
-`unknown 타입 변수에 대해 타입 검사가 된 후에는 타입을 명시해주지 않아도 됩니다.`
-
-```javascript
-const flag: unknown = true;
-if (flag === true) {
-  // if 조건문에서 엄격한 비교를 통해 boolean 값인지 확인했으므로
-  // 새 boolean 변수에 대입을 할 때에는 타입을 명시하지 않아도 됨
-  const something: boolean = flag;
-
-  // ...
-}
-
-if (typeof maybe === 'string') {
-  // typeof 연산자를 사용하여 타입을 확인한 뒤에도 타입을 명시하지 않아도 됨
-  const text: string = maybe;
-}
-```
-
-`any`
-JavaScript로 작성된 모듈을 최소한의 수정으로 사용하거나,  
-혹은 기존의 JavaScript 코드를 TypeScript로 재작성하는 작업을 할 때 이 any라는 마법 같은 타입을 사용하면 별다른 작업 없이 코드가 동작하지만,  
-반대로 타입 검사를 항상 만족하므로 의도치 않은 형 변환이나 전혀 예상하지 못한 의도되지 않은 타입의 값이 대입되는 등 여러 사이드 이펙트를 일으켜 안전성이 낮아지기 때문에 조심해야 합니다.
-
-`never`
-
-```javascript
-// never 변수에는 어떤 값도 할당할 수 없습니다.
-// 그래서 아래의 두 코드는 TypeScript에서 컴파일 오류가 발생합니다.
-const first: never = 42;
-const second: never = 'some text';
-```
-
-아래와 같이 어떠한 값도 반환하지 않는 함수라면 반환 타입을 never로 명시하여 어떠한 값도 반환하지 않음을 알려줄 수 있습니다.
-
-```javascript
-const fetchFriendsOfUser = (username: string): never => {
-  throw new Error('Not Implemented');
-}
-
-// never를 사용하여 특정 타입 값을 할당받지 않도록 하는것도 가능합니다
-// NonString 타입은 어떤 타입이든 될 수 있지만 string 타입인 경우는 never로 추론하여 string 타입의 값이 할당되지 못하도록 할 수 있습니다.
-type NonString<T> = T extends string ? never : T;
-```
-
----
-
-## enum
-
-enum은 열거형 변수로 정수를 하나로 합칠 때 편리한 기능입니다.  
-임의의 숫자나 문자열을 할당할 수 있으며 하나의 유형으로 사용해서 버그를 줄일 수 있습니다.
-enum은 TypeScript가 자체적으로 구현하는 기능입니다.
-
-```typescript
-// 아무것도 지정하지 않은 경우에는 0부터 숫자를 매깁니다.
-enum MOBILE_OS {
-  IOS, // 0
-  ANDROID, // 1
-}
-// 임의의 숫자나 문자열을 할당할 수도 있습니다
-enum MOBILE_OS {
-  IOS = 'iOS',
-  ANDROID = 'Android',
-}
-// 아래와 같이 유형으로 사용할 수도 있습니다
-const os: MOBILE_OS = MOBILE_OS.IOS;
-function detectOSType(userAgent: string): MOBILE_OS {
-  // 생략
-}
-```
-
-`TypeScript에서 enum을 사용하면 트리쉐이킹(Tree shaking)이 되지 않습니다`  
-https://engineering.linecorp.com/ko/blog/typescript-enum-tree-shaking/  
-`그렇다면 enum 말고 어떤 것을 사용하면 좋을까요?`
-
-```typescript
-const MOBILE_OS = {
-  IOS: 'iOS',
-  Android: 'Android',
-} as const;
-type MOBILE_OS = (typeof MOBILE_OS)[keyof typeof MOBILE_OS]; // 'iOS' | 'Android'
 ```
 
 ---
