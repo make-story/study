@@ -23,6 +23,33 @@ Non-blocking I/O와 단일 스레드 이벤트 루프를 통한 높은 처리 �
 
 ---
 
+# Node.js
+
+1. 이벤트 기반 (Event-Driven)
+
+Node.js는 이벤트 기반의 비동기적인 프로그래밍 모델을 채택하고 있습니다.  
+이는 애플리케이션이 이벤트에 반응하고 이벤트 루프를 통해 비동기적으로 작업을 수행할 수 있도록 합니다.  
+이벤트 기반 구조는 높은 확장성을 제공하며, 동시에 많은 연결을 처리할 수 있는 서버 애플리케이션을 만들기에 적합합니다.
+
+2. 비동기적인 I/O 처리 (Asynchronous I/O)
+
+Node.js는 비동기적인 I/O 처리를 통해 여러 작업을 병렬로 처리할 수 있습니다.  
+이는 블로킹되는 작업이 다른 작업들에게 영향을 미치지 않도록 하며, 전체 시스템의 성능을 향상시킵니다.  
+비동기 I/O는 파일 시스템 액세스, 네트워크 요청 등과 같은 작업에서 특히 유용하며, 애플리케이션의 응답 시간을 최소화하는 데 기여합니다.
+
+3. 단일 스레드 (Single-Threaded)
+
+Node.js는 단일 스레드 이벤트 루프를 사용합니다.  
+이는 간단하게 말하면 한 번에 하나의 작업만을 처리한다는 의미입니다.  
+비록 단일 스레드이지만 비동기 I/O 처리를 통해 다중 작업을 효율적으로 수행할 수 있으며, 이는 높은 확장성을 유지하면서도 자원 사용을 최적화할 수 있게 해줍니다.
+
+4. 모듈화 (Modularity)
+
+Node.js는 CommonJS와 함께 모듈 시스템을 도입하여 코드를 모듈로 나누고 재사용할 수 있도록 지원합니다.  
+모듈화를 통해 코드의 유지보수성이 향상되고, 각 모듈이 독립적으로 개발 및 테스트될 수 있습니다.
+
+---
+
 # 멀티 스레드(Multithreaded) 구조와 싱글 스레드 이벤트 루프(Single Threaded Event Loop) 구조의 차이점
 
 https://mygumi.tistory.com/154
@@ -93,43 +120,43 @@ https://mygumi.tistory.com/154
 
 ```javascript
 // 동기-블로킹 방식
-const fs = require("fs");
+const fs = require('fs');
 
-console.log("시작");
+console.log('시작');
 let data = null;
 
-data = fs.readFileSync("./readme2.txt");
-console.log("1번", data.toString());
+data = fs.readFileSync('./readme2.txt');
+console.log('1번', data.toString());
 
-data = fs.readFileSync("./readme2.txt");
-console.log("2번", data.toString());
+data = fs.readFileSync('./readme2.txt');
+console.log('2번', data.toString());
 
-data = fs.readFileSync("./readme2.txt");
-console.log("3번", data.toString());
+data = fs.readFileSync('./readme2.txt');
+console.log('3번', data.toString());
 
-console.log("끝");
+console.log('끝');
 ```
 
 ```javascript
 // 비동기-논 블로킹 방식
-const fs = require("fs").promises;
+const fs = require('fs').promises;
 
-console.log("시작");
+console.log('시작');
 
-fs.readFile("./readme2.txt")
-  .then((data) => {
-    console.log("1번", data.toString());
-    return fs.readFile("./readme2.txt");
+fs.readFile('./readme2.txt')
+  .then(data => {
+    console.log('1번', data.toString());
+    return fs.readFile('./readme2.txt');
   })
-  .then((data) => {
-    console.log("2번", data.toString());
-    return fs.readFile("./readme2.txt");
+  .then(data => {
+    console.log('2번', data.toString());
+    return fs.readFile('./readme2.txt');
   })
-  .then((data) => {
-    console.log("3번", data.toString());
-    console.log("끝");
+  .then(data => {
+    console.log('3번', data.toString());
+    console.log('끝');
   })
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
   });
 ```
