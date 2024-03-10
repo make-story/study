@@ -2,6 +2,13 @@
  * 배열 정렬
  * array.sort(), array.reverse()
  */
+
+// [주의!!!!] 자바스크립트의 sort메소드는 배열을 순회할 떄 배열요소의 String 으로 바꾼다!!!
+let array = [20, 1, 3];
+array = array.sort();
+console.log(array); // [1, 20, 3]
+
+// 아래와 같이 해주어야 한다!!
 const list3 = [1, 2, 11, 34, 22];
 list3.sort((a, b) => a - b);
 // a - b: 오름차순 정렬

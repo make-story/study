@@ -89,6 +89,12 @@ setImmediate(() => {
 
 ---
 
+# `모던 리액트 Deep Dive` 책 내용 중
+
+## 태스크 큐와 마이크로 태스크 큐 - p76
+
+---
+
 # queueMicrotask
 
 https://developer.mozilla.org/ko/docs/Web/API/HTML_DOM_API/Microtask_guide

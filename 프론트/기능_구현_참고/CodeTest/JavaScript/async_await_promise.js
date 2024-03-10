@@ -1,34 +1,46 @@
 // 콜백실행 값 반환
-const setTest = (callback) => callback();
+const setTest = callback => callback();
 console.log(setTest(() => 'test'));
-
 
 // ----------
 
+// 자바스크립트 콜스택, WebAPI(비동기처리, 이벤트루프) 특징
+
+console.log(0);
+setTimeout(() => {
+  console.log(1);
+}, 100);
+setTimeout(() => {
+  console.log(2);
+}, 0);
+console.log(3);
+
+// 0, 3, 2, 1
+
+// ----------
 
 // https://velog.io/@hiro2474/understandfor-await-of
 
 // 타이머 함수 정의
-const timer = (time) => {
-    return new Promise((resolve, reject) => {
-        console.log(`${time} 타이머 시작`);
-        setTimeout(() => {
-            console.log(`${time} 타이머 끝`);
-            resolve();
-        }, time);
-    });
+const timer = time => {
+  return new Promise((resolve, reject) => {
+    console.log(`${time} 타이머 시작`);
+    setTimeout(() => {
+      console.log(`${time} 타이머 끝`);
+      resolve();
+    }, time);
+  });
 };
-
 
 // 1. Promise.all()
 // 다수의 비동기 작업이 한 번에 실행되는가? : O
 // 다수의 비동기 작업이 모두 끝나기를 기다리는가? : O
 async function runPromiseAll() {
-    const times = [3000, 1000, 7000, 5000];
-  
-    await Promise.all(times.map((time) => timer(time)));
-  
-    console.log('모든 타이머 끝');
+  const times = [3000, 1000, 7000, 5000];
+
+  await Promise.all(times.map(time => timer(time)));
+
+  console.log('모든 타이머 끝');
 }
 /*
 $ 3000 타이머 시작
@@ -47,13 +59,13 @@ $ 모든 타이머 끝
 // 다수의 비동기 작업이 모두 끝나기를 기다리는가? : O
 // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/for-await...of
 async function runForAwait() {
-    const times = [3000, 1000, 7000, 5000];
-  
-    for await (let time of times) {
-        await timer(time);
-    }
-  
-    console.log('모든 타이머 끝');
+  const times = [3000, 1000, 7000, 5000];
+
+  for await (let time of times) {
+    await timer(time);
+  }
+
+  console.log('모든 타이머 끝');
 }
 /*
 $ 3000 타이머 시작
@@ -71,13 +83,13 @@ $ 모든 타이머 끝
 // 다수의 비동기 작업이 한 번에 실행되는가? : O
 // 다수의 비동기 작업이 모두 끝나기를 기다리는가? : X
 async function runForEach() {
-    const times = [3000, 1000, 7000, 5000];
-  
-    times.forEach(async (time) => {
-      await timer(time);
-    })
-  
-    console.log('모든 타이머 끝');
+  const times = [3000, 1000, 7000, 5000];
+
+  times.forEach(async time => {
+    await timer(time);
+  });
+
+  console.log('모든 타이머 끝');
 }
 /*
 $ 3000 타이머 시작
