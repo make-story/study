@@ -74,7 +74,7 @@ Math.max(
   document.body.offsetWidth,
   document.documentElement.offsetWidth,
 
-  document.documentElement.clientWidth
+  document.documentElement.clientWidth,
 );
 
 Math.max(
@@ -84,7 +84,7 @@ Math.max(
   document.body.offsetHeight,
   document.documentElement.offsetHeight,
 
-  document.documentElement.clientHeight
+  document.documentElement.clientHeight,
 );
 ```
 
@@ -132,7 +132,7 @@ https://developer.mozilla.org/ko/docs/Web/API/Window/scrollY
 
 ```javascript
 var supportPageOffset = window.pageXOffset !== undefined;
-var isCSS1Compat = (document.compatMode || "") === "CSS1Compat";
+var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat';
 
 var x = supportPageOffset
   ? window.pageXOffset
@@ -166,12 +166,12 @@ element.scrollTop = 100; 값을 설정할 수 있음
 ```javascript
 function setScrollTarget() {
   const scrollViewport =
-    document.querySelector("#scrollViewport") || document.querySelector("html");
-  const target = scrollViewport.querySelector("#target");
+    document.querySelector('#scrollViewport') || document.querySelector('html');
+  const target = scrollViewport.querySelector('#target');
   const rect = target.getBoundingClientRect(); // 주의!! element 위치 값은 실행되는 시점에 매번 정보를 가져와야 한다! (특정 변수에 저장했다가 재활용 주의!)
   scrollViewport.scrollTo({
     top: rect.top + scrollViewport.scrollTop,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 }
 ```
@@ -180,7 +180,7 @@ function setScrollTarget() {
 
 ```javascript
 // 아래 두 값은 같음
-console.log(document.querySelector("html").scrollTop); // root element (<html>) 로 scrollTop 값을 조회할 경우, 실질적으로는 scrollY 값을 반환 (MDN 내용 근거, 23년 기준)
+console.log(document.querySelector('html').scrollTop); // root element (<html>) 로 scrollTop 값을 조회할 경우, 실질적으로는 scrollY 값을 반환 (MDN 내용 근거, 23년 기준)
 console.log(window.scrollY);
 ```
 
@@ -201,7 +201,7 @@ MDN 내용 중 참고
 Viewport의 시작지점 기준
 
 ```javascript
-const target = document.getElementById("target"); // 요소의 id 값이 target이라 가정
+const target = document.getElementById('target'); // 요소의 id 값이 target이라 가정
 const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
 ```
 
@@ -212,7 +212,7 @@ function getAbsoluteTop(element) {
   return window.pageYOffset + element.getBoundingClientRect().top;
 }
 
-const target = document.getElementById("target"); // 요소의 id 값이 target이라 가정
+const target = document.getElementById('target'); // 요소의 id 값이 target이라 가정
 const parentElement = target.parentElement;
 const parentAbsoluteTop = getAbsoluteTop(parentElement);
 const absoulteTop = getAbsoluteTop(target);
@@ -223,7 +223,7 @@ const relativeTop = absoluteTop - parentAbsoluteTop;
 # 절대좌표
 
 ```javascript
-const target = document.getElementById("target"); // 요소의 id 값이 target이라 가정
+const target = document.getElementById('target'); // 요소의 id 값이 target이라 가정
 
 const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
 const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
@@ -238,7 +238,7 @@ const absoluteTop = scrolledTopLength + relativeTop; // 절대좌표
 # 이벤트 타겟
 
 ```javascript
-let event = (typeof e === "object" && e.originalEvent) || e || window.event; // originalEvent: jQuery Event
+let event = (typeof e === 'object' && e.originalEvent) || e || window.event; // originalEvent: jQuery Event
 let self = event.currentTarget; // event listener element (event 실행 element)
 let target = event.target || event.srcElement; // event 가 발생한 element
 let touch = event.touches; // touchstart
@@ -247,11 +247,39 @@ let touch = event.touches; // touchstart
 `event.srcElement 비표준, 더 이상 사용되지 않음`  
 https://developer.mozilla.org/en-US/docs/Web/API/Event/srcElement
 
+## 터치
+
+https://developer.mozilla.org/en-US/docs/Web/API/Touch
+
+https://d2.naver.com/helloworld/80243
+
+각 터치와 터치에 대한 정보는 이벤트 객체의 touches 속성과 targetTouches 속성, changedTouches 속성에 배열 형태로 저장
+
+- event.touches — 모든 접촉점의 터치 리스트
+- event.targetTouches — 현재 이벤트 타겟에서 시작된 터치 리스트
+- event.changedTouches — 이전 이벤트에 할당된 모든 접촉점의 터치 리스트
+
+https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/changedTouches
+
 ## 포인터 위치값
 
 - screenX/screenY : screen in device pixels. (모니터 화면 기준)
 - pageX/pageY : <html> element in CSS pixels. (html 기준 스크롤값 포함 위치)
 - clientX/clientY : viewport in CSS pixels. (브라우저 기준 스크롤값 제외 위치)
+
+```javascript
+document.addEventListener('mousemove', event => {
+  console.log(`
+    Screen X/Y: ${event.screenX}, ${event.screenY}
+    Client X/Y: ${event.clientX}, ${event.clientY}`);
+});
+
+document.addEventListener('touchstart', event => {
+  console.log(`
+    Screen X/Y: ${event.touches[0].screenX}, ${event.touches[0].screenY}
+    Client X/Y: ${event.touches[0].clientX}, ${event.touches[0].clientY}`);
+});
+```
 
 # elementFromPoint(x, y)
 
@@ -265,7 +293,7 @@ let centerY = document.documentElement.clientHeight / 2;
 
 let elem = document.elementFromPoint(centerX, centerY);
 
-elem.style.background = "red";
+elem.style.background = 'red';
 alert(elem.tagName);
 ```
 
@@ -276,7 +304,7 @@ alert(elem.tagName);
 ```javascript
 window.matchMedia;
 
-window.matchMedia("(min-width: 760px)").matches; // true or false
+window.matchMedia('(min-width: 760px)').matches; // true or false
 ```
 
 ---
@@ -284,13 +312,13 @@ window.matchMedia("(min-width: 760px)").matches; // true or false
 # sticky
 
 ```javascript
-const navbar = document.querySelector(".navbar");
+const navbar = document.querySelector('.navbar');
 let sticky = navbar.offsetTop;
 const navbarScroll = () => {
   if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky");
+    navbar.classList.add('sticky');
   } else {
-    navbar.classList.remove("sticky");
+    navbar.classList.remove('sticky');
   }
 };
 
@@ -298,14 +326,14 @@ window.onscroll = navbarScroll;
 ```
 
 ```javascript
-const stickyElm = document.querySelector("header");
+const stickyElm = document.querySelector('header');
 
 // 옵져버
 const observer = new IntersectionObserver(
-  ([e]) => e.target.classList.toggle("isSticky", e.intersectionRatio < 1),
+  ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
   {
     threshold: [1],
-  }
+  },
 );
 
 observer.observe(stickyElm);
