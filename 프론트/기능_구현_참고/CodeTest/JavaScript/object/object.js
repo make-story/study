@@ -3,6 +3,13 @@
  */
 
 /**
+ * 객체 구조 분해 할당
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+ */
+var a, b, rest;
+({ a, b, ...rest } = { a: 10, b: 20, c: 30, d: 40 });
+
+/**
  * 객치 순회
  */
 (() => {

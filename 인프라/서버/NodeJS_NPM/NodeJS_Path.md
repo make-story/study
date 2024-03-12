@@ -15,12 +15,31 @@ path 모듈을 사용하면 폴더와 파일의 경로를 쉽게 조작할 수 �
 
 ## ESM 모듈시스템에서 **dirname, **filename
 
+https://stackoverflow.com/questions/46745014/alternative-for-dirname-in-node-js-when-using-es6-modules
+
+Node.js 10.12
+
 ```javascript
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename); // 또는 const __dirname = path.resolve();
+```
+
+Node.js 14.14
+
+```javascript
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+```
+
+Node.js 20.11 / 21.2
+
+```javascript
+const __dirname = import.meta.dirname;
 ```
 
 ## path.resolve([...paths])
@@ -29,26 +48,26 @@ const __dirname = dirname(__filename); // 또는 const __dirname = path.resolve(
 
 ```javascript
 // /b가 절대경로 이므로 /b/c가 반환되고 '/a'는 무시된다.
-path.resolve("/a", "/b", "c");
+path.resolve('/a', '/b', 'c');
 // Returns: /b/c
 
 // /c 가 절대경로 이므로 '/a', '/b' 는 무시된다
-path.resolve("/a", "/b", "/c");
+path.resolve('/a', '/b', '/c');
 // Returns: /c
 ```
 
 ```javascript
-path.resolve("a, b, c");
+path.resolve('a, b, c');
 // Returns:
 // WINDOW: 'C:a\b\c'
 // POSIX(mac, linux): '/a/b/c'
 
 // /a 를 WINDOW에서 사용하면 경로구분자를 바꿔서 반환해준다.
-path.resolve("/a");
+path.resolve('/a');
 // Returns: C:\a
 
 // \a를 POSIX(mac, linux) 에서 사용하면 경로 구분자를 바꿔서 반환해준다.
-path.resolve("a");
+path.resolve('a');
 // Returns: /a
 ```
 
@@ -57,18 +76,18 @@ path.resolve("a");
 여러 인자를 넣으면 하나의 경로를 합쳐 반환하다. 상대경로를 표시하는 .. 와 현 위치를 표시하는 . 도 반영한 결과를 리턴한다.
 
 ```javascript
-path.join("/foo", "bar", "baz/asdf", "quux");
+path.join('/foo', 'bar', 'baz/asdf', 'quux');
 // Returns: '/foo/bar/baz/asdf/quux'
 
 // 마지막 인자의 .. 가 현재 위치보다 한단계 위 상위 폴더를 의미하므로
 // '/foo/bar/baz/asdf/quux' 보다 한 단계가 위 폴더의 경로가 반환됨
-path.join("/foo", "bar", "baz/asdf", "quux", "..");
+path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
 // Returns: '/foo/bar/baz/asdf'
 
 // __dirname : User/ano/temp/direcotory
 // 상대경로와 절대경로를 인자로 전달한 경우 이를 반영한 결과를 리턴함
 // 두 단계 올라간 User/ano 에서 /workspace 폴더로 내려가 다시 /ano 폴더를 찾음
-path.join(__dirname, "..", "..", "workspace", ".", "/ano");
+path.join(__dirname, '..', '..', 'workspace', '.', '/ano');
 // Returns: User/ano/workspace/ano
 ```
 
@@ -77,9 +96,9 @@ path.join(__dirname, "..", "..", "workspace", ".", "/ano");
 경로의 구분자(seperator) 이다. Windows는 \ , POSIX 는 / 값을 담고 있다.
 
 ```javascript
-"foo/bar/baz".split(path.sep);
+'foo/bar/baz'.split(path.sep);
 // Returns: ['foo', 'bar', 'baz']
 
-"foo\\bar\\baz".split(path.sep);
+'foo\\bar\\baz'.split(path.sep);
 // Returns: ['foo', 'bar', 'baz']
 ```

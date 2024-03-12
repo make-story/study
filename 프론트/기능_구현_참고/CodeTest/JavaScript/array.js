@@ -5,13 +5,13 @@
 /**
  * 배열 만들기
  */
-var fruits = ["사과", "바나나"];
+var fruits = ['사과', '바나나'];
 
-const clone1 = (arr) => arr.slice(0);
-const clone2 = (arr) => [...arr];
-const clone3 = (arr) => arr.map((x) => x);
-const clone4 = (arr) => JSON.parse(JSON.stringify(arr));
-const clone5 = (arr) => arr.concat({});
+const clone1 = arr => arr.slice(0);
+const clone2 = arr => [...arr];
+const clone3 = arr => arr.map(x => x);
+const clone4 = arr => JSON.parse(JSON.stringify(arr));
+const clone5 = arr => arr.concat({});
 
 // Array.of()
 Array.of(7); // [7]
@@ -21,9 +21,9 @@ Array(7); // [ , , , , , , ]
 Array(1, 2, 3); // [1, 2, 3]
 
 // 더미 데이터
-const posts = [...Array(40).keys()].map((i) => ({
+const posts = [...Array(40).keys()].map(i => ({
   title: `포스트${i}`,
-  body: "",
+  body: '',
 }));
 
 // ----------
@@ -38,7 +38,7 @@ const findItemIndex = [].findIndex((item, index, list) => {
   // 주어진 판별 함수를 만족하는 배열의 첫 번째 요소에 대한 인덱스를 반환
 });
 const fillItems = [].fill(
-  (value /*배열을 채울 값*/, start /*시작 인덱스*/, end /*끝 인덱스*/) => {}
+  (value /*배열을 채울 값*/, start /*시작 인덱스*/, end /*끝 인덱스*/) => {},
 );
 
 // some : 조건 중 하나라도 맞으면 참
@@ -53,6 +53,19 @@ const everyBool = [].every((item, index, list) => {
   // callback이 거짓을 반환하는 요소를 찾을 때까지 배열에 있는 각 요소에 대해 한 번씩 callback 함수를 실행
   // 해당하는 요소를 발견한 경우 every는 즉시 false를 반환합니다. 그렇지 않으면, 즉 모든 값에서 참을 반환하면 true를 반환
 });
+
+// ----------
+
+/**
+ * 배열 구조 분해 할당
+ * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+ */
+var a, b, rest;
+[a, b] = [10, 20];
+console.log(a); // 10
+console.log(b); // 20
+
+[a, b, ...rest] = [10, 20, 30, 40, 50];
 
 // ----------
 
@@ -103,16 +116,16 @@ new Array(10 /*크기*/);
 /**
  * 빈값 제거
  */
-[1, 2, 0, null, "ysm", ""].filter((item) => item);
+[1, 2, 0, null, 'ysm', ''].filter(item => item);
 // [1, 2, 'ysm']
 
 // 또는
-[1, 2, 0, null, "ysm", ""].filter(Boolean);
+[1, 2, 0, null, 'ysm', ''].filter(Boolean);
 
 // nullish
-[1, 2, 0, null, "ysm", ""].filter(
-  (item) =>
-    item !== null && item !== undefined && item !== "" && !Number.isNaN(item)
+[1, 2, 0, null, 'ysm', ''].filter(
+  item =>
+    item !== null && item !== undefined && item !== '' && !Number.isNaN(item),
 );
 // [1, 2, 0, 'ysm']
 
@@ -130,7 +143,7 @@ fruits.forEach(function (item, index, array) {
 // 바나나 1
 
 // for...of (배열순환)
-const array1 = ["a", "b", "c"];
+const array1 = ['a', 'b', 'c'];
 for (const element of array1) {
   console.log(element);
 }
@@ -167,8 +180,8 @@ let dataReduce = data.reduce((acc, current, index, list) => {
 }, 0);
 // 1 + 2 + 3 + 4 = 10;
 
-const array1 = ["a", "b", "c"];
-array1.forEach((element) => console.log(element));
+const array1 = ['a', 'b', 'c'];
+array1.forEach(element => console.log(element));
 // expected output: "a"
 // expected output: "b"
 // expected output: "c"
@@ -186,7 +199,7 @@ array1.forEach((element) => console.log(element));
  */
 
 // 배열 '뒤' 항목 추가하기
-var newLength = fruits.push("오렌지"); // push("오렌지", "포도") 처럼 여러개 가능
+var newLength = fruits.push('오렌지'); // push("오렌지", "포도") 처럼 여러개 가능
 // ["사과", "바나나", "오렌지"]
 
 // 배열 '뒤' 항목 제거하기
@@ -194,7 +207,7 @@ var last = fruits.pop(); // 뒤에서 오렌지를 제거
 // ["사과", "바나나"];
 
 // 배열 '앞' 항목 추가하기
-var newLength = fruits.unshift("딸기"); // 앞에 추가
+var newLength = fruits.unshift('딸기'); // 앞에 추가
 // ["딸기", "바나나"];
 
 // 배열 '앞' 항목 제거하기
@@ -207,7 +220,7 @@ var removedItem = fruits.splice(pos, 1); // 항목을 제거하는 방법 (제�
 // ["딸기", "망고"]
 
 // 배열 내부 JSON 찾아서 제거
-var index = fruits.findIndex((value) => value.key === key);
+var index = fruits.findIndex(value => value.key === key);
 fruits.splice(index, 0 <= index ? 1 : 0); // 제거 됨 - splice 는 반환값을 다시 해당 배열에 바인딩 안한다! splice는 원본 배열을 바로 수정한다!
 
 // ----------
@@ -238,7 +251,7 @@ var arr9 = arr.slice(2, 15); // [3, 4, 5, 6, 7, 8, 9, 10]
 
 // splice(start [, length]) : 배열의 기존 요소를 삭제 또는 교체하거나 새 요소를 추가하여 배열의 내용을 변경 (즉, 원본 배열을 수정한다.)
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-var arr1 = arr.splice(10, 2, "a", "b", "c");
+var arr1 = arr.splice(10, 2, 'a', 'b', 'c');
 console.log(arr); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "a", "b", "c"]
 console.log(arr1); // [11, 12]
 
@@ -253,19 +266,19 @@ console.log(arr1); // [7, 8, 9, 10]
  * 아이템 검색
  */
 // 배열 안 항목의 인덱스 찾기
-fruits.push("망고");
+fruits.push('망고');
 // ["딸기", "바나나", "망고"]
-var pos = fruits.indexOf("바나나");
+var pos = fruits.indexOf('바나나');
 // 1
 
 const array1 = [5, 12, 8, 130, 44];
-const isLargeNumber = (element) => element > 13;
+const isLargeNumber = element => element > 13;
 console.log(array1.findIndex(isLargeNumber));
 // expected output: 3
 
 // 배열 안 특정 값 찾기
 const array1 = [5, 12, 8, 130, 44];
-const found = array1.find((element) => element > 10);
+const found = array1.find(element => element > 10);
 console.log(found);
 // expected output: 12
 
@@ -278,14 +291,14 @@ let dataFilter = data.filter((current, index, list) => {
 const array1 = [1, 2, 3];
 console.log(array1.includes(2));
 // expected output: true
-const pets = ["cat", "dog", "bat"];
-console.log(pets.includes("cat"));
+const pets = ['cat', 'dog', 'bat'];
+console.log(pets.includes('cat'));
 // expected output: true
-console.log(pets.includes("at"));
+console.log(pets.includes('at'));
 // expected output: false
 
 // 배열 요소 모두 참 여부 검사
-const isBelowThreshold = (currentValue) => currentValue < 40;
+const isBelowThreshold = currentValue => currentValue < 40;
 const array1 = [1, 30, 39, 29, 10, 13];
 console.log(array1.every(isBelowThreshold));
 // expected output: true
@@ -344,7 +357,7 @@ function removeItem(items, removable) {
 }
 
 // 파라미터
-const book = ["A", "B", 99.9];
+const book = ['A', 'B', 99.9];
 function formatBook(title, author, price) {
   return `${title} by ${author} $${price}`;
 }
@@ -376,5 +389,5 @@ const staff = [
 var item = { id: 1 };
 var items = [{ id: 2 }, { id: 2 }, { id: 2 }];
 
-var foundIndex = items.findIndex((x) => x.id == item.id);
+var foundIndex = items.findIndex(x => x.id == item.id);
 items[foundIndex] = item;
