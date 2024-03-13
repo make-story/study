@@ -1,4 +1,6 @@
-# API란 무엇인가요?
+# REST API
+
+## API란 무엇인가요?
 
 https://aws.amazon.com/ko/what-is/restful-api/
 
@@ -6,18 +8,25 @@ https://aws.amazon.com/ko/what-is/restful-api/
 
 웹 API는 클라이언트와 웹 리소스 사이의 게이트웨이라고 생각할 수 있습니다.
 
-# REST란 무엇인가요?
+## REST란 무엇인가요?
 
 https://aws.amazon.com/ko/what-is/restful-api/
 
 Representational State Transfer(REST)는 API 작동 방식에 대한 조건을 부과하는 소프트웨어 아키텍처입니다.
 
-# parameter(params) 와 payload 차이
+## parameter(params) 와 payload 차이
 
 https://okky.kr/questions/291237
 
 HTTP GET : Parameter (//url/page?params=test)
 HTTP POST : payload (body 에 담기는 data)
+
+## 모범사례, 예제
+
+https://www.freecodecamp.org/korean/news/rest-api-mobeom-sarye-rest-endeupointeu-seolgye-yesi/
+
+Node.js Express  
+`https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/`
 
 ---
 
