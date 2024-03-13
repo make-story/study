@@ -6,6 +6,11 @@ https://nodejs.org/api/cli.html
 
 https://nodejs.org/api/cli.html#-e---eval-script
 
+```bash
+# 노드 버전 확인 ($ node -v 가능하나 아래는 예시)
+$ node -e "console.log(+process.versions.node.split('.')[0])"
+```
+
 ## package.json 에서 "bin" 항목 활요
 
 package.json
