@@ -1,3 +1,26 @@
+# HTML
+
+HTML 은 HyperText Markup Language (하이퍼텍스트를 마크업/표현하기 위한 언어)의 약자로,  
+웹 페이지를 만들기 위한 표준 마크업 언어입니다.  
+HTML 은 웹 페이지의 구조를 정의하고, 텍스트, 이미지, 링크 등의 콘텐츠를 포함하는 데 사용됩니다
+
+CSS(Cascading Style Sheets) 와 JavaScript 함께 사용하여 웹 페이지의 스타일과 동적인 기능을 추가할 수 있습니다.
+
+# 마크업
+
+태그를 사용하여  
+텍스트 내용과 이미지, 멀티미지어 콘텐츠를 HTML 문서로 표현하는 것을 마크업(Markup) 한다고 합니다.
+
+그래서 HTML 은 하이퍼텍스트(Hypertext)를 마크업(Makerup) 하는 언어(Language) 가 된는 것 입니다.
+
+# HTML 공부
+
+https://web.dev/learn/html
+
+# `HTML Tag 요소`
+
+https://developer.mozilla.org/ko/docs/Web/HTML/Reference
+
 # HTML 검사기
 
 https://validator.w3.org/unicorn/?ucn_lang=ko
@@ -11,21 +34,6 @@ https://wit.nts-corp.com/2017/03/02/4338
 # HTML5 비디오 플레이어 마크업 작업기
 
 https://wit.nts-corp.com/2017/08/08/4818
-
----
-
-# 마크업
-
-태그를 사용하여 텍스트 내용과 이미지, 멀티미지어 콘텐츠를 HTML 문서로 표현하는 것을 마크업(Markup) 한다고 합니다.  
-그래서 HTML 은 하이퍼텍스트(Hypertext)를 마크업(Makerup) 하는 언어(Language) 가 된는 것 입니다.
-
-# HTML 공부
-
-https://web.dev/learn/html
-
-# `HTML Tag 요소`
-
-https://developer.mozilla.org/ko/docs/Web/HTML/Reference
 
 ---
 
