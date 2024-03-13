@@ -40,23 +40,24 @@ https://developer.mozilla.org/ko/docs/Web/HTML/Reference
 
 Self-Closing, 시작태그와 종료태그가 함께 있는 단독태그의 경우, 태그 끝 부분에 "/"를 표시하지 않아도 됨. (선택적)
 
-# `Self-Closing, void-element`
+# `Self-Closing, Void element`
 
 MDN  
 https://developer.mozilla.org/en-US/docs/Glossary/Void_element
-XML, XHTML, SVG 외 void element 는 닫는 태그 불필요! (<input type="text">)
+HTML5 기준으로 XML, XHTML, SVG 외 void element 는 닫는 태그 불필요! (<input type="text">)
 
 https://jakearchibald.com/2023/against-self-closing-tags-in-html/
 
 https://html.spec.whatwg.org/multipage/syntax.html#void-elements  
 https://www.devkuma.com/docs/html/html-self-closing-tags/
 
-HTML 에는 Self-Closing 라는 것이 있습니다.
-흔히 우리가 알고 있는 `<img />` 처럼 닫기 태그를 별도로 두는 것이 아닌,  
-선언과 종료를 하나의 태그에서 할 수 있는 태그입니다.  
-(닫히는 태그를 명시적으로 쓰지 않고도 요소를 닫을 수 있는 것)
+HTML 에는 Self-Closing 라는 것이 있습니다.  
+(Self-closing 은 HTML5에서 주로 사용되지만, 이 아이디어는 이전의 XHTML에서 비롯된 것)
 
-HTML5에 self-closing 태그의 전체 목록은 다음과 같다.
+흔히 우리가 알고 있는 `<img />` 처럼 닫기 태그를 별도로 두는 것이 아닌,  
+선언과 종료를 하나의 태그에서 할 수 있는 태그입니다.
+
+HTML5 에 self-closing 태그의 목록은 다음과 같다.
 
 ```html
 <area />
@@ -78,7 +79,7 @@ HTML5에 self-closing 태그의 전체 목록은 다음과 같다.
 <wbr />
 ```
 
-## `엔딩 슬래시는 선택 사항인가?`
+## `Self-Closing, Void element 엔딩 슬래시는 선택 사항인가?`
 
 - HTML5 : 슬래시는 선택 사항이다.
 - HTML4 : 슬래시는 기술적으로 유효하지 않다. 그러나 W3C의 HTML 유효성 검사기에서 허용된다.
