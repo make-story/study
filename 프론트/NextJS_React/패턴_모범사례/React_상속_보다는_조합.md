@@ -1,10 +1,10 @@
-# 상속 보다는 조합 (공식페이지)
+# 상속 보다는 조합 (리액트 공식페이지 가이드)
 
 리액트는 조합에 특화된 설계를 갖고 있습니다.
 
 https://legacy.reactjs.org/docs/composition-vs-inheritance.html
 
-## 조합과 제어의 역전 IoC - props 가 많아지고 복잡해지는 문제 해결 방안
+## 참고자료
 
 https://brunch.co.kr/@finda/556
 
@@ -16,13 +16,15 @@ https://kentcdodds.com/blog/inversion-of-control
 
 https://speakerdeck.com/jenncreighton/the-how-and-why-of-flexible-react-components-289aa486-464a-4dea-b89a-6f92d0af6606
 
-`API를 사용하는 쪽으로 특정 역할을 넘기는 패턴을 제어역전(Inversion of Control, IoC)`
+## 조합과 제어의 역전 IoC - props 가 많아지고 복잡해지는 문제 해결 방안
 
-`개발된 컴포넌트가 기획 요건 변경 또는 추가에 따른 복잡도 증가 상황`  
-`props 를 변경 또는 추가해가며 확장하는 상황`  
-위와 같은 상황에서는 컴포넌트 사용이 점차 어려워 짐
+`사용하는 쪽으로 특정 역할을 넘기는 패턴을 제어역전(Inversion of Control, IoC)`
 
-props 가 많아지는 경우 발생하는 문제
+- 개발된 컴포넌트가 기획 요건 변경 또는 추가에 따른 복잡도 증가 상황
+- props 를 변경 또는 추가해가며 확장하는 상황
+
+위와 같은 상황에서는 컴포넌트 사용이 점차 어려워 짐  
+`props 가 많아지는 경우 발생하는 문제`
 
 - 개발자가 각 props가 어떤 역할을 하는지 파악하기 어려워진다.
 - 파악하기 어려운 props를 설명해주기 위한 주석이나 문서 작성 및 관리 필요
@@ -33,7 +35,6 @@ props 가 많아지는 경우 발생하는 문제
 
 이를 해결하기 위해서는  
 `우리는 비즈니스 로직을 밖으로 꺼내어야 합니다!`
-
 `리액트는 상속보다는 조합!`
 
 props 기반 컴포넌트

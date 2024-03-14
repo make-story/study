@@ -1,4 +1,4 @@
-# 합성 컴포넌트 (Compound Component Pattern)
+# 합성 컴포넌트 (Compound Component Pattern, 컴파운드 패턴)
 
 계속 늘어나는 요구 조건에 따른 컴포넌트
 

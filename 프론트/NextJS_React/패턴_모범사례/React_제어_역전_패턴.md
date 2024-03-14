@@ -1,6 +1,6 @@
 # `컴포넌트 패턴`
 
-https://fe-developers.kakaoent.com/2022/221110-ioc-pattern/
+`https://fe-developers.kakaoent.com/2022/221110-ioc-pattern/`
 
 IoC(Inversion of Control), 제어 역전 패턴
 
