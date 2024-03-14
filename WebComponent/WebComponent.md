@@ -1,5 +1,7 @@
 # Web Component
 
+https://github.com/WICG/webcomponents
+
 - 실행예제
   http://makeapi.net/test/webcomponents.html
 
@@ -32,7 +34,7 @@ https://en.wikipedia.org/wiki/Betteridge%27s_law_of_headlines
 
 ---
 
-> Template
+# Template
 
 ```html
 <!-- 템플릿 엘리먼트 //-->
@@ -98,7 +100,7 @@ lit-html 템플릿은 일반적인 JavaScript이며 HTML 작성의 친숙함과 
 
 ---
 
-> ShadowDOM
+# ShadowDOM
 
 ```html
 <div id="none-shadow" class="wrap-item">
@@ -158,7 +160,9 @@ document.querySelector('#shadowDomButton2').onclick = event => {
 
 ---
 
-> CustomElements
+# CustomElements
+
+https://html.spec.whatwg.org/multipage/custom-elements.html
 
 ```html
 <div id="customelementsTest">
@@ -386,7 +390,7 @@ document.addEventListener(
 
 ---
 
-> Module
+# Module
 
 ```html
 <div id="moduleTest"></div>
@@ -409,7 +413,7 @@ document.addEventListener(
 
 ---
 
-> Components
+# Components
 
 ```html
 <div id="componentsTest">

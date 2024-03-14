@@ -27,6 +27,15 @@ https://validator.w3.org/unicorn/?ucn_lang=ko
 
 https://validator.w3.org/nu/#textarea
 
+# HTML5
+
+- HTML5 표준에서는 "<head>" 태그 안에 반드시 와야 했던 CSS 정의가 꼭 "<head>" 태그 안에 오지 않아도 되는 것으로 변경됨.
+- 문서 인코딩 관련 정보 표시가 필수사항으로 변경
+
+```html
+<meta charset="utf-8" />
+```
+
 # HTML 5.1 정리 / HTML 5.2 미리보기
 
 https://wit.nts-corp.com/2017/03/02/4338
@@ -37,67 +46,6 @@ https://wit.nts-corp.com/2017/08/08/4818
 
 ---
 
-# HTML5
-
-- HTML5 표준에서는 "<head>" 태그 안에 반드시 와야 했던 CSS 정의가 꼭 "<head>" 태그 안에 오지 않아도 되는 것으로 변경됨.
-- 문서 인코딩 관련 정보 표시가 필수사항으로 변경
-
-```html
-<meta charset="utf-8" />
-```
-
-Self-Closing, 시작태그와 종료태그가 함께 있는 단독태그의 경우, 태그 끝 부분에 "/"를 표시하지 않아도 됨. (선택적)
-
-# `Self-Closing, Void element`
-
-MDN  
-https://developer.mozilla.org/en-US/docs/Glossary/Void_element
-HTML5 기준으로 XML, XHTML, SVG 외 void element 는 닫는 태그 불필요! (<input type="text">)
-
-https://jakearchibald.com/2023/against-self-closing-tags-in-html/
-
-https://html.spec.whatwg.org/multipage/syntax.html#void-elements  
-https://www.devkuma.com/docs/html/html-self-closing-tags/
-
-HTML 에는 Self-Closing 라는 것이 있습니다.  
-(Self-closing 은 HTML5에서 주로 사용되지만, 이 아이디어는 이전의 XHTML에서 비롯된 것)
-
-흔히 우리가 알고 있는 `<img />` 처럼 닫기 태그를 별도로 두는 것이 아닌,  
-선언과 종료를 하나의 태그에서 할 수 있는 태그입니다.
-
-HTML5 에 self-closing 태그의 목록은 다음과 같다.
-
-```html
-<area />
-<base />
-<br />
-<col />
-<command />
-<embed />
-<hr />
-<img />
-<input />
-<keygen />
-<link />
-<menuitem />
-<meta />
-<param />
-<source />
-<track />
-<wbr />
-```
-
-## `Self-Closing, Void element 엔딩 슬래시는 선택 사항인가?`
-
-- HTML5 : 슬래시는 선택 사항이다.
-- HTML4 : 슬래시는 기술적으로 유효하지 않다. 그러나 W3C의 HTML 유효성 검사기에서 허용된다.
-- XHTML : 슬래시가 필요하다.
-
-recommend to always add the slash. Because, it provides a visual clue of non-closing tags.
-`항상 슬래시를 추가하는 것이 좋다. 왜냐하면 non-closing 태그는 시각적으로 가독성을 높여준다.`
-
----
-
 # "HTML은 사용하기가 까다롭지 않고 유연합니다."
 
 예를 들어, 페이지에 <ysm></ysm>를 선언하면 브라우저가 이를 완전히 수락합니다.   
@@ -105,6 +53,10 @@ recommend to always add the slash. Because, it provides a visual clue of non-clo
 사양에 정의되지 않은 요소는 HTMLUnknownElement로 파싱됩니다.
 
 # 사용자정의 요소 생성 관련 규칙
+
+https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_custom_elements
+
+https://html.spec.whatwg.org/multipage/custom-elements.html
 
 1. 사용자정의 요소의 이름에는 대시(-)가 포함되어야 합니다. 
 <x-tags>, <my-element> 및 <my-awesome-app>은 모두 유효한 이름이지만, <tabs> 및 <foo_bar>는 그렇지 않습니다.  
@@ -117,6 +69,49 @@ recommend to always add the slash. Because, it provides a visual clue of non-clo
 
 3. HTML은 몇 가지 요소만 스스로 닫도록 허용하므로 사용자설정 요소는 스스로 닫을 수 없습니다. 
 항상 닫는 태그를 작성해야 합니다. (예를 들어 <app-drawer></app-drawer>)
+
+---
+
+# `Void element, Self-closing`
+
+MDN - `"자체 닫는 태그(<tag />)는 HTML에 존재하지 않습니다."`  
+https://developer.mozilla.org/en-US/docs/Glossary/Void_element
+
+HTML5 기준으로 XML, XHTML, SVG 외 void element 는 닫는 태그 불필요!  
+일부 코드 포맷터는 void element 의 시작 태그에 후행 슬래시 문자를 추가하여, XHTML 과 호환되고 더 읽기 쉽게 만듭니다.
+
+## Void element 목록 (23/03 기준)
+
+```html
+<area />
+<base />
+<br />
+<col />
+<embed />
+<hr />
+<img />
+<input />
+<link />
+<meta />
+<source />
+<track />
+<wbr />
+```
+
+https://jakearchibald.com/2023/against-self-closing-tags-in-html/  
+https://html.spec.whatwg.org/multipage/syntax.html#void-elements  
+https://www.devkuma.com/docs/html/html-self-closing-tags/
+
+## `Void element, Self-closing 엔딩 슬래시는 선택 사항인가?`
+
+https://github.com/Webschool-io/js4girls/issues/58
+
+- HTML5 : 슬래시는 선택 사항이다.
+- HTML4 : 슬래시는 기술적으로 유효하지 않다. 그러나 W3C의 HTML 유효성 검사기에서 허용된다.
+- XHTML : 슬래시가 필요하다.
+
+recommend to always add the slash. Because, it provides a visual clue of non-closing tags.
+`항상 슬래시를 추가하는 것이 좋다. 왜냐하면 non-closing 태그는 시각적으로 가독성을 높여준다.`
 
 ---
 
@@ -143,46 +138,6 @@ recommend to always add the slash. Because, it provides a visual clue of non-clo
 ```
 
 http://makestory.net/media/#/view/73
-
----
-
-# 태그 종류
-
-## 구조
-
-- div (division 약자)  
-  div 는 블록 레벨 엘리먼트를 묶는 목적으로 사용하고, 인라인 엘리먼트를 지정하거나 묶을 떄는 span 을 사용
-
-## 제목
-
-## 목록
-
-- ol
-  순서가 있는 목록
-
-- ul
-  순서가 없는 목록
-
-- dl
-  용어를 설명하는 목록
-
-- li
-  목룍을 나열할 때는 li (list item) 태그 사용
-
-## 글자
-
-- em
-  강제(강조)
-
-- strong
-  강죠
-
-## 테이블
-
-- scope 속성
-  scope 속성은 테이블의 th 또는 td 등의 해당 셀에게 사용하며 컬럼(column)인지 행(row)인지의 여부를 알려주는 역활을 합니다. 그리하여 작성된 코드가 시각 장애인용 리더기를 통해 읽어지는 경우 해당하는 속성값에 따라 어떤 순서로 읽을지 결정하게 됩니다.
-
----
 
 # details
 
