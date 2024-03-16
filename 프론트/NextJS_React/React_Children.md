@@ -1,4 +1,4 @@
-`study.git/프론트/NextJS_React/패턴/React_합성컴포넌트.md` 참고!
+`study.git/프론트/NextJS_React/패턴_모범사례/React_합성컴포넌트.md` 참고!
 
 `next-ai-news.git/components/comments.tsx` 참고!
 

@@ -6,10 +6,37 @@
 
 - 추천방법1:
 
-  - 댄 아브라모프(Dan Abramov)의 프레젠테이션(Presentational), 컨테이너(Container, 비즈니스로직) 컴포넌트로 분리
-    - 특정 컨테이너 내부 여러 컴포넌트에서의 공통 비즈니스 로직
-      - 이벤트 처리, 데이터 호출, 데이터 가공 등
-    - https://patterns-dev-kr.github.io/design-patterns/container-presentational-pattern/
+  - 댄 아브라모프(Dan Abramov)의 프레젠테이션(Presentational, HTML), 컨테이너(Container, 비즈니스 로직) 컴포넌트로 분리
+    - 원본
+      - https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+    - Redux 공식
+      - https://lunit.gitbook.io/redux-in-korean/basics/usagewithreact#presentational-container
+    - 참고
+      - https://patterns-dev-kr.github.io/design-patterns/container-presentational-pattern/
+    - 여러 프레젠테이션 컴포넌트에서 사용하는 여러 공통 비즈니스 로직은 컨테이너 컴포넌트에서 처리
+      - 데이터 호출, 데이터 가공, 이벤트 처리, 상태변경 등
+  - 추후 추가 또는 변경(기획, 정책, HTML 등)에 대한 대응
+    - `기능(데이터 호출, 데이터 가공, 이벤트 처리, 상태변경 등) 확장 또는 변경 - 컨테이너 컴포넌트!`
+      - 기존 코드에 추가 또는 기존 기능 변경
+      - 코드 복잡도 증가 또는 확장 시 추가 컨테이너 파일 생성
+      - 즉, 기능 요소는 컨테이너 컴포넌트를 확장하는 방향
+    - `HTML 확장 또는 변경 - 프레젠테이션 컴포넌트!`
+      - 기존 코드에 추가(props, 제어 역전 등 패턴 활용)
+      - 코드 복잡도 증가 또는 확장 시 추가 프레젠테이션 컴포넌트 생성
+      - 즉, HTML 요소는 프레젠테이션 컴포넌트를 확장하는 방향
+  - 뱅크셀러드 글 참고
+    - 관심사의 분리 (Separation of Concerns)
+      - https://blog.banksalad.com/tech/build-a-website-with-gatsby/
+    - components
+      - 재사용이 가능한 요소들을 모아 컴포넌트로 구성되어 있습니다.
+      - 순수한 데이터 형태를 props 로 받아오며, 다양한 container 에서 사용 됩니다.
+    - containers
+      - container 는 화면을 구성하기 위한 영역에 해당하며 이며 여러개의 section 을 가지고 있습니다. (container 내 하위 폴더가 section 입니다.)
+      - 또한 section 은 여러개의 component 들의 조합으로 구성되어있습니다.
+      - 기본적으로 page 와 container 는 1:1 매칭 된 구조를 가지고 있으며 데이터를 가져오거나, 비즈니스 로직이 포함됩니다.
+    - pages
+      - pages 에 존재하는 파일 이름을 기준으로 서비스의 경로가 생성됩니다.
+      - 해당 파일은 경로 이름과 SEO 를 위한 title, description 등을 추가하며 콘텐츠들은 모두 container 에서 관리하였습니다.
 
 - 추천방법2:
 
@@ -55,6 +82,7 @@ UI 처리, API 호출, DB 관리 등의 코드가 같은 곳에 있으면 복잡
 
 ### `Presentational 컴포넌트에서 전역상태 접근 가능할까?`
 
+Redux 공식페이지 자료 참고  
 https://lunit.gitbook.io/redux-in-korean/basics/usagewithreact#presentational-container
 
 |                      | Presentational 컴포넌트           | Container 컴포넌트                                |
