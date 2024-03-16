@@ -1,3 +1,10 @@
+`study.git/프론트/JavaScript/JavaScript_모듈시스템.md` 참고!
+
+# 요약
+
+- CJS 는 코드실행 단계에서 require 구문을 만났을 때, 디스크로부터 읽어(동기) 그 즉시 실행
+- ESM 은 파싱 단계에서 import 구문에 해당 하는 것 병렬 다운로드(비동기), 다운로드 후 바로 실행이 아닌 순서에 맞게 순차 실행
+
 # Node.js 는 CommonJs 모듈 시스템을 표준 시스템으로 사용하고 있다.
 
 ```javascript
@@ -45,6 +52,8 @@ https://nodejs.org/docs/latest-v8.x/api/esm.html
 https://nodejs.org/docs/latest-v12.x/api/esm.html
 
 https://pozafly.github.io/typescript/typescript-env/#module
+
+https://junghyeonsu.com/posts/deploy-simple-util-npm-library/
 
 https://toss.tech/article/commonjs-esm-exports-field
 

@@ -7,6 +7,90 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Pr
 `study.git/프론트/패턴/Proxy\_패턴.md` 내용 참고!
 
 ```javascript
+// 값 검사
+const validator = {
+  set(obj, prop, value) {
+    if (prop === 'age') {
+      if (!Number.isInteger(value)) {
+        throw new TypeError('The age is not an integer');
+      }
+      if (value > 200) {
+        throw new RangeError('The age seems invalid');
+      }
+    }
+
+    // 값을 저장하는 기본 동적
+    obj[prop] = value;
+
+    // 성공 표시
+    return true;
+  },
+};
+
+const person = new Proxy({}, validator);
+
+person.age = 100;
+console.log(person.age); // 100
+person.age = 'young'; // 예외 발생
+person.age = 300; // 예외 발생
+```
+
+```javascript
+// 예외 방지
+const products = new Proxy(
+  {
+    browsers: ['Internet Explorer', 'Netscape'],
+  },
+  {
+    get(obj, prop) {
+      // 추가 속성
+      if (prop === 'latestBrowser') {
+        return obj.browsers[obj.browsers.length - 1];
+      }
+
+      // 값을 저장하는 기본 동작
+      return obj[prop];
+    },
+    set(obj, prop, value) {
+      // 추가 속성
+      if (prop === 'latestBrowser') {
+        obj.browsers.push(value);
+        return true;
+      }
+
+      // 값이 배열이 아닌 경우 배열로 변환
+      if (typeof value === 'string') {
+        value = [value];
+      }
+
+      // 값을 저장하는 기본 동작
+      obj[prop] = value;
+
+      // 성공 표시
+      return true;
+    },
+  },
+);
+
+console.log(products.browsers);
+//  ['Internet Explorer', 'Netscape']
+
+products.browsers = 'Firefox';
+// (실수로) 문자열을 넘겨줌
+
+console.log(products.browsers);
+//  ['Firefox'] <- 문제없이 값은 배열로 변환됨
+
+products.latestBrowser = 'Chrome';
+
+console.log(products.browsers);
+//  ['Firefox', 'Chrome']
+
+console.log(products.latestBrowser);
+//  'Chrome'
+```
+
+```javascript
 // https://stackoverflow.com/questions/59109571/addeventlistener-on-proxied-event-target
 const state = new Proxy(new EventTarget(), {
   get: function (obj, key) {

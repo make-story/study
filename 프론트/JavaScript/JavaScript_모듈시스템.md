@@ -1,3 +1,5 @@
+`study.git/인프라/서버/NodeJS_NPM/NodeJS_모듈시스템.md` 참고!
+
 # JavaScript modules (모듈 시스템)
 
 https://ko.javascript.info/modules-intro
@@ -11,7 +13,7 @@ https://ko.javascript.info/modules-intro
   Universal Module Definition  
   AMD 와 CommonJS 와 같은 다양한 모듈 시스템을 함께 사용하기 위해 만들어졌습니다.
 - ESM
-  ECMAScript Modules  
+  `ECMAScript Modules`  
   자바스크립트 공식 모듈 시스템
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
@@ -50,8 +52,6 @@ package.json 의 "type" 필드 “module” 인 경우 ESM
 
 # ESM(ECMAScript Modules) 과 CJS(CommonJS) 는 완전히 다르다.
 
-`study.git/인프라/서버/NodeJS_NPM/NodeJS_모듈시스템.md` 참고!
-
 https://yceffort.kr/2020/08/commonjs-esmodules
 
 https://roseline.oopy.io/dev/translation-why-cjs-and-esm-cannot-get-along
@@ -62,12 +62,11 @@ https://roseline.oopy.io/dev/translation-why-cjs-and-esm-cannot-get-along
 따라서 스스로 I/O 나 부수효과(side effect)를 실행하고 module.exports 에 설정되어 있는 값을 리턴한다.
 
 반면에 `ESM 은 모듈 로더를 비동기 환경에서 실행`한다.  
-먼저 가져온 스크립트를 바로 실행하지 않고, import 와 export 구문을 찾아서 스크립트를 파싱한다.  
+먼저 가져온 스크립트를 바로 실행하지 않고, import 와 export 구문을 찾아서 스크립트를 파싱한다. (코드에 import, export 구문 존재 확인!)  
 파싱 단계에서, 실제로 ESM 로더는 종속성이 있는 코드를 실행하지 않고도, named imports 에 있는 오타를 감지하여 에러를 발생시킬 수 있다.
 
 그 다음 ESM 모듈 로더는 가져온 스크립트를 비동기로 다운로드 하여 파싱한 다음,  
-import 된 스크립트를 가져오고,  
-더 이상 import 할 것이 없어질 때까지 import 를 찾은 다음  
+import 된 스크립트를 가져오고, 더 이상 import 할 것이 없어질 때까지 import 를 찾은 다음 (모든 import 구문에 해당하는 파일 비동기 다운로드!)  
 dependencies 의 모듈 그래프를 만들어 낸다.
 
 그리고,  
