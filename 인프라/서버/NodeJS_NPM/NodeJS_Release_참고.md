@@ -100,3 +100,11 @@ https://nodejs.org/en/blog/announcements/v21-release-announce
 테스트 러너에는 --test 매개변수를 지정해서 glob 표현식을 지원
 
 예를들어 node --test \*_/_.test.ts 와 같은 명령을 사용해서 여러 디렉토리에 있는 모든 .test.ts 확장자 파일을 실행할 수 있다.
+
+## Node.js 20
+
+Node.js 20이 출시되었고, 많은 개선이 이뤄졌다.
+
+결론적으론, Node.js 20은 이전 버전과 비교해 큰 성능 향상을 보여주었다.
+
+https://github.com/RafaelGSS/state-of-nodejs-performance-2023
