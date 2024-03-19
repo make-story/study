@@ -51,11 +51,11 @@ const p1 = new Promise((resolve, reject) => {
 });
 
 // new 키워드를 사용하지 않고 Promise.reject 를 호출하면, 거부됨 상태인 프로미스가 생성
-const p2 = Promise.reject("error message");
+const p2 = Promise.reject('error message');
 
 // 만약 입력 값이 프로미스였다면 그 객체가 그대로 반환되고, 프로미스가 아니라면 이행됨 상태인 프로미스가 반환
 const p3 = Promise.resolve(123); // p3 는 123을 데이터로 가진 프로미스다.
-const p4 = new Promise((resolve) => setTimeout(() => resolve(123), 1));
+const p4 = new Promise(resolve => setTimeout(() => resolve(123), 1));
 console.log(Promise.resolve(p4) === p4); // true
 ```
 
@@ -66,24 +66,24 @@ then은 처리됨 상태가 된 프로미스를 처리할 때 사용되는 메�
 
 ```javascript
 // 처리됨 상태의 호출
-const onResolve = () => console.log("처리됨");
+const onResolve = () => console.log('처리됨');
 // 거부됨 상태의 호출
-const onReject = () => console.log("거부됨");
+const onReject = () => console.log('거부됨');
 
 Promise.resolve(123).then(onResolve, onReject); // onResolve 호출됨
-Promise.reject("error").then(onResolve, onReject); // onReject 호출됨
+Promise.reject('error').then(onResolve, onReject); // onReject 호출됨
 
 // 거부됨 상태인 프로미스는 처음으로 만나는 onReject 콜백함수를 호출
-Promise.reject("error")
-  .then(() => console.log("then 1"))
-  .then(() => console.log("then 2"))
+Promise.reject('error')
+  .then(() => console.log('then 1'))
+  .then(() => console.log('then 2'))
   .then(
-    () => console.log("then 3"),
-    () => console.log("then 4")
+    () => console.log('then 3'),
+    () => console.log('then 4'),
   ) // then 4 호출됨
   .then(
-    () => console.log("then 5"),
-    () => console.log("then 6")
+    () => console.log('then 5'),
+    () => console.log('then 6'),
   ); // then 5 호출됨
 // 위와 같은 특징 덕에 프로미스로 비동기 프로그래밍을 할 때 동기 프로그래밍 방식으로 코드를 작성할 수 있다.
 ```
@@ -95,10 +95,10 @@ catch 메서드는 then 메서드의 onReject 함수와 같은 역할을 한다.
 
 ```javascript
 // 같은 기능을 하는 then 메서드와 catch 메서드
-Promise.reject(1).then(null, (error) => {
+Promise.reject(1).then(null, error => {
   console.log(error);
 });
-Promise.reject(1).catch((error) => {
+Promise.reject(1).catch(error => {
   console.log(error);
 });
 ```
@@ -108,12 +108,12 @@ Promise.reject(1).catch((error) => {
 Promise.resolve().then(
   () => {
     // onResolve 내부에서 예외를 발생시켰을 경우
-    throw new Error("some error");
+    throw new Error('some error');
   },
-  (error) => {
+  error => {
     // onResolve 내부에서 발생한 예외를 처리하지 못한다!!!
     console.log(error);
-  }
+  },
 );
 // Unhandled promise rejection 에러가 발생
 ```
@@ -122,9 +122,9 @@ Promise.resolve().then(
 // onResolve 내부 예외를 처리를 위한 catch 사용
 Promise.resolve()
   .then(() => {
-    throw new Error("some error");
+    throw new Error('some error');
   })
-  .catch((error) => {
+  .catch(error => {
     console.log(error);
   });
 ```
@@ -136,10 +136,10 @@ finally는 프로미스가 이행됨 또는 거부됨 상태일 때 호출되는
 
 ```javascript
 const p = new Promise();
-p.then((data) => {
+p.then(data => {
   // ...
 })
-  .catch((error) => {
+  .catch(error => {
     // ...
   })
   .finally(() => {
@@ -156,12 +156,12 @@ p.then((data) => {
 
 ```javascript
 Promise.resolve(10)
-  .then((data) => {
+  .then(data => {
     console.log(data);
     // return 키워드가 없는 경우
     Promise.resolve(20);
   })
-  .then((data) => {
+  .then(data => {
     console.log(data); // undefined
   });
 ```
@@ -181,18 +181,18 @@ function requestData() {
 
   return p;
 }
-requestData().then((v) => {
+requestData().then(v => {
   console.log(v); // 10
 });
 ```
 
 ```javascript
 function requestData() {
-  return Promise.resolve(10).then((v) => {
+  return Promise.resolve(10).then(v => {
     return 20;
   });
 }
-requestData().then((v) => {
+requestData().then(v => {
   console.log(v); // 20
 });
 ```
@@ -202,8 +202,8 @@ requestData().then((v) => {
 프로미스를 중첩해서 사용하면 콜백 패턴처럼 코드가 복잡해지므로 사용을 권장하지 않는다.
 
 ```javascript
-requestData1().then((result1) => {
-  requestData2(result1).then((result2) => {
+requestData1().then(result1 => {
+  requestData2(result1).then(result2 => {
     // ...
   });
 });
@@ -234,23 +234,23 @@ async await 함수는 프로미스를 반환한다.
 async function getData() {
   return 123;
 }
-getData().then((data) => console.log(data)); // 123
+getData().then(data => console.log(data)); // 123
 ```
 
 ```javascript
 async function getData() {
   return Promise.resolve(123);
 }
-getData().then((data) => console.log(data)); // 123
+getData().then(data => console.log(data)); // 123
 ```
 
 async await 함수에서 예외가 발생하는 경우
 
 ```javascript
 async function getData() {
-  throw new Error("123");
+  throw new Error('123');
 }
-getData().catch((error) => console.log(error)); // 123
+getData().catch(error => console.log(error)); // 123
 ```
 
 async await 와 프로미스 비교하기
@@ -258,11 +258,11 @@ async await 와 프로미스 비교하기
 ```javascript
 function getDataPromise() {
   asyncFunc1()
-    .then((data) => {
+    .then(data => {
       console.log(data);
       return asyncFunc2();
     })
-    .then((data) => {
+    .then(data => {
       console.log(data);
     });
 }
@@ -274,6 +274,8 @@ async function getDataAsync() {
   console.log(data2);
 }
 ```
+
+# Promise.all
 
 async await 활용 병렬로 실행
 
@@ -293,6 +295,35 @@ async function getData() {
 }
 ```
 
+```javascript
+const fetch1 = () =>
+  new Promise(res => {
+    setTimeout(() => res(1), 1000);
+  });
+const fetch2 = () =>
+  new Promise(res => {
+    setTimeout(() => res(2), 2000);
+  });
+const fetch3 = () =>
+  new Promise(res => {
+    setTimeout(() => res(3), 3000);
+  });
+
+const pipe1 = async () => {
+  console.time('pipe1');
+  await fetch1(); // blocking! ... wait
+  await fetch2(); // blocking! ... wait
+  await fetch3(); // blocking! ... wait
+  console.timeEnd('pipe1'); // pipe1 ~= 6000ms
+};
+
+const pipe2 = async () => {
+  console.time('pipe2');
+  await Promise.all([fetch1(), fetch2(), fetch3()]); // blocking ... wait
+  console.timeEnd('pipe2'); // pipe2 ~= 3000ms
+};
+```
+
 # Top-level await
 
 https://fe-developers.kakaoent.com/2022/220728-es2022/
@@ -309,7 +340,7 @@ https://nodejs.org/en/blog/release/v14.8.0/
 // todoList.mjs - 비동기로 실행된 결과값을 반환하는 모듈!!!
 let todoList;
 
-const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
 todoList = await response.json();
 
 export { todoList };
@@ -317,7 +348,7 @@ export { todoList };
 
 ```javascript
 // index.mjs
-import { todoList } from "./todoList.mjs";
+import { todoList } from './todoList.mjs';
 
 console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', completed: false}
 ```
@@ -328,7 +359,7 @@ https://github.com/tc39/proposal-top-level-await#use-cases
 ---
 
 ```javascript
-const timer = (time) => {
+const timer = time => {
   return new Promise((resolve, reject) => {
     console.log(`${time} 타이머 시작`);
     setTimeout(() => {
@@ -347,9 +378,9 @@ const timer = (time) => {
 async function runPromiseAll() {
   const times = [3000, 1000, 7000, 5000];
 
-  await Promise.all(times.map((time) => timer(time)));
+  await Promise.all(times.map(time => timer(time)));
 
-  console.log("모든 타이머 끝");
+  console.log('모든 타이머 끝');
 }
 /*
 $ 3000 타이머 시작
@@ -376,7 +407,7 @@ async function runForAwait() {
     await timer(time);
   }
 
-  console.log("모든 타이머 끝");
+  console.log('모든 타이머 끝');
 }
 /*
 $ 3000 타이머 시작
@@ -399,11 +430,11 @@ $ 모든 타이머 끝
 async function runForEach() {
   const times = [3000, 1000, 7000, 5000];
 
-  times.forEach(async (time) => {
+  times.forEach(async time => {
     await timer(time);
   });
 
-  console.log("모든 타이머 끝");
+  console.log('모든 타이머 끝');
 }
 /*
 $ 3000 타이머 시작
@@ -423,12 +454,12 @@ $ 7000 타이머 끝
 ```javascript
 let myFirstPromise = new Promise((resolve, reject) => {
   setTimeout(function () {
-    resolve("Success!"); // Yay! Everything went well!
+    resolve('Success!'); // Yay! Everything went well!
   }, 250);
 });
 
-myFirstPromise.then((successMessage) => {
-  console.log("Yay! " + successMessage);
+myFirstPromise.then(successMessage => {
+  console.log('Yay! ' + successMessage);
 });
 ```
 
@@ -438,10 +469,10 @@ var promiseCount = 0;
 function testPromise() {
   var thisPromiseCount = ++promiseCount;
 
-  var log = document.getElementById("log");
+  var log = document.getElementById('log');
   log.insertAdjacentHTML(
-    "beforeend",
-    thisPromiseCount + ") 시작 (<small>동기적 코드 시작</small>)<br/>"
+    'beforeend',
+    thisPromiseCount + ') 시작 (<small>동기적 코드 시작</small>)<br/>',
   );
 
   // 새 프로미스 생성 - 프로미스의 생성 순서를 전달하겠다는 약속을 함 (3초 기다린 후)
@@ -450,16 +481,16 @@ function testPromise() {
     // 거부(reject)할 수 있음
     function (resolve, reject) {
       log.insertAdjacentHTML(
-        "beforeend",
+        'beforeend',
         thisPromiseCount +
-          ") 프로미스 시작 (<small>비동기적 코드 시작</small>)<br/>"
+          ') 프로미스 시작 (<small>비동기적 코드 시작</small>)<br/>',
       );
       // setTimeout은 비동기적 코드를 만드는 예제에 불과
       window.setTimeout(function () {
         // 프로미스 이행 !
         resolve(thisPromiseCount);
       }, Math.random() * 2000 + 1000);
-    }
+    },
   );
 
   // 프로미스를 이행했을 때 할 일은 then() 호출로 정의하고,
@@ -467,17 +498,17 @@ function testPromise() {
   p1.then(function (val) {
     // 이행 값 기록
     log.insertAdjacentHTML(
-      "beforeend",
-      val + ") 프로미스 이행 (<small>비동기적 코드 종료</small>)<br/>"
+      'beforeend',
+      val + ') 프로미스 이행 (<small>비동기적 코드 종료</small>)<br/>',
     );
   }).catch(function (reason) {
     // 거부 이유 기록
-    console.log("여기서 거부된 프로미스(" + reason + ")를 처리하세요.");
+    console.log('여기서 거부된 프로미스(' + reason + ')를 처리하세요.');
   });
 
   log.insertAdjacentHTML(
-    "beforeend",
-    thisPromiseCount + ") 프로미스 생성 (<small>동기적 코드 종료</small>)<br/>"
+    'beforeend',
+    thisPromiseCount + ') 프로미스 생성 (<small>동기적 코드 종료</small>)<br/>',
   );
 }
 ```
@@ -490,7 +521,7 @@ async function getFirstUser() {
     return users[0].name;
   } catch (err) {
     return {
-      name: "default user",
+      name: 'default user',
     };
   }
 }
@@ -532,7 +563,7 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/await
 await 연산자는 Promise 를 기다리기 위해 사용
 
 ```javascript
-await new Promise((resolve) => {
+await new Promise(resolve => {
   setTimeout(resolve, 3000);
 });
 ```
@@ -550,11 +581,11 @@ await new Promise((resolve) => {
 
 ```javascript
 function* f1() {
-  console.log("f1-1");
+  console.log('f1-1');
   yield 10;
-  console.log("f1-2");
+  console.log('f1-2');
   yield 20;
-  console.log("f1-3");
+  console.log('f1-3');
   yield 30;
 }
 
@@ -573,7 +604,7 @@ const gen2 = f1();
 console.log(gen2.next());
 // f1-1
 // { value: 10, done: false }
-console.log(gen2.return("abc")); // 제너레이터 return
+console.log(gen2.return('abc')); // 제너레이터 return
 // { value: 'abc', done: true }
 console.log(gen2.next());
 // { value: undefined, done: true }
@@ -630,9 +661,9 @@ const value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const result = take(
   3,
   map(
-    filter(values, (n) => n % 2 === 0),
-    (n) => n * 10
-  )
+    filter(values, n => n % 2 === 0),
+    n => n * 10,
+  ),
 );
 console.log([...result]); // [ 20, 40, 60 ]
 ```
@@ -674,14 +705,14 @@ gen.next(20);
 
 ```javascript
 function* genFunc() {
-  throw new Error("some error");
+  throw new Error('some error');
 }
 function func() {
   const gen = genFunc();
   try {
     gen.next();
   } catch (e) {
-    console.log("in catch:", e); // 'in catch: Error: some error' 에러 발생!
+    console.log('in catch:', e); // 'in catch: Error: some error' 에러 발생!
   }
 }
 ```
