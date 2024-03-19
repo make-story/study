@@ -2,6 +2,8 @@
 
 https://developer.mozilla.org/ko/docs/Web/CSS/At-rule
 
+지시문
+
 # @charset
 
 https://developer.mozilla.org/ko/docs/Web/CSS/@charset
@@ -105,12 +107,12 @@ https://developer.mozilla.org/ko/docs/Web/CSS/@font-face
 
 ```css
 @font-face {
-  font-family: "font-icon";
-  src: url("../../font/font-icon.eot");
-  src: url("../../font/font-icon.eot?#iefix") format("eot"), url("../../font/font-icon.woff2")
-      format("woff2"), url("../../font/font-icon.woff") format("woff"), url("../../font/font-icon.ttf")
-      format("truetype"),
-    url("../../font/font-icon.svg#font-icon") format("svg");
+  font-family: 'font-icon';
+  src: url('../../font/font-icon.eot');
+  src: url('../../font/font-icon.eot?#iefix') format('eot'), url('../../font/font-icon.woff2')
+      format('woff2'), url('../../font/font-icon.woff') format('woff'), url('../../font/font-icon.ttf')
+      format('truetype'),
+    url('../../font/font-icon.svg#font-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
