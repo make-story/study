@@ -24,3 +24,52 @@ JSX 는 기본적으로 JSXElement, JSXAttributes, JSXChildren, JSXStrings 라�
 
 `JSX 반환값이 결국 React.createElement 로 귀결된다는 사실`을 파악한다면  
 쉽게 리팩터링할 수 있다.
+
+---
+
+# JSX는 왜 루트 요소가 하나여야만 할까?
+
+https://velog.io/@eunjios/React-JSX%EB%8A%94-%EC%99%9C-%EB%A3%A8%ED%8A%B8-%EC%9A%94%EC%86%8C%EA%B0%80-%ED%95%98%EB%82%98%EC%97%AC%EC%95%BC%EB%A7%8C-%ED%95%A0%EA%B9%8C
+
+JSX 문법을 React 객체로 트랜스파일링 하는 과정 때문
+
+```jsx
+// JSX
+return (
+  <div>
+    <h2>Title</h2>
+    <MyComponent data={data} />
+  </div>
+);
+```
+
+```javascript
+// React 객체
+// React.createElement(요소 이름, props 정보, 내부 요소1, 내부 요소2, ...)
+return React.createElement(
+  'div',
+  {},
+  React.createElement('h2', {}, 'Title'),
+  React.createElement(MyComponent, { data: data }),
+);
+```
+
+다음과 같이 React 객체 여러 개를 반환하게 된다. 함수의 반환값은 여러 개의 객체일 수 없다.
+
+```jsx
+// JSX
+return (
+  <div><div>
+  <h2>Title</h2>
+  <MyComponent data={data} />
+);
+```
+
+```javascript
+// React 객체
+return (
+  React.createElement('div', {})
+  React.createElement('h2', {}, 'Title')
+  React.createElement(MyComponent, { data: data })
+);
+```
