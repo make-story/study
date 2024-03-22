@@ -1,12 +1,14 @@
 # GitLab CI CD
 
+https://docs.gitlab.com/ee/ci/
+
 https://workshop.infograb.io/gitlab-ci/11_introduction-to-gitlab-cicd/1_ci_cd_concepts/
 
 https://danawalab.github.io/gitlab/2020/03/11/GitLab-GitLab_CI_CD.html
 
-https://docs.gitlab.com/ee/ci/
-
 https://medium.com/@itsinil/gitlab-%EB%A5%BC-%ED%86%B5%ED%95%9C-ci-cd-pipeline-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-d7dd25e79283
+
+https://devocean.sk.com/blog/techBoardDetail.do?ID=165085&boardType=techBlog
 
 ## GitLab CI/CD 용어 및 개념
 
