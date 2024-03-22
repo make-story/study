@@ -21,6 +21,16 @@ $ npm config get registry
 
 # npm install / npm ci
 
+## devDependencies
+
+devDependencies 에 명시된 의존성 모듈은  
+운영환경에서는 "--production" 플래그를 사용하여 설치되지 않도록 할 수 있음  
+("--production" 플래그를 붙이면 devDependencies 를 제외한 의존성 파일만을 내려받게 됩니다.)
+
+```bash
+$ npm install --production
+```
+
 ## npm ci (Continuous Integration, 지속적 통합) 의 특징은 다음과 같다.
 
 v6.14.18 부터 지원
