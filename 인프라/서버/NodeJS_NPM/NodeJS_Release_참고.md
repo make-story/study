@@ -69,6 +69,18 @@ for await (let metaPath of list) {
 }
 ```
 
+## Corepack
+
+16.10 부터 모든 Node.js 릴리스와 함께 제공되는 새로운 바이너리 인 Corepack
+
+https://nodejs.org/dist/latest/docs/api/corepack.html
+
+https://v3.yarnpkg.com/getting-started/install
+
+```bash
+$ corepack install --global yarn@x.y.z
+```
+
 ## fetch
 
 Node.js v18 지원 (실험적 지원)

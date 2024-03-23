@@ -12,6 +12,8 @@ node_modules 폴더에 특정 패키지를 찾을 때
 - Node는 패키지를 잘 알지 못하기 때문에 어떤 패키지에 접근해야 하는지 알 수 없습니다.
   package.json에 빠진 패키지의 경우 개발할 때에는 잘 동작하다가도 나중에 프로덕션에서 깨지는 경우가 발생합니다.
 
+yarn install --check-files
+
 # Yarn Berry
 
 `Yarn Berry (2.x, 3.x)` - Yarn2, Yarn3, Yarn Berry 등은 Yarn 1.x 이후 불리는 표현  

@@ -268,6 +268,12 @@ node_modules
 
 ## publishConfig
 
-## resolutions
+## `resolutions`
+
+https://developer-alle.tistory.com/417
+
+특정 패키지의 하위 의존 패키지 버전 고정
+
+https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/
 
 ## packageManager

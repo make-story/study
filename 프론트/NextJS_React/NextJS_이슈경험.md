@@ -1,5 +1,19 @@
 # NextJS 이슈 슈팅 (트러블슈팅, 이슈경험)
 
+# src/pages/\_app.tsx
+
+`<Component /> 타입 에러`가 발생하는 경우, package.json 선언된 react, react-dom, @types/react, @types/react-dom 등 버전이 맞지 않다는 것이다.
+
+- 의존성 종속관계 성공한 버전 yarn.lock 파일 필요
+- 또는 package.json 의존성 하나하나 각각 설치 시도
+- 대부분 node_modules/@types 하위로 설치된 모듈들의 버전 문제 (마지막 성공한 @types/하위 모듈들 버전 확인필요)
+
+## Provider' cannot be used as a JSX component.
+
+이 또한 의존성 파일간 버전이 다른 문제!
+
+https://github.com/facebook/react/issues/24304#issuecomment-1094565891
+
 ## npm ERR! code ENOWORKSPACES
 
 npm ERR! This command does not support workspaces.
