@@ -35,7 +35,9 @@ const padding2 = {
   medium: 2,
   large: 3,
 };
-type Padding2 = keyof typeof padding2; // "small" | "medium" | "large"
+type Padding2Keys = keyof typeof padding2; // "small" | "medium" | "large"
+
+type Padding2Values = (typeof padding2)[keyof typeof padding2];
 
 // --
 

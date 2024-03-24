@@ -15,9 +15,9 @@ core 내부의 코드는 외부(components 또는 lib 또는 pages 등) 코드�
 
 이러한 관심사의 분리로 인해 각 모듈은 여러 책임에서 벗어나기 쉽고, 테스트하기도 더 쉬워지며, 유지 보수 비용도 줄어들 것이다.
 
-https://www.kimcoder.io/blog/clean-frontend-architecture
+`https://www.kimcoder.io/blog/clean-frontend-architecture`
 
-타입스크립트를 사용하는 경우, import/resolver 추가 설정 필요  
+타입스크립트를 사용하는 경우, settings 하위 import/resolver 추가 설정 필요  
 https://github.com/import-js/eslint-plugin-import#typescript  
 https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#typescript
 
@@ -25,6 +25,7 @@ https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#t
 {
   "rules": {
     // core 계층에 API 통신을 위한 구현체가 있으며 axios를 사용한다고 가정
+    // https://eslint.org/docs/latest/rules/no-restricted-imports
     "no-restricted-imports": [
       "error",
       {
@@ -38,6 +39,7 @@ https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#t
     ],
     // pages > component > core
     // 단반향으로 플러가고, 참조할 수 있도록 강제
+    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-restricted-paths.md
     "import/no-restricted-paths": [
       "error",
       {
@@ -68,6 +70,7 @@ https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#t
       }
     ]
   },
+  // https://github.com/import-js/eslint-plugin-import#typescript
   "settings": {
     "import/resolver": {
       "typescript": {
@@ -125,9 +128,15 @@ https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 
 https://pozafly.github.io/environment/putting-rules-into-import-syntax-with-eslint/#%EA%B7%B8%EB%A3%B9%EC%97%90-%EB%A7%9E%EA%B2%8C-%EC%88%9C%EC%84%9C-%EB%A7%9E%EC%B6%94%EA%B8%B0
 
+https://eslint.org/blog/2022/02/paying-contributors-sponsoring-projects/#supporting-the-community
+
+https://seohyun0120.tistory.com/entry/ESLint-importsexports-%EA%B5%AC%EB%AC%B8%EC%9D%98-%EC%88%9C%EC%84%9C-%EC%9E%90%EB%8F%99-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0
+
 ```bash
 $ npm install eslint-plugin-import --save-dev
 ```
+
+https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 
 ```json
 {
@@ -142,6 +151,15 @@ $ npm install eslint-plugin-import --save-dev
   }
 }
 ```
+
+TypeScript  
+https://www.npmjs.com/package/eslint-plugin-import#typescript
+
+```bash
+$ yarn add  @typescript-eslint/parser eslint-import-resolver-typescript
+```
+
+또는 prettier-plugin-sort-imports 활용
 
 ## React가 17 버전으로 업데이트되면서, import React from 'react'; 구문을 사용하지 않아도 동작
 
