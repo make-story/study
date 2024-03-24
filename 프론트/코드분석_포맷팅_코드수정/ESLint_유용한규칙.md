@@ -72,10 +72,17 @@ https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#t
   },
   // https://github.com/import-js/eslint-plugin-import#typescript
   "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
     "import/resolver": {
       "typescript": {
-        "project": "."
+        "project": "**/tsconfig.json"
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
+      //caseSensitive: false, // 주의! false 로 할 경우,잘못된 경로 무시한다는 것
     }
   }
 }
@@ -154,6 +161,11 @@ https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 
 TypeScript  
 https://www.npmjs.com/package/eslint-plugin-import#typescript
+
+`Unable to resolve path to module` 에러 대응  
+https://min33sky.github.io/posts/paths-tsconfig-setting/  
+https://stackoverflow.com/questions/66273491/why-i-got-error-unable-to-resolve-path-to-module-eslint-with-typescript
+https://github.com/import-js/eslint-plugin-import?tab=readme-ov-file#resolvers
 
 ```bash
 $ yarn add  @typescript-eslint/parser eslint-import-resolver-typescript

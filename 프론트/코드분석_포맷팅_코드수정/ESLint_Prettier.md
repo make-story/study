@@ -104,17 +104,6 @@ $ eslint --init
 
 .eslintrc.js 파일 생성됨
 
-# husky, lint-staged
-
-ESLint를 프로젝트에 적용시킬 때는 협업하는 모든 사람들이 같은 규칙 내에서 코딩을 하는 것을 예상한다.  
-하지만 가끔은 규칙을 지키지 않고 깃헙에 코드를 푸시할 때가 생긴다.
-
-git commit 또는 git push와 같은 git 이벤트가 일어나기 전에  
-우리가 원하는 스크립트를 실행하기 위해서 git 이벤트 사이에 갈고리(hook)를 걸어주는 것이다. 이것을 git hook 제어라고 한다.
-
-- git hook 제어를 위해서 husky 라이브러리를 사용
-- lint-staged는 git add로 커밋 대상이 된 상태를 stage 상태라고 한다. stage 상태의 git 파일에 대해 lint와 우리가 설정해둔 명령어를 실행해주는 라이브러리
-
 ---
 
 # Prettier (코드 스타일, 코드 컨벤션, 자동 변경)
@@ -141,82 +130,6 @@ https://prettier.io/docs/en/options.html
 $ npm install -D prettier
 ```
 
-## VSCode `Prettier 설정 파일이 있을 때에만 적용하기`
-
-`주의!`
-'Editor: Default Formatter' 를 'Prettier - Code Formatter' 설정할 경우,
-Prettier 설정파일이 없는 프로젝트에서도 코드포맷팅이 자동 설정됨!
-
-`특정 프로젝트만 Prettier 적용하기!`  
-https://tesseractjh.tistory.com/220
-https://velog.io/@chee9835/vscode-%EC%97%90%EC%84%9C-prettier-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
-
-1. settings.json
-   루트 디렉토리에 .vscode 폴더를 만들고 그 안에 settings.json을 만들어서 Format On Save 설정을 활성화할 수 있다.  
-   VSCode 기본 설정에 있는 Format On Save를 해제하고, Prettier 적용을 원하는 프로젝트에서 settings.json으로 개별적으로 설정해주면 된다.
-
-2. Require Config
-   설정 > "Require Config" 설정을 하면 루트 디렉토리에 .prettierrc, .prettierrc.json, .prettierrc.js 등의 파일이 있거나, package.json에 prettier 키가 존재하는 등의 경우에만 Prettier가 적용된다.
-
-`주의!`  
-VSCode 하단바 "Prettier" 이 비활성화 되어 있거나,  
-체크 아이콘이 두개 겹쳐서 노출되는 경우,  
-포맷팅 도구 중복되는 것이 있다는 의미 (예를 들어, JSON 형식은 어떠한 포맷팅 도구 설정기반인지 지정필요)  
-바로 옆 종모양 알림을 클릭하여, 지정해야함!
-
-`특정 파일에만 적용`
-
-```json
-{
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  // 적용하려는 형식마다 개별적으로 설정
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true
-  },
-  "[svelte]": {
-    "editor.formatOnSave": true
-  },
-  "[css]": {
-    "editor.formatOnSave": true
-  },
-  "[scss]": {
-    "editor.formatOnSave": true
-  },
-  "[html]": {
-    "editor.formatOnSave": true
-  }
-}
-```
-
-## VSCode 설정
-
-1. VSCode Extenstion 설치
-
-- Prettier 설치
-- 설정 (File > Preferences > Settings 또는 command + ,)에 들어가서 'editor format on save'를 검색, 체크박스에 체크
-- Edit in setting.json 파일에서 editor.formatOnSave 를 true 로 설정
-
-2. 기본 포맷터 설정
-
-- VSCode > Preference (cmd+,) 들어가서 'Default Formatter'를 검색
-- Default Formatter 를 Prettier 로 설정!
-
-- 설정에 들어가서 'prettier' 검색하면, prettier 관련 설정들을 볼 수 있음
-
-3. Prettier의 설정은 아래의 순서로 적용
-
-settings.json < .editorconfig < .prettierrc
-
 # ESLint + Prettier 함께 사용 (typescript-eslint + prettier 함께 사용)
 
 https://prettier.io/docs/en/install.html#eslint-and-other-linters
@@ -228,6 +141,13 @@ https://helloinyong.tistory.com/325
 prettier 공식 문서에 보면,  
 eslint-config-prettier 설치 가이드 하고 있음
 (eslint 와 중복되는 규칙을 prettier 쪽에서 알아서 비활성 시켜줌)
+
+- Prettier 와 충돌하는 ESLint 규칙들을 꺼주는 eslint-config-prettier
+- Prettier 를 ESLint 규칙으로 실행시켜주는 eslint-plugin-prettier
+- Prettier 를 실행한 직후 ESLint 를 실행시켜주는 prettier-eslint
+
+https://prettier.io/docs/en/integrating-with-linters.html  
+eslint-plugin-prettier 와 prettier-eslint 는 여러 단점들이 있어 Prettier 측에서는 eslint-config-prettier 를 가장 추천
 
 eslint-plugin-prettier 는
 prettier 규칙에 맞지 않는 요소들을 eslint 가 error 로 판단하도록 하는 설정
@@ -244,8 +164,4 @@ plugin 사용만으로는 eslint formatting rules 와 prettier rules가 충돌�
 eslint-config-prettier를 함께 사용한다 (공식문서에서도 둘을 함께 사용하기를 권장한다)
 
 .eslintrc.json 또는 .eslintrc.js  
-{
-...
 "extends": ["eslint:recommended", "prettier"],
-...
-}

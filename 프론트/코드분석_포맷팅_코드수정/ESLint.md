@@ -1,3 +1,24 @@
+# ESLint
+
+`모던 리액트 Deep Dive` 책 내용 중 - p470
+
+ESLint 는 어떻게 코드를 분석할까?
+
+ESLint 는 자바스크립트 코드를 정적 분석해 잠재적인 문제를 발견하고  
+나아가 수정까지 도와주는 도구다.
+
+그렇다면 ESLint 는 어떻게 자바스크립트 코드를 읽어서 분석하는 걸까?  
+간단하게 요약하면 다음과 같다.
+
+- 자바스크립트 코드를 문자열로 읽는다.
+- 자바스크립트 코드를 분석할 수 있는 파서(parser)로 코드를 구조화 한다.
+- 이전에서 구조화한 트리를 AST(Abstract Syntax Tree) 라 하며, 이 구조화된 트리를 기준으로 각종 규칙과 대조한다.
+- 규칙과 대조했을 때 이를 위반한 코드를 알리거나(report) 수정한다(fix).
+
+# ESLint 플레이그라운드
+
+https://eslint.org/play/
+
 # ESLint 설정(구성) 파일
 
 https://helloinyong.tistory.com/325
@@ -40,6 +61,8 @@ ts 워크스페이스인 경우 @typescript-eslint/parser 를 사용한다.
 
 ## plugins
 
+특정한 규칙의 모음을 plugins 라고 한다.
+
 https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 
 ### eslint-plugin-\*
@@ -81,6 +104,8 @@ plugin 종류는 여러 가지 있는데,
 - @typescript-eslint/eslint-plugin: : 타입스크립트 전용 린트
 
 ## extends
+
+eslint-plugin 을 한데 묶어서 완벽하게 한 세트로 제공하는 패키지
 
 https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
 
