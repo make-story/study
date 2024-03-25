@@ -159,3 +159,8 @@ https://github.com/module-federation/module-federation-examples/tree/master/next
 
 https://github.com/module-federation/universe/issues/1183
 https://github.com/module-federation/universe/pull/2002
+
+### Next.js 14 지원 - 공식페이지 (24년 3월 기준)
+
+- next ^14 || ^13 || ^12
+- SSR included!
