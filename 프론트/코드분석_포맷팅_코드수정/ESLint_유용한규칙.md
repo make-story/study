@@ -43,6 +43,7 @@ https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#t
     "import/no-restricted-paths": [
       "error",
       {
+        // "zones" 가 여러개 있을 경우, Lint 가 작동안함, 사용예: zones: [ ...규칙 여러개 작성 ]
         "zones": [
           {
             "target": "src/core",
