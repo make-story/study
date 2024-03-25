@@ -77,6 +77,7 @@ https://github.com/import-js/eslint-plugin-import/tree/main?tab=readme-ov-file#t
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
+      // tsconfig.json 에 paths 설정(예: "@/*": ["./src/*"])이 있을 경우, 아래 설정 필수
       "typescript": {
         "project": "**/tsconfig.json"
       },
@@ -179,6 +180,7 @@ $ yarn add  @typescript-eslint/parser eslint-import-resolver-typescript
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
+      // tsconfig.json 에 paths 설정(예: "@/*": ["./src/*"])이 있을 경우, 아래 설정 필수
       "typescript": {
         "project": "**/tsconfig.json"
       },
