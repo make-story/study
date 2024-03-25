@@ -38,6 +38,8 @@ $ npm list --depth=0 > npm-list.txt
 ## 용량 확인, 크기 확인
 
 ```bash
+$ du -sh */
+
 # 단일 파일의 크기 표시
 $ du -h path_to_a_file
 
