@@ -19,3 +19,7 @@ Commit이 일어나면 Rendering에서 생성된 DOM이 브라우저의 DOM으�
 ## 라이프 사이클 실행 과정
 
 https://github.com/Wavez/react-hooks-lifecycle
+
+https://github.com/wojtekmaj/react-lifecycle-methods-diagram
+
+https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
