@@ -161,7 +161,7 @@ https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md
 }
 ```
 
-TypeScript  
+`TypeScript`  
 https://www.npmjs.com/package/eslint-plugin-import#typescript
 
 `Unable to resolve path to module` 에러 대응  
@@ -170,7 +170,7 @@ https://stackoverflow.com/questions/66273491/why-i-got-error-unable-to-resolve-p
 `https://github.com/import-js/eslint-plugin-import?tab=readme-ov-file#resolvers`
 
 ```bash
-$ yarn add  @typescript-eslint/parser eslint-import-resolver-typescript
+$ yarn add @typescript-eslint/parser eslint-import-resolver-typescript
 ```
 
 ```json
@@ -198,6 +198,8 @@ $ yarn add  @typescript-eslint/parser eslint-import-resolver-typescript
 ## React가 17 버전으로 업데이트되면서, import React from 'react'; 구문을 사용하지 않아도 동작
 
 https://pozafly.github.io/environment/putting-rules-into-import-syntax-with-eslint/#%EC%83%81%EB%8C%80-%EA%B2%BD%EB%A1%9C-%EB%8C%80%EC%8B%A0-%EC%A0%88%EB%8C%80-%EA%B2%BD%EB%A1%9C%EB%AA%A8%EB%93%88-%EB%B3%84%EC%B9%AD-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+
+https://pozafly.github.io/react/declarative-meaning-of-react-rendering-process/#Rendering
 
 ```json
 {
@@ -260,6 +262,10 @@ patterns에서 경로 전체를 막고 모듈 별칭을 사용하면 막히지 �
 https://www.npmjs.com/package/eslint-plugin-absolute-imports  
 사용해도 된다!
 
-# Node.js 규칙
+# eslint-plugin-node
 
-eslint-plugin-node
+Node.js 규칙
+
+# eslint-plugin-unused-imports
+
+사용하지 않는 import 구문 자동 제거

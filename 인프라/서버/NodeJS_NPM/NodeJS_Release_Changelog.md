@@ -1,4 +1,4 @@
-# Node.js 릴리즈 (Release) 중 참고사항 기록!
+# Node.js 릴리즈 (Release, 버전변경, ChangeLog) 중 참고사항 기록!
 
 NodeJS 는 짝수버전으로 LTS 가 나오고  
 일반적이로 짝수버전을 따라 버전 업데이트를 한다.
