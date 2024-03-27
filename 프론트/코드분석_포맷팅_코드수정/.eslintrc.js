@@ -47,6 +47,8 @@ eslint-config-prettier 로 eslint의 원래 포매팅 기능을 없애버리고,
 eslint-plugin-*
 eslint-config-*
 https://velog.io/@yrnana/ESLint-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90
+
+[주의!] plugin, extend 에 추가되는 것들은 필히! NPM 설치가 되어 있어야 한다!
 */
 
 /**
@@ -91,7 +93,7 @@ module.exports = {
   },
 
   // 플러그인은 일련의 규칙(rules) 집합이며, 플러그인을 추가하여도 규칙(rules)은 적용되지 않습니다.
-  // (규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 추가해주어야 적용이 됩니다.)
+  // (규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 rules 에 추가해주어야 적용이 됩니다.)
   // https://stackoverflow.com/questions/53189200/whats-the-difference-between-plugins-and-extends-in-eslint
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
 
