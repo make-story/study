@@ -8,6 +8,7 @@ const myInterceptor = axios.interceptors.request.use(
   function (config) {
     // 요청을 보내기 전에 수행할 일
     // ...
+    // config.headers.common['Authorization'] = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
@@ -32,5 +33,29 @@ axios.interceptors.response.use(
     // ...
     return Promise.reject(error);
   },
+);
+```
+
+## Axios default 설정
+
+```javascript
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] =
+  'application/x-www-form-urlencoded';
+```
+
+### config.headers.common
+
+https://github.com/axios/axios?tab=readme-ov-file#global-axios-defaults
+
+node_modules/axios/lib/core/dispatchRequest.js
+
+```javascript
+// Flatten headers
+config.headers = utils.merge(
+  config.headers.common || {},
+  config.headers[config.method] || {},
+  config.headers,
 );
 ```
