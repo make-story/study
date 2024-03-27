@@ -6,9 +6,14 @@
 `Utility-First 를 지향하는 CSS 프레임워크`
 Utility-First 란 미리 세팅된 유틸리티 클래스를 활용하여 HTML 코드 내에서 스타일링
 
+https://tailwindcss.com/docs/utility-first
+
+## Next.js
+
 https://tailwindcss.com/docs/guides/nextjs
 
-예
+## 기본 사용 예
+
 https://velog.io/@woodong/1.-Tailwind-CSS%EB%9E%80
 
 ```html
@@ -56,3 +61,7 @@ https://velog.io/@lky5697/5-best-practices-for-preventing-chaos-in-tailwind-css
 4. 빌드 크기 최소화
 
 5. 스타일 덮어쓰기 및 확장 시 불일치 방지
+
+## Config - tailwind.config.ts
+
+공통적으로 컬러, 폰트, 미디어 쿼리 등 다양한 항목을 사전에 정의하여 프로젝트 생산성을 높일 수 있다.

@@ -97,7 +97,7 @@ module.exports = {
 
   // 패키지들이나 룰들을 모아서 설정으로 만든 것
   // eslint-plugin-* 패키지의 설정은 extends 에서 plugin:패키지네임/설정네임으로 사용할 수 있는데
-  // eslint-config-* 패키지의 설정은 바로 *를 써주기만 하면 된다.
+  // eslint-config-* 패키지의 설정은 바로 '*' (예를 들어, 'eslint-config-prettier' 의 경우 'prettier' 만 입력)를 써주기만 하면 된다.
   // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
   // plugin:prettier/recommended : eslint-plugin-prettier + eslint-config-prettier 동시 적용
   // prettier/@typescript-eslint : prettier 규칙과 충돌하는 @typescript-eslint/eslint-plugin 규칙 비활성화
