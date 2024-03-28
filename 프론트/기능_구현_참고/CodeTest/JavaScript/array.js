@@ -54,6 +54,12 @@ const everyBool = [].every((item, index, list) => {
   // 해당하는 요소를 발견한 경우 every는 즉시 false를 반환합니다. 그렇지 않으면, 즉 모든 값에서 참을 반환하면 true를 반환
 });
 
+console.log(Array.from('foo'));
+// Expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+// Expected output: Array [2, 4, 6]
+
 // ----------
 
 /**
@@ -306,6 +312,16 @@ console.log(array1.every(isBelowThreshold));
 // ----------
 
 /**
+ * 비교
+ */
+let forDeletion = [2, 3, 5];
+let arr = [1, 2, 3, 4, 5, 3];
+arr = arr.filter(item => !forDeletion.includes(item));
+console.log(arr); // [ 1, 4 ]
+
+// ----------
+
+/**
  * 복사
  */
 // 배열 복사하기
@@ -334,7 +350,7 @@ stack.push(1);
 stack.push(2);
 stack.pop();
 
-// 큐 (선입선출)
+// 큐 (선입선출)
 var queue = [];
 queue.push(1); // enqueue
 queue.push(2); // enqueue

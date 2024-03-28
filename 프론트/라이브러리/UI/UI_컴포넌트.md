@@ -18,9 +18,14 @@ Utility-First 란 미리 세팅된 유틸리티 클래스를 활용하여 HTML �
 
 https://tailwindcss.com/docs/utility-first
 
+Headless UI 와 Tailwind CSS 모두 Tailwind Labs 에서 개발한 라이브러리
+
 ### Radix-ui
 
 디자인 시스템 및 웹 앱을 구축하기 위한 오픈 소스 UI 컴포넌트 라이브러리
+
+Headless UI 제공, 엄밀히 말하면 Radix UI의 Primitives라는 패키지가 스타일이 없는 UI 컴포넌트 라이브러리
+https://www.radix-ui.com/primitives
 
 - Compound Component Pattern
 
@@ -85,7 +90,9 @@ https://ui.shadcn.com/
 
 https://velog.io/@ckstn0777/shadcnui-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EA%B3%B5%EC%9C%A0-UI-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%82%AC%EC%9A%A9-%EA%B2%BD%ED%97%98
 
-## MUI(Material-UI)
+## UI 컴포넌트
+
+### MUI (Material-UI, Material UI)
 
 https://mui.com/
 
@@ -101,16 +108,22 @@ https://mui.com/
 Material Design - Google 오픈소스 디자인 시스템  
 https://m3.material.io/
 
-## Ant Design
+### Ant Design
 
 https://ant.design/
 
 어드민 웹개발에 적합  
 https://jeonghwan-kim.github.io/2018/10/13/ant-design-101.html
 
-## React Bootstrap
+### Chakra UI
+
+https://chakra-ui.com
+
+### React Bootstrap
 
 https://react-bootstrap.netlify.app/
+
+---
 
 ## Mantine
 
@@ -124,25 +137,29 @@ http://jui.io/?lang=ko
 
 https://kr.webix.com/
 
-## `WebSquare5` 웹스퀘어 - HTML5 Enterprise UI Platform
+---
+
+## UI 프레임워크
+
+### `WebSquare5` 웹스퀘어 - HTML5 Enterprise UI Platform
 
 인스웨이브사의 웹스퀘어
 
 https://www.inswave.com/websquare/websquare.html?w2xPath=/cm/xml/index.xml
 
-## 투비소프트의 Nexacro
+### 투비소프트의 Nexacro
 
-## xPlatform
+### xPlatform
 
-## 토마토시스템의 eXbuilder
+### 토마토시스템의 eXbuilder
 
-## https://www.inzent.com/
+### https://www.inzent.com/
 
-## https://www.sencha.com/
+### https://www.sencha.com/
 
 ## http://www.softbase.co.kr/
 
-xFrame5
+### xFrame5
 
 ---
 
@@ -184,9 +201,3 @@ https://www.furtive.co/
 ## Mueller
 
 https://muellergridsystem.com/
-
----
-
-# 디자인 포트폴리오 플랫폼
-
-https://dribbble.com/
