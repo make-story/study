@@ -162,8 +162,7 @@ export default App;
 https://ui.toast.com/posts/ko_20210812#%EC%99%9C-context-api%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94%EA%B0%80
 
 부모 컴포넌트 쪽에 Context.Provider 컴포넌트를 선언하고  
-Context로 전달되는 값이 변경될 때  
-해당 Context를 사용하는 모든 자손 컴포넌트는 리랜더링된다.
+`Context로 전달되는 값이 변경될 때 해당 Context를 사용하는 모든 자손 컴포넌트는 리랜더링`된다.
 
 ```javascript
 const SomeObjectContext = React.createContext({ input: '', count: 0 });
@@ -218,9 +217,11 @@ const App = () => (
 ContextSetter 컴포넌트에서 Context 값의 일부만 바꾸는 동작을 실행하더라도,  
 InputConsumer, CounterConsumer 모두 리랜더링이 일어나게 된다.
 
-결국 객체 형태로 Context를 관리하면서 Context를 소비하는 컴포넌트가 많아질 경우 불필요한 리랜더링이 많이 일어나 애플리케이션의 성능 문제가 생길 수 있다.
+결국 객체 형태로 Context 를 관리하면서  
+`Context 를 소비하는 컴포넌트가 많아질 경우 불필요한 리랜더링이 많이 일어나 애플리케이션의 성능 문제가 생길 수 있다.`
 
-이 문제를 해결하기 위한 방법 여러가지  
+## 이 문제를 해결하기 위한 방법 여러가지
+
 https://github.com/facebook/react/issues/15156#issuecomment-474590693
 
 1. 하나의 거대한 값을 가진 Context를 만들지 말고 여럿으로 분리하여 필요한 부분만 사용하기
