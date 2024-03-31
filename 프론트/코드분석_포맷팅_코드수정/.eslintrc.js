@@ -92,6 +92,19 @@ module.exports = {
     parser: 'typescript-eslint-parser',
   },
 
+  // 프로젝트에 자바스크립트 파일과 타입스크립트 파일이 공존한다면 자바스크립트 파일을 기준으로 기본 설정을 하고,
+  // 타입스크립트 파일을 위한 설정은 overrides 옵션에 명시할 수 있습니다.
+  // https://www.daleseo.com/eslint-config/
+  overrides: [
+    {
+      files: ['**/*.tsx'],
+      parser: '@typescript-eslint/parser',
+      rules: {
+        'react/prop-types': 'off',
+      },
+    },
+  ],
+
   // 플러그인은 일련의 규칙(rules) 집합이며, 플러그인을 추가하여도 규칙(rules)은 적용되지 않습니다.
   // (규칙을 적용하기 위해서는 추가한 플러그인 중, 사용할 규칙을 rules 에 추가해주어야 적용이 됩니다.)
   // https://stackoverflow.com/questions/53189200/whats-the-difference-between-plugins-and-extends-in-eslint
@@ -176,17 +189,6 @@ module.exports = {
       },
     ],
   },
-
-  // 프로젝트 내에서 일부 파일에 대해서만 다른 설정을 적용해줘야 할 때
-  // https://www.daleseo.com/eslint-config/
-  overrides: [
-    {
-      files: ['**/*.tsx'],
-      rules: {
-        'react/prop-types': 'off',
-      },
-    },
-  ],
 
   // 일부 ESLint 플러그인은 추가적인 설정이 가능
   settings: {
