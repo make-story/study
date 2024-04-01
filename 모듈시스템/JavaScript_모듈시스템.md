@@ -1,5 +1,3 @@
-`study.git/인프라/서버/NodeJS_NPM/NodeJS_모듈시스템.md` 참고!
-
 # JavaScript modules (모듈 시스템)
 
 https://ko.javascript.info/modules-intro

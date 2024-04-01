@@ -1,5 +1,3 @@
-`study.git/프론트/JavaScript/JavaScript_모듈시스템.md` 참고!
-
 # 요약
 
 - CJS 는 코드실행 단계에서 require 구문을 만났을 때, 디스크로부터 읽어(동기) 그 즉시 실행

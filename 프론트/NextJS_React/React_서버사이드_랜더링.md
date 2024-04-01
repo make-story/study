@@ -1,34 +1,34 @@
 # 리액트 서버사이드 렌더링 구축
 
-- 리액트
+리액트
 
 ```
 $ npm install react react-dom
 ```
 
-- 바벨 패키지
+바벨
 
 ```
 $ npm install @babel/core @babel/preset-env @babel/preset-react
 ```
 
-- 웹팩 패키지
+웹팩
 
 ```
 $ npm install webpack webpack-cli babel-loader clean-webpack-plugin html-webpack-plugin
 ```
 
-- 서버사이드 렌더링을 위한 패키지
+서버사이드 렌더링을 위한 패키지
 
 ```
 $ npm install express @babel/cli @babel/plugin-transform-modules-commonjs
 ```
 
-웹 서버를 띄우기 위해 express 패키지를 설치한다.  
-@babel/cli 패키지는 서버에서 사용될 자바스크립트 파일을 컴파일할 떄 사용된다.  
-서버에서도 리액트의 JSX문법으로 작성된 자바스크립트를 실행해야 하므로 바벨이 필요하다.  
-ESM으로 작성된 모둘 시스템을 commonJS로 변경하기 위해 @babel/plugin-transform-modules-commonjs 패키지를 설치했다.  
-서버에서는 노드 환경에서 자바스크립트를 실행하기 때문에 commonJS 모듈 시스템이 필요하다.
+- 웹 서버를 띄우기 위해 express 패키지를 설치한다.
+- @babel/cli 패키지는 서버에서 사용될 자바스크립트 파일을 컴파일할 떄 사용된다.
+- 서버에서도 리액트의 JSX 문법으로 작성된 자바스크립트를 실행해야 하므로 바벨이 필요하다.
+- ESM 으로 작성된 모둘 시스템을 commonJS 로 변경하기 위해 @babel/plugin-transform-modules-commonjs 패키지를 설치했다.
+- 서버에서는 노드 환경에서 자바스크립트를 실행하기 때문에 commonJS 모듈 시스템이 필요하다.
 
 ```
 $ npm install webpack-node-externals
@@ -110,7 +110,6 @@ function getConfig(isServer) {
 
 // 웹팩 설정 파일에서 배열을 내보내면 배열의 각 아이템 개수만큼 웹팩이 실행된다.
 module.exports = [getConfig(false), getConfig(true)];
-
 ```
 
 ---
