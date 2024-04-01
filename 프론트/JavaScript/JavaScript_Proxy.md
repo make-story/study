@@ -1,10 +1,10 @@
 # Proxy
 
+`study.git/프론트/패턴/Proxy\_패턴.md` 내용 참고!
+
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy
 
 `한 객체에 대한 기본 작업을 가로채고 재정의`하는 프록시를 만들 수 있습니다.
-
-`study.git/프론트/패턴/Proxy\_패턴.md` 내용 참고!
 
 ```javascript
 // 값 검사

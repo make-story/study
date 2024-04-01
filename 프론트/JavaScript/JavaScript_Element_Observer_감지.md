@@ -1,5 +1,7 @@
 # Observer
 
+https://velog.io/@longroadhome/모던JS-브라우저-Observers
+
 ## MutationObserver (옵져버)
 
 https://developer.mozilla.org/ko/docs/Web/API/MutationObserver
@@ -9,7 +11,7 @@ DOM 상태(변경, 추가, 삭제 등) 모니터링
 
 ```javascript
 // 변경을 감지할 노드 선택
-const targetNode = document.getElementById("some-id");
+const targetNode = document.getElementById('some-id');
 
 // 감지 옵션 (감지할 변경)
 const config = { attributes: true, childList: true, subtree: true };
@@ -17,9 +19,9 @@ const config = { attributes: true, childList: true, subtree: true };
 // 변경 감지 시 실행할 콜백 함수
 const callback = (mutationList, observer) => {
   for (const mutation of mutationList) {
-    if (mutation.type === "childList") {
-      console.log("자식 노드가 추가되거나 제거됐습니다.");
-    } else if (mutation.type === "attributes") {
+    if (mutation.type === 'childList') {
+      console.log('자식 노드가 추가되거나 제거됐습니다.');
+    } else if (mutation.type === 'attributes') {
       console.log(`${mutation.attributeName} 특성이 변경됐습니다.`);
     }
   }

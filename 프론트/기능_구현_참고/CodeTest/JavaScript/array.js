@@ -313,6 +313,7 @@ console.log(array1.every(isBelowThreshold));
 
 /**
  * 비교
+ * 두 배열 또는 객체에 동일한 값 또는 다른값 존재여부 및 값반환
  */
 let forDeletion = [2, 3, 5];
 let arr = [1, 2, 3, 4, 5, 3];

@@ -1,5 +1,7 @@
 # Observable - RxJS
 
+https://reactivex.io/documentation/ko/observable.html
+
 Observable 은 데이터의 흐름에 맞게 알림을 보내 구독자가 데이터 처리를 할 수 있도록 만든다.
 
 ```javascript
