@@ -38,3 +38,55 @@ index 를 이용해 key 값을 부여한 경우,
 
 문제 : 데이터 리스트 추가에 따라 컴포넌트가 append 되는 부분만 렌더하는 것이 아닌, 전체 리스트를 다시 렌더링 하는 경우가 있다.
 원인 : 반복문 React key 속성값 랜덤인 경우 재렌더링 발생!
+
+---
+
+# key 변경 활용
+
+자식 컴포넌트의 key 속성을 바꿔주면  
+다른 컴포넌트로 인식해서 기존 컴포넌트를 언마운트 시키고,  
+새로운 컴포넌트를 렌더링 시킨다.
+
+이러한 것을 활용해서 unmount 가 필요할 때 사용할 수 있을 것이다.
+
+App.js
+
+```jsx
+import { useState } from 'react';
+import Test from './Test';
+import './styles.css';
+
+export default function App() {
+  const [number, setNumber] = useState(0);
+  return (
+    <div className='App'>
+      <div>{number}</div>
+      <button onClick={() => setNumber(number + 1)}>클릭</button>
+      {/* key 활용! */}
+      <Test key={number} />
+    </div>
+  );
+}
+```
+
+Test.js
+
+```jsx
+import { useEffect } from 'react';
+
+function Test() {
+  useEffect(() => {
+    console.log('렌더링');
+    return () => {
+      console.log('언 마운트');
+    };
+  }, []);
+
+  return <div></div>;
+}
+
+export default Test;
+```
+
+버튼을 클릭하면 number 가 1씩 증가하면서 Test 컴포넌트의 key가 바뀐다.  
+그러면 Test 컴포넌트를 언마운트 후 다시 렌더링을 하는 것을 볼 수 있다.

@@ -22,6 +22,10 @@ test(MenuPageCornerId.LIVE);
 
 // --
 
+/**
+ * https://yceffort.kr/2021/05/value-of-typescript
+ */
+
 type Padding1 = 'small' | 'medium' | 'large';
 //     ^?
 const padding1: Record<Padding1, number> = {
@@ -29,21 +33,21 @@ const padding1: Record<Padding1, number> = {
   medium: 2,
   large: 3,
 };
-
 const padding2 = {
   small: 1,
   medium: 2,
   large: 3,
 };
 type Padding2Keys = keyof typeof padding2; // "small" | "medium" | "large"
-
 type Padding2Values = (typeof padding2)[keyof typeof padding2];
 
-// --
+// interface key 리스트를 타입으로 변환
+type KeysOf<T> = {
+  [K in keyof T]: K;
+}[keyof T];
 
-/**
- * https://yceffort.kr/2021/05/value-of-typescript
- */
+// interface value 리스트를 타입으로 변환
+type ValuesOf<T> = T[keyof T];
 
 const object1 = {
   a: 1,
@@ -58,7 +62,6 @@ type objectShape = {
   c: number
 }
 */
-
 const object2 = {
   a: 1,
   b: 2,
@@ -72,9 +75,41 @@ type objectShape = {
   readonly c: 3
 }
 */
-
 type keys = keyof objectShape2; // "a" | "b" | "c"
 type values = objectShape2[keys]; // 1 | 2 | 3
+
+// --
+
+/**
+ * API_TYPE 객체에 선언된 값만 하위 객체에서 선언할 수 있도록 종속관계
+ */
+
+// 각 API별 구분 값
+export const API_TYPE = {
+  TEST: 'TEST', // 테스트 데이터 URL
+  DEFAULT: 'DEFAULT',
+} as const;
+
+// 기본 공통 URL (Axios baseUrl)
+export const API_BASE_URL: Record<
+  (typeof API_TYPE)[keyof typeof API_TYPE],
+  string
+> = {
+  [API_TYPE.TEST]: 'https://jsonplaceholder.typicode.com',
+  [API_TYPE.DEFAULT]:
+    process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || '',
+} as const;
+
+// 각 API별 Path
+export const API_PATH: Record<
+  (typeof API_TYPE)[keyof typeof API_TYPE],
+  { [key: string | number | symbol]: any }
+> = {
+  [API_TYPE.TEST]: {
+    LIST: '/todos',
+  },
+  [API_TYPE.DEFAULT]: {},
+} as const;
 
 // --
 
@@ -87,15 +122,6 @@ interface CallbackMap {
   connection?: ConnectionCallback;
   open?: OpenCallback;
 }
-
-// interface key 리스트를 타입으로 변환
-type KeysOf<T> = {
-  [K in keyof T]: K;
-}[keyof T];
-// interface value 리스트를 타입으로 변환
-type ValuesOf<T> = T[keyof T];
-
-// --
 
 type ValidateCallback<T> = {
   [K in keyof T]: T[K] extends (...args: infer Args) => void
@@ -172,6 +198,20 @@ user.observe((key: string, value: any) => {
 user.name = 'John';
 
 // --
+
+/**
+ * 함수 리턴 타입
+ */
+type Params = FetchConfigParams & FetchInterceptorParams;
+export interface FetchManagerParams extends Params {
+  test?: boolean; // 테스트 전용
+}
+const createFetchManager = (params: FetchManagerParams = {}) => {
+  return {
+    TEST: 'test',
+  } as const;
+};
+type FetchManager = ReturnType<typeof createFetchManager>;
 
 /**
  * promise
