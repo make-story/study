@@ -1,5 +1,13 @@
 # setTimeout / requestAnimationFrame 비교
 
+https://velog.io/@wejaan/setTimeout%EA%B3%BC-requestAnimationFrame
+
+자바스크립트에는 사용할 수 있는 여러가지 타이머 function이 존재한다.
+
+- setTimeout() : 지정한 delay 시간 후에 함수를 호출하거나 식을 평가한다.
+- setInterval() : 지정된 간격으로 함수를 호출하거나 식을 평가한다. setInterval() 은 clearInterval() 이 호출 될 때까지 함수를 계속 호출한다.
+- requestAnimationFrame() : setTimeout 처럼 동작하지만 mozilla 에 의해 개선된 function 이다.
+
 setTimeout() 의 delay 시간은 의도했던 것보다 더 길 수도 있다.
 
 https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#reasons_for_delays_longer_than_specified
