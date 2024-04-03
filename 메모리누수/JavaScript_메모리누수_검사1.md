@@ -59,7 +59,9 @@ function createSomeNodes() {
     frag = document.createDocumentFragment();
   for (; i > 0; i--) {
     div = document.createElement('div');
-    div.appendChild(document.createTextNode(i + ' - ' + new Date().toTimeString()));
+    div.appendChild(
+      document.createTextNode(i + ' - ' + new Date().toTimeString()),
+    );
     frag.appendChild(div);
   }
   document.getElementById('nodes').appendChild(frag);
@@ -67,7 +69,7 @@ function createSomeNodes() {
 function grow() {
   x.push(new Array(1000000).join('x'));
   createSomeNodes();
-  setTimeout(grow, 1000);
+  setTimeout(grow, 1000); // 핵심!!! grow 재귀호출로 반복 실행 (무한 호출)
 }
 ```
 
