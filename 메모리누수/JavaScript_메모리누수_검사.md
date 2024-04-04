@@ -7,6 +7,8 @@ https://yceffort.kr/2022/04/chrome-memory-profiler
 
 https://flyingsquirrel.medium.com/ssr-memory-leak-%EB%94%94%EB%B2%84%EA%B9%85%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-ce3cf41c107c
 
+https://mingrammer.com/debug-memory-leak-with-node-heapdump/
+
 메모리 누수의 일반적인 형태는 아래와 같다.
 
 - 우발적으로 생긴 전역변수
@@ -29,12 +31,24 @@ https://flyingsquirrel.medium.com/ssr-memory-leak-%EB%94%94%EB%B2%84%EA%B9%85%ED
 2. `어디에서 메모리 누수가 생기는지 찾기 위해, 메모리(Memory) 탭을 통해, 두 개의 스냅샷 찍기`
 
 - 새로고침하고, Take Heap Snapshot을 수행
-- 버튼을 누른 다음에 좀 기다린 후에 두번 째 스냅샷을 생성
+- 버튼을 누른 다음에 좀 기다린 후에 두 번째 스냅샷을 생성
 - 비교할 수 있는 방법이 두가지
-  - Summary 를 선택 한 다음, Objects Allocated between Snapshot 1 and Snapshot 를 선택하거나,
-  - Summary 대신 Comparison 을 선택
+  - 요역(Summary) 을 선택 한 다음, Objects Allocated between Snapshot 1 and Snapshot 를 선택하거나,
+  - 요약(Summary) 대신 비교(Comparison) 을 선택
 - 새로운 객체 들이 할당되어 있지만, 해제 되지 않아 많은 메모리를 잡아먹고 있는 것들 확인!!
   - 예: (string) 하위 열어 보자
+
+`두 스냅샷간 메모리 사용량을 비교, '스냅샷2' 선택, 셀렉트 박스에서 '요약' 이 아닌 '비교' 선택, 셀렉트 박스에서 '스냅샷1' 선택`
+
+- 신규 #개(New): 새로운 객체수
+- #개 삭제됨(Deleted): 제거된 객체수
+- #델타(Delta): 증분량 (New - Deleted)
+
+- 할당된 크기(Alloc. Size): 추가 할당된 메모리
+- 회수된 크기(Freed Size): 해제된 메모리
+- 크기 델타(Size Delta): 증분량 (Alloc - Freed)
+
+할당된 크기(Alloc. Size) 열을 기준으로 정렬, 추가 할당이 눈에 띄게 증가한 것 찾아야 함!
 
 3. `누수 지점 찾기 위한 또 다른 방법, 메모리(Memory) 탭을 통해, 타임라인의 할당 계층(Allocation instrumentation on Timeline) 선택`
 
@@ -44,3 +58,12 @@ https://flyingsquirrel.medium.com/ssr-memory-leak-%EB%94%94%EB%B2%84%EA%B9%85%ED
   - 해당영역을 선택하면, 3개의 constructor 가 존재하는 것을 알 수 있다.
   - 예: 이 중 하나는 메모리 누수의 원인인 (string) 이고 다른 하나는 DOM, 그리고 나머지는 Text (DOM 마지막에 존재하는 text) 요소다.
 - Allocation Stack 메뉴를 누르면, 어느 것(함수 등)을 통해 참조되어 할당된 요소인지 확인 가능!!!
+
+`메모리 누수의 원인을 찾을 때는 얕은 크기(Shallow Size) 는 작은데, 유지된 크기(Retained Size) 가 엄청 큰 것부터 살펴보는 것이 효율적`
+
+https://developer.chrome.com/docs/devtools?hl=ko
+
+Shallow Size 와 Retained Size 의 차이점을 간단하게 설명하자면,  
+Shallow Size 는 해당 객체 자체가 실제로 보유하고 있는 메모리의 크기이며  
+Retained Size 는 해당 객체 및 객체가 참조하고 있는 다른 모든 객체의 Shallow Size 를 합한 것이다.  
+즉, Retained Size는 “(GC에 의해) 해당 객체가 삭제되면 확보할 수 있는” 메모리의 크기라고 생각하면 된다.
