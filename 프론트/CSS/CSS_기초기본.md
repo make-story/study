@@ -43,6 +43,21 @@ https://mytory.net/archives/8982
 }
 ```
 
+# 구문
+
+```css
+* {
+  /* 세로방향 | 가로방향 */
+  margin: 5% auto;
+
+  /* 위 | 가로방향 | 아래 */
+  margin: 1em auto 2em;
+
+  /* 위 | 오른쪽 | 아래 | 왼쪽 */
+  margin: 2px 1em 0 auto;
+}
+```
+
 # padding 사용해야할 때? margin 사용해야할 때?
 
 CSS 박스모델에 따라,  

@@ -15,6 +15,8 @@ https://react-ko.dev/learn/reusing-logic-with-custom-hooks
 
 ## 커스텀 훅은 state 자체가 아닌 상태적인 로직(stateful logic)을 공유합니다.
 
+하나의 상태를 두고, 커스텀 훅을 통해 공유하는 것이 아님.
+
 https://react-ko.dev/learn/reusing-logic-with-custom-hooks#custom-hooks-let-you-share-stateful-logic-not-state-itself
 
 ```jsx
