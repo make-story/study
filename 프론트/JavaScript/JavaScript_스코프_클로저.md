@@ -95,6 +95,179 @@ for (let i = 1; i <= 5; i++) {
 }
 ```
 
+# 클로저
+
+You Don’t Know JS의 저자로 유명한 카일 심슨(Kyle Simpson)은 클로저를 다음과 같이 정의
+
+> 클로저는 함수가 속한 렉시컬 스코프를 기억하여 함수가 렉시컬 스코프 밖에서 실행될 때에도 이 스코프에 접근할 수 있게 하는 기능을 뜻한다.
+
+https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch6.md#modules
+
+## 리액트 Hook 클로저 활용
+
+https://hewonjeong.github.io/deep-dive-how-do-react-hooks-really-work-ko/
+
+```javascript
+// 버그 있음 주의!
+function useState(initialValue) {
+  var _val = initialValue;
+  // state() 함수 없음
+  function setState(newVal) {
+    _val = newVal;
+  }
+  return [_val, setState]; // _val를 그대로 노출
+}
+var [foo, setFoo] = useState(0);
+console.log(foo); // 함수 호출 할 필요 없이 0 출력
+setFoo(1); // useState의 스코프 내부에 있는 _val를 변경합니다.
+console.log(foo); // 0 출력 - 헐!!
+```
+
+```javascript
+// 수정된 코드! - 이 또한 버그가 있음!
+const React = (() => {
+  let _value = null;
+  let _deps = [];
+  const setState = update => {
+    _value = update;
+  };
+
+  return {
+    // 리액트의 재렌더링 효과를 내기 위함
+    render(Component) {
+      const C = Component();
+      C.render();
+      return C;
+    },
+    useState(initial) {
+      _value = _value || initial;
+      return [_value, setState];
+    },
+    useEffect(callback, depArray) {
+      const hasNoDeps = !depArray;
+      const hasChangedDeps = _deps?.length
+        ? !depArray.every((item, i) => item === _deps[i])
+        : true;
+      if (hasNoDeps || hasChangedDeps) {
+        callback();
+        _deps = depArray;
+      }
+    },
+  };
+})();
+
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  React.useEffect(() => {
+    console.log('effect', count);
+  }, [count]);
+  return {
+    click: () => setCount(count + 1),
+    noop: () => setCount(count),
+    render: () => console.log('render:', { count }),
+  };
+}
+
+let App = React.render(Counter); // render: { count: 0 }
+App.click();
+App = React.render(Counter); // render: { count: 1 }
+App.noop();
+App = React.render(Counter); // render: { count: 1 }
+```
+
+위 코도는 잘못 구현된 싱글톤 형태입니다. (useState 또는 useEffect 가 각각 하나 이상이 존재하면 버그가 발생합니다.)
+
+```javascript
+const React = (function () {
+  let hooks = [],
+    currentHook = 0; // Hook 배열과 반복자(iterator)!
+  return {
+    render(Component) {
+      const Comp = Component(); // 이펙트들이 실행된다.
+      Comp.render();
+      currentHook = 0; // 다음 렌더를 위해 초기화
+      return Comp;
+    },
+    useEffect(callback, depArray) {
+      const hasNoDeps = !depArray;
+      const deps = hooks[currentHook]; // type: array | undefined
+      const hasChangedDeps = deps
+        ? !depArray.every((el, i) => el === deps[i])
+        : true;
+      if (hasNoDeps || hasChangedDeps) {
+        callback();
+        hooks[currentHook] = depArray;
+      }
+      currentHook++; // 이 Hook에 대한 작업 완료
+    },
+    useState(initialValue) {
+      hooks[currentHook] = hooks[currentHook] || initialValue; // type: any
+      const setStateHookIndex = currentHook; // setState의 클로저를 위해!
+      const setState = newState => (hooks[setStateHookIndex] = newState);
+      return [hooks[currentHook++], setState];
+    },
+  };
+})();
+
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  const [text, setText] = React.useState('foo'); // 두번 째 상태 Hook!
+  React.useEffect(() => {
+    console.log('effect', count, text);
+  }, [count, text]);
+  return {
+    click: () => setCount(count + 1),
+    type: txt => setText(txt),
+    noop: () => setCount(count),
+    render: () => console.log('render', { count, text }),
+  };
+}
+let App;
+App = React.render(Counter);
+// 이펙트 0 foo
+// render {count: 0, text: 'foo'}
+App.click();
+App = React.render(Counter);
+// 이펙트 1 foo
+// render {count: 1, text: 'foo'}
+App.type('bar');
+App = React.render(Counter);
+// 이펙트 1 bar
+// render {count: 1, text: 'bar'}
+App.noop();
+App = React.render(Counter);
+// // 이펙트가 실행되지 않음
+// render {count: 1, text: 'bar'}
+App.click();
+App = React.render(Counter);
+// 이펙트 2 bar
+// render {count: 2, text: 'bar'}
+```
+
+커스텀 훅까지!!
+
+```javascript
+function useSplitURL(str) {
+  const [text, setText] = React.useState(str);
+  const masked = text.split('.');
+  return [masked, setText];
+}
+function Component() {
+  const [text, setText] = useSplitURL('www.netlify.com');
+  return {
+    type: txt => setText(txt),
+    render: () => console.log({ text }),
+  };
+}
+
+let App;
+App = React.render(Component);
+// { text: [ 'www', 'netlify', 'com' ] }
+App.type('www.reactjs.org');
+App = React.render(Component);
+// { text: [ 'www', 'reactjs', 'org' ] }}
+```
+
 # `모던 리액트 Deep Dive` 책 내용 중
 
 ## 클로저를 사용할 때 주의할 점 - p65

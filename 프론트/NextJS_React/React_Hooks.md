@@ -4,13 +4,23 @@
 useState 와 useEffect 훅을 함께 사용해야 한다.  
 useState 훅을 사용해 fetch 의 응답을 상태에 저장하고, useEffect 훅을 사용해 fetch 요청을 만든다.
 
+## React Hook은 실제로 어떻게 동작할까?
+
+https://hewonjeong.github.io/deep-dive-how-do-react-hooks-really-work-ko/
+
+https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e
+
+Rudi Yardley의 글,  
+React Hooks는 마법이 아니라 배열일 뿐
+
 ## 훅 사용 시 지켜야 할 규칙
+
+`실전 리액트 프로그래밍` 책 내용 중
 
 - 규칙 1 : 하나의 컴포넌트에서 훅을 호출하는 순서는 항상 같아야 한다.
 - 규칙 2 : 훅은 함수형 컴포넌트 또는 커스텀 훅 안에서만 호출되어야 한다.
 
 ```javascript
-// 커스텀 Hooks
 import React, { useReducer } from 'react';
 
 function reducer(state, action) {
@@ -20,6 +30,7 @@ function reducer(state, action) {
   };
 }
 
+// 커스텀 Hooks
 export default function useInputs(initialForm) {
   const [state, dispatch] = useReducer(reducer, initialForm);
   const onChange = e => {
