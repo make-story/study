@@ -1,5 +1,7 @@
 # 합성 이벤트 (SyntheticEvent)
 
+`study.git/프론트/TypeScript/Typescript_React_DOM_Element_Event.md` 참고!
+
 https://ko.reactjs.org/docs/events.html
 
 https://medium.com/crossplatformkorea/react-%EB%A6%AC%EC%95%A1%ED%8A%B8%EB%A5%BC-%EC%B2%98%EC%9D%8C%EB%B6%80%ED%84%B0-%EB%B0%B0%EC%9B%8C%EB%B3%B4%EC%9E%90-06-%ED%95%A9%EC%84%B1-%EC%9D%B4%EB%B2%A4%ED%8A%B8%EC%99%80-event-pooling-6b4a0801c9b9

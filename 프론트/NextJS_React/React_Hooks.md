@@ -6,6 +6,8 @@ useState 훅을 사용해 fetch 의 응답을 상태에 저장하고, useEffect 
 
 ## React Hook은 실제로 어떻게 동작할까?
 
+`study.git/프론트/JavaScript/JavaScript_스코프_클로저.md` 참고!!
+
 https://hewonjeong.github.io/deep-dive-how-do-react-hooks-really-work-ko/
 
 https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e
@@ -337,10 +339,12 @@ useEffect(() => {
 `리액트 팀에서는 이러한 문제를 해결하기 위해 eslint 에서 사용할 수 있는 exhaustive-deps 규칙을 만들어서 제공`한다.  
 exhaustive-deps 는 잘못 사용된 의존성 배열을 찾아서 알려 준다.
 
-### useEffect 훅에서 async await 함수 사용하기
+### useEffect 훅에서 async await 함수(Promise) 사용하기
+
+> React version <= 17
 
 useEffect 훅에서 async await 함수를 사용하기 위해 부수 효과 함수를 async await 함수로 만들면 에러가 난다.  
-useEffect 사용의 함수 반환값은 항상 함수 타입이어야 하기 때문이다. (프로미스 객체 반환 안됨)
+`useEffect 사용의 함수 반환값은 항상 함수 타입이어야 하기 때문`이다. (프로미스 객체 반환 안됨)
 
 ```javascript
 useEffect(() => {
@@ -389,6 +393,130 @@ function Profile({ userId }) {
   }, [fetchAndSetUser]);
   // ...
 }
+```
+
+> React version >= 18
+
+https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
+
+https://www.daleseo.com/react-suspense/
+
+```javascript
+// fetchData.js
+function fetchUser(userId) {
+  let user = null;
+  const suspender = fetch(
+    `https://jsonplaceholder.typicode.com/users/${userId}`,
+  )
+    .then(response => response.json())
+    .then(data => {
+      setTimeout(() => {
+        user = data;
+      }, 3000);
+    });
+  return {
+    read() {
+      if (user === null) {
+        throw suspender;
+      } else {
+        return user;
+      }
+    },
+  };
+}
+
+function fetchPosts(userId) {
+  let posts = null;
+  const suspender = fetch(
+    `https://jsonplaceholder.typicode.com/posts?userId=${userId}`,
+  )
+    .then(response => response.json())
+    .then(data => {
+      setTimeout(() => {
+        posts = data;
+      }, 3000);
+    });
+  return {
+    read() {
+      if (posts === null) {
+        throw suspender;
+      } else {
+        return posts;
+      }
+    },
+  };
+}
+
+function fetchData(userId) {
+  return {
+    user: fetchUser(userId),
+    posts: fetchPosts(userId),
+  };
+}
+
+export default fetchData;
+```
+
+```jsx
+// Main.jsx
+import { Suspense } from 'react';
+import User from './User';
+import fetchData from './fetchData';
+
+function Main() {
+  return (
+    <main>
+      <h2>Suspense 사용</h2>
+      <Suspense fallback={<p>사용자 정보 로딩중...</p>}>
+        <User resource={fetchData('1')} />
+      </Suspense>
+    </main>
+  );
+}
+
+export default Main;
+```
+
+```jsx
+// User.jsx
+import React, { Suspense } from 'react';
+import Posts from './Posts';
+
+function User({ resource }) {
+  const user = resource.user.read();
+
+  return (
+    <div>
+      <p>
+        {user.name}({user.email}) 님이 작성한 글
+      </p>
+      <Suspense fallback={<p>글목록 로딩중...</p>}>
+        <Posts resource={resource} />
+      </Suspense>
+    </div>
+  );
+}
+
+export default User;
+```
+
+```jsx
+// Posts.jsx
+function Posts({ resource }) {
+  const posts = resource.posts.read();
+
+  return (
+    <ul>
+      {posts.map(post => (
+        <li key={post.id}>
+          {post.id}. {post.title}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default Posts;
 ```
 
 ### useEffect 의 첫 번째 인수에 함수명을 부여하라

@@ -19,7 +19,11 @@ type CardProps = {
   paragraph?: string,
 };
 
-export const Card: FunctionComponent<CardProps> = ({ title, paragraph = 'Default', children }) => (
+export const Card: FunctionComponent<CardProps> = ({
+  title,
+  paragraph = 'Default',
+  children,
+}) => (
   <aside>
     <h2>{title}</h2>
     <p>{paragraph}</p>
@@ -82,6 +86,32 @@ export class Clock extends Component<NoticeProps, ClockState> {
 
 https://fettblog.eu/typescript-react/children/
 
+```typescript
+export declare interface AppProps {
+  children1: JSX.Element;
+
+  children2: JSX.Element | JSX.Element[];
+
+  children3: React.ReactChildren; // 이름에도 불구하고 전혀 적절한 유형이 아닙니다.
+
+  children4: React.ReactChild[]; // 더 나은, 배열 자식을 받아들입니다.
+
+  children: React.ReactNode; // 최상, 모든 것을 수용합니다(아래의 경우 참조)
+
+  functionChildren: (name: string) => React.ReactNode; // 자식 render prop type
+
+  style?: React.CSSProperties; // 스타일 소품을 전달하기 위해
+
+  onChange?: React.FormEventHandler<HTMLInputElement>; // 이벤트를 형성합니다! 일반 매개변수는 event.target의 유형입니다.
+
+  // 추가 정보: https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#wrappingmirroring
+
+  props: Props & React.ComponentPropsWithoutRef<'button'>; // 버튼 요소의 모든 props를 가장하고 ref
+
+  props2: Props & React.ComponentPropsWithRef<MyButtonWithForwardRef>; // MyButtonForwardedRef의 모든 소품을 가장하고 해당 ref를 명시적으로 전달하기 위해
+}
+```
+
 ### Functional
 
 ```javascript
@@ -92,7 +122,11 @@ type CardProps = {
   paragraph: string,
 };
 
-export const Card: FunctionComponent<CardProps> = ({ title, paragraph, children }) => (
+export const Card: FunctionComponent<CardProps> = ({
+  title,
+  paragraph,
+  children,
+}) => (
   <aside>
     <h2>{title}</h2>
     <p>{paragraph}</p>
@@ -281,7 +315,10 @@ https://fettblog.eu/typescript-react/prop-types/#inferring-prop-types
 ```javascript
 import PropTypes, { InferProps } from 'prop-types';
 
-export function Article({ title, price }: InferProps<typeof Article.propTypes>) {
+export function Article({
+  title,
+  price,
+}: InferProps<typeof Article.propTypes>) {
   return (
     <div className='article'>
       <h1>{title}</h1>
@@ -314,12 +351,17 @@ Article.defaultProps = {
 https://fettblog.eu/typescript-react/prop-types/#children
 
 ```javascript
-export function ArticleList({ children }: InferProps<typeof ArticleList.propTypes>) {
+export function ArticleList({
+  children,
+}: InferProps<typeof ArticleList.propTypes>) {
   return <div className='list'>{children}</div>;
 }
 
 ArticleList.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 ```
 

@@ -1,5 +1,8 @@
 /**
  * 자주 사용하는 타입스크립트 코드
+ *
+ * https://velog.io/@familyman80/%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-CheatSheet-apfc48by
+ * https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#wrappingmirroring
  */
 
 export const MenuPageCornerId = {

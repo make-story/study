@@ -333,3 +333,52 @@ App Router 에 Provider 를 배치하는 것입니다.
 `클라이언트 컴포넌트 트리에 Provider 를 배치하고, 서버 컴포넌트 트리에 해당 클라이언트 컴포넌트를 포함해야 한다!`
 
 https://hackernoon.com/how-to-manage-state-in-nextjs-13-using-redux-toolkit
+
+---
+
+# createSelector
+
+https://redux.js.org/usage/deriving-data-selectors
+
+https://codesandbox.io/p/sandbox/redux-toolkit-createselector-lfjgl5?file=%2Fsrc%2Freducer.js
+
+createSelector 는 Reselect 라이브러리를 기반으로 하고, Reselect 는 기본적으로 메모이제이션을 제공
+
+## createSelector 파라미터 추가하여 호출
+
+https://stackoverflow.com/questions/40291084/use-reselect-selector-with-parameters
+
+```typescript
+// selector.ts
+const selectAvailableItems = createSelector(
+  [
+    // First input selector extracts items from the state
+    (state: RootState) => state.items,
+    // Second input selector forwards the category argument
+    (state: RootState, category: string) => category,
+    // Third input selector forwards the ID argument
+    (state: RootState, category: string, id: number) => id,
+  ],
+  // Output selector uses the extracted items, category, and ID
+  (items, category, id) =>
+    items.filter(item => item.category === category && item.id !== id),
+);
+
+interface RootState {
+  items: {
+    id: number;
+    category: string;
+    vendor: { id: number; name: string };
+  }[];
+  // ... other state properties ...
+}
+```
+
+```typescript
+// App.tsx
+const items = selectAvailableItems(state, 'javascript', 10);
+// Another way if you're using redux hook:
+const items = useSelector(state =>
+  selectAvailableItems(state, 'javascript', 10),
+);
+```

@@ -18,14 +18,70 @@ const content: HTMLElement = document.querySelector('#content');
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 ```
 
-# `JavaScript Event`
+# `JavaScript Event` - React Event Handler Cheat Sheet
 
 https://developer.mozilla.org/ko/docs/Web/API#%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4
 
-```typescript
+https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forms_and_events/
+
+```tsx
+// MouseEvent
 const Test = () => (
   <button onClick={(event: MouseEvent<HTMLButtonElement>) => {}}>test</button>
 );
+```
+
+```tsx
+// FormEvent
+import React, { useCallback } from 'react';
+
+function Component() {
+  const onClickSubmit = useCallback(function onClickSubmit(
+    event: FormEvent<HTMLElement>,
+  ) {
+    // ...
+  },
+  []);
+
+  return (
+    <button disabled={false} onClick={onClickSubmit}>
+      실행
+    </button>
+  );
+}
+```
+
+이벤트 유형에 신경 쓰지 않는다면 React.SyntheticEvent를 사용할 수 있습니다.
+
+```tsx
+// SyntheticEvent
+import React from 'react';
+
+function Component() {
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+  };
+
+  return (
+    <form ref={formRef} onSubmit={onSubmit}>
+      <div>
+        <label>
+          Email:
+          <input type='email' name='email' />
+        </label>
+      </div>
+      <div>
+        <label>
+          Password:
+          <input type='password' name='password' />
+        </label>
+      </div>
+      <div>
+        <input type='submit' value='Log in' />
+      </div>
+    </form>
+  );
+}
 ```
 
 https://velog.io/@leehaeun0/TypeScript-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%9F%AC-%ED%83%80%EC%9E%85-%EA%B0%84%EB%8B%A8%ED%95%98%EA%B2%8C-%EC%93%B0%EA%B8%B0
@@ -36,6 +92,7 @@ https://x.com/sebastienlorber/status/1512420374201446405?s=20
 (이벤트 별 핸들러 타입 이름과 HTMLElement의 이름을 매번 떠올려야 하는 점)
 
 ```typescript
+// ChangeEventHandler
 import React from 'react';
 
 function Component() {
@@ -51,6 +108,7 @@ function Component() {
 (ComponentProps)
 
 ```typescript
+// ComponentProps
 import { ComponentProps } from 'react';
 
 function Component() {
@@ -70,6 +128,7 @@ function Component() {
 또는
 
 ```typescript
+// type 만들어 사용
 import { ComponentProps, DOMAttributes } from 'react';
 
 type EventHandlers<T> = Omit<
