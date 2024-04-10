@@ -37,27 +37,26 @@ $ hygen <generator> <action> <name>
 `_templates 폴더 생성`
 
 ```bash
-# root 경로에 _templates 폴더가 생성
 $ hygen init self
+# root 경로에 _templates 폴더가 생성됨
 ```
 
 ## 초기설정 활용하여 템플릿 생성
 
-`Hygen 은 사전 정의된 템플릿(generator)을 바탕으로 파일을 생성할 수 있습니다.`
+`Hygen 은 사전 정의된 템플릿('generator'로 생성된 폴더)을 바탕으로, 신규 템플릿을 생성할 수 있습니다.`
 
 ```bash
 # 초기환경(init) 구성하면,
-# 'generator' 라는 프롬프트가 생성(_template/generator/new/)되어 있으며,
-# 아래 명령어로 prompt 생성 가능
+# 'generator' 라는 폴더가 생성(_template/generator/new/)되어 있으며,
+# 내부 'new' 액션(_template/generator/new/)을 실행할 수 있음
+# 이를 통해, 신규 템플릿 생성이 가능함
+# (즉, 신규 템플릿 생성도 템플릿 생성기능을 하는 'generator'의 'new' 액션을 통해 생성되는 것)
 $ hygen generator new [name]
-
-# 즉 아래의 명령 구조를 가짐
-$ hygen [템플릿명] [액션명]
 ```
 
 ### 예제
 
-1. 'generator' 템플릿의 'new' 액션을 통해 또 다른 템플릿 생성
+1. 'generator' 템플릿의 'new' 액션을 통해 또 다른 신규 템플릿 생성
 
 ```bash
 $ hygen generator new awesome-generator
@@ -90,11 +89,12 @@ $ hygen awesome-generator new hello
 # app/hello.js 생성됨
 ```
 
-## 입력 상호작용 추가 - CLI
+## 입력 상호작용 추가 - CLI, 프롬프트
 
-프롬프트는 제너레이터 폴더 루트에 prompt.js 라는 이름으로 생성  
+`프롬프트는 제너레이터 폴더 루트에 prompt.js 라는 이름으로 생성`
+
 `prompt.js 는 예약어처럼 미리 등록된 파일 이름`으로,  
-생성 후 별도로 import하거나 설정해주는 등의 동작을 필요로 하지 않습니다.
+생성 후 별도로 import 하거나 설정해주는 등의 동작을 필요로 하지 않습니다.
 
 \_templates/app/new/prompt.js
 
