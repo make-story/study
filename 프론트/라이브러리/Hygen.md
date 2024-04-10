@@ -1,13 +1,19 @@
 # Hygen
 
+`monorepo-nodejs20.git/documents/Hygen.md` 참고!
+
 Hygen 은 CLI 를 이용하여 미리 만들어둔 템플릿을 원하는 위치에 원하는 형식으로 생성해주는 도구입니다.  
 https://www.hygen.io/
 
-Hygen 은 CLI 상호작용을 도와주는 Enquirer 도구(라이브러리)를 내장  
+Hygen 은 CLI 상호작용(CLI 프롬프트)을 도와주는 Enquirer 도구(라이브러리)를 내장  
 https://github.com/enquirer/enquirer#prompt-options
 
 참고: nodejs prompt  
 https://cto.ai/blog/node-ux-prompts/
+
+## 참고
+
+https://techblog.woowahan.com/12548/
 
 ## 설치
 
@@ -23,32 +29,42 @@ $ npm i -g hygen
 $ hygen <generator> <action> <name>
 ```
 
-- generator, init 이 hygen 명령어의 generator
-- generator/help, new, with-prompt, init/repo 가 action
+- generator, init 이 hygen 명령어의 generator (\_templates/템플릿명)
+- generator/help, generator/new, generator/with-prompt, init/repo 가 action (\_templates/템플릿명/액션명)
 
-## 초기설정 구성
+## 초기설정(init) 구성
 
-root 경로에 \_templates 폴더가 생성
+`_templates 폴더 생성`
 
 ```bash
+# root 경로에 _templates 폴더가 생성
 $ hygen init self
 ```
 
-## 템플릿 생성
+## 초기설정 활용하여 템플릿 생성
+
+`Hygen 은 사전 정의된 템플릿(generator)을 바탕으로 파일을 생성할 수 있습니다.`
 
 ```bash
-$ hygen generator new [생성하고 싶은 템플릿 명]
-$ hygen [생성된 템플릿 명] new [name]
+# 초기환경(init) 구성하면,
+# 'generator' 라는 프롬프트가 생성(_template/generator/new/)되어 있으며,
+# 아래 명령어로 prompt 생성 가능
+$ hygen generator new [name]
+
+# 즉 아래의 명령 구조를 가짐
+$ hygen [템플릿명] [액션명]
 ```
 
 ### 예제
+
+1. 'generator' 템플릿의 'new' 액션을 통해 또 다른 템플릿 생성
 
 ```bash
 $ hygen generator new awesome-generator
 # _template/awesome-generator/new/hello.ejs.t 생성됨
 ```
 
-\_templates/awesome-generator/new/hello.ejs.t
+"\_templates/awesome-generator/new/hello.ejs.t " 파일 내부 코드
 
 ````javascript
 ---
@@ -67,6 +83,8 @@ console.log(hello)
 
 ````
 
+2. 'awesome-generator' 템플릿 > 'new' 액션 > 'hello' 실행
+
 ```bash
 $ hygen awesome-generator new hello
 # app/hello.js 생성됨
@@ -75,7 +93,7 @@ $ hygen awesome-generator new hello
 ## 입력 상호작용 추가 - CLI
 
 프롬프트는 제너레이터 폴더 루트에 prompt.js 라는 이름으로 생성  
-prompt.js 는 예약어처럼 미리 등록된 파일 이름으로,  
+`prompt.js 는 예약어처럼 미리 등록된 파일 이름`으로,  
 생성 후 별도로 import하거나 설정해주는 등의 동작을 필요로 하지 않습니다.
 
 \_templates/app/new/prompt.js
