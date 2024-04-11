@@ -6,7 +6,57 @@ https://velog.io/@gykim/Vue-weo9vxer
 
 https://tech.kakao.com/2023/06/13/fe-performance-improvement-2/
 
-## v-once 로 한 번만 렌더링하기
+## `이벤트 바인딩 후 해제 필수!`
+
+```javascript
+export default {
+  name: 'Vue',
+  components: {},
+  props: {},
+  data() {
+    return {
+      observer: null,
+    };
+  },
+  computed: {},
+  watch: {},
+  created() {},
+  mounted() {
+    // observer
+    this.observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          this.$emit('triggerIntersected');
+        }
+      },
+      { root: null, threshold: 1 },
+    );
+    this.observer.observe(this.$refs.trigger);
+
+    // window 전역
+    window.testAppCall = function () {
+      // ...
+    }.bind(this);
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed() {
+    // observer
+    this.observer.disconnect();
+    this.observer = null;
+
+    // window 전역
+    window.testAppCall = null;
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll(event) {
+      // ...
+    },
+  },
+};
+```
+
+## `v-once 로 한 번만 렌더링하기`
 
 ```vue
 <user-avatar v-once :user-obj="userObj"></user-avatar>
