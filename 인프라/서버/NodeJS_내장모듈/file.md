@@ -31,8 +31,16 @@
 ## 확장자 검사
 
 ```javascript
-const imageExt = [".jpg", ".jpeg", ".png", ".webp", ".svg", ".gif"];
+const imageExt = ['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif'];
 if (imageExt.includes(path.extname(output).toLowerCase())) {
   // ...
 }
 ```
+
+# fs
+
+https://nodejs.org/api/fs.html
+
+## fs.exists 기능은 Deprecated
+
+fs.existsSync(path) 사용 가능

@@ -1,38 +1,12 @@
-# Buffer - Node.js
+# 버퍼 (Buffer)
 
-https://tk-one.github.io/2018/08/28/nodejs-buffer/
-
-https://nodejs.org/api/buffer.html
-
-Node.js 공식문서에서는 Buffer를 다음과 같이 정의합니다.
-
-바이너리 데이터들의 스트림을 읽거나, 조작하는 매커니즘.  
-이 Buffer 클래스는 Node.js의 일부로 도입되어  
-TCP 스트림이나 파일시스템같은 작업에서의  
-octet 스트림과의 상호작용을 가능하기 위해 만들어졌습니다.
-(Buffer클래스는 바이너리 데이터들의 스트림을 직접 다루기 위해 Node.js API에 추가)
-
-- octet Stream 은 일반적으로 8bit 형식으로 된 데이터를 의미
-- Node.js 에서의 스트림은 간단하게 한 지점에서 다른 지점으로 이동하는 일련의 데이터를 의미
-
-일반적으로 데이터의 이동은 그 데이터를 가지고 작업을 하거나, 그 데이터를 읽거나, 무언가를 하기 위해 일어납니다.  
-하지만 한 작업이 특정시간동안 데이터를 받을 수 있는 데이터의 최소량과 최대량이 존재합니다.  
-그래서 만약에 한 작업이 데이터를 처리하는 시간보다 데이터가 도착하는 게 더 빠르다면,  
-초과된 데이터는 어디에선가 처리되기를 기다리고 있어야 합니다.  
-데이터를 처리하는 시간보다 훨씬빠르게 계속해서 새로운 데이터가 도착하면 어딘가에는 도착한 데이터들이 미친듯이 쌓일것이기 때문이죠.
-
-반면에, 한 작업이 데이터를 처리하는 시간이 데이터가 도착하는 시간보다 더 빠르다면,  
-먼저 도착한 데이터는 처리되기 전에 어느정도의 데이터량이 쌓일때까지 기다려야 합니다.
-
-바로 그 기다리는 영역이 buffer 입니다!  
-컴퓨터에서 일반적으로 RAM이라고 불리는 영역에서 streaming 중에 데이터가 일시적으로 모이고,  
-기다리며 결국에는 데이터가 처리되기위해 내보내어 집니다.
+`study.git/인프라/서버/NodeJS_NPM/NodeJS_스트림_버퍼.md` 참고!
 
 ## 버퍼 생성 Buffer.from
 
 ```javascript
 // (1)
-const buf1 = Buffer.from("abc");
+const buf1 = Buffer.from('abc');
 // (2)
 const buf2 = Buffer.from([1, 100, 255]);
 ```
@@ -64,9 +38,9 @@ console.log(buf.values()); // Object [Array Iterator] {}
 ### Buffer.prototype.keys, Buffer.prototype.entries
 
 ```javascript
-for (const key of buf.keys()) console.log("key: ", key);
-for (const value of buf.values()) console.log("value: ", value);
-for (const entry of buf.entries()) console.log("entry: ", entry);
+for (const key of buf.keys()) console.log('key: ', key);
+for (const value of buf.values()) console.log('value: ', value);
+for (const entry of buf.entries()) console.log('entry: ', entry);
 
 // key: 0
 // key: 1
