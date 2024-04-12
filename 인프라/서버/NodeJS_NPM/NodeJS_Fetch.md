@@ -1,7 +1,8 @@
 # fetch
 
-## 브라우저단 지원 범위
+## 지원 범위
 
+https://developer.mozilla.org/en-US/docs/Web/API/fetch  
 https://caniuse.com/fetch
 
 ## Node.js v18 지원 (실험적 지원)

@@ -4,6 +4,11 @@
 
 - to를 절대경로로 변환한다. to가 절대경로가 아니면 절대경로를 찾을 때까지 from 아규먼트들을 우측에서 좌측의 순서로 앞에 이어붙힌다.
 
+```javascript
+// 현재 파일 경로기준 루트파일 접근
+console.log(path.resolve(process.cwd(), '.env'));
+```
+
 ## path.normalize(path) 
 
 - '..'와 '.' 부분을 처리해서 문자열 경로를 정규화한다.
