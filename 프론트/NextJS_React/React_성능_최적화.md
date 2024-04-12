@@ -271,8 +271,7 @@ state.counter 가 변경되지 않았다고 할지라도 리렌더링을 유발�
 
 # `React.lazy 및 서스펜스(Suspense)` 를 사용한 코드 분할
 
-https://ko.reactjs.org/docs/code-splitting.html
-https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=lr
+`study.git/프론트/NextJS_React/React_Suspense.md` 참고!
 
 1. 코드 분할을 도입하는 가장 좋은 방법은 동적 import() 문법을 사용하는 방법
 
@@ -282,11 +281,11 @@ import('./math').then(math => {
 });
 ```
 
-Webpack이 이 구문을 만나게 되면 앱의 코드를 분할
+`Webpack이 이 구문을 만나게 되면 앱의 코드를 분할`
 
 2. React.lazy 함수를 사용하면 동적 import를 사용해서 컴포넌트를 렌더링
 
-`Suspense는 아직 렌더링이 준비되지 않은 컴포넌트가 있을때, 로딩 화면을 보여주고 로딩이 완료되면 해당 컴포넌트를 보여주는 React에 내장되어 있는 기능`
+`Suspense는 아직 렌더링이 준비되지 않은 컴포넌트가 있을때, 로딩 화면을 보여주고 로딩이 완료되면 해당 컴포넌트를 보여주는 React에 내장되어 있는 기능`  
 https://ko.reactjs.org/docs/react-api.html#reactsuspense
 
 ```javascript
@@ -345,87 +344,6 @@ const App = () => (
     </Suspense>
   </Router>
 );
-```
-
----
-
-# SWR (데이터 페칭 도구, Data Fetching) 에서의 서스펜스(Suspense)
-
-https://swr.vercel.app/ko/docs/suspense
-
----
-
-# Next.js 스트리밍 및 서스펜스(Suspense)
-
-https://beta.nextjs.org/docs/data-fetching/streaming-and-suspense
-
-https://stackoverflow.com/questions/69433673/nextjs-reactdomserver-does-not-yet-support-suspense
-Next js 12 이하 버전에서는 Suspense를 지원하지 않음
-
-## `Error: ReactDOMServer does not yet support Suspense.` 에러 원인
-
-https://velog.io/@devstone/React-Error-ReactDOMServer-does-not-yet-support-Suspense
-React로 SSR을 구현하기 위해 사용한 ReactDOMServer.renderToString 에서 Suspense 컴포넌트를 지원하지 않았기 때문
-
-SSRCompatibleSuspense.jsx
-
-```javascript
-import React, { Suspense } from 'react';
-import useMounted from 'hooks/useMounted';
-
-export default function SSRCompatibleSuspense(props) {
-  const isMounted = useMounted();
-
-  if (isMounted) {
-    return <Suspense {...props} />;
-  }
-  return <>{props.fallback}</>;
-}
-```
-
-useMounted.js
-
-```javascript
-import React from 'react';
-
-function useMounted() {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  return mounted;
-}
-
-export default useMounted;
-```
-
-AsyncTest.jsx
-
-```javascript
-import React, { useState } from 'react';
-import styles from './style.scss';
-import GetData from './components/GetData';
-import ErrorBoundary from './asyncHandler/ErrorBoundary';
-import ErrorComponent from './asyncHandler/ErrorComponent';
-import LoadingComponent from './asyncHandler/LoadingComponent';
-import SSRCompatibleSuspense from './asyncHandler/SSRCompatibleSuspense';
-
-function AsyncTest() {
-  return (
-    <ErrorBoundary
-      renderFallback={({ error }) => <ErrorComponent error={error} />}
-      resetKey={resetKey}
-    >
-      <SSRCompatibleSuspense fallback={<LoadingComponent />}>
-        <GetData />
-      </SSRCompatibleSuspense>
-    </ErrorBoundary>
-  );
-}
-
-export default AsyncTest;
 ```
 
 ---

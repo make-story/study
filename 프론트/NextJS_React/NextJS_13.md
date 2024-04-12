@@ -202,6 +202,8 @@ export default async function Page() {
 
 app/ 에서 React Suspense 기반으로 구현된 새로운 data fetch 하는 방식이다.
 
+`study.git/프론트/NextJS_React/React_Suspense.md` 참고!
+
 ```javascript
 // app/page.js
 import { use } from 'react';

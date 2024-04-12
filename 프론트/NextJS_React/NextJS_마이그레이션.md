@@ -118,10 +118,13 @@ https://nextjs.org/docs/pages/api-reference/next-config-js/rewrites
 
 # Next.js 코드 스플리팅(코드분할) 자동화
 
+`study.git/프론트/NextJS_React/React_Suspense.md` 참고!
+
 Next.js 동적 js 파일 import  
 다이나믹 임포트 당장 필요 없음 (선택적으로 필요 시 사용하는 부분)
 
 React 서스펜스(Suspense)  
-https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming  
+https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
+
 참고: SWR 데이터 패칭 도구에서는 서스펜스 사용권장 안함  
 https://swr.vercel.app/ko/docs/suspense
