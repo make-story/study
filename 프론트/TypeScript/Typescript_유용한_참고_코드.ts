@@ -52,6 +52,23 @@ type KeysOf<T> = {
 // interface value 리스트를 타입으로 변환
 type ValuesOf<T> = T[keyof T];
 
+const useKeyValueState = <T extends { [key: string]: any }>(
+  initialState: T,
+): [T, (key: KeysOf<T>, value: any) => void, () => void] => {
+  const [state, setState] = useState<T>(initialState);
+  const setItem = useCallback(
+    (key: KeysOf<T>, value: any) => {
+      setState({ ...state, [key]: value });
+    },
+    [state],
+  );
+  const setReset = useCallback(() => {
+    setState(initialState);
+  }, [initialState]);
+
+  return [state, setItem, setReset];
+};
+
 const object1 = {
   a: 1,
   b: 2,
@@ -215,6 +232,15 @@ const createFetchManager = (params: FetchManagerParams = {}) => {
   } as const;
 };
 type FetchManager = ReturnType<typeof createFetchManager>;
+
+/**
+ * 함수 선언 제네릭
+ */
+const getStorageValue = <T>(key: string, defaultValue: T): T => {
+  // read from local storage
+  const saved = localStorage.getItem(key);
+  return JSON.parse(saved) ?? defaultValue;
+};
 
 /**
  * promise
