@@ -4,6 +4,8 @@ https://www.samsungsds.com/kr/insights/web_component.html
 
 ## CSS 모듈(Module)
 
+https://2023.stateofcss.com/en-US/
+
 CSS 모듈은 CSS를 모듈화 하여 사용하는 방식입니다.  
 `CSS 클래스를 만들면 자동으로 고유한 클래스네임을 만들어서 scope를 지역적으로 제한`합니다.  
 모듈화된 CSS를 번들러로 불러오면 다음과 같이 사용자가 정의했던 클래스네임과 고유한 클래스네임으로 이뤄진 객체가 반환됩니다.
@@ -15,7 +17,7 @@ CSS 모듈은 동일 프로젝트 소스 안에 CSS 클래스 이름이 중복�
 다만 한 곳에서 모든 것을 작성하지 않기 때문에 별도로 많은 CSS 파일을 만들어 관리해야 하는 단점이 있습니다.
 
 ```javascript
-import styles from "../styles/Home.module.css";
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
   return <div className={styles.homepage}></div>;
@@ -23,7 +25,7 @@ export default function Home() {
 ```
 
 ```javascript
-import styles from "../styles/Home.module.scss";
+import styles from '../styles/Home.module.scss';
 
 export default function Home() {
   return <div className={styles.homepage}></div>;
