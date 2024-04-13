@@ -112,39 +112,3 @@ https://github.com/Webschool-io/js4girls/issues/58
 
 recommend to always add the slash. Because, it provides a visual clue of non-closing tags.
 `항상 슬래시를 추가하는 것이 좋다. 왜냐하면 non-closing 태그는 시각적으로 가독성을 높여준다.`
-
----
-
-# 시멘틱 태그
-
-검색 엔진은 시맨틱 태그를 기준으로 웹 페이지의 내용을 판단하고 인덱싱을 합니다.
-
-시멘틱 태그로 분류되는 태그들은 다음과 같습니다.
-
-```html
-<article></article>
-<aside></aside>
-<details></details>
-<figcaption></figcaption>
-<figure></figure>
-<footer></footer>
-<header></header>
-<main></main>
-<mark></mark>
-<nav></nav>
-<section></section>
-<summary></summary>
-<time></time>
-```
-
-http://makestory.net/media/#/view/73
-
-# details
-
-보이기/숨기기 토글(Toggle) HTML  
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
-
-# dialog
-
-커스텀 alert / confirm HTML  
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
