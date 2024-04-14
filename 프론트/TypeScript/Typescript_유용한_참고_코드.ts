@@ -4,6 +4,7 @@
  * https://velog.io/@familyman80/%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-CheatSheet-apfc48by
  * https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#wrappingmirroring
  */
+import { useReducer, useState, useEffect, PropsWithChildren } from 'react';
 
 export const MenuPageCornerId = {
   MAIN_UPPER: 'M01_main_m.16',
@@ -273,3 +274,74 @@ async function getPromise4(): Promise<string | null> {
 
   return 'bobbyhadz.com';
 }
+
+// ----------
+
+/**
+ * useReducer
+ */
+
+interface IResponseMapData {
+  code: number;
+  longitude: number;
+  latitude: number;
+  address: string;
+  site: string;
+  visible: boolean;
+}
+
+// 초기 상태값
+type TMapState = {
+  data: IResponseMapData[];
+};
+const initialState: TMapState = {
+  data: [],
+};
+
+// 액션함수
+export const mapAction = {
+  VISIBLE_TOGGLE: 'map/VISIBLE_TOGGLE',
+};
+export const visibleToggle = (payload: any) => ({
+  type: mapAction.VISIBLE_TOGGLE,
+  payload,
+});
+type TMapAction = ReturnType<typeof visibleToggle>;
+
+// 리듀서
+export function mapReducer(state: TMapState, action: TMapAction): TMapState {
+  console.log('mapReducer', action);
+  const { data = [] } = state;
+  const { type, payload } = action;
+
+  // action.type 에 따라 다른 작업 수행
+  switch (type) {
+    case mapAction.VISIBLE_TOGGLE:
+      const findIndex = data.findIndex(
+        (item: IResponseMapData) => item.code === payload,
+      );
+      if (findIndex !== -1) {
+        data[findIndex] = {
+          ...data[findIndex],
+          visible: !data[findIndex].visible,
+        };
+      }
+      return { ...state, data: [...data] };
+  }
+
+  return state;
+}
+
+const MapContainer = ({
+  data,
+}: PropsWithChildren<{ data: IResponseMapData[] }>) => {
+  //const [state, dispatch] = useReducer(mapReducer, { data }); // 해당 코드는 에러가 발생한다. 초기 상태 주입은 initialState, 그 이후 상태 주입은 dispatch 통해서 변경한다.
+  const [state, dispatch] = useReducer(mapReducer, initialState);
+  const [kakaoMap, setKakaoMap] = useState<any>(null);
+
+  useEffect(() => {
+    dispatch({ type: mapAction.VISIBLE_TOGGLE, payload: data });
+  }, [data, dispatch]);
+
+  return <></>;
+};
