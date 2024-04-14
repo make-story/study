@@ -1,6 +1,11 @@
 # NextJS 이슈 슈팅 (트러블슈팅, 이슈경험)
 
-# src/pages/\_app.tsx
+## Next.js 관련 패키지 버전 확인 필요
+
+Next.js 버전에 따라  
+React, next-transpile-modules 등 의존 버전 확인 필수!!!
+
+## src/pages/\_app.tsx 내부 코드 타입에러!
 
 `<Component /> 타입 에러`가 발생하는 경우, package.json 선언된 react, react-dom, @types/react, @types/react-dom 등 버전이 맞지 않다는 것이다.
 
