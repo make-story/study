@@ -1,3 +1,9 @@
+# 자바스크립트 실행 과정 시각화
+
+Event Loop, Web APIs, (Micro)task Queue
+
+https://www.youtube.com/watch?v=eiC58R16hb8
+
 # 실행 콘텍스트 생성 기준
 
 1. 함수코드 (function code)
