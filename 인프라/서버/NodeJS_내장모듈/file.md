@@ -49,3 +49,57 @@ https://nodejs.org/api/fs.html
 ## fs.exists 기능은 Deprecated
 
 fs.existsSync(path) 사용 가능
+
+# 폴더 및 파일리스트
+
+```typescript
+/**
+ * 해당경로의 디렉토리 및 파일 리스트 반환
+ */
+export const getDirectoryFile = (
+  pathname: string = 'headlessbrowser/testcase',
+  options: { isFileExtension?: boolean; fileExtensionFilter?: string[] } = {},
+) => {
+  const { isFileExtension = false, fileExtensionFilter = ['.ts', '.js'] } =
+    options;
+  const source = path.resolve(__dirname, '../', pathname);
+  let directory: string[] = [];
+  let file: string[] = [];
+
+  if (!fs.existsSync(source)) {
+    return { directory, file };
+  }
+
+  const read: fs.Dirent[] = fs.readdirSync(source, { withFileTypes: true });
+  ({ directory, file } = read.reduce(
+    (accumulator: { directory: string[]; file: string[] }, item, index) => {
+      if (item.isDirectory()) {
+        // 폴더 리스트
+        accumulator.directory.push(item.name);
+      } else if (
+        item.isFile() &&
+        (!fileExtensionFilter?.length ||
+          fileExtensionFilter.includes(
+            path.extname(`${source}/${item.name}`)?.toLowerCase() || '', // 확장자 확인
+          ))
+      ) {
+        // 파일 리스트
+        let filename = item.name;
+        if (!isFileExtension) {
+          // 확장자 제거
+          const arr = filename.split('.');
+          if (1 < arr.length) {
+            arr.pop();
+          }
+          filename = arr.join('');
+        }
+        accumulator.file.push(filename);
+      }
+      return accumulator;
+    },
+    { directory: [], file: [] },
+  ));
+
+  return { directory, file };
+};
+```
