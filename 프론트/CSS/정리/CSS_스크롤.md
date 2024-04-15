@@ -80,3 +80,48 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-align
 
 책갈피 위치 애니메이션 이동  
 https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+
+```html
+<nav>
+  <a href="#page-1">1</a>
+  <a href="#page-2">2</a>
+  <a href="#page-3">3</a>
+</nav>
+<div class="scroll-container">
+  <div class="scroll-page" id="page-1">1</div>
+  <div class="scroll-page" id="page-2">2</div>
+  <div class="scroll-page" id="page-3">3</div>
+</div>
+```
+
+```css
+a {
+  display: inline-block;
+  width: 50px;
+  text-decoration: none;
+}
+nav,
+.scroll-container {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+nav {
+  width: 339px;
+  padding: 5px;
+  border: 1px solid black;
+}
+.scroll-container {
+  width: 350px;
+  height: 200px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+.scroll-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 5em;
+}
+```

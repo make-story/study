@@ -203,6 +203,14 @@ https://wit.nts-corp.com/2018/08/28/5317
 
 https://www.bram.us/2017/12/10/customizing-pull-to-refresh-and-overflow-effects-with-css-overscroll-behavior/
 
+```scss
+input[type='checkbox'] {
+  &:checked + label + .scroll {
+    overscroll-behavior: contain;
+  }
+}
+```
+
 ## touch-action 속성의 값으로 auto 이외의 값을 줄 경우, 해당 속성에 명시해준 터치 액션만이 브라우저에 의해 처리
 
 https://wit.nts-corp.com/2018/08/28/5317
@@ -222,23 +230,23 @@ https://ui.toast.com/posts/ko_20220106
 
 ```javascript
 function createParagraph(text) {
-  const el = document.createElement("p");
+  const el = document.createElement('p');
   el.innerText = text;
 
   return el;
 }
 
-const printEl = document.getElementById("print");
+const printEl = document.getElementById('print');
 
 [
-  "touchstart",
-  "touchmove",
-  "touchend",
-  "mousedown",
-  "mousemove",
-  "mouseup",
-  "click",
-].forEach((eventType) => {
+  'touchstart',
+  'touchmove',
+  'touchend',
+  'mousedown',
+  'mousemove',
+  'mouseup',
+  'click',
+].forEach(eventType => {
   document.addEventListener(eventType, () => {
     printEl.appendChild(createParagraph(eventType));
 
@@ -290,13 +298,13 @@ const sendLogsBeforeRouting = async (
   e: React.MouseEvent | null,
   url: string,
   callbackSendLogs: (() => void | Promise<void>) | undefined,
-  callbackBeforeRouting?: (...args: any[]) => any
+  callbackBeforeRouting?: (...args: any[]) => any,
 ) => {
   e?.preventDefault();
 
   const UA = window.navigator.userAgent.toLowerCase();
-  const hasSafari = UA.includes("safari");
-  const hasChrome = UA.includes("chrome");
+  const hasSafari = UA.includes('safari');
+  const hasChrome = UA.includes('chrome');
   try {
     // safari 에서 클릭으로 링크 이동할 경우 로그 쌓이지 않는 현상 방어 처리
     // iOS '모바일 크롬'에서도 '사파리'브라우저 처럼 동기처리 필요. (현재 '모바일 크롬' userAgent에선 'chrome' 문자열 없음)
@@ -306,11 +314,11 @@ const sendLogsBeforeRouting = async (
       callbackSendLogs?.();
     }
   } catch (error) {
-    console.debug("send log error:", error);
+    console.debug('send log error:', error);
   } finally {
     callbackBeforeRouting?.();
     // url 이 없으나 리액팅로그 수집하는 케이스가 있다. 배너 BO세팅시 링크에 #을 입력하면 이동하지 않는다.
-    if (url && url !== "#") {
+    if (url && url !== '#') {
       router.push(url);
     }
   }

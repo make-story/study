@@ -540,6 +540,13 @@ useEffect(
 );
 ```
 
+### useEffect dependency
+
+- useEffect는 기본적으로 매 렌더링 마다 실행된다.
+- dependency array에 primitive types를 넣으면 값이 변경될 때 마다 실행된다.
+- dependency array에 object를 넣으면 object의 reference가 변경될 때 마다 실행된다.
+- dependency array에 object를 넣고, object의 값이 변경될 때 마다 실행시키기를 원한다면, use-deep-compare-effect 의 useDeepCompareEffect 를 useEffect 대신에 사용하자.
+
 ---
 
 ## 렌더링과 무관한 값 저장히기 : useRef
@@ -838,15 +845,25 @@ useCallback 은 특정 함수를 새로 만들지 않고 다시 재사용한다�
 useCallback 을 추가하면 해당 의존성이 변경됐을 때만 함수가 재성성되는 것을 볼 수 있다.  
 이처럼 함수의 재생성을 막아 불필요한 리소스 또는 리렌더링을 방지하고 싶을 때 useCallback 을 사용해 볼 수 있다.
 
-### useCallback 에 기명함수 사용
+### 왜 useCallback 에 기명함수를 넘겨주었나요?
 
-일반적으로 useCallback 이나 useMemo 를 사용할 때 useEffect 와 마찬가지로 많은 코드가 익명 함수로 첫 번째 인자를 넘겨준다.
+`모던 리액트 Deep Dive` 책 내용 중 - p14
 
-기명함수를 사용할 경우,  
-크롬 메모리 탬에서 디버깅을 용이하게할 수 있다.  
-익명함수는 말 그대로 이름이 없어 해당 함수를 추적하기 어렵기 때문이다.
+일반적으로 useCallback 이나 useMemo 를 사용할 때 useEffect 와 마찬가지로 많은 코드가 익명 함수로 첫 번쨰 인수를 넘겨 준다.
 
-`크롬 개발자 도구를 활용한 애플리케이션 분석` p445 확인!!
+기명함수를 작성할 경우,  
+이는 `크롬 메모리 탬에서 디버깅을 용이하게 하기 위함이다.` (자바스크립트 매모리 스냅샷, 크롬 리액트 개발 도구에서도 기명함수의 경우 유용)  
+익명 함수는 말 그대로 이름이 없어 함수를 추적하기 어렵기 때문이다.
+
+(기명 함수로 선언한 함수를 크롬 개발자 도구에서 디버깅하는 방법은 '크롬 개발자 도구를 활용한 애플리케이션 분석 - p432' 에서 확인!)
+
+#### 참고 - 과거 가이드에서는 기명함수로 예제 제공, 현재 가이드에서는 익명함수(화살표 함수)로 예제 제공
+
+과거 리액트 공식 가이드 사이트 - 일반 함수를 사용!
+https://legacy.reactjs.org/docs/hooks-rules.html#explanation
+
+현재 리액트 공식 가이드 사이트 - 익명 함수를 사용!
+https://react.dev/reference/react/useCallback
 
 ---
 
