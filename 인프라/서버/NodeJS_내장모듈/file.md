@@ -48,6 +48,8 @@ https://nodejs.org/api/fs.html
 
 ## fs.exists 기능은 Deprecated
 
+https://nodejs.org/api/fs.html#fsexistssyncpath
+
 fs.existsSync(path) 사용 가능
 
 # 폴더 및 파일리스트
