@@ -1,6 +1,6 @@
 # 환경 변수 (environment variable, env)
 
-## 환경변수 주입
+## 명령어로 환경변수 주입
 
 window
 
@@ -14,14 +14,11 @@ mac
 $ export NODE_ENV=development
 ```
 
-dotenv 도구를 활용한 방법  
-https://www.npmjs.com/package/dotenv
-
-## env 파일로 주입 및 실행
+## 파일(.env)로 환경변수 주입 및 실행
 
 https://stackoverflow.com/questions/25112510/how-to-set-environment-variables-from-within-package-json
 
-.test
+'.test' 파일생성 및 환경변수 추가
 
 ```
 TEST=12345
@@ -39,6 +36,18 @@ TEST=12345
 }
 ```
 
+## 설정된 환경변수 리스트 확인
+
+```bash
+$ env
+```
+
+## dotenv 도구를 활용한 방법
+
+파일(예 .env)에 설정된 환경변수를 process.env 에 주입해 주는 라이브러리
+
+https://www.npmjs.com/package/dotenv
+
 `dotenv-cli`
 https://github.com/entropitor/dotenv-cli
 
@@ -46,11 +55,16 @@ https://github.com/entropitor/dotenv-cli
 $ dotenv -e .env2 -- <command with arguments>
 ```
 
-## env 리스트
+## cross-env
 
-```bash
-$ env
-```
+OS별 다른 환경변수 주입 대응 라이브러리
+
+리눅스 또는 맥의 경우 "export 키=값", 윈도우의 경우 "SET 키=값"의 형태로 사용
+
+## dotenv / cross-env 차이
+
+- dotenv 는 환경변수가 설정된 특정 파일을 읽어서 process.env 에 주입
+- cross-env 는 명령줄(CLI)에서 환경변수를 OS 별 대응없이 사용가능하도록 주입
 
 ## NODE_ENV
 
