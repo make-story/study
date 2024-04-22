@@ -35,3 +35,7 @@ lodash, react-bootstrap 등 기존코드를 트리쉐이킹 가능하도록 변�
   ]
 }
 ```
+
+## @babel/plugin-proposal-pipeline-operator
+
+자바스크립트 파이프라인

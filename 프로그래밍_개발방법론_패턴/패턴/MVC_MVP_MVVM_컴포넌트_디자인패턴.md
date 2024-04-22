@@ -116,6 +116,57 @@ MVC패턴의 일부 구현에서는 모델이 유효성 검사 규칙 같은 메
 # MVC 코드
 
 ```javascript
+// https://jake-seo-dev.tistory.com/742
+
+// Model
+const model = {
+  data: [],
+  getData() {
+    // API 호출 또는 로컬 스토리지에서 데이터 로드
+  },
+  saveData() {
+    // API 호출 또는 로컬 스토리지에 데이터 저장
+  },
+};
+
+// View
+const view = {
+  render() {
+    // 모델의 데이터를 기반으로 HTML 템플릿 렌더링
+  },
+  update() {
+    // 모델 변경 시 화면 동적 업데이트
+  },
+};
+
+// Controller
+const controller = {
+  init() {
+    // 모델 데이터 로드
+    model.getData();
+    // 뷰와 모델 연결
+    view.render(model.data);
+  },
+  onUserAction(action) {
+    // 사용자 입력 처리
+    switch (action) {
+      case "ADD_TODO":
+        // 모델에 데이터 추가 요청
+        model.addData(data);
+        // 뷰 업데이트
+        view.update();
+        break;
+      // ...
+    }
+  },
+};
+
+// 앱 시작
+controller.init();
+출처: https://jake-seo-dev.tistory.com/742 [제이크서 위키 블로그:티스토리]
+```
+
+```javascript
 // 뷰
 var CreateCastleView = (function () {
   function CreateCastleView(document, controller, model, validationResult) {
@@ -125,12 +176,15 @@ var CreateCastleView = (function () {
     this.validationResult = validationResult;
 
     var _this = this;
-    this.document.getElementById('saveButton').addEventListener('click', function () {
-      return _this.saveCastle();
-    });
+    this.document
+      .getElementById('saveButton')
+      .addEventListener('click', function () {
+        return _this.saveCastle();
+      });
     this.document.getElementById('castleName').value = model.name;
     this.document.getElementById('description').value = model.description;
-    this.document.getElementById('outerWallThickness').value = model.outerWallThickness;
+    this.document.getElementById('outerWallThickness').value =
+      model.outerWallThickness;
     this.document.getElementById('numberOfTowers').value = model.numberOfTowers;
     this.document.getElementById('moat').value = model.moat;
   }
@@ -138,7 +192,8 @@ var CreateCastleView = (function () {
     var data = {
       name: this.document.getElementById('castleName').value,
       description: this.document.getElementById('description').value,
-      outerWallThickness: this.document.getElementById('outerWallThickness').value,
+      outerWallThickness:
+        this.document.getElementById('outerWallThickness').value,
       numberOfTowers: this.document.getElementById('numberOfTowers').value,
       moat: this.document.getElementById('moat').value,
     };
@@ -161,7 +216,9 @@ var Controller = (function () {
       // castle을 저장장치에 저장
       this.saveCastleSuccess(data);
     } else {
-      this.setView(new CreateCastleView(this.document, this, data, validationResult));
+      this.setView(
+        new CreateCastleView(this.document, this, data, validationResult),
+      );
     }
   };
   Controller.prototype.saveCastleSuccess = function (data) {
@@ -182,7 +239,13 @@ var Controller = (function () {
 
 // 모델
 var CreateCastleModel = (function () {
-  function CreateCastleModel(name, description, outerWallThickness, numberOfTowers, moat) {
+  function CreateCastleModel(
+    name,
+    description,
+    outerWallThickness,
+    numberOfTowers,
+    moat,
+  ) {
     this.name = name;
     this.description = description;
     this.outerWallThickness = outerWallThickness;
