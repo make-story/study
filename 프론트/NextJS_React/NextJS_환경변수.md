@@ -42,10 +42,16 @@ Next.js 는 내부적으로 환경 변수를 위한 .env 파일을 처리할 수
 
 .env 를 포함해 다음 형식의 파일을 참조할 수 있습니다.
 
+- pages 방식: https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#environment-variable-load-order
+- app 방식: https://nextjs.org/docs/app/building-your-application/configuring/environment-variables#environment-variable-load-order
+
+- process.env
+- .env.$(NODE_ENV).local
+- .env.local (Not checked when NODE_ENV is test.)
+- .env.$(NODE_ENV)
 - .env
-- .env.local
-- .env.${환경명}
-- .env.${환경명}.local
+
+NODE_ENV: production, development, test
 
 .local 이 붙은 것은 .gitignore 에 추가되는 것을 의도한 것으로  
 API 키 등의 공개하고 싶지 않은 값을 저장하기 위해 사용합니다.
@@ -62,3 +68,14 @@ https://nextjs.org/docs/messages/non-standard-node-env
 - production: When your application is built with next build
 - development: When your application is run with next dev
 - test: When your application is being tested (e.g. jest)
+
+# Next.js build 명령은 NODE_ENV=production 고정?
+
+https://github.com/vercel/next.js/issues/3605#issuecomment-370255754
+
+development 환경에서 실행이 필요한 경우  
+https://nextjs.org/docs/pages/api-reference/next-cli#development
+
+```
+$ next dev
+```

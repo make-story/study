@@ -48,8 +48,12 @@ $ env
 
 https://www.npmjs.com/package/dotenv
 
-`dotenv-cli`
+### `dotenv-cli`
+
 https://github.com/entropitor/dotenv-cli
+
+터보레포 설정에서 연동가능  
+https://turbo.build/repo/docs/handbook/environment-variables
 
 ```bash
 $ dotenv -e .env2 -- <command with arguments>
