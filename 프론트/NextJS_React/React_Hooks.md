@@ -551,9 +551,25 @@ useEffect(
 
 ## 렌더링과 무관한 값 저장히기 : useRef
 
-useRef 훅은 자식 요소에 접근하는 것 외에도 중요한 용도가 한 가지 더 있다.  
-컴포넌트 내부에서 생성되는 값 중에는 렌더링과 무관한 값도 있는데, 이 값을 저장할 때 useRef 훅을 사용한다.  
-예를 들어, setTimeout 이 반환하는 값은 어딘가에 저장해 두었다가 적절한 시점에서 clearTimeout을 호출할 때 사용해야 한다.
+`useRef 는 렌더링에 필요하지 않은 값을 참조할 수 있는 React Hook` 입니다.
+
+`study.git/프론트/NextJS_React/React_Ref.md` 참고!
+
+https://ko.react.dev/reference/react/useRef
+
+리액트 공식페이지 내용 중
+
+https://ko.legacy.reactjs.org/docs/hooks-reference.html#useref
+
+```
+useRef() Hook 은 DOM ref 만을 위한 것이 아닙니다.
+본질적으로 useRef 는 .current 프로퍼티에 변경 가능한 값을 담고 있는 “상자”와 같습니다.
+만약 <div ref={myRef} />를 사용하여 React로 ref 객체를 전달한다면, React는 모드가 변경될 때마다 변경된 DOM 노드에 그것의 .current 프로퍼티를 설정할 것입니다.
+useRef 는 내용이 변경될 때 그것을 알려주지는 않는다는 것을 유념하세요.
+.current 프로퍼티를 변형하는 것이 리렌더링을 발생시키지는 않습니다.
+```
+
+예를 들어, setTimeout 이 반환하는 값은 어딘가에 저장해 두었다가 적절한 시점에서 clearTimeout 을 호출할 때 사용해야 한다.
 
 `돔 요소 접근`
 
