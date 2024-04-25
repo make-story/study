@@ -46,35 +46,6 @@ SSR 은 애플리케이션의 모든 부분에 대해, 또는 프로젝트 전�
 apps 와 packages, documents 각 역할별로 분리  
 라이브러리, 애플리케이션, 문서 등 폴더로 명시적 구분
 
-# Next.js 환경변수 (public, private 환경변수는 프리픽스로 자동 구분)
-
-기존 사용하던 환경변수 Next.js (브라우저 환경에서 변수 접근가능)에서도 사용가능하도록 next.config.js 설정  
-고려해야 할 점은 Node.js 의 dotenv-flow 라이브러리 우선순위와 Next.js 우선순위 확인 해야한다!
-
-- dotenv-flow
-  https://www.npmjs.com/package/dotenv-flow#variables-overwritingpriority
-- Next.js
-  https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#environment-variable-load-order
-
-"타입스크립트, 리액트, Next.js 로 배우는 실전 웹애플리케이션 개발" 책 내용 중...  
-Next.js 는 내부적으로 환경 변수를 위한 .env 파일을 처리할 수 있습니다.  
-프로젝트 루트에 위치한 환경 변수 파일 .env 는 자동으로 로딩되어 코드상에서 참조할 수 있습니다.
-
-.env 를 포함해 다음 형식의 파일을 참조할 수 있습니다.
-
-- .env
-- .env.local
-- .env.${NODE_ENV}
-- .env.${NODE_ENV}.local
-
-.local 이 붙은 것은 .gitignore 에 추가되는 것을 의도한 것으로 API 키 등의 공개하고 싶지 않은 값을 저장하기 위해 사용합니다.
-
-로딩된 환경 변수는 서버 사이드에서 실행하는 처리에서 참조할 수 있습니다.  
-즉, getServerSideProps 등의 함수나 빌드 중 SSG 페이지를 그릴 때, SSR 를 서버 사이드에서 그릴 때 환경 변수의 값을 참조할 수 있습니다.  
-(클라이언트에서 사용하려면 next.config.js 에서 주입 필요)
-
-클라이언트 사이드에서도 접근하고 싶은 값에 대해서는 환경 변수 이름 앞에 NEXT*PUBLIC* 을 붙입니다.
-
 # Next.js 미들웨어
 
 특정 요청 전에 무언가를 수행할 수 있게 해주는 기능  

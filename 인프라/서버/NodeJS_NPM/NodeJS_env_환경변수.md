@@ -1,5 +1,17 @@
 # 환경 변수 (environment variable, env)
 
+## NODE_ENV 값 종류
+
+https://nextjs.org/docs/messages/non-standard-node-env
+
+https://nodejs.org/en/learn/getting-started/nodejs-the-difference-between-development-and-production
+
+https://ko.vitejs.dev/guide/env-and-mode.html#node-env-and-modes
+
+- production
+- development
+- test
+
 ## 명령어로 환경변수 주입
 
 window
@@ -69,14 +81,6 @@ OS별 다른 환경변수 주입 대응 라이브러리
 
 - dotenv 는 환경변수가 설정된 특정 파일을 읽어서 process.env 에 주입
 - cross-env 는 명령줄(CLI)에서 환경변수를 OS 별 대응없이 사용가능하도록 주입
-
-## NODE_ENV
-
-https://nodejs.org/en/learn/getting-started/nodejs-the-difference-between-development-and-production
-
-https://nextjs.org/docs/messages/non-standard-node-env
-
-https://ko.vitejs.dev/guide/env-and-mode.html#node-env-and-modes
 
 ## dotenv, Node.js v20 내장됨
 
