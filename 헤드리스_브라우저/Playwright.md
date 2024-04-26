@@ -183,3 +183,9 @@ https://playwright.dev/docs/intro#system-requirements
 https://github.com/microsoft/playwright/issues/29559
 
 https://github.com/microsoft/playwright/issues/26482
+
+https://hub.docker.com/r/arm64v8/node/
+
+```Dockerfile
+FROM arm64v8/node:<version>
+```
