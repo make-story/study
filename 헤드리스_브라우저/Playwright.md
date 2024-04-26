@@ -174,3 +174,12 @@ https://playwright.dev/docs/codegen-intro
 $ npx playwright codegen <URL>
 $ npx playwright codegen playwright.dev
 ```
+
+# 도커 이미지 실행시 참고!
+
+`지원 시스템`  
+https://playwright.dev/docs/intro#system-requirements
+
+https://github.com/microsoft/playwright/issues/29559
+
+https://github.com/microsoft/playwright/issues/26482
