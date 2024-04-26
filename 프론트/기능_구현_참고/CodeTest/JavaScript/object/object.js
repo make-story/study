@@ -2,6 +2,15 @@
  * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object
  */
 
+// 객체 리스트 중 변수(key)값에 따른 선택
+// 환경변수(NODE_ENV)에 따른 값 선택간 유용
+const key1 = 'c';
+const value1 = {
+  a: 1,
+  b: 2,
+  c: 3,
+}[key1];
+
 /**
  * 객체 구조 분해 할당
  * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment

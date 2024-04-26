@@ -108,7 +108,7 @@ $ yarn install --check-files
 
 ---
 
-# UNMET PEER DEPENDENCY
+# UNMET PEER DEPENDENCY - peerDependencies
 
 https://blog.outsider.ne.kr/1230
 

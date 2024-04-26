@@ -203,7 +203,7 @@ devDependencies 에 명시된 의존성 모듈은
 $ npm install --production
 ```
 
-## peerDependencies
+## `peerDependencies`
 
 https://velog.io/@johnyworld/Peer-Dependencies-%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC
 
