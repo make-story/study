@@ -101,6 +101,16 @@ https://www.codenary.co.kr/latest-news/711
 
 Node.js 21에서 WebSocket 클라이언트에 대한 실험적 지원
 
+https://nodejs.org/en/blog/announcements/v21-release-announce#built-in-websocket-client
+
+https://github.com/nodejs/undici/tree/main/test/websocket
+
+https://www.nearform.com/insights/whats-new-in-node-js-21/
+
+```bash
+$ node --experimental-websocket example.js
+```
+
 ## Node.js Test runner에서 globs를 지원
 
 Node.js 21
