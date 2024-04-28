@@ -2,6 +2,8 @@
 
 https://pptr.dev/#?product=Puppeteer&show=api-overview
 
+https://devdocs.io/puppeteer/
+
 PuppeteerDevTools 프로토콜을 사용하여 브라우저와 통신.
 
 Browser 인스턴스는 여러 브라우저 컨텍스트를 소유 할 수 있습니다.
