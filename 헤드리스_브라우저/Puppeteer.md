@@ -90,3 +90,11 @@ RUN npm install
 # https://github.com/buildkite/docker-puppeteer
 FROM buildkite/puppeteer:latest
 ```
+
+---
+
+# 다양한 예제 참고
+
+https://addyosmani.com/blog/puppeteer-recipes/
+
+https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer
