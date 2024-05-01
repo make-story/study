@@ -18,6 +18,17 @@ const content: HTMLElement = document.querySelector('#content');
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 ```
 
+```typescript
+type ArrayElement<ArrayType extends readonly unknown[]> =
+  ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+
+type A = ArrayElement<string[]>; // string
+type B = ArrayElement<readonly string[]>; // string
+type C = ArrayElement<[string, number]>; // string | number
+type D = ArrayElement<['foo', 'bar']>; // "foo" | "bar"
+type E = ArrayElement<(P | (Q | R))[]>; // P | Q | R
+```
+
 # `JavaScript Event` - React Event Handler Cheat Sheet
 
 https://developer.mozilla.org/ko/docs/Web/API#%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4

@@ -20,6 +20,9 @@ Array.of(1, 2, 3); // [1, 2, 3]
 Array(7); // [ , , , , , , ]
 Array(1, 2, 3); // [1, 2, 3]
 
+// Array.from
+Array.from({ length: 3 });
+
 // 더미 데이터
 const posts = [...Array(40).keys()].map(i => ({
   title: `포스트${i}`,
