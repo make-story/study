@@ -1,7 +1,32 @@
-# WebSocket Server/Client
+# 웹소켓 WebSocket Server/Client
+
+https://en.wikipedia.org/wiki/WebSocket
+
+WebSocket 은 단일 TCP(전송 제어 프로토콜) 연결을 통해 동시 양방향 통신 채널을 제공하는 컴퓨터 통신 프로토콜 입니다.
+
+WHATWG 에서 유지 관리
+
+WebSocket 은 대부분의 웹페이지를 제공하는 데 사용되는 HTTP 와 다릅니다.  
+서로 다르지만 RFC 6455 에서는 WebSocket 이 "HTTP 포트 443 및 80을 통해 작동하고 HTTP 프록시 및 중개자를 지원하도록 설계"되어  
+HTTP와 호환된다고 명시합니다.  
+호환성을 달성하기 위해 WebSocket 핸드셰이크는 HTTP/1.1 Upgrade header 를 사용하여 HTTP 프로토콜에서 WebSocket 프로토콜로 변경합니다.
+
+핸드쉐이크 완료 시
+
+```
+HTTP/1.1 101 Switching Protocols
+Connection: upgrade
+Upgrade: websocket
+Sec-WebSocket-Accept: 5TJpHv9RoAl7w8ytsXcWxTOZ9Q==
+Sec-WebSocket-Protocol: new-chat
+```
+
+https://levelup.gitconnected.com/websockets-demystified-part-1-understanding-the-protocol-fccca2ca75eb
 
 `MDN` 참고  
 https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+
+## 도구 참고
 
 `NPM Trends` 참고  
 https://npmtrends.com/socket.io-vs-websocket-vs-ws
