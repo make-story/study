@@ -62,7 +62,25 @@ function Component() {
 }
 ```
 
-이벤트 유형에 신경 쓰지 않는다면 React.SyntheticEvent를 사용할 수 있습니다.
+```tsx
+// scroll
+
+function Component() {
+  useEffect(() => {
+    // WheelEvent
+    const handlerScroll = (event: Event) => {
+      // ...
+    };
+    document.addEventListener('scroll', handlerScroll);
+    return () => {
+      document.removeEventListener('scroll', handlerScroll);
+    };
+  }, []);
+  return <></>;
+}
+```
+
+## 이벤트 유형에 신경 쓰지 않는다면 React.SyntheticEvent 를 사용할 수 있습니다.
 
 ```tsx
 // SyntheticEvent
@@ -185,7 +203,7 @@ const onChangeFilter = useCallback<ChangeEventHandler<HTMLSelectElement>>(
 );
 ```
 
-# forwardRef
+# forwardRef 사용간 DOM 타입!
 
 ```typescript
 import { forwardRef, InputHTMLAttributes } from 'react';
