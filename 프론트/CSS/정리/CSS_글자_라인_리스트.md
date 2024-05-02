@@ -58,7 +58,7 @@ white-space 속성이 normal (기본값)로 설정된 요소 안에서는
 - pre-wrap 속성값은 pre 속성값과 동일하게 연속된 띄어쓰기와 들여쓰기, 줄바꿈을 있는 그대로 보존해주는데요. 유일한 차이점은 텍스트 안에 긴 행이 있을 때 해당 행에서 자동으로 줄바꿈
 - pre-line 속성값은 말 그대로 라인(line), 즉 줄바꿈 문자만 있는 그대로 처리해주고 연속된 띄어쓰기와 들여쓰기는 무시하고 모두 띄어쓰기 한 번으로 처리
 
-# word-break, word-wrap
+# 줄바꿈, word-break, word-wrap
 
 텍스트가 들어가는 블록요소의 가로 사이즈에 맞춰 줄바꿈 설정 (강제줄바꿈 방지, 텍스트 길이제한)
 
@@ -74,6 +74,21 @@ https://ahribori.com/article/5a0994626c9eef13d882e379
   단어의 길이가 길어서 영역을 벗어난 텍스트의 처리 방법을 정의 apple, banana 등은 단어의 길이가 짧지만 asdkfjaklsdjfklasdjfklasjdfkljasdlfjsadlfdsaklfjfklsadjf 같은 단어는 길이가 매우 길다.  
   `word-wrap 속성은 박스의 가로 영역을 넘친 단어 내에서 임의의 분리 여부를 결정하여 줄바꿈에 관여`
 
+```css
+* {
+  width: 100%;
+  font-size: 1rem;
+  word-break: break-word; /*특수문자를 포함하고 강제 줄바꿈*/
+  word-wrap: break-word; /*가로사이즈나 엘리먼트에 맞춰서 강제 줄바꿈 해줌, word-break:break-all; 과 같은 결과물*/
+
+  text-overflow: ellipsis;
+  /*잘라지는 끝부분에 자동으로 '...'을 넣어줌*/
+  /*ie6 이상에서만 지원 가능, 파이어폭스는 안됨*/
+  /*width 값이 지정되어야 하고 높이를 정해주거나 white-space-nowrap; 속성 사용해야 함*/
+  /*CSS의 white-space와 word-break를 함께 써야한다.*/
+}
+```
+
 # overflow-wrap ( = word-wrap)
 
 https://developer.mozilla.org/ko/docs/Web/CSS/overflow-wrap
@@ -85,7 +100,9 @@ overflow-wrap 속성은 인라인(inline) 요소에 적용되며,
 
 ```html
 <div class="example-container">
-  <div style="width: 200px; border: 1px solid black; word-break: keep-all; overflow-wrap: break-word;">
+  <div
+    style="width: 200px; border: 1px solid black; word-break: keep-all; overflow-wrap: break-word;"
+  >
     굉장히길고엄청나게길면서굉장히길고엄청나게길면서굉장히길고엄청나게길면서굉장히길고엄청나게길면서의미는없는문자열
   </div>
 </div>
@@ -240,13 +257,19 @@ shape-outside
   <body>
     <div id="text">
       <h2>text</h2>
-      <img class="clip-path" src="http://resrc.devdic.com/img/bysize/below_200/01.png" />
+      <img
+        class="clip-path"
+        src="http://resrc.devdic.com/img/bysize/below_200/01.png"
+      />
       <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-        a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
     </div>
