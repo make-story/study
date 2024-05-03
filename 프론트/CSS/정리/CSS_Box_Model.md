@@ -27,15 +27,23 @@ margin : border와 다른 태그 영역 사이
       }
       .cb {
         /* 
-        width: 500px; border: 20px solid #dddddd; 의 경우, 
-        콘텐트 영역이 500px이고 테두리를 포함한 크기는 580px 
+        margin: 20px;
+        padding: 20px;
+        border: 20px solid #dddddd;
+        width: 500px;
+
+        content-box 콘텐트 영역이 500px이고 테두리를 포함한 크기는 580px 
         */
         box-sizing: content-box;
       }
       .bb {
         /* 
-        width: 500px; border: 20px solid #dddddd; 의 경우, 
-        테두리를 포함한 크기가 500px 이고, 콘텐트 영역의 크기는 420px 
+        margin: 20px;
+        padding: 20px;
+        border: 20px solid #dddddd;
+        width: 500px;
+
+        border-box 테두리를 포함한 크기가 500px 이고, 콘텐트 영역의 크기는 420px 
         */
         box-sizing: border-box;
       }
