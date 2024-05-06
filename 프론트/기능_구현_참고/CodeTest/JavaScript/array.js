@@ -195,10 +195,11 @@ array1.forEach(element => console.log(element));
 // expected output: "b"
 // expected output: "c"
 
-// some 을 활용한 반복 break
+// some 을 활용한 반복 break - forEach break
+// https://blog.outsider.ne.kr/847
 [1, 2, 3, 4, 5].some(function (v) {
-  if (v == 2) console.log(v);
-  return v == 2;
+  if (v === 2) console.log(v);
+  return v === 2; // true 조건의 경우 반복문 중단! break; 효과
 });
 
 // ----------
