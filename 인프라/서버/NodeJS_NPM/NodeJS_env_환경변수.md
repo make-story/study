@@ -1,5 +1,12 @@
 # 환경 변수 (environment variable, env)
 
+## 비밀번호, 패스워드(password)
+
+비밀번호(또는 패스워드) 는 ENV 파일에 저장하지 않는다.  
+실수로 Git (버전관리프로그램) 을 통해 공유될 수 있으며, Next.js 등 env 설정 실수로 public 하게 사이트에 노출될 가능성이 있음.
+
+서버 내부 파일형태로 저장하고, 해당 파일을 읽어서 사용
+
 ## NODE_ENV 값 종류
 
 https://nextjs.org/docs/messages/non-standard-node-env
