@@ -127,8 +127,7 @@ import plugin from 'my-library/plugin';
 - 이름에 "js" 또는 "node"를 넣지 마세요. package.json 파일을 작성하고 있으므로 "engines" 필드를 사용하여 엔진을 지정할 수 있으므로 js라고 가정합니다.
 - 해당 이름의 항목이 이미 있는지 확인하기 위해 npm 레지스트리를 확인하는 것이 좋습니다.
 
-선택적으로 이름 앞에 범위를 붙일 수 있습니다 (예: @myorg/mypackage)
-https://docs.npmjs.com/cli/v10/using-npm/scope
+`study.git/인프라/서버/NodeJS_NPM/NPM_@_Scope.md` 참고!
 
 ## version
 
