@@ -27,25 +27,35 @@ MSA 구조(팀구조 포함)에서
 HTML + CSS 언어 기준으로 공통 구축하는 방법을 강구하는 것이 좋겠다.  
 (문제는 CSS 캡슐화?)
 
+## Story
+
+https://kyechan99.github.io/post/lib/storybook
+
+Storybook 은 이름처럼 Story 단위로 작성됩니다.  
+Story 파일에 구성요소를 정의하며 사용하는데 이를 Component Story Format (CSF) 라고 표현합니다.  
+(Story가 작성된 파일이 CSF 파일)
+
 ---
 
 ## 설치
 
 ### Storybook은 고유 커맨드를 가지고 있어 라이브러리를 설치하는 것만으로는 프로젝트에 적용되지 않는다.
 
-```
+```bash
 $ yarn global add @storybook/cli
 ```
 
 ### 설치가 되었나 버전을 확인
 
-```
+```bash
 $ getstorybook -V
+# 또는
+$ yran getstorybook -V
 ```
 
 ### 설치 실행
 
-```
+```bash
 $ getstorybook init
 ```
 
