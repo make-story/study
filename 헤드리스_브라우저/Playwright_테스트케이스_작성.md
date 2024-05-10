@@ -1,6 +1,7 @@
 # 테스트케이스 작성 참고 자료
 
 `https://tech.wonderwall.kr/articles/playwrighte2etestforuser/`
+https://tech.wonderwall.kr/articles/learningwithtest
 
 click 은 말 그대로 클릭
 fill 은 값을 입력
@@ -24,3 +25,9 @@ await expect(page.getByRole('listitem')).toHaveCount(12);
 ```
 
 https://playwright.dev/docs/test-assertions#auto-retrying-assertions
+
+# 성능 검사
+
+https://addyosmani.com/blog/puppeteer-recipes/#devtools-screenshots
+
+https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer
