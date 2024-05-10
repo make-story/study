@@ -13,10 +13,11 @@ setTimeout() 의 delay 시간은 의도했던 것보다 더 길 수도 있다.
 https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#reasons_for_delays_longer_than_specified
 
 - 브라우저는 setTimeout 호출을 5번 이상 중첩할 경우 4ms의 최소 타임아웃을 강제한다.
+  - 예를 들어, 지연 시간으로 0을 지정한 setTimeout을 여러 번 중첩(동일한 delay 값 0으로 설정된 setTimeout 여러개 실행)
 - 브라우저는 백그라운드 탭으로 인한 부하를 줄이기 위해, 비활성 탭에서의 최소 딜레이에 최소 값을 강제한다.
 - 페이지, 운영체제, 브라우저가 다른 작업으로 바쁘다면 timeout이 예상보다 늦게 실행될 수 있다.
 
-setTimeout() 에서의 delay는 정확히 그 delay 시간 후에 콜백함수가 실행되는 걸 보장하는 게 아니다.  
+`setTimeout() 에서의 delay는 정확히 그 delay 시간 후에 콜백함수가 실행되는 걸 보장하는 게 아니다.`  
 `delay 시간 후에 콜백 큐에 들어가는 것을 보장하는 것이다.`
 
 requestAnimationFrame 은 콜백함수를 브라우저가 다음 repaint task 를 시작할 준비가 되었을 때 실행한다.  
@@ -26,6 +27,7 @@ setTimeout() 이 가진 성능 문제를 해결할 수 있다.
 그리고 60FPS -> 초당 60프레임 -> 프레임당 16ms 라는 결과를 도출할 수 있다.
 
 즉, 프레임에 가장 적합한 시간은 16ms 인데, setTimeout 은 이 조건을 만족할 수 없다.
+(또한 setInterval, setTimeout과 달리 현재 페이지가 보이지 않을 때는 콜백함수가 호출되지 않기 때문에 불필요한 동작을 하지 않습니다.)
 
 ## requestAnimationFrame 이 프레임당 16ms 를 보장할 수 있는 이유
 
