@@ -10,7 +10,7 @@ OAuth 2.0(Open Authorization 2.0, OAuth2)은 인증을 위한 개방형 표준 �
 
 ### Authentication
 
-`인증`, 접근 자격이 있는지 검증하는 단계를 말합니다.
+`인증`, 접근 자격이 있는지 검증하는 단계를 말합니다. (로그인)
 
 ### Authorization
 
