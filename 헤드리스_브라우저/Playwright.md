@@ -59,6 +59,10 @@ https://playwright.dev/docs/selenium-grid
 2022-11-14 작성된 글  
 https://news.hada.io/topic?id=7809
 
+## Puppeteer / Playwright 동일 기능 코드 가이드
+
+https://playwright.dev/docs/puppeteer#cheat-sheet
+
 ---
 
 # 설치
