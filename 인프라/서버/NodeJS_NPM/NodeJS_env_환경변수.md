@@ -1,5 +1,7 @@
 # 환경 변수 (environment variable, env)
 
+`study.git/프론트/NextJS_React/NextJS_환경변수.md` 참고!
+
 ## 비밀번호, 패스워드(password)
 
 비밀번호(또는 패스워드) 는 ENV 파일에 저장하지 않는다.  
@@ -18,6 +20,12 @@ https://ko.vitejs.dev/guide/env-and-mode.html#node-env-and-modes
 - production
 - development
 - test
+
+## 우선순위
+
+Next.js 참고!
+
+https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#environment-variable-load-order
 
 ## 명령어로 환경변수 주입
 
@@ -88,6 +96,12 @@ OS별 다른 환경변수 주입 대응 라이브러리
 
 - dotenv 는 환경변수가 설정된 특정 파일을 읽어서 process.env 에 주입
 - cross-env 는 명령줄(CLI)에서 환경변수를 OS 별 대응없이 사용가능하도록 주입
+
+## dotenv / dotenv-flow 차이
+
+https://www.npmjs.com/package/dotenv-flow
+
+dotenv-flow는 dotenv를 확장
 
 ## dotenv, Node.js v20 내장됨
 

@@ -6,8 +6,12 @@ Next.js 는 내부적으로 환경 변수를 위한 .env 파일을 처리할 수
 
 .env 를 포함해 다음 형식의 파일을 참조할 수 있습니다.
 
-- pages 방식: https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#environment-variable-load-order
-- app 방식: https://nextjs.org/docs/app/building-your-application/configuring/environment-variables#environment-variable-load-order
+## 우선순위
+
+- pages 방식
+  https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#environment-variable-load-order
+- app 방식
+  https://nextjs.org/docs/app/building-your-application/configuring/environment-variables#environment-variable-load-order
 
 - process.env
 - .env.$(NODE_ENV).local

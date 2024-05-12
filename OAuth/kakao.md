@@ -38,6 +38,8 @@ OAuth 2.0 표준 규격에 따라 `액세스 토큰(Access token), 리프레시 
 
 ---
 
+https://developers.kakao.com/docs/latest/ko/kakaologin/common
+
 # 인증(Authentication)
 
 - ID와 비밀번호로 사용자 신원을 확인
