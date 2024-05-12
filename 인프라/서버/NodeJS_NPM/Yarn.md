@@ -16,7 +16,7 @@ yarn install --check-files
 
 # Yarn Berry
 
-`Yarn Berry (2.x, 3.x)` - Yarn2, Yarn3, Yarn Berry 등은 Yarn 1.x 이후 불리는 표현  
+`Yarn Berry (2.x, 3.x)` - Yarn2, Yarn3, Yarn Berry 등은 Yarn 1.x (Yarn Classic) 이후 불리는 표현  
 Yarn workspace를 도입하려고 할 때 성능면에서 Yarn Berry를 함께 검토해 볼 수 있다.  
 Yarn Berry는 yarn의 두 번째 버전으로, 2018년 9월 yarn의 RFC 저장소에서 시작되었다.  
 Yarn 1.x의 주요 개발자인 Mael Nison에 의해 TypeScript로 개발되었고, 2020년 1월 25일 정식 버전이 출시되었다.  
@@ -30,6 +30,18 @@ $ npm install -g yarn
 
 우선 실행해 주세요.  
 (MacOS이며, brew가 설치되어 있다면 brew install yarn도 가능)
+
+## 특징
+
+https://beomy.github.io/tech/etc/yarn-berry/
+
+Yarn의 2 버전 이상을 Yarn Berry 이라고 합니다. Yarn Berry에는 PnP와 Zero Install 두가지 중요한 개념이 있습니다.
+
+- PnP(Plug'n'Play)
+  PnP는 Plug And Play의 줄임말로 해석하면 '꼽기만 하면 사용할 수 있다.'로 해석할 수 있습니다. Yarn Berry는 성능 개선을 위해 node_modules를 읽는 느린 메모리 I/O 대신 .yarn/cache에 종속 패키지들을 zip 형태로 저장하고, .pnp.cjs 파일에 의존성 패키지의 의존성 정보를 저장하여 의존성 정보를 알 수 있게 만들었습니다.
+
+- `Zero Install`
+  Yarn Berry를 좀 더 PnP스럽게 사용하려면 Zero Install을 사용하면 됩니다. Zero Install이란 단어 그대로 설치 없이(yarn install 명령어 없이) 바로 프로젝트를 실행할 수 있도록 하는 설정을 이야기합니다.
 
 ---
 
