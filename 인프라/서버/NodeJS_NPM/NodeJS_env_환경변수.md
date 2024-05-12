@@ -105,6 +105,8 @@ dotenv-flow는 dotenv를 확장
 
 ## dotenv, Node.js v20 내장됨
 
+https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs
+
 https://dev.to/cjreads665/nodejs-2060-say-goodbye-to-dotenv-2ijl
 
 ```
