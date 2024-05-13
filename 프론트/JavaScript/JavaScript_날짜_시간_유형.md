@@ -1,6 +1,6 @@
 # JavaScript 에서 Date 는 유닉스 타임스탬프를 사용 - 날짜 / 시간
 
-`study.git/프론트/기능_구현_참고/CodeTest/JavaScript/date.js` 참고!
+`study.git/프론트/기능_구현_참고/CodeTest/JavaScript/date_time.js` 참고!
 
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Date
 
