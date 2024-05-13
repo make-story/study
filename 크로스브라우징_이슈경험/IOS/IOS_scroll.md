@@ -20,7 +20,21 @@ https://mytory.net/archives/15221
 }
 ```
 
-## ios body 스크롤 막는 방법
+## -webkit-overflow-scrolling 문제
+
+사파리에서 레이어 팝업을 띄웠을 때,  
+레이어 내부 스크롤 영역에 -webkit-overflow-scrolling: touch; 설정할 경우,  
+해당 overflow scroll 발생시 스크롤이 작동한다.
+
+그러나 해당 레이어의 overflow scroll 영역외 터치 후 다시 스크롤 -webkit-overflow-scrolling 영역을 터치할 경우  
+스크롤이 정상적으로 작동하지 않을 수 있다.  
+(스크롤 최하단이나 최상단에서 레이어 스크롤 영역이 아닌 부분을 터치했을 때 더욱 자주 발생)
+
+이 경우, 레이어 팝업 전체 영역을 overflow-y: auto; height: 100%; -webkit-overflow-scrolling: touch; 를 설정하여,  
+`레이어 전체영역에 대해 터치 스크롤영역으로 잡아주는 것이 안정적`이다.  
+또한, body 부분은 fixed로 설정해 터치 스크롤에 따라 body영역이 움직이지 않도록 잡아줘야 한다.
+
+## ios body 스크롤 막는 방법 - 풀 레이어(모달) 상태에서 뒤쪽 body 컨텐츠 스크롤되는 현상
 
 https://im-developer.tistory.com/201
 
@@ -67,7 +81,7 @@ export const withScrollLock = <P extends {}>(
 
 ```javascript
 // 사용 예
-import { withScrollLock } from "@/helpers";
+import { withScrollLock } from '@/helpers';
 
 const Modal = () => {
   // ...
@@ -112,7 +126,7 @@ export const withScrollLock = <P extends {}>(
 
 ### 4. 'body-scroll-lock' NPM 패키지 활용
 
-### 5. position: fixed;
+### 5. position: fixed; - 해당 방식은 기존 스크롤 위치를 기억해야 하므로 불편!
 
 이 방식은  
 body 태그에 position: fixed를 걸기 때문에  
@@ -155,20 +169,6 @@ export const withScrollLock = <P extends {}>(
     return <Feature { ...props } />;
   };
 ```
-
-## -webkit-overflow-scrolling 문제
-
-사파리에서 레이어 팝업을 띄웠을 때,  
-레이어 내부 스크롤 영역에 -webkit-overflow-scrolling: touch; 설정할 경우,  
-해당 overflow scroll 발생시 스크롤이 작동한다.
-
-그러나 해당 레이어의 overflow scroll 영역외 터치 후 다시 스크롤 -webkit-overflow-scrolling 영역을 터치할 경우  
-스크롤이 정상적으로 작동하지 않을 수 있다.  
-(스크롤 최하단이나 최상단에서 레이어 스크롤 영역이 아닌 부분을 터치했을 때 더욱 자주 발생)
-
-이 경우, 레이어 팝업 전체 영역을 overflow-y: auto; height: 100%; -webkit-overflow-scrolling: touch; 를 설정하여,  
-레이어 전체영역에 대해 터치 스크롤영역으로 잡아주는 것이 안정적이다.  
-또한, body 부분은 fixed로 설정해 터치 스크롤에 따라 body영역이 움직이지 않도록 잡아줘야 한다.
 
 ## iOS Safari browser bounce effect 제거
 

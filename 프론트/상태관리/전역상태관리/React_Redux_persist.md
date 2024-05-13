@@ -3,6 +3,18 @@
 리덕스의 store는 페이지를 새로고침 할 경우 state가 날아감  
 localStorage 또는 session에 저장
 
+## Next.js 14 적용
+
+`monorepo-nodejs20.git/apps/nextjs14` 참고!
+
+https://github.com/Mohammad-Faisal/nextjs-app-router-redux-toolkit-persist-integration
+
+https://stackoverflow.com/questions/76840499/how-to-get-redux-persist-working-in-nextjs-13-4-app-directory-using-redux-toolki
+
+## 동작방식 설명
+
+https://velog.io/@quack777/Redux-Persist-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EA%B3%A0-%EC%96%B4%EB%96%BB%EA%B2%8C-Persisted-Store%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80-%EB%B3%80%ED%99%94%ED%95%98%EB%8A%94%EC%A7%80%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC
+
 ---
 
 reducer.ts
@@ -306,8 +318,7 @@ export default Counter;
 
 해결 방법은  
 Hydration 을 하지 않도록,  
-다시 말해 서버에서 가져온 값을 바로 렌더링 하지 않도록  
-useEffect 를 쓰면 된다.
+`다시 말해 서버에서 가져온 값을 바로 렌더링 하지 않도록 useEffect 를 쓰면 된다.`
 
 ```tsx
 'use client';

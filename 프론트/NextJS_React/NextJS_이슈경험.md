@@ -157,6 +157,38 @@ export default App;
 `Function as Child Component`  
 https://reactpatterns.js.org/docs/function-as-child-component/
 
+`Warning: Text content did not match. Server: "..서버사이드에서의 값.." Client: "..클라이언트사이드에서의 값.."`
+
+주의! redux-persist (Redux State) 활용해 저장된 값을 읽어올 때 발생하는 Hydration 이슈 방지를 위해,
+useEffect 로 클라이언트 시점에 상태값 주입
+(redux-persist 는 클라이언트 브라우저 스토리지 기본 사용)
+
+```tsx
+import { useEffect, useState } from 'react';
+
+import { useAppSelector, useAppDispatch } from '@/store';
+import { selectCountValue } from '@/example/store/counter';
+
+const Counter = () => {
+  const [status, setStatus] = useState<number>(0);
+  const count = useAppSelector(selectCountValue);
+
+  // 주의! redux-persist (Redux State) 활용해 저장된 값을 읽어올 때 발생하는 Hydration 이슈 방지를 위해,
+  // useEffect 로 클라이언트 시점에 상태값 주입
+  // (redux-persist 는 클라이언트 브라우저 스토리지 기본 사용)
+  // Warning: Text content did not match. Server: "..서버사이드에서의 값.." Client: "..클라이언트사이드에서의 값.."
+  useEffect(() => {
+    setStatus(count);
+  }, [count]);
+
+  // count 값을 바로 출력할 경우 'Warning: Text content did not match. Server' 에러 발생
+  //return <span>{count}</span>;
+
+  // 클라이언트 사이드에서 상태값 변경해 줌
+  return <span>{status}</span>;
+};
+```
+
 ## Next.js SWC - Parsing error: Cannot find module 'next/babel'
 
 루트 경로에 있는 `ESLint 설정(예: .eslintrc.json) 파일의 extends 부분에 'next/babel' 추가!`

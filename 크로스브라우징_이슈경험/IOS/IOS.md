@@ -8,7 +8,9 @@ https://channel.io/ko/blog/cross_browsing_ios15
 
 ---
 
-#
+# 모바일 웹에서 스키마를 이용하여 앱을 호출하고, 앱이 미설치 되어있을 경우 앱스토어로 이동하는 방법
+
+https://hongssup.tistory.com/79
 
 "스키마 대신 Firebase DynamicLink를 사용하여 웹에서 앱 호출 및 앱스토어로 연결하게끔 만들어주어 해당 문제를 해결하였다."
 "앱스토어 주소 대신 "itms-apps://itunes.apple.com/app/" 뒤에다 해당 앱의 앱스토어 Apple ID를 넣어서 해결하였다."
@@ -257,7 +259,9 @@ window.visualViewport.onresize = handleVisualViewportResize;
 
 window.visualViewport의 onresize에 handler를 등록하면 visualViewport가 변경될 때마다 handler가 호출됩니다. 이 handler안에서 입력창이 키보드에 가려지지 않도록 처리했습니다.
 
-## document가 키보드 뒤쪽으로 스크롤 되는 문제
+## iOS에서 키보드 활성화 상태에서 스크롤시 document가 키보드 뒤로 감춰지는 이슈
+
+https://channel.io/ko/blog/cross_browsing_ios15
 
 ```html
 <div id="wrapper">
