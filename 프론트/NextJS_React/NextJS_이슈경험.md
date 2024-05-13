@@ -282,3 +282,21 @@ export default function Page() {
 ```
 
 https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#example
+
+# TypeError: Cannot read properties of undefined (reading 'length')
+
+모노레포 환경(Monorepo)
+
+`monorepo-nodejs20.git/apps/nextjs14/src/example/containers/test/TestContainer.tsx`
+
+의존관계
+
+1. TestContainer 에서 import components/test/webview/index.tsx
+2. webview/index.tsx 에서 import @makestory/utils
+3. @makestory/utils 에서 import @makestory/event-manager 참조
+4. @makestory/event-manager 값 중 일부 @makestory/utils 에서 export { eventBusOn as appEventOn, eventBusOff as appEventOff };
+
+위와 같은 의존관계에서 빌드된 결과물(dist 폴더 결과물)을 사용할 경우 에러 발생!!
+
+@makestory/utils 에서 @makestory/event-manager 를 참조하는 코드들을 모두  
+@makestory/event-manager 패키지로 이동 후 @makestory/event-manager 만 import 하여 사용하면 에러 메시지 미출력...
