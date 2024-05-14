@@ -301,6 +301,23 @@ setState({ ...state, name: 'a' });
 setState({ ...state, age: 1 });
 ```
 
+`useState 동기(sync) 실행`
+
+https://stackoverflow.com/questions/54119678/is-usestate-synchronous
+
+```jsx
+// useState 는 비동기 처리방식으로 아래 코드 처럼 실행은 불가!
+const [value, setValue] = useState(0);
+setValue(42, () => console.log('hi callback');
+```
+
+```jsx
+// useEffect 활용하여 처리 필요!
+useEffect(() => {
+  console.log(state1, state2);
+}, [state1]);
+```
+
 ---
 
 ## 컴포넌트에서 부수 효과 처리하기 : useEffect
