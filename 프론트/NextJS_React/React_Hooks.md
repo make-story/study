@@ -326,7 +326,8 @@ useEffect(() => {
 특별한 이유가 없다면 모든 부수 효과는 useEffect 훅에서 처리하는 게 좋다.  
 API를 호출하는 것과 이벤트 처리 함수를 등록하고 해제하는 것 등이 부수 효과의 구체적인 예다.
 
-`useEffect 훅에 입력하는 함수를 부수 효과 함수라고 한다. 부수 효과 함수는 렌더링 결과가 실제 돔에 반영된 후 호출되고, 컴포넌트가 사라지기 직전에 마지막으로 호출된다.`
+`useEffect 훅에 입력하는 함수를 부수 효과 함수라고 한다.`  
+`부수 효과 함수는 렌더링 결과가 실제 돔에 반영된 후 호출되고, 컴포넌트가 사라지기 직전에 마지막으로 호출된다.`
 
 ### useEffect 함수에서 API를 호출하는 경우
 
@@ -348,7 +349,7 @@ useEffect(() => {
 ```javascript
 const [needDetail, setNeedDetail] = useState(false);
 useEffect(() => {
-  // needDetail 를 함수 내부에서 사용 중이다. needDetail 을 의존성 배열에 추가하지 않으면 문제가 발생한다.
+  // needDetail 변수를 함수 내부에서 사용 중이다. needDetail 을 의존성 배열에 추가하지 않으면 문제가 발생한다.
   fetchUser(userId, needDetail).then(data => setUser(data));
 }, [userId]);
 ```
@@ -557,12 +558,43 @@ useEffect(
 );
 ```
 
-### useEffect dependency
+### `useEffect dependency`
+
+useEffect, useCallback, useMemo 등  
+의존성 배열을 파라미터로 받는 React Hooks 은  
+의존성 배열의 모든 값들의 종속성(참조 값)을 비교해서 다르다면 첫번째 파라미터로 받은 함수를 동작시킨다고 한다.
+
+리액트 공식페이지 가이드 - 객체 또는 함수 의존성을 피하세요.
+
+https://react-ko.dev/learn/removing-effect-dependencies#does-some-reactive-value-change-unintentionally
+`https://ko.react.dev/learn/removing-effect-dependencies#read-primitive-values-from-objects`
+
+리액트는 dependency 비교로 Object.is() 사용  
+https://legacy.reactjs.org/docs/hooks-reference.html#bailing-out-of-a-state-update
 
 - useEffect는 기본적으로 매 렌더링 마다 실행된다.
 - dependency array에 primitive types를 넣으면 값이 변경될 때 마다 실행된다.
 - dependency array에 object를 넣으면 object의 reference가 변경될 때 마다 실행된다.
 - dependency array에 object를 넣고, object의 값이 변경될 때 마다 실행시키기를 원한다면, use-deep-compare-effect 의 useDeepCompareEffect 를 useEffect 대신에 사용하자.
+
+```jsx
+function ChatRoom({ options }) {
+  const [message, setMessage] = useState('');
+
+  // 컴포넌트가 재런더링되면 객체의 변수값 다시 만들어 질 수 있음
+  // (즉, 재렌더링에 따라 재 생성되는 객차를 의존성배열에 객체 그대로 추가할 경우, 불필요한 useEffect 함수 실행 발생!)
+
+  const { roomId, serverUrl } = options;
+  useEffect(() => {
+    const connection = createConnection({
+      roomId: roomId,
+      serverUrl: serverUrl
+    });
+    connection.connect();
+    return () => connection.disconnect();
+  }, [roomId, serverUrl]); // ✅ All dependencies declared
+  // ...
+```
 
 ---
 
