@@ -268,3 +268,38 @@ export const getDateInstanceConvertFormat = (timestamp = Date.now()) => {
     ].join(':'),
   ].join(' ');
 };
+
+/**
+ * 지정한 날짜 찾기 (몇년 전/후, 몇달 전/후, 몇시간 전/후, 몇분 전/후 등)
+ */
+export const getFindDate = (parmas = {}) => {
+  let { date = new Date() } = parmas;
+
+  for (const [key, value] of Object.entries(parmas)) {
+    if (typeof value !== 'number') {
+      continue;
+    }
+    switch (key) {
+      case 'year':
+        date = new Date(date.setFullYear(date.getFullYear() + value));
+        break;
+      case 'month':
+        date = new Date(date.setMonth(date.getMonth() + value));
+        break;
+      case 'days':
+        date = new Date(date.setDate(date.getDate() + value));
+        break;
+      case 'hours':
+        date = new Date(date.setHours(date.getHours() + value));
+        break;
+      case 'minutes':
+        date = new Date(date.setMinutes(date.getMinutes() + value));
+        break;
+      case 'seconds':
+        date = new Date(date.setSeconds(date.getSeconds() + value));
+        break;
+    }
+  }
+
+  return date;
+};
