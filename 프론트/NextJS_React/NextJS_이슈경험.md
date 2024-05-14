@@ -289,7 +289,34 @@ https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-str
 
 `monorepo-nodejs20.git/apps/nextjs14/src/example/containers/test/TestContainer.tsx`
 
-의존관계
+```
+TypeError: Cannot read properties of undefined (reading 'length')
+    at WasmHash._updateWithBuffer (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1375509)
+    at WasmHash.update (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1374844)
+    at BatchedHash.update (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1371205)
+    at ...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:295660
+    at processQueue (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1388677)
+    at wrapper (...프로젝트경로.../node_modules/whatap/lib/core/interceptor.js:129:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+ ⨯ uncaughtException: TypeError: Cannot read properties of undefined (reading 'length')
+    at WasmHash._updateWithBuffer (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1375509)
+    at WasmHash.update (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1374844)
+    at BatchedHash.update (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1371205)
+    at ...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:295660
+    at processQueue (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1388677)
+    at wrapper (...프로젝트경로.../node_modules/whatap/lib/core/interceptor.js:129:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+ ⨯ uncaughtException: TypeError: Cannot read properties of undefined (reading 'length')
+    at WasmHash._updateWithBuffer (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1375509)
+    at WasmHash.update (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1374844)
+    at BatchedHash.update (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1371205)
+    at ...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:295660
+    at processQueue (...프로젝트경로.../node_modules/next/dist/compiled/webpack/bundle5.js:28:1388677)
+    at wrapper (...프로젝트경로.../node_modules/whatap/lib/core/interceptor.js:129:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+```
+
+의심: 의존관계
 
 1. TestContainer 에서 import components/test/webview/index.tsx
 2. webview/index.tsx 에서 import @makestory/utils
@@ -300,3 +327,9 @@ https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-str
 
 @makestory/utils 에서 @makestory/event-manager 를 참조하는 코드들을 모두  
 @makestory/event-manager 패키지로 이동 후 @makestory/event-manager 만 import 하여 사용하면 에러 메시지 미출력...
+
+터보팩 모두로 개발환경 실행하면 이슈 없어진다.
+
+```bash
+$ next dev --turbo
+```
