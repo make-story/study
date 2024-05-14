@@ -13,6 +13,11 @@
  * December 12월 DEC. 디쎔벌
  */
 
+export const MILLISECONDS_SECOND = 1000; // 1000 = 1초 (밀리초 값이기 때문에 1000)
+export const MILLISECONDS_MINUTE = 60 * MILLISECONDS_SECOND; // 1초 * 60 = 1분
+export const MILLISECONDS_HOUR = 60 * MILLISECONDS_MINUTE; // 60초(1분) * 60 = 1시간
+export const MILLISECONDS_DAY = 24 * MILLISECONDS_HOUR; // 60분(1시간) * 24 = 1일
+
 /**
  * 사파리(Safari) Date 에러 (Invalid Date)
  */
@@ -34,12 +39,10 @@ console.log(date.toString()); // result: Wed Jan 12 2011 12:42:46 GMT-0800 (PST)
 
 /**
  * milliseconds -> 시, 분, 초 변환
- * @param milliseconds
- * @returns
  */
 export const changeMsToTime = milliseconds => {
-  function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
+  function padTo2Digits(value) {
+    return value.toString().padStart(2, '0');
   }
 
   // new Date(milliseconds).toISOString().slice(11, 19); // HH:MM:SS
@@ -56,6 +59,23 @@ export const changeMsToTime = milliseconds => {
     minutes: padTo2Digits(minutes),
     seconds: padTo2Digits(seconds),
   };
+};
+
+/**
+ * 24시간제 -> 12시간제
+ */
+export const convert24HourTo12HourFormat = time => {
+  if (time === null || time === undefined || time === '') {
+    return '';
+  }
+
+  const list = time?.split(':');
+  let hour = Number(list?.[0]);
+  hour = hour > 12 ? hour - 12 : hour;
+  const minute = list?.[1];
+  const econds = list?.[2] ? `:${list?.[2]}` : '';
+
+  return `${hour}:${minute}${econds}`;
 };
 
 /**
@@ -103,10 +123,6 @@ export const getMidnightMinutes = (now = new Date()) => {
  * targetDate: 대상날짜
  * referenceDate: 기준일자(대부분 오늘, 현재)
  */
-export const MILLISECONDS_SECOND = 1000; // 1000 = 1초 (밀리초 값이기 때문에 1000)
-export const MILLISECONDS_MINUTE = 60 * MILLISECONDS_SECOND; // 1초 * 60 = 1분
-export const MILLISECONDS_HOUR = 60 * MILLISECONDS_MINUTE; // 60초(1분) * 60 = 1시간
-export const MILLISECONDS_DAY = 24 * MILLISECONDS_HOUR; // 60분(1시간) * 24 = 1일
 export const getDDay = (targetDate, { referenceDate = new Date() } = {}) => {
   let result = {
     targetTimestamp: 0, // D-Day 대상 날짜
@@ -121,6 +137,15 @@ export const getDDay = (targetDate, { referenceDate = new Date() } = {}) => {
     totalMinutes: 0,
     totalSeconds: 0,
   };
+
+  // D-Day 날짜 지정
+  targetDate = targetDate instanceof Date ? targetDate : new Date(targetDate);
+  // 'Invalid Date' 잘못된 Date 형식 확인
+  if (isNaN(targetDate.getTime())) {
+    throw 'targetDate error!';
+  } else if (isNaN(referenceDate.getTime())) {
+    throw 'referenceDate error!';
+  }
 
   // D-Day 날짜에서 현재 날짜의 차이를 getTime 메서드를 사용해서 밀리초의 값으로 가져온다.
   const targetTimestamp = targetDate.getTime();
@@ -157,7 +182,10 @@ export const getDDay = (targetDate, { referenceDate = new Date() } = {}) => {
   return result;
 };
 
-const getDateDiff = (
+/**
+ * 날짜 차이
+ */
+export const getDateDiff = (
   future = new Date('2019-3-01'),
   { referenceDate = new Date() } = {},
 ) => {
@@ -177,7 +205,7 @@ const getDateDiff = (
 /**
  * 날짜 숫자 변경
  */
-const getFormatterLegend = value => {
+export const getFormatterLegend = value => {
   // YYYY-MM-DD HH:MM:SS
   const date = new Date(value);
   if (
@@ -197,7 +225,7 @@ const getFormatterLegend = value => {
 /**
  * 'yyyyMMddHHmmss' 날짜 포맷 > new Date 변환
  */
-const getConvertDateInstance = yyyyMMddHHmmss => {
+export const getConvertDateInstance = yyyyMMddHHmmss => {
   const stringParseInt = text => parseInt(text || 0, 10); // '00' > 0 변환
   if (typeof yyyyMMddHHmmss === 'string' && 8 <= yyyyMMddHHmmss.length) {
     return new Date(
@@ -213,4 +241,30 @@ const getConvertDateInstance = yyyyMMddHHmmss => {
   } else {
     return new Date();
   }
+};
+
+/**
+ * timestamp > 사람이 인지 가능한 날짜포맷 (디버깅용)
+ */
+export const getDateInstanceConvertFormat = (timestamp = Date.now()) => {
+  const padTo2Digits = value => {
+    return value.toString().padStart(2, '0');
+  };
+
+  //const timestamp = Date.now();
+  //console.log(timestamp);
+  //console.log(new Date(timestamp).getTime());
+  const date = new Date(timestamp);
+  return [
+    [
+      date.getFullYear(),
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+    ].join('-'),
+    [
+      padTo2Digits(date.getHours()),
+      padTo2Digits(date.getMinutes()),
+      padTo2Digits(date.getSeconds()),
+    ].join(':'),
+  ].join(' ');
 };
