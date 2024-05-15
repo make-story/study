@@ -27,7 +27,10 @@ setTimeout() 이 가진 성능 문제를 해결할 수 있다.
 그리고 60FPS -> 초당 60프레임 -> 프레임당 16ms 라는 결과를 도출할 수 있다.
 
 즉, 프레임에 가장 적합한 시간은 16ms 인데, setTimeout 은 이 조건을 만족할 수 없다.
-(또한 setInterval, setTimeout과 달리 현재 페이지가 보이지 않을 때는 콜백함수가 호출되지 않기 때문에 불필요한 동작을 하지 않습니다.)
+
+"requestAnimationFrame는 페이지가 표시될 때까지 기다리므로 페이지가 숨겨질 때 CPU를 사용하지 않습니다."  
+(setInterval, setTimeout과 달리 현재 페이지가 보이지 않을 때는 콜백함수가 호출되지 않기 때문에 불필요한 동작을 하지 않습니다.)
+https://developer.chrome.com/blog/timer-throttling-in-chrome-88?hl=ko
 
 ## requestAnimationFrame 이 프레임당 16ms 를 보장할 수 있는 이유
 
