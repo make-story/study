@@ -31,9 +31,15 @@ Mutations 의 역할 자체가 State 관리에 주안점을 두고 있다.
 
 # Vuex - dynamic namespaces in binding helpers (mapState, mapActions, mapMutations)
 
+여러 스토어(store, namespace) 중 선택해서 상태 가져오기
+
 https://stackoverflow.com/questions/55927452/vuex-dynamic-namespaces-in-binding-helpers-mapstate
 
 https://github.com/vuejs/vuex/issues/863#issuecomment-329510765
+
+https://stackoverflow.com/questions/69311214/vuex-how-to-combine-multiple-mapgetters-while-namespaced-true
+
+storeNm
 
 ```javascript
 {
@@ -60,6 +66,23 @@ https://github.com/vuejs/vuex/issues/863#issuecomment-329510765
       }
     })
   }
+}
+```
+
+```javascript
+{
+  ...mapGetters([
+    'cart/quantity',
+    'isAuthenticated'
+  ]),
+   ...mapGetters({
+    cartQuantity: 'cart/quantity',
+    isLoggedIn: 'isAuthenticated'
+  }),
+  ...mapGetters('cart', [
+    'quantity',
+    'totalSum'
+  ])
 }
 ```
 

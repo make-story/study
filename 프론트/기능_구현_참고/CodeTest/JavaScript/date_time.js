@@ -201,6 +201,23 @@ export const getDateDiff = (
     second: timeDifference.getUTCSeconds(),
   };
 };
+export const getDatetimeDifference = (baseDate, targetDate) => {
+  if (baseDate instanceof Date && targetDate instanceof Date) {
+    const timestamp = Math.abs(baseDate.getTime() - targetDate.getTime());
+    return {
+      year: baseDate.getFullYear() - targetDate.getFullYear(),
+      month: baseDate.getMonth() - targetDate.getMonth(),
+      days: baseDate.getDate() - targetDate.getDate(),
+      hours: baseDate.getHours() - targetDate.getHours(),
+      minutes: baseDate.getMinutes() - targetDate.getMinutes(),
+      seconds: baseDate.getSeconds() - targetDate.getSeconds(),
+      totalDays: Math.floor(timestamp / MILLISECONDS_DAY),
+      totalHours: Math.floor(timestamp / MILLISECONDS_HOUR),
+      totalMinutes: Math.floor(timestamp / MILLISECONDS_MINUTE),
+      totalSeconds: Math.floor(timestamp / MILLISECONDS_SECOND),
+    };
+  }
+};
 
 /**
  * 날짜 숫자 변경
@@ -246,7 +263,18 @@ export const getConvertDateInstance = yyyyMMddHHmmss => {
 /**
  * timestamp > 사람이 인지 가능한 날짜포맷 (디버깅용)
  */
-export const getDateInstanceConvertFormat = (timestamp = Date.now()) => {
+export const getTimestampConvertDateFormat = (timestamp = Date.now()) => {
+  const date = new Date(timestamp);
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    days: date.getDate(),
+    hours: date.getHours(),
+    minutes: date.getMinutes(),
+    seconds: date.getSeconds(),
+  };
+};
+export const getTimestampDebug = (timestamp = Date.now()) => {
   const padTo2Digits = value => {
     return value.toString().padStart(2, '0');
   };
