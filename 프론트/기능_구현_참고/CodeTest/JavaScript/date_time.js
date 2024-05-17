@@ -38,13 +38,16 @@ const date = new Date(time); // create Date object
 console.log(date.toString()); // result: Wed Jan 12 2011 12:42:46 GMT-0800 (PST)
 
 /**
+ * '0' > '00'
+ */
+export const padTo2Digits = (value, { length = 2 } = {}) => {
+  return value.toString().padStart(length, '0');
+};
+
+/**
  * milliseconds -> 시, 분, 초 변환
  */
 export const changeMsToTime = milliseconds => {
-  function padTo2Digits(value) {
-    return value.toString().padStart(2, '0');
-  }
-
   // new Date(milliseconds).toISOString().slice(11, 19); // HH:MM:SS
   let seconds = Math.floor(milliseconds / 1000);
   let minutes = Math.floor(seconds / 60);
@@ -261,7 +264,7 @@ export const getConvertDateInstance = yyyyMMddHHmmss => {
 };
 
 /**
- * timestamp > 사람이 인지 가능한 날짜포맷 (디버깅용)
+ * timestamp > 사람이 인지 가능한 날짜포맷
  */
 export const getTimestampConvertDateFormat = (timestamp = Date.now()) => {
   const date = new Date(timestamp);
@@ -274,25 +277,21 @@ export const getTimestampConvertDateFormat = (timestamp = Date.now()) => {
     seconds: date.getSeconds(),
   };
 };
-export const getTimestampDebug = (timestamp = Date.now()) => {
-  const padTo2Digits = value => {
-    return value.toString().padStart(2, '0');
-  };
 
+/**
+ * timestamp 값 디버깅(console.log) 출력을 위한 용도
+ */
+export const getTimestampDebug = (timestamp = Date.now()) => {
   //const timestamp = Date.now();
   //console.log(timestamp);
   //console.log(new Date(timestamp).getTime());
-  const date = new Date(timestamp);
+  const date = getTimestampConvertDateFormat(timestamp);
   return [
+    [date.year, padTo2Digits(date.month), padTo2Digits(date.days)].join('-'),
     [
-      date.getFullYear(),
-      padTo2Digits(date.getMonth() + 1),
-      padTo2Digits(date.getDate()),
-    ].join('-'),
-    [
-      padTo2Digits(date.getHours()),
-      padTo2Digits(date.getMinutes()),
-      padTo2Digits(date.getSeconds()),
+      padTo2Digits(date.hours),
+      padTo2Digits(date.minutes),
+      padTo2Digits(date.seconds),
     ].join(':'),
   ].join(' ');
 };
