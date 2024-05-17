@@ -133,3 +133,42 @@ npm 7 버전부터는 실제로 peerDependencies를 설치
 
 dependencies 와 devDependencies 명시된 서로 다른 버전  
 또는 해당 패키지에서 유효하지 않은 버전 설치한 경우
+
+# npm ERR! code ETARGET
+
+https://stackabuse.com/bytes/solving-npm-err-code-etarget-no-matching-version-found-error/
+
+가장 일반적으로는 패키지 이름, 버전 관리 구문 유형에 오타가 있거나 npm 캐시에 문제가 있을 때 발생합니다.
+
+## 사용 가능한 모듈 버전 확인
+
+```bash
+$ npm show express versions
+
+[
+  '0.14.0',        '0.14.1',        '1.0.0-beta',    '1.0.0-beta2',
+  '1.0.0-rc',      '1.0.0-rc2',     '1.0.0-rc3',     '1.0.0-rc4',
+  '1.0.0',         '1.0.1',         '1.0.2',         '1.0.3',
+  ...
+  '4.17.2',        '4.17.3',        '4.18.0',        '4.18.1',
+  '4.18.2',        '5.0.0-alpha.1', '5.0.0-alpha.2', '5.0.0-alpha.3',
+  '5.0.0-alpha.4', '5.0.0-alpha.5', '5.0.0-alpha.6', '5.0.0-alpha.7',
+  '5.0.0-alpha.8', '5.0.0-beta.1'
+]
+```
+
+## npm 캐시 지우기
+
+버전이 npm show명령에 있는 경우 다음 단계는 npm 캐시를 지우는 것입니다.
+
+```bash
+$ npm cache clean --force
+```
+
+## 패키지 업데이트
+
+설치하려는 버전이 존재 하지만 여전히 오류가 발생하는 경우 패키지를 업데이트해야 할 수도 있습니다.
+
+```bash
+$ npm update express
+```
