@@ -2,6 +2,17 @@
 
 https://www.componentdriven.org/
 
+https://velog.io/@sejinkim/%EB%AA%A8%EB%8D%98-%EC%9B%B9-%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%EC%9D%98-%EC%9D%B4%ED%95%B4
+
+- 재사용성 (Reusability)
+  잘 분리된 컴포넌트는 여러 부분에서 유연하게 재사용될 수 있습니다. 따라서 중복 코드가 감소하고, 개발 시간이 단축되며 유지보수성이 개선됩니다.
+- 모듈성 (Modularity)
+  컴포넌트 단위의 독립적인 개발이 가능해지므로, 격리된 범위에서 테스트를 보다 쉽게 수행할 수 있습니다.
+- 효율성 (Efficiency)
+  UI가 컴포넌트 단위로 분리되어 있기 때문에, 다른 작업자들과 쉽게 공유할 수 있으며 개발과 디자인을 병렬적으로 처리할 수 있습니다.
+- 확장성 (Scalability)
+  컴포넌트가 서로 낮은 결합도로 구성되어 있다는 것은, 추후 새로운 컴포넌트를 추가하는 방식으로 쉽게 확장해나갈 수 있다는 것을 의미하기도 합니다.
+
 # 재사용 가능한 컴포넌트를 그만 만드세요
 
 https://disquiet.io/@junep/makerlog/%EC%9E%AC%EC%82%AC%EC%9A%A9-%EA%B0%80%EB%8A%A5%ED%95%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EB%A5%BC-%EA%B7%B8%EB%A7%8C-%EB%A7%8C%EB%93%9C%EC%84%B8%EC%9A%94-1698037498258

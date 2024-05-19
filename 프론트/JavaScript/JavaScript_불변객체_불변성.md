@@ -16,6 +16,12 @@ https://ui.toast.com/posts/ko_20220217
 상태를 바꿀 수 없기 때문에 동시에 여러 곳에서 사용하더라도 해당 객체를 사용하는 쪽에서는 안전하게 사용할 수 있다.  
 (얕은 비교를 했을 경우, 다른 쪽에서 값을 변경하면 이를 알 수가 없다.)
 
+## 깊은복사 표준 API - structuredClone()
+
+https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+
+`study.git/프론트/JavaScript/JavaScript_깊은복사_얕은복사.md` 참고!
+
 ## 불변성의 중요성
 
 `기존의 값을 직접 수정하지 않으면서 새로운 값을 만들어 내는 것을 '불변성을 지킨다'라고 합니다.`

@@ -8,6 +8,54 @@ https://ui.toast.com/weekly-pick/ko_20201201
 
 https://blog.naver.com/PostView.nhn?blogId=qls0147&logNo=222157982248&categoryNo=0&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView
 
+## PageTransitionEvent
+
+https://velog.io/@sejinkim/BackForward-Cache-A.K.A.-bfcache
+
+Back/Forward Cache, 즉 bfcache는 사용자의 탐색Navigation 경험을 향상시키기 위한 브라우저 레벨의 최적화 기능을 일컫습니다.  
+다른 페이지로 이동하기 직전에 힙 메모리 영역까지 포함한 페이지의 전체 스냅샷을 메모리에 저장해 두고,  
+페이지에 다시 되돌아오려고 할 때 캐시로 페이지를 즉시 복원하게 됩니다.
+
+다른 페이지로 이동할 때, 그리고 페이지에 다시 돌아왔을 때 Page Lifecycle API의 PageTransitionEvent를 통해 bfcache를 관찰할 수 있습니다.
+
+https://developer.chrome.com/docs/web-platform/page-lifecycle-api?hl=ko
+
+```javascript
+window.addEventListener('pageshow', event => {
+  if (event.persisted) {
+    console.log('This page was restored from the bfcache.');
+  } else {
+    console.log('This page was loaded normally.');
+  }
+});
+```
+
+```javascript
+window.addEventListener('pagehide', event => {
+  if (event.persisted) {
+    console.log('This page *might* be entering the bfcache.');
+  } else {
+    console.log('This page will unload normally and be discarded.');
+  }
+});
+```
+
+## bfcache 비활성화하기
+
+https://velog.io/@sejinkim/BackForward-Cache-A.K.A.-bfcache
+
+바람직하지는 않지만, bfcache를 비활성화하는 방법은 있습니다.  
+최상위 페이지의 Response header에 캐시를 거부하는 Cache-Control 디렉티브를 명시하는 것입니다.
+
+```
+Cache-Control: no-store
+```
+
+그러나 이것은 HTTP Caching 맥락에서의 디렉티브이지, 사실 bfcache와는 직접적인 연관은 없는 부분이라는 점에서 의아함을 느낄 수 있는 부분입니다.  
+다만 어쨌든 현재는 Cache-Control 헤더가 bfcache까지 포괄하고 있으므로, 저렇게 설정하게 되면 다른 것들도 캐시되지 않게 될 것이므로 의도하지 않은 변경이 발생하게 됩니다.
+
+https://chromestatus.com/feature/6705326844805120
+
 # SSG.com 리액트 전환간 BFCache 대응
 
 https://medium.com/ssgtech/%ED%94%84%EB%A1%A0%ED%8A%B8-%EC%84%9C%EB%B9%84%EC%8A%A4-87f13102c593

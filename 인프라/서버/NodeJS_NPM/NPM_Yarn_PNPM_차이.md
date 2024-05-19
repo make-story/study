@@ -1,9 +1,5 @@
 # 패키지 관리자 (NPM, Yarn, PNPM 차이)
 
-## 속도
-
-## 보안
-
 ## NPM / Yarn
 
 https://www.geeksforgeeks.org/difference-between-npm-and-yarn/
@@ -19,8 +15,9 @@ https://velog.io/@kysung95/%EA%B0%9C%EB%B0%9C%EC%83%81%EC%8B%9D-npm%EA%B3%BC-yar
 
 ### Workspaces
 
-Yarn 에서 Workspaces 먼저 추가된 후 NPM 에도 추가됨  
-(npm v7 이 정식으로 나오면서 모노레포를 지원)
+Yarn 에서 Workspaces 먼저 추가된 후 NPM 에도 추가됨
+
+npm v7 이 정식으로 나오면서 모노레포를 지원!
 
 ### 속도(perfomance)
 
@@ -38,6 +35,9 @@ npm 5.0 버전은 그 아래 버전들보다 5배는 더 빠르다고 npm 개발
 npm 대비 Yarn 의 큰 장점은 yarn.lock 파일을 통해 패키지 버전 잠금을 지원하는 것으로  
 이를 통해 프로젝트에서 의존하는 모든 패키지를 어느 환경에서든 항상 동일한 버전으로 설치할 수 있게 만들어주었다.
 
+package-lock 파일 등장하게된 계기  
+`study.git/인프라/서버/NodeJS_NPM/NPM_package-lock.json.md` 참고!
+
 ## 보안성(security)
 
 npm은 패키지가 설치될 때 자동으로 코드와 의존성을 실행할 수 있도록 허용했습니다.  
@@ -47,7 +47,8 @@ npm은 패키지가 설치될 때 자동으로 코드와 의존성을 실행할 
 반면 yarn 은 yarn.lock 이나 package.json 으로 부터 설치만 하며,  
 yarn.lock 은 모든 디바이스에 같은 패키지를 설치하는 것을 보장하기 때문에 버전의 차이로 인해 생기는 버그를 방지해줄 수 있습니다.
 
-하지만 최근 npm 의 업데이트에서 npm 의 보안 업데이트도 크게 향상되었습니다.
+하지만!!  
+최근 npm 의 업데이트에서 npm 의 보안 업데이트도 크게 향상되었습니다.
 
 ### 결론
 
@@ -70,29 +71,6 @@ https://portfolioexpert.github.io/blog/npm%20vs%20yarn/
 - 한 시스템에 작동하는 설치가 다른 시스템에서 동일한 방식으로 작동하는 것을 보장
 - Yarn.lock 파일의 버전 관리로 인해 기존 모듈이 최신화로 업데이트 될 수 있는데, 이 경우 하위 호환을 보장하지 않는 모듈의 경우는 에러 발생할 가능성이 존재
 
-## 의존 패키지의 버저닝 이슈
+## PNPM
 
-https://disco-biscuit.tistory.com/68
-
-`ERESOLVE unable to resolve dependency tree`
-
-```
-npm ERR! code ERESOLVE
-npm ERR! ERESOLVE unable to resolve dependency tree
-npm ERR!
-npm ERR! While resolving: react-redux-tutorial@0.0.0
-npm ERR! Found: redux@5.0.0
-npm ERR! node_modules/redux
-npm ERR!   redux@"^5.0.0" from the root project
-npm ERR!
-npm ERR! Could not resolve dependency:
-npm ERR! peer redux@"^3.1.0 || ^4.0.0" from redux-devtools-extension@2.13.9
-npm ERR! node_modules/redux-devtools-extension
-npm ERR!   redux-devtools-extension@"^2.13.9" from the root project
-npm ERR!
-npm ERR! Fix the upstream dependency conflict, or retry
-npm ERR! this command with --force or --legacy-peer-deps
-npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
-```
-
-redux-devtools-extension 패키지가 redux 패키지의 특정 버전에 의존하고 있는데, 그 버전이 ^3.1.0 || ^4.0.0와 같이 지정
+`study.git/인프라/서버/NodeJS_NPM/pnpm.md` 참고!

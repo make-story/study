@@ -2,6 +2,8 @@
 
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Memory_management
 
+https://velog.io/@sejinkim/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC-%EC%84%A4%EB%AA%85
+
 # 스택(Stack) 메모리와 힙(Heap) 메모리
 
 https://ui.toast.com/posts/ko_20210611
