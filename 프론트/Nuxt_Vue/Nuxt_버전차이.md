@@ -1,4 +1,6 @@
-# Nuxt 릴리즈 (Release, 버전변경, ChangeLog)
+# Nuxt 버전차이, 릴리즈 (Release, 버전변경, ChangeLog)
+
+`study.git/프론트/Nuxt_Vue/Vue_버전차이.md` 참고!
 
 Nuxt2 와 Nuxt3 의 차이점
 
