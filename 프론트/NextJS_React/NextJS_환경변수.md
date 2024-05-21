@@ -132,3 +132,11 @@ $ next dev
   }
 }
 ```
+
+개발환경에서 NODE_ENV=development 가 아닌, NODE_ENV=test 로 사용하는 이유
+
+Next.js 공식가이드 build 명령은 NODE_ENV=production 고정,  
+NODE_ENV=development 값으로 build 진행할 경우 SSG 에러, NODE_ENV=test 값은 가능!
+
+즉, 개발환경(로컬이 아닌 테스트 실서버 반영)에서 빌드시 NODE_ENV=development 주입시 에러가 발생할 가능성이 있어,
+NODE_ENV=test 로 사용...
