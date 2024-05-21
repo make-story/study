@@ -95,7 +95,7 @@ $ npm version [<newversion> | major | minor | patch | premajor | preminor | prep
 ```
 
 - `Release arguments`  
-  각 argument 에 따라 해당 자리의 버전이 증가되고, Commit 과 Tag 가 자동으로 생성됩니다.
+  각 argument 에 따라 해당 자리의 버전이 증가되고, Git Commit 과 Tag 가 자동으로 생성됩니다.
 
 #### 사용자 정의 버전
 
@@ -122,7 +122,7 @@ $ cat package.json | grep version
 "version": "2.0.0",
 ```
 
-자동으로 Commit과 Tag가 생성되고, 버전은 v1.0.0에서 v2.0.0으로 업데이트
+자동으로 Git Commit 과 Tag 가 생성되고, 버전은 v1.0.0에서 v2.0.0으로 업데이트
 
 #### minor
 
@@ -143,7 +143,7 @@ $ cat package.json | grep version
 "version": "1.1.0",
 ```
 
-자동으로 Commit과 Tag가 생성되고, 버전은 v1.0.0에서 v1.1.0으로 업데이트
+자동으로 Git Commit 과 Tag 가 생성되고, 버전은 v1.0.0에서 v1.1.0으로 업데이트
 
 #### patch
 
@@ -164,8 +164,7 @@ $ cat package.json | grep version
 "version": "1.0.1",
 ```
 
-자동으로 Commit 과 Tag 가 생성되고,  
-버전은 v1.0.0 에서 v1.0.1 로 업데이트
+자동으로 Git Commit 과 Tag 가 생성되고, 버전은 v1.0.0 에서 v1.0.1 로 업데이트
 
 ## 정식 배포를 하기 전 버전의 업데이트 명령어
 

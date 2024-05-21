@@ -191,7 +191,7 @@ https://www.npmjs.com/settings/yusungmin/packages
 
 #### -m or --message
 
-Commit 메시지를 정의할 수 있습니다.
+Git Commit 메시지를 정의할 수 있습니다.
 
 ```
 # 버전 확인
@@ -207,11 +207,11 @@ $ git log --oneline -1
 ```
 
 %s 를 사용하면 적용되는 버전으로 바꿔줍니다.  
-보시다시피 Commit 메시지에 %s 가 1.0.1로 변경되어 있습니다.
+보시다시피 Git Commit 메시지에 %s 가 1.0.1로 변경되어 있습니다.
 
 #### --no-git-tag-version
 
-Commit 과 Tag 생성을 비활성화 합니다.
+Git Commit 과 Tag 생성을 비활성화 합니다.
 
 ```
 # 버전 확인
@@ -233,7 +233,7 @@ $ cat package.json | grep version
 ```
 
 git status 로 보면 package.json 파일이 modified 상태로 출력됩니다.  
-Commit 과 Tag가 자동으로 생성되지 않고 변경된 상태로만 남게 됩니다.
+Git Commit 과 Tag가 자동으로 생성되지 않고 변경된 상태로만 남게 됩니다.
 
 #### -f or --force
 
