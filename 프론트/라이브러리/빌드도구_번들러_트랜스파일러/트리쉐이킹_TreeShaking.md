@@ -26,6 +26,9 @@ https://webpack.js.org/guides/tree-shaking/#conclusion
 
 `사용되는 쪽과 사용하는 쪽 모두 ESM 문법을 사용하면 나무 흔들기(트리쉐이킹)가 제대로 동작한다.`
 
+CJS(CommonJS) 는 빌드 타임에 정적 분석을 적용하기가 어렵고, 런타임에서만 모듈 관계를 파악!  
+`study.git/모듈시스템/NodeJS_모듈시스템.md` 참고!
+
 ## Webpack (웹팩)
 
 https://webpack.js.org/guides/tree-shaking
