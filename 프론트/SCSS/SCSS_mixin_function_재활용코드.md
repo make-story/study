@@ -1,3 +1,7 @@
+# 재활용!
+
+https://www.heropy.dev/p/Y7OrPe#h2_%EC%9E%AC%ED%99%9C%EC%9A%A9
+
 Mixin은 두 가지만 기억하면 됩니다.
 `선언하기(@mixin)와 포함하기(@include)` 입니다.
 
@@ -221,7 +225,8 @@ div {
 div {
   width: 100px;
   height: 200px;
-  background: url('/images/a.png') no-repeat 10px 20px, url('/images/b.png') no-repeat, url('/images/c.png');
+  background: url('/images/a.png') no-repeat 10px 20px, url('/images/b.png')
+      no-repeat, url('/images/c.png');
 }
 ```
 

@@ -2,6 +2,84 @@
 
 https://velog.io/@dev-junku/Vue-2-Vue-3-%EC%A0%95%EB%A6%AC
 
+https://velog.io/@lire_eruel/TIL-Vue-2%EC%99%80-Vue-3%EC%9D%98-%EC%B0%A8%EC%9D%B4
+
+## Creating App
+
+Vue2
+
+```javascript
+import Vue from 'vue';
+import App from './App.vue';
+
+// 배포 팁
+Vue.config.productionTip = false;
+
+new Vue({
+  render: h => h(App),
+}).$mount('#app');
+```
+
+Vue3
+
+```javascript
+import { createApp } from 'vue';
+import App from './App.vue';
+import './index.css';
+
+createApp(App).mount('#app');
+```
+
+## Multiple Root
+
+Vue2
+
+```javascript
+<template>
+  <div>
+    <p>test</p>
+    <button>button</button>
+  </div>
+</template>
+```
+
+Vue3
+
+```javascript
+<template>
+  <p>test</p>
+  <button>button</button>
+</template>
+```
+
+## Computed 를 사용하는 방법의 차이
+
+- Vue2 에서는 computed 블록 안에 계산될 값들을 넣어야 했다.
+- Vue3 에서는 setup() 안에서 변수 선언시 computed(() => {return \_}); 형식으로 사용이 가능하다.
+
+## Watch를 사용하는 방법의 차이
+
+Vue2
+
+```javascript
+export default {
+  watch: {
+    name(newVal, oldVal) {
+      console.log(`${newVal} ${oldVal}`);
+    },
+  },
+};
+```
+
+Vue3
+
+```javascript
+const name = ref('');
+watchEffect(() => {
+  console.log(name.value);
+});
+```
+
 ## Composition API(setup)
 
 변경한 이유 (Evan You, Vue 의 창시자가 답변한 것)  
