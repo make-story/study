@@ -190,6 +190,8 @@ package.json의 type field 또는 확장자를 보고 알 수 있습니다.
 
 ## CommonJS -> ESM 방식 사용
 
+https://nodejs.org/docs/latest/api/esm.html
+
 `Node.js 에서 ES모듈 시스템을 활용하려면 Babel 이라는 별도의 도구가 필요했는데,`
 `Node.js 13.2 버전(2019-11-21) 부터 손쉽게 ES모듈을 활용할 수 있게 되었다.`
 
