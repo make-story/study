@@ -172,3 +172,19 @@ $ npm cache clean --force
 ```bash
 $ npm update express
 ```
+
+# 설치간 인증서 이슈가 발생할 경우 - self signed certificate in certificate chain
+
+```
+...
+UNABLE_TO_VERIFY_LEAF_SIGNATURE
+reason: unable to verify the first certificate
+...
+```
+
+```bash
+$ npm config set strict-ssl false
+$ yarn config set strict-ssl false
+# yarn 2.x 이상의 경우
+$ npm config set enableStrictSsl false
+```
