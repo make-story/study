@@ -6,6 +6,25 @@ https://velog.io/@djunnni/Node.js-12%EC%97%90%EC%84%9C-16%EB%A1%9C-%ED%95%9C%EB%
 
 `특정 packages에서 gcc와 python에 대해 최소버전 명시됨`
 
+## npm ERR! code EEXIST
+
+https://velog.io/@https00200/node-npm-err
+
+https://cocobi.tistory.com/114
+
+```bash
+# npm의 cache를 강제로 전부 삭제
+$ npm cache clean --force
+```
+
+- 설치되지 않은 패키지나 모듈에 접근하려고 했을 때 발생 -> package.json 파일에 패키지를 추가했는지 확인하고 npm install 로 필요한 패키지를 설치한다.
+- 파일 경로를 지정하는 경우, 파일이 지정된 위치에 없을 때 발생 -> 올바른 경로인지 확인하고, 경로에 해당 파일이 있는 지 확인한다.
+- 존재하지 않는 파일이나 디렉토리에 접근하려고 할 때 발생
+- cache로 인해 문제가 발생 -> npm cache clean --force로 npm 캐시를 지운 후 다시 설치를 시도한다.
+- 원격 리소스에 접근하려는데 다운로드를 방해하는 네트워크 문제가 있는 경우 -> 인터넷 연결과 프록시 설정을 확인한다.
+- 권한 없음의 문제 -> npm 디렉토리에 대한 읽기, 쓰기 권한이 있는 지 확인한다.
+- 손상된 node_modules나 package-lock.json 문제로 발생 -> 해당 폴더와 파일을 삭제한 후 다시 npm install을 한다.
+
 ## Node.js 버전 일정
 
 https://github.com/nodejs/release#release-schedule
