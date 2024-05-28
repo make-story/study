@@ -34,6 +34,11 @@ var a, b, rest;
   // "a: somestring"
   // "b: 42"
   // order is not guaranteed
+
+  const obj = { a: 5, b: 7, c: 9 };
+  Object.entries(obj).forEach(([key, value]) => {
+    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+  });
 })();
 
 // 비동기 순회
