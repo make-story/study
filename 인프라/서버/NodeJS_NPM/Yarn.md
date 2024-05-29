@@ -31,6 +31,10 @@ $ npm install -g yarn
 우선 실행해 주세요.  
 (MacOS이며, brew가 설치되어 있다면 brew install yarn도 가능)
 
+## 이슈경험
+
+Yarn Berry 사용할 경우, node_modules 사용하는 일부 모듈 (PM2) 에러가 발생할 수 있음
+
 ## 특징
 
 https://beomy.github.io/tech/etc/yarn-berry/
