@@ -2,6 +2,8 @@
 
 `monorepo-nodejs20.git/documents/Hygen.md` 참고!
 
+`CLI 대화형 명령실행`
+
 Hygen 은 CLI 를 이용하여 미리 만들어둔 템플릿을 원하는 위치에 원하는 형식으로 생성해주는 도구입니다.  
 https://www.hygen.io/
 

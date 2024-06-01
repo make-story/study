@@ -1,5 +1,7 @@
 # Turborepo
 
+https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks
+
 JavaScript 및 TypeScript 코드베이스를 위한 고성능 빌드 시스템 (모노레포 구조에서 도움되는 도구)
 
 Turborepo의 주요 미션은 모노레포 환경에서 개발자가 조금 더 쉽고 빠르게 개발할 수 있도록 빌드 도구를 제공하는 것
@@ -10,7 +12,34 @@ Turborepo의 주요 미션은 모노레포 환경에서 개발자가 조금 더 
 
 https://engineering.linecorp.com/ko/blog/monorepo-with-turborepo
 
-https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks
+- Turborepo의 주요 미션은 모노레포 환경에서 개발자가 조금 더 쉽고 빠르게 개발할 수 있도록 빌드 도구를 제공하는 것입니다.
+- 고급 빌드 시스템을 구축하는 복잡한 과정을 Turborepo가 대신해 주기 때문에 개발자는 복잡한 설정과 스크립트에 신경 쓰는 대신 개발에 더 집중할 수 있습니다.
+- Turborepo의 기본 원칙은 한 번 작업을 수행하며 수행한 계산은 이후 다시 수행하지 않는 것입니다.
+- 따라서 두 번째 실행할 때는 이전에 계산한 작업은 건너뛰고 이전에 캐싱해 놓은 로그를 다시 보여줍니다.
+
+`빌드오케스트레이션 도구`
+
+https://techblog.woowahan.com/15084/  
+https://techblog.lycorp.co.jp/ko/monorepo-structure-for-abc-user-feedback
+
+- “프로젝트를 실행할 때, 프로젝트에서 의존하고 있는 패키지들을 먼저 빌드하는 것”
+- 바로 터보레포에서 이러한 Task Dependencies 기능을 제공
+
+```json
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      // A workspace's `build` command depends on its dependencies'
+      // and devDependencies' `build` commands being completed first
+      "dependsOn": ["^build"]
+    }
+  }
+}
+```
+
+- dependsOn 는 의존성 Task 의 집합을 의미합니다.
+- ^ 심벌은 해당 워크스페이스가 참조하는 dependencies, devDependencies 목록에 있는 패키지 워크스페이스의 Task 를 수행한다는 의미입니다.
 
 ## 기존 모노레포에 적용
 
