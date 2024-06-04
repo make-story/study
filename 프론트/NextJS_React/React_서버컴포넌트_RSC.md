@@ -4,6 +4,14 @@
 서버 측에서 컴포넌트를 실행하여 미리 렌더링된 마크업을 생성후,  
 클라이언트에게 전달되어 사용자에게 콘텐츠를 보여주는 방식입니다.
 
+`RSC(React Server Component)는 Server Side Rendering을 상호보완해주는 기술`
+
+https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components
+
+https://github.com/reactjs/rfcs/blob/bf51f8755ddb38d92e23ad415fc4e3c02b95b331/text/0000-server-components.md
+
+https://tech.kakaopay.com/post/react-server-components/
+
 ## 요약
 
 - React 서버 컴포넌트는 네트워크 왕복 없이 백엔드 접근이 가능합니다.

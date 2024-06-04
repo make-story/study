@@ -94,8 +94,10 @@ https://tech.kakaopay.com/post/react-server-components/
 
 https://patterns-dev-kr.github.io/rendering-patterns/react-server-components/#%EC%84%9C%EB%B2%84-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8
 
-- 서버 컴포넌트의 코드는 클라이언트로 전달되지 않습니다.  
-  하지만 서버 사이드 렌더링의 모든 컴포넌트의 코드는 자바스크립트 번들에 포함되어 클라이언트로 전송됩니다.
+서버 컴포넌트(React Server Component) 과 기존 서버 렌더링(SSR, Next.js 서버사이드 렌더링) 차이!
+
+- `서버 컴포넌트의 코드는 클라이언트로 전달되지 않습니다.`  
+  `하지만 서버 사이드 렌더링의 모든 컴포넌트의 코드는 자바스크립트 번들에 포함되어 클라이언트로 전송됩니다.`
 - 서버 컴포넌트는 페이지 레벨에 상관없이 모든 컴포넌트에서 서버에 접근 가능합니다.  
   하지만 Next.js의 경우 가장 top level의 페이지에서만 getServerProps()나 getInitialProps()로 서버에 접근 가능합니다.
 - 서버 컴포넌트는 클라이언트 상태를 유지하며 refetch 될 수 있습니다.

@@ -1,10 +1,45 @@
-# React Query
+# TanStack Query (React-Query)
 
 https://react-query.tanstack.com/reference/useQuery
 
 https://tech.osci.kr/2022/07/13/react-query/
 
 https://tech.kakao.com/2022/06/13/react-query/
+
+## Next.js 13 이상에서의 React Query (SSR 적용방법)
+
+리액트 쿼리를 app router 환경에서 사용 (공식문서에서 추천하는 방법)
+
+https://codevoweb.com/setup-react-query-in-nextjs-13-app-directory/
+
+- initialdata 방식
+- hydrate 방식
+
+https://tanstack.com/query/v4/docs/framework/react/guides/ssr#using-the-app-directory-in-nextjs-13
+
+https://tanstack.com/query/latest/docs/framework/react/guides/ssr
+
+https://velog.io/@ckstn0777/Next.js-13%EC%97%90%EC%84%9C-React-Query-SSR-%EC%A0%81%EC%9A%A9%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
+
+## Next.js 13 이상에서 React-Query 가 필요할까?
+
+`study.git/프론트/NextJS_React/NextJS_Fetch.md` 참고!
+
+https://tkdodo.eu/blog/you-might-not-need-react-query
+
+@tanstack/react-query
+
+- 클라이언트 사이드에서 일어나는 다중페칭 문제를 효율화하기 위해
+- 단일출처에서 상태를 관리하는걸 통해 SSOT 를 보장
+  단일 진실 공급원(single source of truth, SSOT)은 정보 모형과 관련된 데이터 스키마를 모든 데이터 요소를 한 곳에서만 제어 또는 편집하도록 조직하는 관례
+- 쿼리키를 매개로 각 fetch 상태를 관리한다
+- initialdata, hydrate 방식 등을 통해, 서버사이드에서 가져온 데이터 클라이언트에서 재활용 가능
+
+next.js servercomponent fetch
+
+- 서로 자원 공유가 어려운 서버컴포넌트의 특성상 일어나는 다중페칭 문제를 해결하기 위해
+- next.js의 fetch caching은 서버컴포넌트의 문제를 해결하는데에 초점
+- 엔드포인트와 옵션을 기준으로 fetch 상태를 관리한다.
 
 ## 기존 전통적 방식: Redux 와 Redux-Saga 데이터 통신을 위한, 많은 Boilerplate 코드 존재
 
@@ -57,13 +92,6 @@ React-Query v3.39.1 기준
 페이지에서 어떤 이벤트가 발생했을 경우엔 개발자가 트리거 를 심어줌으로 써 데이터를 리패칭 할 수 있습니다.
 
 즉, 위와 같은 React-Query 의 컨셉으로 인해서 사용자는 항상 신선한 (fresh) 데이터를 바라볼 수 있습니다.
-
-# Next.js 13 이상에서의 React Query (SSR 적용방법)
-
-- initialdata 방식
-- hydrate 방식
-
-https://velog.io/@ckstn0777/Next.js-13%EC%97%90%EC%84%9C-React-Query-SSR-%EC%A0%81%EC%9A%A9%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
 
 ---
 

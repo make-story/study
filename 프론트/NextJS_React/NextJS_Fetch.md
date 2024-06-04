@@ -4,6 +4,8 @@ Data Fetching, Caching, and Revalidating(재검증)
 
 https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating
 
+https://nextjs.org/docs/app/building-your-application/caching
+
 ## Next.js 공식페이지
 
 https://nextjs.org/docs/app/building-your-application/caching#request-memoization
@@ -36,3 +38,7 @@ https://nextjs.org/docs/app/building-your-application/caching#data-cache
 요즘 인기를 끌고 있는 SWR 과 React Query 와 비슷하게,  
 해당 fetch 요청에 대한 내용을 서버에서는 렌더링이 한 번 끝날 떄까지 캐싱하며,  
 클라이언트에서는 별도의 지시자나 요청이 없는 이상 해당 데이터를 최대한 캐싱해서 중복된 요청을 방지한다.
+
+## Next.js 13 이상에서 React-Query 가 필요할까?
+
+`study.git/프론트/상태관리/서버상태관리_DataFetching/React_Query.md` 참고!
