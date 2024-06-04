@@ -14,4 +14,6 @@ node_modules 디렉터리는 흔히 매우 큰 공간을 필요로 하고, 그�
 
 ## 유령 의존성(phantom dependency)
 
+https://d2.naver.com/helloworld/7553804
+
 의존성 중복 방지를 위해 호이스팅 기법을 이용하는데 이것은 의도치 않은 side effect을 발생시킨다.
