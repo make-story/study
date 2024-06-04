@@ -10,11 +10,10 @@ https://tech.kakao.com/2022/06/13/react-query/
 
 리액트 쿼리를 app router 환경에서 사용 (공식문서에서 추천하는 방법)
 
-https://codevoweb.com/setup-react-query-in-nextjs-13-app-directory/
-
-`https://velog.io/@gygy/Next.js-14%EC%97%90%EC%84%9C-React-query-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0`
-
-https://tanstack.com/query/latest/docs/framework/react/guides/ssr
+- `https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr#experimental-streaming-without-prefetching-in-nextjs`
+- https://tanstack.com/query/latest/docs/framework/react/guides/ssr
+- https://codevoweb.com/setup-react-query-in-nextjs-13-app-directory/
+- `https://velog.io/@gygy/Next.js-14%EC%97%90%EC%84%9C-React-query-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0`
 
 권장하는 접근 방법
 
