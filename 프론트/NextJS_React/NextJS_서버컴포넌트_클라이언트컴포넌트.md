@@ -1,9 +1,20 @@
 # Next.js 13 이상, 서버 컴포넌트 / 클라이언트 컴포넌트
 
-https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#interleaving-server-and-client-components  
+서버컴포넌트 / 클라이언트 컴포넌트 패턴  
+`https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#interleaving-server-and-client-components`
+
 https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns
 
 Server component 안에서 Client component 를 import 해서 사용가능
+
+`study.git/프론트/NextJS_React/React_서버컴포넌트_RSC.md` 참고!
+`study.git/프론트/NextJS_React/NextJS_13.md` 참고!
+
+- 기존(Next.js 12 이하)에는 최상위 pages 단위 서버렌더링에서 컴포넌트 단위로 변경
+- Next.js 13 버전부터는 모든 컴포넌트가 서버 컴포넌트(기본)
+  - https://nextjs.org/docs/app/building-your-application/rendering/server-components#using-server-components-in-nextjs
+- 서버컴포넌트를 활용해 클라이언트로 전송되는 JavaScript 크기 감소
+  - https://nextjs.org/blog/next-13#server-components
 
 ## `클라이언트 컴포넌트 내부에 서버 컴포넌트 선언하면 안됨!`
 
