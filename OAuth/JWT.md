@@ -8,6 +8,7 @@ JWT 변조(데이터 비정상 수정여부) 서버단에서 검증 가능!
 
 - https://www.npmjs.com/package/jsonwebtoken
 - https://covenant.tistory.com/201
+- https://developers.worksmobile.com/kr/docs/auth-jwt
 
 ---
 

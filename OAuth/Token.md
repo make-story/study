@@ -6,6 +6,21 @@
 https://cotak.tistory.com/102  
 https://tuigun.tistory.com/85
 
+## 토큰의 종류와 규격 - 네이버 웍스 참고 (24.05 기준)
+
+https://developers.worksmobile.com/kr/docs/auth-oauth#expiry-and-count
+
+- Authorization Code
+  Authorization Code Flow에서 이용되는 인증 코드
+  유효기간 10분
+  이용 가능 횟수 1회
+- Access Token
+  용자 인증 정보와 API 이용 범위(scope) 포함
+  유효기간 24시간
+- Refresh Token
+  Access Token이 만료되었을 때 인증 절차를 거치지 않고 Access Token을 재발급하는 데 사용
+  유효기간 90일
+
 ## 리프레시 토큰이 필요한가?
 
 https://velog.io/@park2348190/JWT%EC%97%90%EC%84%9C-Refresh-Token%EC%9D%80-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80
