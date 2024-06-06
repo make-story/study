@@ -1,4 +1,4 @@
-# OAuth
+# OAuth (Open Authorization)
 
 > https://hwannny.tistory.com/92
 
@@ -6,6 +6,8 @@ OAuth 2.0(Open Authorization 2.0, OAuth2)은 인증을 위한 개방형 표준 �
 이 프로토콜에서는 Third-Party 프로그램에게 리소스 소유자를 대신하여 리소스 서버에서 제공하는 자원에 대한 접근 권한을 위임하는 방식을 제공합니다.
 
 ## 흐름 요약 - Authorization Code Grant, 권한 부여 승인 코드 방식
+
+https://stackoverflow.blog/2022/04/14/the-authorization-code-grant-in-excruciating-detail/
 
 payco 참고!  
 https://developers.payco.com/guide/development/apply/web

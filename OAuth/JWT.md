@@ -1,8 +1,10 @@
 # JWT? (`리액트를 다루는 기술` 책 내용 중 토큰 발급 및 검증하기, Node.js 의 Koa 프레임워크 기반 예제)
 
 JWT는 JSON Web Token 의 약자로,  
-데이터가 JSON 으로 이루어져 있는 `토큰`을 의미합니다.  
-(두 개체가 서로 안전하게 정보를 주고받을 수 있도록 웹 표준으로 정의된 기술) - JWT 변조(데이터 비정상 수정여부) 서버단에서 검증 가능!
+데이터가 JSON 으로 이루어져 있는 `토큰`을 의미합니다.
+
+`두 개체가 서로 안전하게 정보를 주고받을 수 있도록 웹 표준으로 정의된 기술`  
+JWT 변조(데이터 비정상 수정여부) 서버단에서 검증 가능!
 
 - https://www.npmjs.com/package/jsonwebtoken
 - https://covenant.tistory.com/201
@@ -112,9 +114,9 @@ $ yarn add jsonwebtoken
 > `참고!` 단방향 해싱 함수를 지원해 주는 bcrypt 라이브러리
 
 ```javascript
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 
-const password = "";
+const password = '';
 const hash = await bcrypt.hash(password, 10); // 해시 생성
 const result = await bcrypt.compare(password, hash); // 검증 (true/false 반환)
 ```
@@ -140,9 +142,9 @@ $ openssl rand -hex 64
 ## 토큰 발급하기
 
 ```javascript
-import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 // ...
 
@@ -157,8 +159,8 @@ UserSchema.methods.generateToken = function () {
     process.env.JWT_SECRET,
     // 세 번째 파라미터에는 옵션 또는 콜백 (알고리즘 등 설정가능)
     {
-      expireIn: "7d", // 7일 동안 유효함
-    }
+      expireIn: '7d', // 7일 동안 유효함
+    },
   );
   return token;
 };
@@ -177,7 +179,7 @@ UserSchema.methods.generateToken = function () {
 
 ```javascript
 // 회원가입 예
-export const register = async (ctx) => {
+export const register = async ctx => {
   // ...
 
   ctx.body = user.serialize();
@@ -186,14 +188,14 @@ export const register = async (ctx) => {
   const token = user.generateToken();
 
   // 쿠키 값 설정
-  ctx.cookies.set("access_token", token, {
+  ctx.cookies.set('access_token', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
     httpOnly: true,
   });
 };
 
 // 로그인 예
-export const login = async (ctx) => {
+export const login = async ctx => {
   // ...
 
   ctx.body = user.serialize();
@@ -202,7 +204,7 @@ export const login = async (ctx) => {
   const token = user.generateToken();
 
   // 쿠키 값 설정
-  ctx.cookies.set("access_token", token, {
+  ctx.cookies.set('access_token', token, {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
     httpOnly: true,
   });
@@ -268,11 +270,11 @@ export default jwtMiddleware;
 
 ```javascript
 // main.js 예
-require("dotenv").config();
-import Koa from "koa";
-import Router from "koa-router";
+require('dotenv').config();
+import Koa from 'koa';
+import Router from 'koa-router';
 
-import jwtMiddleware from "./lib/jwtMiddleware"; // JWT 미들웨어 코드 import
+import jwtMiddleware from './lib/jwtMiddleware'; // JWT 미들웨어 코드 import
 
 // ...
 
@@ -289,24 +291,19 @@ app.use(jwtMiddleware);
 쿠키 삭제
 
 ```javascript
-export const logout = async (ctx) => {
-  ctx.cookies.set("access_token");
+export const logout = async ctx => {
+  ctx.cookies.set('access_token');
   ctx.status = 204;
 };
 ```
 
 ---
 
-# Access Token, Refresh Token
-
-https://cotak.tistory.com/102  
-https://tuigun.tistory.com/85
-
 ## `GraphQL 과 타입스크립트로 개발하는 웹 서비스` 책 내용 중 - p219
 
 로그인 유지  
 JWT를 사용해 로그인 기능을 제공하는 웹 서비스에서는 일반적으로 액세스 토큰 하나만을 사용하지는 않습니다.  
-따라서 리프레시 토큰이라는 또 다른 토큰을 함께 발급하여 엑세스 토큰만 사용했을 때의 단점을 보완 합니다.
+따라서 `리프레시 토큰이라는 또 다른 토큰을 함께 발급하여 엑세스 토큰만 사용했을 때의 단점을 보완` 합니다.
 
 JWT 토큰은 서버와 독립적인 인증 매체입니다.  
 한번 발급한 JWT 토큰은 서버에서 무효화하지 못하며, 발급한 JWT 토큰(액세스 토큰)이 포함된 요청은 언제나 올바른 요청으로 간주합니다.  
@@ -323,7 +320,7 @@ JWT 토큰은 서버와 독립적인 인증 매체입니다.
 이 과정을 액세스 토큰이 만료될 때마다 실행되도록 구성하여, 자동으로 재로그인이 되도록 구현할 수 있습니다.
 
 리프레시 토큰은 액세스 토큰에 비해 상대적으로 활용되는 빈도가 낮습니다.  
-액세스 토큰은 언제나 GraphQL 요청이 있을 때마다 확인되지만, 리프레시 토큰은 토큰 재발급 요청이 왔을 때만 조회합니다.  
+액세스 토큰은 언제나 GraphQL 요청이 있을 때마다 확인되지만, `리프레시 토큰은 토큰 재발급 요청이 왔을 때만 조회`합니다.  
 하지만 리프레시 토큰이 가지는 보안적 중요도는 낮지 않습니다.  
 리프레시 토큰이 탈취되면 언제나 액세스 토큰을 재발급 받을 수 있기 때문입니다.  
 리프레시 토큰이 탈취되는 상황은 절대적으로 피해야 합니다.  
@@ -332,60 +329,6 @@ JWT 토큰은 서버와 독립적인 인증 매체입니다.
 ### 리프레시 토큰 발급
 
 리프레시 토큰은 로그인 시 액세스 토큰과 함꼐 발급됩니다.  
-액세스 토큰과 별개로 리프레시 토큰은 React 코드내에서 접근하는 일은 없으므, httpOnly 쿠키로 저장할 수 있습니다.
+`액세스 토큰과 별개로 리프레시 토큰은 React 코드내에서 접근하는 일은 없으므, httpOnly 쿠키로 저장할 수 있습니다.`
 
 ---
-
-## 리프레시 토큰이 필요한가?
-
-https://velog.io/@park2348190/JWT%EC%97%90%EC%84%9C-Refresh-Token%EC%9D%80-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80
-
-리프레시 토큰은, JWT로그인 방식에 사용되는 JWT의 보안상의 단점을 보완하기 위해 구현한다. (JWT 를 사용함에 있어, 리프세시 토큰을 필수로 꼭 사용해야 한다는 의미가 아님)
-(JWT는 Stateless한 방식이기 때문에 서버측에서는 이 토큰을 갖고 있는 클라이언트가 정말 클라이언트 본인이 맞는지 확인할 수 없다는 문제점이 있다.)
-
-리프레쉬 토큰은 사용자 인증이 아닌 새로운 액세스 토큰을 생성하는 용도로만 사용된다.  
-그러면 왜 굳이 별도의 토큰을 두고 새로운 액세스 토큰을 발급받도록 한 것일까?  
-이는 위의 JWT 유출 문제를 다음처럼 해결하기 위한 것이다.
-
-리프레시 토큰이 사용되는 방식은,
-
-1. 액세스 토큰과 리프레시 토큰의 발급
-2. 액세스 토큰에 짧은 만료 주기 설정 (30분~ 등의 짧은 시간)
-3. 리프레시 토큰으로 액세스 토큰을 재발급
-4. 기존의 액세스 토큰은 폐기
-
-JWT토큰의 탈취는 보통 클라이언트측에서 이루어지는것이 아니라고한다.  
-클라이언트의 PC가 해킹되었다면 서버에서 더이상 할 수 있는 일은 없으며,
-보통은 공유기 등의 네트워크쪽에서 탈취되기 때문에 리프레시토큰이 의미 있음
-
-## Refresh Token의 탈취
-
-https://velog.io/@park2348190/JWT%EC%97%90%EC%84%9C-Refresh-Token%EC%9D%80-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80
-
-그런데 이 Refresh Token 자체가 탈취당한다면 어떻게 할까?  
-공격자는 이 토큰의 유효 기간만큼 다시 Access Token을 생성해서 다시 정상적인 사용자인 척 위장할 수 있다.  
-그렇기 때문에 여기서는 서버측의 검증 로직이 필요  
-https://stackoverflow.com/questions/32060478/is-a-refresh-token-really-necessary-when-using-jwt-token-authentication
-
-- 데이터베이스에 각 사용자에 1대1로 맵핑되는 Access Token, Refresh Token 쌍을 저장한다.
-- 정상적인 사용자는 기존의 Access Token으로 접근하며 서버측에서는 데이터베이스에 저장된 Access Token과 비교하여 검증한다.
-- 공격자는 탈취한 Refresh Token으로 새로 Access Token을 생성한다. 그리고 서버측에 전송하면 서버는 데이터베이스에 저장된 Access Token과 공격자에게 받은 Access Token이 다른 것을 확인한다.
-- 만약 데이터베이스에 저장된 토큰이 아직 만료되지 않은 경우, 즉 굳이 Access Token을 새로 생성할 이유가 없는 경우 서버는 Refresh Token이 탈취당했다고 가정하고 두 토큰을 모두 만료시킨다.
-- 이 경우 정상적인 사용자는 자신의 토큰도 만료됐으니 다시 로그인해야 한다. 하지만 공격자의 토큰 역시 만료됐기 때문에 공격자는 정상적인 사용자의 리소스에 접근할 수 없다.
-
-중요한 것은 발급된 토큰 자체는 그냥 그 JWT 문자열 자체로 존재하는 것이기 때문에 클라이언트나 서버측에서 전역적으로 만료시킬 수 있는 개체가 아니다.  
-그렇기 때문에 토큰의 유효 기간이 지나기 전까지는 만료된 토큰을 NoSQL 같은 데이터베이스에 저장하여 관리할 필요가 있다.
-
----
-
-## OAuth Refresh Token 참고
-
-Refresh Token
-Refresh Token의 발급 여부와 방법 및 갱신 주기 등은 OAuth를 제공하는 Resource Server마다 상이합니다.
-
-Access Token은 만료 기간이 있으며, 만료된 Access Token으로 API를 요청하면 401 에러가 발생합니다.  
-Access Token이 만료되어 재발급받을 때마다 서비스 이용자가 재 로그인하는 것은 다소 번거롭습니다.
-
-보통 Resource Server는 Access Token을 발급할 때 Refresh Token을 함께 발급합니다.  
-Client는 두 Token을 모두 저장해두고, Resource Server의 API를 호출할 때는 Access Token을 사용합니다.  
-Access Token이 만료되어 401 에러가 발생하면, Client는 보관 중이던 Refresh Token을 보내 새로운 Access Token을 발급받게 됩니다.
