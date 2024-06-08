@@ -16,6 +16,9 @@ https://developers.payco.com/guide/development/apply/web
 kakao 참고!  
 https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api
 
+furo 참고!  
+https://iam.furo.one/post/concept-oauth
+
 1. 서비스 서버는 인증 요청
 
 파라미터
@@ -43,11 +46,11 @@ https://blog.naver.com/mds_datasecurity/222182943542
 
 ### Authentication
 
-`인증`, 접근 자격이 있는지 검증하는 단계를 말합니다. (로그인)
+`인증`, 접근 자격이 있는지 검증하는 단계를 말합니다. (로그인, 식별 관점)
 
 ### Authorization
 
-`인가`, 자원에 접근할 권한을 부여하는 것입니다.  
+`인가`, 자원에 접근할 권한을 부여하는 것입니다. (권한, 접근 관점)  
 인가가 완료되면 리소스 접근 권한이 담긴 Access Token 이 클라이언트에게 부여됩니다.  
 (카카오의 경우 액세스 토큰과 리프레시 토큰 제공됨 - 23.05 기준)
 
@@ -63,7 +66,9 @@ Refresh Token 은 일반적으로 Access Token 보다 만료 기간이 깁니다
 
 ## Roles - OAuth 2.0의 4가지 역할
 
-### Resource Owner
+https://iam.furo.one/post/concept-oauth
+
+### Resource Owner(or User)
 
 리소스 소유자 또는 사용자.  
 보호된 자원에 접근할 수 있는 자격을 부여해 주는 주체.  
@@ -71,15 +76,15 @@ OAuth2 프로토콜 흐름에서 클라이언트를 인증(Authorize)하는 역�
 인증이 완료되면 권한 획득 자격(Authorization Grant)을 클라이언트에게 부여합니다.  
 개념적으로는 리소스 소유자가 자격을 부여하는 것이지만 일반적으로 권한 서버가 리소스 소유자와 클라이언트 사이에서 중개 역할을 수행하게 됩니다.
 
-### Client
+### Client(or Consumer)
 
 보호된 자원을 사용하려고 접근 요청을 하는 애플리케이션입니다.
 
-### Resource Server
+### Resource Server(or Provider)
 
 사용자의 보호된 자원을 호스팅하는 서버입니다.
 
-### Authorization Server
+### Authorization Server(or Provider)
 
 권한 서버. 인증/인가를 수행하는 서버로 클라이언트의 접근 자격을 확인하고 Access Token을 발급하여 권한을 부여하는 역할을 수행합니다.
 
