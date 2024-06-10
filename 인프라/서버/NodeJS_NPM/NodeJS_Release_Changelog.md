@@ -130,3 +130,21 @@ Node.js 20이 출시되었고, 많은 개선이 이뤄졌다.
 결론적으론, Node.js 20은 이전 버전과 비교해 큰 성능 향상을 보여주었다.
 
 https://github.com/RafaelGSS/state-of-nodejs-performance-2023
+
+## Express 4.x 이상 body-parser 기능 내장
+
+https://expressjs.com/ko/4x/api.html#req.body
+
+```javascript
+var express = require('express');
+
+var app = express();
+
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+app.post('/profile', function (req, res, next) {
+  console.log(req.body);
+  res.json(req.body);
+});
+```
