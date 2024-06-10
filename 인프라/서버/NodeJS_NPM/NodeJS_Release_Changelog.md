@@ -9,6 +9,10 @@ https://nodejs.org/en/about/previous-releases
 
 https://nodejs.org/en/blog
 
+## 2024년부터 사용할 최신 Node.js 런타임 기능들
+
+https://news.hada.io/topic?id=15139
+
 ## dotenv
 
 Node.js v20 내장됨  
