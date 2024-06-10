@@ -6,6 +6,33 @@ https://tech.osci.kr/2022/07/13/react-query/
 
 https://tech.kakao.com/2022/06/13/react-query/
 
+## Next.js 13 이상에서 React-Query 가 필요할까?
+
+`study.git/프론트/NextJS_React/NextJS_Fetch.md` 참고!
+
+https://github.com/XionWCFM/Nextjs-docs-Korean-translation/blob/main/nextjsdocs/BuildingYourApplication/DataFetching/Fetching.md  
+https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating  
+React는 fetch를 확장하여 자동 요청 중복 제거 기능을 제공하며, Next.js는 fetch 옵션 객체를 확장하여 각 요청이 자체적으로 캐싱과 유효성 재검증을 설정할 수 있게 합니다.  
+(Next.js 13 이상은 캐싱기능이 내장된 Fetch 사용, 웹표준 Fetch 기능을 React 에서 확장한 것을 Next.js 에서 사용)
+
+https://tkdodo.eu/blog/you-might-not-need-react-query
+
+https://xionwcfm.tistory.com/339#%F0%9F%98%99React%20Server%20Component%EC%9D%98%20%EB%93%B1%EC%9E%A5-1
+
+1. @tanstack/react-query 역할
+
+- 클라이언트 사이드에서 일어나는 다중페칭 문제를 효율화하기 위해
+- 단일출처에서 상태를 관리하는걸 통해 SSOT 를 보장
+  단일 진실 공급원(single source of truth, SSOT)은 정보 모형과 관련된 데이터 스키마를 모든 데이터 요소를 한 곳에서만 제어 또는 편집하도록 조직하는 관례
+- 쿼리키를 매개로 각 fetch 상태를 관리한다
+- initialdata, hydrate 방식 등을 통해, 서버사이드에서 가져온 데이터 클라이언트에서 재활용 가능
+
+2. next.js React Server Component Fetch 역할
+
+- 서로 자원 공유가 어려운 서버컴포넌트의 특성상 일어나는 다중페칭 문제를 해결하기 위해
+- next.js의 fetch caching은 서버컴포넌트의 문제를 해결하는데에 초점
+- 엔드포인트와 옵션을 기준으로 fetch 상태를 관리한다.
+
 ## Next.js 13 이상에서의 React Query (SSR 적용방법)
 
 리액트 쿼리를 app router 환경에서 사용 (공식문서에서 추천하는 방법)
@@ -252,27 +279,7 @@ hydrate는 클라이언트 측에서 직렬화된 상태를 받아 이를 React 
 - https://tanstack.com/query/v4/docs/framework/react/guides/ssr#using-the-app-directory-in-nextjs-13
 - https://velog.io/@ckstn0777/Next.js-13%EC%97%90%EC%84%9C-React-Query-SSR-%EC%A0%81%EC%9A%A9%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
 
-## Next.js 13 이상에서 React-Query 가 필요할까?
-
-`study.git/프론트/NextJS_React/NextJS_Fetch.md` 참고!
-
-https://tkdodo.eu/blog/you-might-not-need-react-query
-
-@tanstack/react-query
-
-- 클라이언트 사이드에서 일어나는 다중페칭 문제를 효율화하기 위해
-- 단일출처에서 상태를 관리하는걸 통해 SSOT 를 보장
-  단일 진실 공급원(single source of truth, SSOT)은 정보 모형과 관련된 데이터 스키마를 모든 데이터 요소를 한 곳에서만 제어 또는 편집하도록 조직하는 관례
-- 쿼리키를 매개로 각 fetch 상태를 관리한다
-- initialdata, hydrate 방식 등을 통해, 서버사이드에서 가져온 데이터 클라이언트에서 재활용 가능
-
-next.js servercomponent fetch
-
-- 서로 자원 공유가 어려운 서버컴포넌트의 특성상 일어나는 다중페칭 문제를 해결하기 위해
-- next.js의 fetch caching은 서버컴포넌트의 문제를 해결하는데에 초점
-- 엔드포인트와 옵션을 기준으로 fetch 상태를 관리한다.
-
-## 기존 전통적 방식: Redux 와 Redux-Saga 데이터 통신을 위한, 많은 Boilerplate 코드 존재
+## 기존 전통적 방식 Redux 와 Redux-Saga 는 데이터 통신을 위한, 많은 Boilerplate 코드 존재
 
 `Redux dispatch - Redux-Saga(Asynchronous Middleware) 에서 Data Fetch - Data 받은 후 Store 에 put`
 
@@ -281,7 +288,7 @@ redux-thunk, redux-saga 등을 이용해서 비동기 작업을 수행하고
 데이터를 리덕스 스토어에 저장한 뒤  
 그 데이터를 각 컴포넌트에서 사용
 
-## 대체: React Query 가 Redux 를 대체할까?
+## React Query 가 Redux 를 대체할까?
 
 Redux 는 전역상태 관리 도구,  
 React Query 는 서버와 클라이언트 간의 상태(캐싱 등) 관리 도구  

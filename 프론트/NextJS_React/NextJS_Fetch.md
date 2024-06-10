@@ -6,6 +6,9 @@ https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-cac
 
 https://nextjs.org/docs/app/building-your-application/caching
 
+https://github.com/XionWCFM/Nextjs-docs-Korean-translation/blob/main/nextjsdocs/BuildingYourApplication/DataFetching/Fetching.md  
+React는 fetch를 확장하여 자동 요청 중복 제거 기능을 제공하며, Next.js는 fetch 옵션 객체를 확장하여 각 요청이 자체적으로 캐싱과 유효성 재검증을 설정할 수 있게 합니다.
+
 ## Next.js 공식페이지
 
 https://nextjs.org/docs/app/building-your-application/caching#request-memoization
