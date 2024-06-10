@@ -26,6 +26,10 @@ https://www.infoq.com/news/2020/01/playwright-browser-automation/
 
 https://playwright.dev/docs/best-practices
 
+## Playwright Chrome Recorder
+
+https://chromewebstore.google.com/detail/playwright-chrome-recorde/bfnbgoehgplaehdceponclakmhlgjlpd?hl=ko&pli=1
+
 ## Selenium(셀레늄) vs Playwright(플레이라이트) vs Puppeteer(퍼피티어)
 
 https://www.browserstack.com/guide/playwright-vs-selenium  
