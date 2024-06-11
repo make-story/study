@@ -11,6 +11,12 @@ Dos, SQL Injection 과 같은 웹 보안 공격을 예방
 
 ---
 
+# MDN
+
+https://developer.mozilla.org/ko/docs/Web/Security/Referer_header:_privacy_and_security_concerns
+
+---
+
 ## NodeJS
 
 ### helmet
