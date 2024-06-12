@@ -6,6 +6,8 @@
 
 ## https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices
 
+https://sjh9708.tistory.com/171
+
 > 참고페이지
 
 - https://webrtc.org/?hl=ko
@@ -117,12 +119,11 @@ function getDataChannel(peerConnection = null, channel = 'my channel') {
 ---
 
 - 피어 연결  
-  피어 연결은 피어 투 피어 프로토콜을 사용하여 통신하기 위해 서로 다른 컴퓨터에있는 두 응용 프로그램을 연결하는 WebRTC 사양의 일부  
+  피어 연결은 피어 투 피어 프로토콜을 사용하여 통신하기 위해 서로 다른 컴퓨터에있는 두 응용 프로그램을 연결하는 WebRTC 사양의 일부
 
 - WebRTC는 기본적으로 네트워크 연결시 SSL이 있어야 한다.
 - TURN 서버  
-  https://webrtc.org/getting-started/turn-server?hl=ko  
-
+  https://webrtc.org/getting-started/turn-server?hl=ko
 
 WebRTC는 개인간 연결(Peer to Peer)을 기본으로 하기 때문에  
 실행되는 단말기(PC, 휴대폰등)가 공인 IP를 가지거나, 같은 네트워크(공유기) 안에서 서로 인식 할 수 있어야 한다.  
