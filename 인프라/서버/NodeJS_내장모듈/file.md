@@ -42,6 +42,15 @@ if (imageExt.includes(path.extname(output).toLowerCase())) {
 }
 ```
 
+## 프로젝트 루트(root)
+
+```typescript
+/**
+ * 프로젝트 루트 경로
+ */
+export const appDirectory = process.env.PWD || fs.realpathSync(process.cwd());
+```
+
 # fs
 
 https://nodejs.org/api/fs.html
@@ -51,6 +60,20 @@ https://nodejs.org/api/fs.html
 https://nodejs.org/api/fs.html#fsexistssyncpath
 
 fs.existsSync(path) 사용 가능
+
+# 해당경로 존재여부
+
+```typescript
+/**
+ * 해당경로 존재여부 (폴더 또는 파일)
+ */
+export const isPathExists = (
+  pathname: string = 'headlessbrowser/testcase',
+  options: { [key: string]: any } = {},
+) => {
+  return pathname && fs.existsSync(path.resolve(__dirname, '../../', pathname));
+};
+```
 
 # 폴더 및 파일리스트
 
