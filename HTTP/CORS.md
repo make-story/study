@@ -1,4 +1,14 @@
-# CORS
+# SOP (Same-Origin Policy)
+
+- 동일 출처 정책 (Same-Origin Policy) 은 같은 출처에서만 리소스를 공유할 수 있다는 규칙을 가진 정책이다.
+- 하지만 웹의 경우 다른 출처에 있는 리소스를 가져와서 사용하는 일이 많기 때문에 이를 전부 막기란 어려웠다.
+- 따라서 몇 가지 예외 사항을 두었는데 그 중 하나가 바로 “CORS 정책을 지킨 리소스 요청” 이다.
+
+# CORS (Cross-Origin Resource Sharing)
+
+- 교차 출처 리소스 공유 정책
+- 다른 출처의 리소스 공유에 대한 허용/비허용 정책
+- 출처(Origin) 라는 것은 Protolcol 과 Host 그리고 Port 까지 모두 합친 URL
 
 https://developer.mozilla.org/ko/docs/Web/HTTP/CORS  
 https://ingg.dev/cors/  
@@ -51,22 +61,28 @@ https://evan-moon.github.io:8000
 
 https://developer.mozilla.org/ko/docs/Web/HTML/Attributes/crossorigin
 
+http://www.devdic.com/html/refer/attributes/attribute:2888/Common-by-tag/crossorigin
+
 ```
 <audio>, <img>, <link>, <script>, <video>에 있는 crossOrigin 속성은
 element가 CORS 요청을 처리하는 방식을 명시하여 element가 fetch한 데이터를 CORS 가능하게 합니다.
 특정 element에서는 CORS 세팅 속성이 될 수도 있습니다.
 ```
 
-- anonymous   
-  element의 CORS 요청의 credentials flag가 'same-origin'으로 지정됩니다.
+- anonymous  
+  element의 CORS 요청의 credentials flag가 'same-origin'으로 지정됩니다.  
+  이 값을 설정하는 경우에 별도의 자격 증명을 보내지 않고 익명으로 요청을 한다. 따라서 응답하는 서버에서도 이 익명 요청을 받아들일 수 있도록 설정되어 있어야 한다.
 - use-credentials  
   element의 CORS 요청의 crendentials flag가 'include'로 지정됩니다.
+  이 값을 설정하는 경우에 요청시 자격 증명을 함께 보내는 것으로 처리된다. 자격 증명의 방법으로 쿠키(cookie), HTTP 인증 정보를 응답하는 서버에 전송한다. 따라서 응답 서버는 허용된 요청에만 응답할 수 있도록 설정되어 있어야 한다.
 - ""  
   crossorigin 또는 crossorigin=""처럼 빈 값을 할당하는건 anonymous와 동일합니다.
 
 ---
 
 ## 단순 요청 (Simple requests)
+
+`예비 요청(Prefilght)을 생략하고 바로 서버에 직행으로 본 요청`
 
 Simple Request는 Preflight Request와 다르게 요청을 보내면서 즉시 cross origin인지 확인하는데,  
 다음 조건을 모두 충족해야한다.
@@ -100,8 +116,8 @@ credentials 옵션을 변경하지 않고서는 cookie를 주고 받을 수 없�
 - include : cross-origin 호출이라 할지라도 언제나 user credentials (cookies, basic http auth 등..)을 전송한다.
 
 ```javascript
-fetch("주소", {
-  credentials: "include", // 모든 요청에 인증 정보 포함
+fetch('주소', {
+  credentials: 'include', // 모든 요청에 인증 정보 포함
 });
 ```
 
@@ -126,15 +142,15 @@ CORS정책에 의해 Access-Control-Allow-Origin을 모든 출처를 허용하�
 
 ```javascript
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // 모든 도메인
-  res.header("Access-Control-Allow-Origin", "https://example.com"); // 특정 도메인
+  res.header('Access-Control-Allow-Origin', '*'); // 모든 도메인
+  res.header('Access-Control-Allow-Origin', 'https://example.com'); // 특정 도메인
 });
 ```
 
 ## cors 모듈 사용
 
 ```javascript
-const cors = require("cors");
+const cors = require('cors');
 const app = express();
 
 app.use(cors());
@@ -144,7 +160,7 @@ app.use(cors());
 
 ```javascript
 const options = {
-  origin: "http://example.com", // 접근 권한을 부여하는 도메인
+  origin: 'http://example.com', // 접근 권한을 부여하는 도메인
   credentials: true, // 응답 헤더에 Access-Control-Allow-Credentials 추가
   optionsSuccessStatus: 200, // 응답 상태 200으로 설정
 };
@@ -155,8 +171,8 @@ app.use(cors(options));
 특정 요청 접근 허용
 
 ```javascript
-app.get("/example/:id", cors(), function (req, res, next) {
-  res.json({ msg: "example" });
+app.get('/example/:id', cors(), function (req, res, next) {
+  res.json({ msg: 'example' });
 });
 ```
 
@@ -172,8 +188,8 @@ app.get("/example/:id", cors(), function (req, res, next) {
 module.exports = {
   devServer: {
     proxy: {
-      "/api": {
-        target: "domain.com",
+      '/api': {
+        target: 'domain.com',
         changeOrigin: true,
       },
     },
@@ -194,4 +210,6 @@ create-react-app 으로 생성한 프로젝트에서는, package.json 에 proxy 
 
 ---
 
-# HTTP 응답 헤더
+# Same Origin / Cross Origin
+
+https://inpa.tistory.com/entry/WEB-%F0%9F%93%9A-CORS-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95-%F0%9F%91%8F
