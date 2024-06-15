@@ -72,3 +72,29 @@ https://github.com/vercel/turbo/blob/main/examples/basic/packages/ui/tsconfig.js
     "outDir": "dist"
 }
 ```
+
+# 브라우저에서 Node.js 모듈 사용 가능성이 있는 경우 경고! - 예를 들어 crypto 모듈
+
+https://vitejs.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility
+
+https://github.com/vitejs/vite/issues/792
+
+`https://github.com/davidmyersdev/vite-plugin-node-polyfills`
+
+```javascript
+import { defineConfig } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [nodePolyfills()],
+});
+```
+
+`Next.js - jwtwebtoken 라이브러리 에러!`  
+https://velog.io/@sssssssssy/Next.js-13ver-%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%9C%A0%EC%A7%80%ED%95%98%EA%B8%B0
+
+```
+JWT verification error: The edge runtime does not support Node.js 'crypto' module.
+Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
+```

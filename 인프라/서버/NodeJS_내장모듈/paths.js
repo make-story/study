@@ -2,33 +2,49 @@ const path = require('path');
 const fs = require('fs');
 const env = require('./env');
 
+// 디랙토리명 반환
+//path.dirname(path)
+
+// 확장자 반환
+//path.extname(path)
+
+// 중요! 윈도우와 그외 운영체제 경로 체계
+//path.sep
+/*
+// Windows
+'foo\\bar\\baz'.split(path.sep);
+// Returns: ['foo', 'bar', 'baz'] 
+*/
+
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
 // process.cwd() : 전역객체, 명령을 호출(실행)한 위치의 경로 값
 // __dirname : 로컬객체, 현재 모듈의 파일 경로 값
-const appDirectory = fs.realpathSync(process.cwd()); 
+const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 // '/'
-const ensureSlash = (inputPath="", isNeedsSlash=true) => {
-	const isHasSlash = inputPath.endsWith('/'); // 문자열 마지막이 '/' 끝나는지 여부
-	if(isHasSlash && !isNeedsSlash) { 
-		// 문자열 마지막 '/' 제거값 반환
-		return inputPath.substr(0, inputPath.length - 1);
-	}else if(!isHasSlash && isNeedsSlash) { 
-		// 문자열 마지막 '/' 붙여서 반환
-		return `${inputPath}/`;
-	}else {
-		return inputPath;
-	}
+const ensureSlash = (inputPath = '', isNeedsSlash = true) => {
+  const isHasSlash = inputPath.endsWith('/'); // 문자열 마지막이 '/' 끝나는지 여부
+  if (isHasSlash && !isNeedsSlash) {
+    // 문자열 마지막 '/' 제거값 반환
+    return inputPath.substr(0, inputPath.length - 1);
+  } else if (!isHasSlash && isNeedsSlash) {
+    // 문자열 마지막 '/' 붙여서 반환
+    return `${inputPath}/`;
+  } else {
+    return inputPath;
+  }
 };
 
 // public url
-const getPublicUrl = appPackageJson => env.publicUrl || require(appPackageJson).homepage;
+const getPublicUrl = appPackageJson =>
+  env.publicUrl || require(appPackageJson).homepage;
 const getServedPath = appPackageJson => {
-	const publicUrl = getPublicUrl(appPackageJson);
-	const servedUrl = env.publicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
-	return ensureSlash(servedUrl);
+  const publicUrl = getPublicUrl(appPackageJson);
+  const servedUrl =
+    env.publicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
+  return ensureSlash(servedUrl);
 };
 
 //console.log(process.cwd()); // node paths.js 처럼 명령을 실행하는 위치의 경로
@@ -38,19 +54,21 @@ const getServedPath = appPackageJson => {
 //console.log('servedPath', getServedPath(resolveApp('package.json'))); // 127.0.0.1/
 
 module.exports = {
-	// package.json 의 'scripts' 항목을 통해, 명령을 실행한다는 것을 기준으로 개발 
-	// (즉, package.json 의 script 에서 명령을 실행한다는 기준에 따라, package.json 위치가 경로의 기준이 됨)
-	resolveApp, // resolveApp('<상대경로>') <상대경로> 값을 절대경로로 변경
-	ensureSlash,
-	
-	appNodeModules: resolveApp('node_modules'),
-	appPackageJson: resolveApp('package.json'),
-	appPath: resolveApp('.'),
-	appConfig: resolveApp('config'),
-	appSrc: resolveApp('src'),
-	appWebpackOutput: ensureSlash(resolveApp(`dist/${env.active}/${env.build}/webpack`)),
+  // package.json 의 'scripts' 항목을 통해, 명령을 실행한다는 것을 기준으로 개발
+  // (즉, package.json 의 script 에서 명령을 실행한다는 기준에 따라, package.json 위치가 경로의 기준이 됨)
+  resolveApp, // resolveApp('<상대경로>') <상대경로> 값을 절대경로로 변경
+  ensureSlash,
 
-    //dotenv: resolveApp('.env'),
-	//publicUrl: getPublicUrl(resolveApp('package.json')),
-	//servedPath: getServedPath(resolveApp('package.json')),
+  appNodeModules: resolveApp('node_modules'),
+  appPackageJson: resolveApp('package.json'),
+  appPath: resolveApp('.'),
+  appConfig: resolveApp('config'),
+  appSrc: resolveApp('src'),
+  appWebpackOutput: ensureSlash(
+    resolveApp(`dist/${env.active}/${env.build}/webpack`),
+  ),
+
+  //dotenv: resolveApp('.env'),
+  //publicUrl: getPublicUrl(resolveApp('package.json')),
+  //servedPath: getServedPath(resolveApp('package.json')),
 };
