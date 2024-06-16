@@ -98,3 +98,7 @@ https://velog.io/@sssssssssy/Next.js-13ver-%EC%97%90%EC%84%9C-%EB%A1%9C%EA%B7%B8
 JWT verification error: The edge runtime does not support Node.js 'crypto' module.
 Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
 ```
+
+# Vite 6버전 부터 CJS (CommonJS) 미지원
+
+https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated
