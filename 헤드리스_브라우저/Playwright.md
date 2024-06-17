@@ -10,9 +10,9 @@ https://learn.microsoft.com/en-us/microsoft-edge/playwright/
 
 하나의 API로 Chromium, Firefox, WebKit까지 테스트 할 수 있습니다.
 
-Puppeteer처럼 브라우저를 컨트롤할 수 있는 API를 제공하는 프로그램  
-테스트를 하려면, Playwright에서 만든 @playwright/test를 같이 사용
-크로스 브라우징 테스트가 가능해졌고, @playwright/test같은 자체적인 Test runner도 제공
+- Puppeteer 처럼 브라우저를 컨트롤할 수 있는 API를 제공하는 프로그램 (CDP)
+- 테스트를 하려면, Playwright 에서 만든 @playwright/test 를 같이 사용
+- 크로스 브라우징 테스트가 가능해졌고, @playwright/test 같은 자체적인 Test runner도 제공
 
 ## 문서
 
@@ -57,6 +57,19 @@ Puppeteer의 주요 기능에는 스크린샷 테스트, 성능 테스트, 웹 �
 
 참고: 테스트 프레임워크  
 https://www.browserstack.com/guide/top-javascript-testing-frameworks
+
+## Playwright vs Cypress
+
+https://shorttrack.tistory.com/7
+
+playwright 와 달리 cypress 의 테스트는 실제브라우저를 띄우고 그 내부에서 실행됩니다.  
+브라우저가 동작한다는 것은 CPU, Memory 등등의 꽤 많은 컴퓨팅 자원을 요구합니다.
+
+물론 headless 설정이 있습니다. 하지만 그래도 여전히 브라우저라는 것이 문제입니다. 여전히 추가적인 자원을 요구하게 될 거예요.
+
+Cypress도 playwright처럼 CDP 가 내장 되어 있다고 합니다. 하지만 기본 실행방식이 아니며, 추가적인 작업이 필요합니다.
+
+반면, playwright의 기본 설정은 headless 기반이고요. CDP(chrome devtool protocol)을 사용하여 브라우저 테스트를 합니다. 음식으로 치자면 기본 설정부터가 기름기를 쫙 뺀 상태인 겁니다.
 
 ## Playwright 의 Selenium Grid 연동
 

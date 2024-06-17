@@ -155,3 +155,45 @@ const getNumber2: IGetNumber = async num => {
   return result;
 };
 ```
+
+## function overloads 함수 오버로딩
+
+https://wiki.yowu.dev/ko/Knowledge-base/TypeScript/Learning/034-function-overloading-in-typescript-how-to-create-functions-with-multiple-signatures
+
+https://blog.logrocket.com/implementing-function-overloading-typescript/
+
+```typescript
+// 함수 오버로딩을 생성하려면 동일한 함수에 대해 여러 함수 시그니처를 정의
+// 각 서명에는 고유한 매개변수 세트와 리턴 유형이 있어야 합니다.
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: any, b: any): any {
+  return a + b;
+}
+```
+
+```typescript
+// add 함수를 호출하면 TypeScript는 함수 서명을 사용하여 런타임에 사용할 구현을 결정합니다.
+const result1 = add(1, 2); // returns 3
+const result2 = add('hello', 'world'); // returns 'helloworld'
+const result3 = add(true, false); // returns truefalse
+```
+
+## interface 여러 함수
+
+```typescript
+interface TestDetails {
+  tag?: string | string[];
+  annotation?: any;
+}
+interface TestFunction<TestArgs = any> {
+  (
+    title: string,
+    details: TestArgs,
+    body?: (args: any) => Promise<void> | void,
+  ): void;
+  (title: string, body?: (args: TestArgs) => Promise<void> | void): void;
+}
+const test1: TestFunction = (title, details, body = () => {}) => {};
+const test2: TestFunction = (title, body = () => {}) => {};
+```
