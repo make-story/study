@@ -324,6 +324,25 @@ let arr = [1, 2, 3, 4, 5, 3];
 arr = arr.filter(item => !forDeletion.includes(item));
 console.log(arr); // [ 1, 4 ]
 
+const checkboxes = [
+  { name: 'boxes', color: 'red' },
+  { name: 'boxes', color: 'orange' },
+  { name: 'tree', color: 'green' },
+  { name: 'tree', color: 'red' },
+  { name: 'tree', color: 'yellow' },
+];
+const finalArray = [
+  { name: 'tree', color: 'green' },
+  { name: 'tree', color: 'red' },
+  { name: 'tree', color: 'yellow' },
+];
+const checks = checkboxes.filter(
+  item1 =>
+    !finalArray.find(
+      item2 => item2.name === item1.name && item2.color === item1.color,
+    ),
+);
+
 // ----------
 
 /**
