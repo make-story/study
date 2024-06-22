@@ -1,5 +1,12 @@
 # 최적화
 
+https://medium.com/@surksha8/10-proven-strategies-to-boost-your-next-js-app-performance-2de166dcff50
+
+https://fe-developers.kakaoent.com/2024/240418-optimizing-nextjs-cache/
+
+Next.js 13 이상 캐싱 메커니즘  
+https://nextjs.org/docs/app/building-your-application/caching
+
 ## 이미지 자동 최적화
 
 https://fe-developers.kakaoent.com/2022/220714-next-image/

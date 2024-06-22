@@ -22,6 +22,10 @@ tsconfig.json
 }
 ```
 
+## 빌드 후 실행이 더 빠른가?
+
+https://tom.bio/posts/should-i-precompile-typescript
+
 ## 정리: 비교
 
 2023년 2월 1일 기준
