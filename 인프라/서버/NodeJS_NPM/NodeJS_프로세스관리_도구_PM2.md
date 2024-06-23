@@ -9,6 +9,32 @@ https://nodejs.org/dist/latest-v6.x/docs/api/cluster.html#cluster_how_it_works
 
 https://velog.io/@ckstn0777/Clustering-in-Action
 
+## 이슈경험
+
+https://github.com/Unitech/pm2/issues/487
+
+```
+fs.js:427
+  return binding.open(pathModule._makeLong(path), stringToFlags(flags), mode);
+                 ^
+Error: EACCES, permission denied '/home/nodejs/.pm2/pids/www.signora.co.nz.pid10.pid'
+  at Object.fs.openSync (fs.js:427:18)
+  at Object.fs.writeFileSync (fs.js:966:15)
+  at ProcessContainer (/opt/node-0.10.28/lib/node_modules/pm2/lib/ProcessContainer.js:30:6)
+  at Object.<anonymous> (/opt/node-0.10.28/lib/node_modules/pm2/lib/ProcessContainer.js:44:3)
+  at Module._compile (module.js:456:26)
+  at Object.Module._extensions..js (module.js:474:10)
+  at Module.load (module.js:356:32)
+  at Function.Module._load (module.js:312:12)
+  at Function.Module.runMain (module.js:497:10)
+  at startup (node.js:119:16)
+  at node.js:906:3
+```
+
+```bash
+$ pm2-dev start  ./src/server.js
+```
+
 ---
 
 PM2 는 로드 밸런서가 내장된 Node.js 애플리케이션용 생산 프로세스 관리자
