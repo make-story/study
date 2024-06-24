@@ -1,5 +1,9 @@
 /**
  * https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object
+ * 
+ * 네이밍 참고
+ * 순서가 있는 배열 list
+ * key, value 객체 entries
  */
 
 // 객체 리스트 중 변수(key)값에 따른 선택
