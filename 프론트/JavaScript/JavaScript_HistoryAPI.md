@@ -4,6 +4,8 @@ https://developer.mozilla.org/ko/docs/Web/API/History
 
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/history
 
+`study.git/크로스브라우징_이슈경험/BFCache/history.ts` 참고!
+
 ```html
 <button class="js-button-push-state" data-url="?page=1">1</button>
 <button class="js-button-push-state" data-url="?page=2">2</button>
@@ -64,6 +66,13 @@ https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/histo
 ## 브라우저 스크롤 히스토리 관리
 
 ```typescript
+/**
+ * Page Lifecycle
+ * https://developers.google.com/web/updates/2018/07/page-lifecycle-api
+ * https://wd.imgix.net/image/kheDArv5csY6rvQUJDbWRscckLr1/Hs3H9gK98YT0pvvU3k25.png
+ * pageshow > beforeunload > pagehide > unload > bfcache
+ */
+
 /**
  * 스크롤 위치 복원 기능 값 설정
  */
@@ -150,6 +159,8 @@ export const setHistoryWindowScroll = (
   { key = `${HISTORY_SCROLL_KEY}_${getPageURL()}` }: { key: string } = {},
 ) => {
   //console.log(`scroll left: ${left}, top: ${top}`);
+  // https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+  // setItem 은 string 저장만 지원!
   window.sessionStorage.setItem(key, JSON.stringify({ left, top }));
 };
 

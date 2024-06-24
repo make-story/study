@@ -94,25 +94,25 @@ console.log(array1.fill(6));
  * 중첩 배열 구조를 평탄화
  */
 // 지정한 하위 깊이 까지 하나로 이어붙인 배열 만들기
-const arr1 = [1, 2, [3, 4]];
-arr1.flat();
+const arr133 = [1, 2, [3, 4]];
+arr133.flat();
 // [1, 2, 3, 4]
 
-const arr2 = [1, 2, [3, 4, [5, 6]]];
-arr2.flat();
+const arr244 = [1, 2, [3, 4, [5, 6]]];
+arr244.flat();
 // [1, 2, 3, 4, [5, 6]]
 
-const arr3 = [1, 2, [3, 4, [5, 6]]];
-arr3.flat(2);
+const arr355 = [1, 2, [3, 4, [5, 6]]];
+arr355.flat(2);
 // [1, 2, 3, 4, 5, 6]
 
-const arr4 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
-arr4.flat(Infinity);
+const arr466 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
+arr466.flat(Infinity);
 // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 // 배열 구멍 제거
-const arr5 = [1, 2, , 4, 5];
-arr5.flat();
+const arr577 = [1, 2, , 4, 5];
+arr577.flat();
 // [1, 2, 4, 5]
 
 // 배경 length 값 설정/주입
@@ -152,8 +152,8 @@ fruits.forEach(function (item, index, array) {
 // 바나나 1
 
 // for...of (배열순환)
-const array1 = ['a', 'b', 'c'];
-for (const element of array1) {
+const array100 = ['a', 'b', 'c'];
+for (const element of array100) {
   console.log(element);
 }
 // expected output: "a"
@@ -189,8 +189,8 @@ let dataReduce = data.reduce((acc, current, index, list) => {
 }, 0);
 // 1 + 2 + 3 + 4 = 10;
 
-const array1 = ['a', 'b', 'c'];
-array1.forEach(element => console.log(element));
+const array122 = ['a', 'b', 'c'];
+array122.forEach(element => console.log(element));
 // expected output: "a"
 // expected output: "b"
 // expected output: "c"
@@ -261,14 +261,14 @@ var arr9 = arr.slice(2, 15); // [3, 4, 5, 6, 7, 8, 9, 10]
 
 // splice(start [, length]) : 배열의 기존 요소를 삭제 또는 교체하거나 새 요소를 추가하여 배열의 내용을 변경 (즉, 원본 배열을 수정한다.)
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-var arr1 = arr.splice(10, 2, 'a', 'b', 'c');
+var arr16 = arr.splice(10, 2, 'a', 'b', 'c');
 console.log(arr); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "a", "b", "c"]
-console.log(arr1); // [11, 12]
+console.log(arr16); // [11, 12]
 
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-var arr1 = arr.splice(-6, 4);
+var arr17 = arr.splice(-6, 4);
 console.log(arr); // [1, 2, 3, 4, 5, 6, 11, 12]
-console.log(arr1); // [7, 8, 9, 10]
+console.log(arr17); // [7, 8, 9, 10]
 
 // ----------
 
@@ -281,14 +281,14 @@ fruits.push('망고');
 var pos = fruits.indexOf('바나나');
 // 1
 
-const array1 = [5, 12, 8, 130, 44];
+const array11 = [5, 12, 8, 130, 44];
 const isLargeNumber = element => element > 13;
-console.log(array1.findIndex(isLargeNumber));
+console.log(array11.findIndex(isLargeNumber));
 // expected output: 3
 
 // 배열 안 특정 값 찾기
-const array1 = [5, 12, 8, 130, 44];
-const found = array1.find(element => element > 10);
+const array12 = [5, 12, 8, 130, 44];
+const found = array12.find(element => element > 10);
 console.log(found);
 // expected output: 12
 
@@ -298,8 +298,8 @@ let dataFilter = data.filter((current, index, list) => {
 // [2, 4]
 
 // 특정 요소 포함여부
-const array1 = [1, 2, 3];
-console.log(array1.includes(2));
+const array13 = [1, 2, 3];
+console.log(array13.includes(2));
 // expected output: true
 const pets = ['cat', 'dog', 'bat'];
 console.log(pets.includes('cat'));
@@ -309,9 +309,12 @@ console.log(pets.includes('at'));
 
 // 배열 요소 모두 참 여부 검사
 const isBelowThreshold = currentValue => currentValue < 40;
-const array1 = [1, 30, 39, 29, 10, 13];
-console.log(array1.every(isBelowThreshold));
+const array14 = [1, 30, 39, 29, 10, 13];
+console.log(array14.every(isBelowThreshold));
 // expected output: true
+
+// 배열 요소가 객체의 경우
+[{ id: 1 }, { id: 2 }].findIndex(item => item?.id === 2); // 또는 .findLastIndex(), 없으면 -1
 
 // ----------
 
