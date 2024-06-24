@@ -136,6 +136,8 @@ const getPageURL = () => {
 // window 스크롤 값 반환
 // TODO: 오버플로우 스크롤 설정된 element 의 경우 대응필요
 export const getScroll = (element?: any) => {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
+  // The pageYOffset property is an alias for the scrollY property.
   return {
     left: window.pageXOffset || window.scrollX,
     top: window.pageYOffset || window.scrollY,
