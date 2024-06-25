@@ -4,6 +4,8 @@ https://flyingsquirrel.medium.com/ssr-memory-leak-%EB%94%94%EB%B2%84%EA%B9%85%ED
 
 https://mingrammer.com/debug-memory-leak-with-node-heapdump/
 
+https://devlog.mi.igaw.io/Next.js%EC%97%90%EC%84%9C%20%EB%A9%94%EB%AA%A8%EB%A6%AC%20%EB%88%84%EC%88%98%20%ED%99%95%EC%9D%B8%20%EB%B0%8F%20%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0
+
 ---
 
 ## Next.js 디버깅

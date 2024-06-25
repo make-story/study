@@ -264,9 +264,9 @@ export const getConvertDateInstance = yyyyMMddHHmmss => {
 };
 
 /**
- * timestamp > 사람이 인지 가능한 날짜포맷
+ * timestamp (유닉스 시간) > 사람이 인지 가능한 날짜포맷
  */
-export const getTimestampConvertDateFormat = (timestamp = Date.now()) => {
+export const getTimestampConvertDatetime = (timestamp = Date.now()) => {
   const date = new Date(timestamp);
   return {
     year: date.getFullYear(),
@@ -279,13 +279,13 @@ export const getTimestampConvertDateFormat = (timestamp = Date.now()) => {
 };
 
 /**
- * timestamp 값 디버깅(console.log) 출력을 위한 용도
+ * timestamp (유닉스 시간) 값 디버깅(console.log) 출력을 위한 용도
  */
 export const getTimestampDebug = (timestamp = Date.now()) => {
   //const timestamp = Date.now();
   //console.log(timestamp);
   //console.log(new Date(timestamp).getTime());
-  const date = getTimestampConvertDateFormat(timestamp);
+  const date = getTimestampConvertDatetime(timestamp);
   return [
     [date.year, padTo2Digits(date.month), padTo2Digits(date.days)].join('-'),
     [

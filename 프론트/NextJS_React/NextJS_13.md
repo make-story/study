@@ -22,6 +22,10 @@ Next.js 13 버전부터는 기본적으로 app directory 는 서버 컴포넌트
 `"use client";` 는 클라이언트에서만 렌더링 된다는 뜻이 아니라, 클라이언트에서도 렌더링 된다는 뜻 (즉 클라이언트단 하이드레이션 된다는 것)  
 즉, 서버와 클라이언트 모두 렌더링 된다는 것 (https://www.youtube.com/watch?v=t0UocUiR5-8)
 
+## Next.js 13.x 메모리 이슈
+
+https://github.com/vercel/next.js/issues/49929
+
 ## pages 라우터 방식에서 app 라우터 방식으로 마이그레이션
 
 https://www.timegambit.com/blog/blog-log/app-router
