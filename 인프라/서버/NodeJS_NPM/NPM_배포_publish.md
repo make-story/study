@@ -9,6 +9,18 @@ npm에 패키지를 배포할 때 배포하지 않을 파일들 목록입니다.
 각종 설정 (로그인, 저장소 등 설정)
 https://docs.npmjs.com/cli/v7/configuring-npm/npmrc/
 
+`pnpm 설명 .npmrc`  
+https://pnpm.io/ko/next/npmrc#link-workspace-packages
+
+.npmrc 파일은 key = value 의 목록을 갖는 INI-formatted 형식의 파일  
+https://en.wikipedia.org/wiki/INI_file
+
+.npmrc 파일에는 ${NAME} 구문을 사용하는 환경 변수가 사용될 수 있습니다.   
+환경 변수의 기본값을 지정할 수도 있습니다.   
+${NAME-fallback} 을 사용하면, NAME 이 설정되지 않은 경우 fallback 이 반환됩니다.   
+${NAME:-fallback} 을 사용하면, NAME 이 설정되지 않았거나 빈 값일 경우 fallback 이 반환됩니다.
+
+
 ## lerna.json
 
 하나의 프로젝트에서 여러 패키지를 관리할 수 있게 해주는 lerna입니다. 그에 관한 설정 파일입니다.

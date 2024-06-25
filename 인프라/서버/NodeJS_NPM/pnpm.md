@@ -33,3 +33,7 @@ https://news.hada.io/topic?id=14788
 - PNPM으로 설치한 Node.js는 Corepack이 포함되지 않음
 - Node.js 버전을 전역으로만 관리할 수 있으며, 쉘마다 설정할 수 없음
 - 프로젝트 간 이동 시 Node.js 버전을 동적으로 전환하지 않으므로, 직접 추적해야 함
+
+## pnpm 모노레포
+
+https://pnpm.io/ko/next/workspaces
