@@ -1,6 +1,35 @@
-https://velog.io/@rhtjdrhkd123/20220516-swiper-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98-%EC%A0%95%EB%A6%AC  
+# 스와이프 슬라이드 내부 이미지 에러 (폴백)
 
+```javascript
+// 이미지 에러 대응
+const onImageError = event => {
+  console.log('onImageError', event);
+  try {
+    // 스와이프가 무한롤링으로 설정된 경우, 슬라이드 태그가 복제되는 형태이므로, 이미지 에러가 발생하는 동일 이미지 찾아 변경!
+    // TODO: 상위 태그에서 에러 이벤트 관리 필요
+    const $swiper = document.querySelector('#swiper');
+    const fallback = '//대체이미지';
+    if ($swiper) {
+      const src = event.target.src;
+      [...$swiper.querySelectorAll('img')].forEach(element => {
+        if (element && element?.src === src) {
+          element.src = fallback;
+        }
+      });
+    } else {
+      event.target.src = fallback;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
 
+# 설정 값
+
+https://velog.io/@rhtjdrhkd123/20220516-swiper-%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98-%EC%A0%95%EB%A6%AC
+
+```
 이름 : allowSlideNext 허용슬라이드다음
 유형 : boolean
 기본 : true
@@ -627,5 +656,5 @@ Swiper Angular/React/Svelte/Vue에서는 지원되지 않습니다.
 유형 : function
 기본 :
 설명 :
-
 모든 이벤트에서 실행될 이벤트 리스너 추가
+```
