@@ -121,17 +121,6 @@ export const API_BASE_URL: Record<
     process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL || '',
 } as const;
 
-// 각 API별 Path
-export const API_PATH: Record<
-  (typeof API_TYPE)[keyof typeof API_TYPE],
-  { [key: string | number | symbol]: any }
-> = {
-  [API_TYPE.TEST]: {
-    LIST: '/todos',
-  },
-  [API_TYPE.DEFAULT]: {},
-} as const;
-
 // --
 
 type MessageCallback = (message: string) => void;
