@@ -68,7 +68,7 @@ fs.existsSync(path) 사용 가능
  * 해당경로 존재여부 (폴더 또는 파일)
  */
 export const isPathExists = (
-  pathname: string = 'headlessbrowser/testcase',
+  pathname: string = 'testcase/tests',
   options: { [key: string]: any } = {},
 ) => {
   return pathname && fs.existsSync(path.resolve(__dirname, '../../', pathname));
@@ -82,7 +82,7 @@ export const isPathExists = (
  * 해당경로의 디렉토리 및 파일 리스트 반환
  */
 export const getDirectoryFile = (
-  pathname: string = 'headlessbrowser/testcase',
+  pathname: string = 'testcase/tests',
   options: { isFileExtension?: boolean; fileExtensionFilter?: string[] } = {},
 ) => {
   const { isFileExtension = false, fileExtensionFilter = ['.ts', '.js'] } =
