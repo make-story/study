@@ -1,6 +1,11 @@
 # pointer-events
 
+https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+
 클릭 이벤트 허용 여부
+
+position absolute 나 fixed 인 레이어 아래 element로 click 이벤트를 전달하고 싶다면  
+absolute 혹은 fixed 레이어에 pointer-events css 값을 none 으로 할당하면 된다.
 
 pointer-event 속성을 통해 엘리먼트가 마우스 이벤트(호버, 클릭, 드래그 등)에 어떻게 반응할지를 지정할 수 있다.  
 부모 엘리먼트가 pointer-events: none 속성을 갖고 있어도 자식 중  
