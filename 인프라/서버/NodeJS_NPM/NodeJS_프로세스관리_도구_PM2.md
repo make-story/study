@@ -156,6 +156,8 @@ https://engineering.linecorp.com/ko/blog/pm2-nodejs
 0번 프로세스의 재시작은 이런 과정을 거쳐 완료되는데요.  
 이 과정을 총 프로세스 개수만큼 반복하면 모든 프로세스의 재시작이 완료됩니다.
 
+https://www.essential2189.dev/zero-downtime-deployment
+
 ## 재시작 과정에서 서비스 중단이 발생하는 경우
 
 - 새로 만들어진 프로세스가 실제로는 아직 요청을 받을 준비가 되지 않았는데 ready 이벤트를 보내는 경우

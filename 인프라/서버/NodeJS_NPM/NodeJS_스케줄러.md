@@ -4,6 +4,8 @@ https://betterstack.com/community/guides/scaling-nodejs/best-nodejs-schedulers
 
 https://npmtrends.com/agenda-vs-bree-vs-bullmq-vs-cron-vs-croner-vs-cronosjs-vs-node-cron-vs-node-schedule
 
+https://greenydev.com/blog/pm2-cron-job-multiple-instances/
+
 - Bull
 - Agenda
 - Bree
