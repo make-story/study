@@ -1,3 +1,9 @@
+# MySQL 대용량 처리, 설계
+
+`study.git/인프라/Memcached_Redis.md` 참고
+
+`실무 예제로 다가가는 MySQL 쿼리 작성, MySQL 퍼포먼스 최적화` 책 참고!
+
 # MySQL 쿼리 튜닝
 
 https://monday9pm.com/mysql-%EC%BF%BC%EB%A6%AC-%ED%8A%9C%EB%8B%9D%EC%9D%98-%EC%B2%AB%EA%B1%B8%EC%9D%8C-3ff0e5e1c964
