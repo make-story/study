@@ -31,6 +31,18 @@ https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
 `NPM Trends` 참고  
 https://npmtrends.com/socket.io-vs-websocket-vs-ws
 
+`2023년 기준 리스트업`  
+https://ably.com/blog/websocket-libraries-for-node
+
+- Socket.IO
+- WS
+- SockJs
+- Feathers
+- µWebSockets
+- Faye-WebSocket
+- Primus
+- SocketCluster
+
 유성민 자체 개발 라이브러리  
 `https://github.com/make-story/ui/tree/master/src/websocket` 참고!
 

@@ -1,5 +1,7 @@
 # Node.js 환경에서 TypeScript 실행
 
+`24년 06월 기준, 삽질의 결과 ts-node 는 tsconfig 에서 "module": "CommonJS" 설정만 지원! "NodeNext" 등 최산의 Node.js 코드활용을 위해서는 tsx 도구 사용 권장!`
+
 https://nodejs.org/en/learn/getting-started/nodejs-with-typescript
 
 https://jjnooys.medium.com/node-js%EC%99%80-esm-2-typescript-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-esm%EC%9C%BC%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0-7266e8174906
