@@ -48,6 +48,9 @@ https://iam.furo.one/post/concept-oauth
 
 https://blog.naver.com/mds_datasecurity/222182943542
 
+용어 및 흐름, 코드
+`https://velog.io/@zxzz45/OAuth2.0`
+
 ### Authentication
 
 `인증`, 접근 자격이 있는지 검증하는 단계를 말합니다. (로그인, 식별 관점)
