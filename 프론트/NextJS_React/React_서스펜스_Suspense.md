@@ -1,5 +1,7 @@
 # React Suspense (서스펜스)
 
+`study.git/프론트/NextJS_React/NextJS_스트리밍_Streaming_서스펜스_Suspense.md` 참고!
+
 React v16.6 실험적인 기능으로 포함, React v18.0 공식 포함
 
 Suspense 는 리액트 내장 컴포넌트로서  
@@ -51,77 +53,4 @@ function App() {
     </Suspense>
   );
 }
-```
-
-# Next.js 스트리밍 및 서스펜스(Suspense)
-
-https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
-
-https://stackoverflow.com/questions/69433673/nextjs-reactdomserver-does-not-yet-support-suspense  
-Next js 12 이하 버전에서는 Suspense를 지원하지 않음
-
-## `Error: ReactDOMServer does not yet support Suspense.` 에러 원인
-
-https://velog.io/@devstone/React-Error-ReactDOMServer-does-not-yet-support-Suspense
-React로 SSR을 구현하기 위해 사용한 ReactDOMServer.renderToString 에서 Suspense 컴포넌트를 지원하지 않았기 때문
-
-SSRCompatibleSuspense.jsx
-
-```javascript
-import React, { Suspense } from 'react';
-import useMounted from 'hooks/useMounted';
-
-export default function SSRCompatibleSuspense(props) {
-  const isMounted = useMounted();
-
-  if (isMounted) {
-    return <Suspense {...props} />;
-  }
-  return <>{props.fallback}</>;
-}
-```
-
-useMounted.js
-
-```javascript
-import React from 'react';
-
-function useMounted() {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  return mounted;
-}
-
-export default useMounted;
-```
-
-AsyncTest.jsx
-
-```javascript
-import React, { useState } from 'react';
-import styles from './style.scss';
-import GetData from './components/GetData';
-import ErrorBoundary from './asyncHandler/ErrorBoundary';
-import ErrorComponent from './asyncHandler/ErrorComponent';
-import LoadingComponent from './asyncHandler/LoadingComponent';
-import SSRCompatibleSuspense from './asyncHandler/SSRCompatibleSuspense';
-
-function AsyncTest() {
-  return (
-    <ErrorBoundary
-      renderFallback={({ error }) => <ErrorComponent error={error} />}
-      resetKey={resetKey}
-    >
-      <SSRCompatibleSuspense fallback={<LoadingComponent />}>
-        <GetData />
-      </SSRCompatibleSuspense>
-    </ErrorBoundary>
-  );
-}
-
-export default AsyncTest;
 ```

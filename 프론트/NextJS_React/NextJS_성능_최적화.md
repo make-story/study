@@ -123,6 +123,10 @@ export const getServerSideProps: GetServerSideProps<{ time: string }> = async ({
 };
 ```
 
+## SSR 스트리밍
+
+`study.git/프론트/NextJS_React/NextJS_스트리밍_Streaming_서스펜스_Suspense.md` 참고!
+
 ## 기존적으로 압축(gzip) 제공
 
 기능 사용 안할 경우

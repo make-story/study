@@ -97,11 +97,18 @@ for (let i = 1; i <= 5; i++) {
 
 # 클로저
 
+`study.git/프로그래밍_개발방법론_패턴/함수형_자바스크립트/고차함수_클로저.md` 참고!
+
 You Don’t Know JS의 저자로 유명한 카일 심슨(Kyle Simpson)은 클로저를 다음과 같이 정의
 
-> 클로저는 함수가 속한 렉시컬 스코프를 기억하여 함수가 렉시컬 스코프 밖에서 실행될 때에도 이 스코프에 접근할 수 있게 하는 기능을 뜻한다.
+`클로저는 함수가 속한 렉시컬 스코프를 기억하여 함수가 렉시컬 스코프 밖에서 실행될 때에도 이 스코프에 접근할 수 있게 하는 기능`을 뜻한다.
 
 https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch6.md#modules
+
+## 유성민 개인적 클로저 활용
+
+- 정보 은닉
+- 공통(반복) 코드 추상화 (E2E 테스트 개밝간 testcase 작성함수, monorepo-nodejs20.git/apps/e2e-test/testcase/modules/index.ts)
 
 ## 리액트 Hook 클로저 활용
 
