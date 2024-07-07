@@ -2,9 +2,9 @@
 
 https://www.peterkimzz.com/nuxt3-auto-scrolling-with-composition-api
 
-Vue 2 방식
+## Vue 2
 
-기본적으로 Options API 형태
+기본적으로 `Options API 형태`
 
 https://vueschool.io/articles/vuejs-tutorials/options-api-vs-composition-api/
 
@@ -44,7 +44,9 @@ count 같은 반응형 데이터와 computed,mounted 같은 라이프사이클 �
 그리고 특히 이 요소들을 밖으로 빼내서 재사용하기가 어려웠습니다.  
 지금은 코드가 짧아서 보기에 문제가 없어보이지만, 코드가 많아졌을 때 원하는 코드를 찾기가 매우 힘들었습니다.
 
-Composition API를 활용해 재사용성을 높인 코드를 봅시다.
+## Vue 3
+
+`Composition API` 를 활용해 재사용성을 높인 코드를 봅시다.
 
 ```vue
 <template>
