@@ -52,6 +52,8 @@ Node.js는 CommonJS와 함께 모듈 시스템을 도입하여 코드를 모듈�
 
 # 멀티 스레드(Multithreaded) 구조와 싱글 스레드 이벤트 루프(Single Threaded Event Loop) 구조의 차이점
 
+`study.git/SW공학_컴퓨터구조/코어_스레드_클러스터.md` 참고!
+
 https://mygumi.tistory.com/154
 
 ## 우선 멀티 스레드 기반의 HTTP 요청/응답 모델을 보자. (Spring + JSP)
