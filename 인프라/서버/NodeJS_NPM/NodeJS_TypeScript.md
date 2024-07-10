@@ -1,5 +1,6 @@
 # Node.js 환경에서 TypeScript 실행
 
+중요!!!!!!  
 `24년 06월 기준, 삽질의 결과 ts-node 는 tsconfig 에서 "module": "CommonJS" 설정만 지원! "NodeNext" 등 최산의 Node.js 코드활용을 위해서는 tsx 도구 사용 권장!`
 
 https://nodejs.org/en/learn/getting-started/nodejs-with-typescript
@@ -43,6 +44,37 @@ https://stackoverflow.com/questions/37979489/how-to-watch-and-reload-ts-node-whe
 ## tsx 활용
 
 https://www.npmjs.com/package/tsx
+
+```json
+{
+  "extends": "@makestory/config/tsconfig.server.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "noEmit": false,
+    "allowJs": true,
+    "checkJs": true,
+    "paths": {
+      "#/*": ["./*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "**/*.js", "**/*.json"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+package.json
+
+```json
+{
+  "type": "module"
+}
+```
 
 ## `tsc` 활용
 
