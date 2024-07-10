@@ -116,7 +116,7 @@ if (cluster.isPrimary) {
 
 Node.js 서버가 스케일아웃될 경우, 메시지 브로커(레디스, 카프카 등)를 활용해야 한다!
 
-## Next.js 의 경우
+## Next.js 클러스터링
 
 ```javascript
 import http from 'node:http';
