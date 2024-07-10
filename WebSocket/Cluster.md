@@ -1,8 +1,12 @@
-# Cluster (클러스터), 멀티 프로세스, 멀티 스레드 환경
+# Cluster (클러스터), 멀티 프로세스, 멀티 스레드 환경 대응
 
 https://github.com/websockets/ws/issues/476
 
 https://github.com/fensziii/node-ws-cluster
+
+## Node.js 클러스터(워커)간 메시지 교환
+
+`study.git/인프라/서버/NodeJS_NPM/NodeJS_클러스터링.md` 참고!
 
 ## Redis
 
