@@ -1,41 +1,44 @@
-# 최적화
+# 캐싱 (Caching)
 
 https://medium.com/@surksha8/10-proven-strategies-to-boost-your-next-js-app-performance-2de166dcff50
 
-https://fe-developers.kakaoent.com/2024/240418-optimizing-nextjs-cache/
-
-Next.js 13 이상 캐싱 메커니즘  
+`Next.js 13 이상 캐싱 메커니즘`  
 https://nextjs.org/docs/app/building-your-application/caching
 
-## 이미지 자동 최적화
+## 서버에 적용되는 캐시 매커니즘
 
-https://fe-developers.kakaoent.com/2022/220714-next-image/
+https://fe-developers.kakaoent.com/2024/240418-optimizing-nextjs-cache/
 
-https://nextjs.org/docs/basic-features/image-optimization
+- Request Memoization
 
-next.js는 이미지 자동 최적화 기능이 구현되어 사이즈를 변경하거나 퀄리티를 수정하는 등 브라우저들이 지원하는 최신 포멧의 이미지를 제공할 수 있다.  
-따라서 큰 이미지라도 작은 뷰포트에서는 작게 리사이즈되어 서빙된다. 이미지 최적화 기능은 next.js 에서 Image컴포넌트를 import하여 <img> 엘리먼트를 사용하듯이 쓸 수 있다.
+웹 서버로 페이지 요청이 들어오면 페이지에 필요한 데이터들을 fetch하게 되는데, 이때 동일한 endpoint로의 API fetch를 여러 컴포넌트에서 수행할 필요가 있다면 Request Memoization이 동작합니다. (React가 fetch 함수를 확장해놓았기 때문에 별도 설정은 필요 없습니다.)
+상위 컴포넌트에서 API fetch 결과를 prop drilling 하는것 대신, 각 컴포넌트에서 fetch를 수행하도록 구현해도 실제 API 요청은 최초 1회만 전송되고 나머지는 응답값을 재사용합니다.
+
+Request Memoization은 서버에서 호출되는 GET 메서드에만 적용되므로, POST나 DELETE API 또는 클라이언트에서 호출되는 API에는 적용되지 않습니다. 그리고 한 번의 서버 렌더링 동안만 유효하기 때문에 따로 revalidate 할 필요가 없을 뿐 아니라 할 수도 없습니다.
+
+- Data Cache
+
+우리가 일반적으로 생각할 수 있는 API 캐싱입니다.
 
 ```javascript
-import Image from 'next/image';
-<Image src='/logo.png' alt='Logo' width={500} height={500} />;
+// Revalidate at most every hour
+fetch('https://...', { next: { revalidate: 3600 } });
 ```
 
-## 코드 스플리팅
+Next.js가 확장해놓은 fetch 함수에 next.revalidate 옵션을 넘기면 Data Cache가 동작합니다. 성공적으로 데이터를 가져왔다면 그 응답값을 저장해두었다가 동일한 경로로 fetch 함수를 실행할 때 실제 API 호출은 건너뛰고 저장해놓은 응답값을 반환합니다.
 
-코드 스플리팅 기능을 적용하면 클라이언트 측 성능 확보를 위해 꼭 필요한 javascript만 보낼 수 있다.
+하나의 요청 동안만 유효한 Request Memoization과 다르게 Data Cache는 일정 시간 동안에 웹 서버로 들어오는 모든 요청에 대해 동작합니다. 만약 next.revalidate를 1초로 설정했다면, 1초에 1000명의 사용자가 접속해도 실제 API 요청은 1회 전송됩니다.
 
-next.js는 두 가지의 코드 스플리팅 기능을 지원한다.
+- Full Route Cache
 
-1. 라우팅 경로 기반
-   `next.js에 기본으로 적용되어 있으며. 사용자가 라우팅할 때 최초로 필요로 하는 코드들만 전송`한다.  
-   나머지 코드들은 앱 내에서 페이지 이동을 할 때 추가적으로 전송한다.  
-   이는 파싱하고 컴파일 해야 하는 코드량을 줄여 페이지 로드 타임을 감소시킬 수 있다.
+`웹 서버의 성능을 눈에 띄게 향상시키려면 Full Route Cache를 적용해야 합니다.`  
+서버 렌더링 과정에서 웹 서버의 리소스(특히 CPU)를 대부분 사용하게 되는데, Full Route Cache는 서버 렌더링 결과를 재사용함으로써 이를 줄일 수 있습니다.
 
-2. 컴포넌트별
-   이 코드 스플리팅은 큰 컴포넌트를 여러 코드들로 나누어 필요할 때 다운로드받을 수 있도록 해 준다.  
-   `next.js는 dynamic import() 를 통해 컴포넌트 코드 스플리팅을 지원`한다.  
-   따라서 react컴포넌트 포함 필요한 javascript코드들을 분리하여 동적으로 로드할 수 있게 된다.
+Full Route Cache를 적용하려면 페이지를 Static 렌더링 되도록 구성해야 합니다.  
+https://nextjs.org/docs/app/building-your-application/caching#full-route-cache
+
+`Dynamic Function을 사용하지 않아야함!`  
+https://nextjs.org/docs/app/building-your-application/caching#dynamic-functions
 
 ## 서버사이드 렌더링 캐싱하기
 
@@ -150,38 +153,3 @@ Next.js는 기본적으로 모든 페이지에 대해 etag 를 생성합니다.
 ## Keep-Alive
 
 Next.js는 자동으로 node-fetch 를 폴리필하고 기본적으로 HTTP Keep-Alive 를 활성화 합니다.
-
----
-
-# Next.js 빌드 최적화
-
-https://tech.inflab.com/20230918-rallit-standalone/
-
-Next.js 에서 지원하는 standalone 옵션을 적용시킨 후, Docker image 사이즈를 최소화하고 배포 시간을 줄이는데 성공
-
-Standalone 은 ‘독립형’ 또는 ‘독립적인 것’ 이라는 뜻을 가지고 있습니다. Next.js 에서는 웹 어플리케이션을 실행하는데 필요한 최소한의 코드만 추출하겠다는 의미로 사용됩니다.
-
-https://nextjs.org/docs/pages/api-reference/next-config-js/output#automatically-copying-traced-files
-
-```javascript
-module.exports = {
-  output: 'standalone',
-};
-```
-
-## 실행
-
-standalone 으로 걸러낸 서버의 실행은 다음과 같이 할 수 있습니다. next start와 유사한 기능입니다.
-
-```bash
-$ node standalone/server.js
-```
-
----
-
-# Next.js import 최적화
-
-Next.js 13.5 이상부터 패키지 import 최적화  
-https://nextjs.org/blog/next-13-5
-
-https://vercel.com/blog/how-we-optimized-package-imports-in-next-js

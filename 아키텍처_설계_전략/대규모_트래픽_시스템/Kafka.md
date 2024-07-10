@@ -1,5 +1,7 @@
 # 카프카(Kafka)
 
+`study.git/아키텍처_설계_전략/대규모_트래픽_시스템/메시지_대기열_MQ.md` 참고!
+
 https://velog.io/@holicme7/Apache-Kafka-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80
 
 메시지 발행 구독 시스템 (메시지 브로커)
