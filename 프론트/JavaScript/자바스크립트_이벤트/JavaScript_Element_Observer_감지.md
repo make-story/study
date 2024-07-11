@@ -41,7 +41,16 @@ observer.disconnect();
 
 https://developer.mozilla.org/ko/docs/Web/API/IntersectionObserver/IntersectionObserver
 
+https://github.com/w3c/IntersectionObserver
+
 노출 감지
+
+```css
+/* 옵져버가 diplay none 경우, 작동안함 */
+div {
+  display: none;
+}
+```
 
 ## ResizeObserver
 
