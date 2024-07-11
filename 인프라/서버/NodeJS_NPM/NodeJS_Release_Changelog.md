@@ -85,6 +85,19 @@ https://v3.yarnpkg.com/getting-started/install
 $ corepack install --global yarn@x.y.z
 ```
 
+## watch
+
+Node.js의 18.11.0 버전부터 런타임 중 코드 변경 사항이 있을 때 자동으로 프로세스를 재시작해주는 `watch` 기능이 활성화
+
+https://nodejs.org/en/blog/release/v18.11.0
+
+https://pawelgrzybek.com/til-node-v18-11-0-comes-with-a-watch-mode-so-you-might-not-need-nodemon/
+
+https://nodejs.org/en/blog/announcements/v22-release-announce#watch-mode-node---watch
+
+`File Watch`  
+https://nodejs.org/docs/latest/api/fs.html#fswatchfilename-options-listener
+
 ## fetch
 
 Node.js v18 지원 (실험적 지원)
