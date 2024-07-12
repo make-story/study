@@ -131,6 +131,15 @@ ws.addEventListener('open', () => {
 $ node --experimental-websocket example.js
 ```
 
+## 웹소켓 메시지 타입
+
+https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send
+
+- string
+- ArrayBuffer
+- Blob
+- TypedArray or a DataView
+
 ## 웹소켓 메시지 제한
 
 https://www.rfc-editor.org/rfc/rfc6455#section-5.2
