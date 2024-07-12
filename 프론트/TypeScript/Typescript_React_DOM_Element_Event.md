@@ -2,6 +2,8 @@
 
 https://typescript-kr.github.io/pages/tutorials/dom-manipulation.html
 
+https://balamurugan16.hashnode.dev/react-with-typescript-tips-and-tricks-that-you-should-know
+
 https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html
 
 # `Element Type`
@@ -64,7 +66,6 @@ function Component() {
 
 ```tsx
 // scroll
-
 function Component() {
   useEffect(() => {
     // WheelEvent
@@ -78,6 +79,24 @@ function Component() {
   }, []);
   return <></>;
 }
+```
+
+```tsx
+// ChangeEvent
+const onChangePattern = useCallback(
+  (
+    event: ChangeEvent<HTMLInputElement>,
+    { listIndex }: { listIndex: number },
+  ) => {
+    dispatch(
+      setChangePattern({
+        index: listIndex,
+        value: event.currentTarget.value,
+      }),
+    );
+  },
+  [dispatch],
+);
 ```
 
 ## 이벤트 유형에 신경 쓰지 않는다면 React.SyntheticEvent 를 사용할 수 있습니다.

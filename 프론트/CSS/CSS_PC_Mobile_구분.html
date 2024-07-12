@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .pc-view,
+      .mobile-view {
+        color: blue;
+      }
+
+      @media (hover: none) {
+        .pc-view {
+          display: none;
+        }
+      }
+      @media (hover: hover) {
+        .mobile-view {
+          display: none;
+        }
+      }
+
+      .demo {
+        display: inline-block;
+        width: 200px;
+        height: 100px;
+        line-height: 100px;
+        background: #aaa;
+        text-align: center;
+        opacity: 0.4;
+        margin: 4px;
+        border-radius: 1px;
+        text-decoration: line-through;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      .demo:hover {
+        background: #c00;
+        color: white;
+      }
+
+      /** hover options */
+
+      @media (hover: none) {
+        .demo.hover--none {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (hover: hover) {
+        .demo.hover--hover {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+
+      /** pointer options */
+
+      @media (pointer: none) {
+        .demo.pointer--none {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (pointer: coarse) {
+        .demo.pointer--coarse {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (pointer: fine) {
+        .demo.pointer--fine {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+
+      /** any-hover options */
+      @media (any-hover) {
+        .demo.any-hover {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (any-hover: none) {
+        .demo.any-hover--none {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (any-hover: hover) {
+        .demo.any-hover--hover {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+
+      /** any-pointer options */
+      @media (any-pointer) {
+        .demo.any-pointer {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (any-pointer: none) {
+        .demo.any-pointer--none {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (any-pointer: coarse) {
+        .demo.any-pointer--coarse {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+      @media (any-pointer: fine) {
+        .demo.any-pointer--fine {
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- https://codepen.io/paperblock/pen/wvzrezj //-->
+    <h3 class="pc-view">PC 사용중!</h3>
+    <h3 class="mobile-view">모바일 사용중</h3>
+    <h4>Media Query Test:</h4>
+
+    <div class="output">
+      <div>
+        <div class="demo hover--none">hover: none</div>
+        <div class="demo hover--hover">hover: hover</div>
+      </div>
+
+      <div>
+        <div class="demo pointer--none">pointer: none</div>
+        <div class="demo pointer--coarse">pointer: coarse</div>
+        <div class="demo pointer--fine">pointer: fine</div>
+      </div>
+
+      <div>
+        <div class="demo any-hover--none">any-hover: none</div>
+        <div class="demo any-hover--hover">any-hover: hover</div>
+      </div>
+
+      <div>
+        <div class="demo any-pointer--none">any-pointer: none</div>
+        <div class="demo any-pointer--coarse">any-pointer: coarse</div>
+        <div class="demo any-pointer--fine">any-pointer: fine</div>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript 터치 디바이스 여부 확인
+      if (
+        window.matchMedia('(pointer: coarse)').matches ||
+        window.matchMedia('(any-pointer: coarse)').matches
+      ) {
+        // touchscreen
+      }
+
+      const isTouchDevice =
+        'ontouchstart' in window ||
+        window.navigator.MaxTouchPoints > 0 ||
+        window.navigator.msMaxTouchPoints > 0 ||
+        !!(window.DocumentTouch && window.document instanceof DocumentTouch);
+
+      const isTouchScreen =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    </script>
+  </body>
+</html>
