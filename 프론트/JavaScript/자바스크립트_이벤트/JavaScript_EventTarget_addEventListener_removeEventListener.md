@@ -2,11 +2,19 @@
 
 https://developer.mozilla.org/ko/docs/Web/API/EventTarget/EventTarget
 
-## listener? handler?
+## 리스너(listener)? 핸들러(handler)?
 
-https://developer.mozilla.org/ko/docs/Web/API/EventTarget/addEventListener
+MDN 문서 참고  
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events
 
-https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy
+이벤트에 반응하려면 이벤트 핸들러를 이벤트에 연결합니다.  
+이는 이벤트가 발생할 때 실행되는 코드 블록(일반적으로 프로그래머가 만든 JavaScript 함수)입니다.  
+이러한 코드 블록이 이벤트에 대한 응답으로 실행되도록 정의되면 이벤트 핸들러를 등록 한다고 합니다 .
+
+참고: 이벤트 핸들러는 때때로 이벤트 리스너 라고도 합니다.  
+엄밀히 말하면 함께 작동하지만 우리의 목적에 따라 거의 호환이 가능하지만  
+`리스너는 이벤트 발생을 수신`하고  
+`핸들러는 이벤트 발생에 대한 응답`으로 실행되는 코드입니다.
 
 ## 이벤트 등록 전 해제 (중복, 메모리릭 방지)
 
