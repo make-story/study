@@ -430,6 +430,11 @@ function sum(x, y) {
 
 - jQuery의 함수명은 위에서 설명한 규칙을 따르지 않습니다. jQuery 의 많은 메서드가 getter와 setter의 역할을 동시에 하기 때문입니다.
 
+추가(삽입), 삭제(제거), 수정
+
+- JavaScript DOM 측면 에서는 'Append', DB 측면에서는 'Insert' 이나, Insert 로 통일
+- 'Remove' 도 'Delete' 로 통일
+
 ## 폴더명, 파일명
 
 `일반적 약어(api, env 등)외 약어는 최소화 하며, 단수/복수 구분이 힘들 때는, 단수로 한다`
