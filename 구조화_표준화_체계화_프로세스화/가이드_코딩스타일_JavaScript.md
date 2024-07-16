@@ -420,7 +420,7 @@ function sum(x, y) {
 
 함수명과 메서드(객체에 소속된 함수)의 첫 번째 단어는 동사로 시작해야 합니다.
 
-함수 프리픽스
+## 함수 프리픽
 
 1. has : 불린 값을 반환하는 함수
 2. is : 불린 값을 반환하는 함수
@@ -428,12 +428,19 @@ function sum(x, y) {
 4. set : 값을 저장하기 위해 사용하는 함수
 5. fetch : 데이터 통신을 위해 사용하는 함수
 
-- jQuery의 함수명은 위에서 설명한 규칙을 따르지 않습니다. jQuery 의 많은 메서드가 getter와 setter의 역할을 동시에 하기 때문입니다.
+참고
 
-추가(삽입), 삭제(제거), 수정
+- jQuery의 함수명은 위에서 설명한 규칙을 따르지 않습니다.
+- jQuery 의 많은 메서드가 getter와 setter의 역할을 동시에 하기 때문입니다.
+
+## 추가(삽입), 삭제(제거), 수정
 
 - JavaScript DOM 측면 에서는 'Append', DB 측면에서는 'Insert' 이나, Insert 로 통일
 - 'Remove' 도 'Delete' 로 통일
+
+## 엘리먼트(DOM, Element, querySelector, querySelectorAll)의 경우
+
+- $네이밍, '$'로 시작 추천?
 
 ## 폴더명, 파일명
 
