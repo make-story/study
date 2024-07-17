@@ -41,6 +41,8 @@ NEXT.JS는 요청이 들어왔을 때, dist 폴더 밑에 cache/images 폴더에
 
 ## sharp VS Squoosh
 
+`study.git/파일_버퍼_스트림_포맷_변환/Image/이미지_최적화_도구.md` 참고!
+
 NEXT.JS는 운영 환경에서는 sharp 라이브러리를 사용할 것은 권장하고 있습니다.
 
 https://nextjs.org/docs/messages/sharp-missing-in-production
