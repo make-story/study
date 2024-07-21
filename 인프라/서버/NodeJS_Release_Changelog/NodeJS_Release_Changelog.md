@@ -55,6 +55,14 @@ Node.js 21은 기본 모듈 시스템으로서 ESM을 CommonJS보다 선호하�
 새로운 실험적 플래그는 .js 파일을 ESM으로 취급하도록 변경합니다.  
 https://www.codenary.co.kr/latest-news/711
 
+## File
+
+경로의 하위 디렉토리까지 생성
+
+```javascript
+fs.mkdirSync(logDirectory, { recursive: true }); // Node.js 10.12부터 recursive 옵션 지원
+```
+
 ## Top-level await
 
 Node.js v14.8 이상지원
