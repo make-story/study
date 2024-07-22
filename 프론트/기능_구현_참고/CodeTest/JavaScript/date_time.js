@@ -84,21 +84,27 @@ export const convert24HourTo12HourFormat = time => {
 /**
  * 한국시간
  */
+/**
+ * 한국시간 - KST(Korea Standard Time, 한국 표준 시)
+ */
 export const getKoreaStandardTime = () => {
-  // 1. 현재 시간(Locale)
+  // 현재 시간(Locale, 서버시간)
   const date = new Date();
 
-  // 2. UTC 시간 계산
+  // UTC 시간 계산 - UTC(Coordinated Universal Time, 협정 세계시)
   // getTimezoneOffset() 함수는 현재 사용자 PC 설정 시간대로부터 UTC 시간까지의 차이를 '분'단위로 리턴
   // getTime() 함수는 '1970년 1월1 일 00:00:00 UTC'로부터 주어진 시간 사이의 경과시간(밀리초)를 리턴
-  const UTC = date.getTime() + date.getTimezoneOffset() * 60 * 1000;
+  const localTimeOffset = date.getTimezoneOffset() * 60 * 1000;
+  const utc = date.getTime() + localTimeOffset;
 
-  // 3. UTC to KST (UTC + 9시간)
-  // 한국 시간(KST)은 UTC시간보다 9시간 더 빠름
-  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-  const dateKR = new Date(UTC + KR_TIME_DIFF);
+  // UTC to KST (UTC + 9시간) - KST(Korea Standard Time, 한국 표준 시)
+  // 한국 시간(KST)은 UTC 시간보다 9시간 더 빠름
+  const kstTimeOffset = 9 * 60 * 60 * 1000;
+  const kst = new Date(utc + kstTimeOffset);
 
-  return dateKR;
+  //kst.toString(); // "2024-07-21T09:12:01.466Z"
+
+  return kst;
 };
 
 /**

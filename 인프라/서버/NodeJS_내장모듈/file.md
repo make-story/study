@@ -49,6 +49,19 @@ if (imageExt.includes(path.extname(output).toLowerCase())) {
  * 프로젝트 루트 경로
  */
 export const appDirectory = process.env.PWD || fs.realpathSync(process.cwd());
+
+/**
+ * 프로젝트 루트 경로 (서버실행 기준)
+ * 빌드된 경로에서 서버 실행경우 dist 내부가 APP_ROOT_PATH 가 됨
+ *
+ * 주의! 현재파일 위치 변경시, 파일 위치관련 기능들 base 경로('../../' 같은것) 수정(확인)필요!
+ * (TODO: 파일위치가 변경되어도 영향 없도록 개선필요!)
+ *
+ * 'app-root-path' 라는 도구 참고!
+ */
+export const APP_ROOT_PATH = fs.existsSync(path.resolve(__dirname, '../../'))
+  ? path.resolve(__dirname, '../../')
+  : process.env.PWD || fs.realpathSync(process.cwd());
 ```
 
 # fs
