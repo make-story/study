@@ -324,6 +324,66 @@ const pipe2 = async () => {
 };
 ```
 
+## map, reduce 함수에서 async/await 쓰기
+
+https://velog.io/@minsangk/2019-09-06-0209-%EC%9E%91%EC%84%B1%EB%90%A8-eik06xy8mm
+
+```javascript
+const arr = [
+  {
+    id: 1,
+    name: 'Minsang Kim',
+    age: 35,
+  },
+  {
+    id: 2,
+    name: 'Chenny Kim',
+    age: 2,
+  },
+];
+
+// Async function using setTimeout
+async function getIntroMessage(user) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(`${user.name} (${user.age}세)`);
+    }, 100);
+  });
+}
+```
+
+```javascript
+async function showMessages() {
+  // RIGHT :: Array.map using async-await and Promise.all
+  const messages = await Promise.all(
+    arr.map(user => {
+      return getIntroMessage(user);
+    }),
+  );
+  console.log(messages);
+}
+showMessages();
+```
+
+```javascript
+async function showMessages() {
+  // RIGHT1 :: Using Promise.all
+  const messageObject = (
+    await Promise.all(
+      arr.map(user => {
+        return getIntroMessage(user);
+      }),
+    )
+  ).reduce((result, message, index) => {
+    const user = arr[index];
+    result[user.id] = message;
+    return result;
+  }, {});
+  console.log('messageObject', messageObject);
+}
+showMessages();
+```
+
 # Top-level await
 
 https://fe-developers.kakaoent.com/2022/220728-es2022/
@@ -357,6 +417,15 @@ console.log(todoList); // {userId: 1, id: 1, title: 'delectus aut autem', comple
 https://github.com/tc39/proposal-top-level-await#use-cases
 
 ---
+
+- reject 발생에도 다 실행할 때
+  Promise.allSettled,
+
+- 하나라도 reject 시 멈출 때 (모든 Promise 가 resolve 됐을 때를 보장하려면)
+  Promise.all
+
+- resolve / reject 여부 상관없이 가장 먼저 수행된 결과를 받아올 때
+  Promise.race
 
 ```javascript
 const timer = time => {
