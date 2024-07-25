@@ -153,7 +153,25 @@ function func(a, b, ...args) {
 }
 func(1, 2, 3, 4, 5);
 
+/**
+ * spread 와 rest   
+ */
+// spread 예
+const slime = {
+	name: '슬라임'
+};  
+const cuteSlime = {
+	...slime,
+	attribute: 'cute'
+};
 
+// rest 예
+const purpleCuteSlime = {
+	name: '슬라임',
+	attribute: 'cute',
+	color: 'purple'
+};
+const { color, ...rest } = purpleCuteSlime;
 
 /*
 - 

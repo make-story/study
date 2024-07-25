@@ -48,6 +48,12 @@ new Date('2021-11-15T01:00:00+09:00');
 new Date('2022-03-25T02:00:59.999+09:00');
 ```
 
+# 사라피(Sagari) 개인정보보호 모드
+
+iOS Safari Private Browsing localStorage and sessionStorage Support?
+
+개인정보보호 모드에서는 세션스토리지 접근 불가할 수 있음
+
 # safearea, Safe Area, 노치 제어 (하단바)
 
 https://wit.nts-corp.com/2019/10/24/5731
