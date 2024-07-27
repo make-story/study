@@ -423,7 +423,7 @@ function sum(x, y) {
 ## 함수 프리픽
 
 1. has : 불린 값을 반환하는 함수
-2. is : 불린 값을 반환하는 함수
+2. is : 불린 값을 반환하는 함수 (예: isDatabase, setDatabaseToggle, isDatabaseButtonDisplay)
 3. get : 불린 이외의 값을 반환하는 함수
 4. set : 값을 저장하기 위해 사용하는 함수
 5. fetch : 데이터 통신을 위해 사용하는 함수

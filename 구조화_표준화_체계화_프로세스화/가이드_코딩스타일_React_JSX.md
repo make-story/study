@@ -44,6 +44,13 @@ const reservationItem = <ReservationCard />;
 <MyComponent variant="fancy" />
 ```
 
+# 네이밍
+
+```typescript
+// useDatabase 와 같은 변수명을 사용할 경우, 리액트에서는 사용자훅으로 인식되는 경우(다른 컴포넌트에서 props 로 해당 변수를 받았을 때)가 있음
+const [isDatabase, setDatabaseToggle] = useState<boolean>(false); // 데이터베이스 헬스체크를 통해 사용가능여부 판단
+```
+
 # 구문
 
 ```react

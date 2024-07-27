@@ -250,3 +250,21 @@ Input.displayName = 'Input';
 
 export { Input };
 ```
+
+# React ElementType / ComponentType / ReactNode / ReactElement / JSX.Element
+
+https://dev.to/itswillt/explaining-reacts-types-940
+
+```tsx
+// <PlaygroundCodeSubmit className="" /> 방식으로 사용
+type ElementPlaygroundCodeSubmit =
+  | ElementType<{
+      className?: string;
+    }>
+  | ComponentType<{
+      className?: string;
+    }>;
+
+// {playgroundCodeSubmit} 방식으로 사용
+type NodePlaygroundCodeSubmit = ReactNode | ReactElement;
+```

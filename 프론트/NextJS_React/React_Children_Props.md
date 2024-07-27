@@ -143,3 +143,130 @@ function UserForm() {
   );
 }
 ```
+
+# Props 로 리액트 컴포넌트(JSX) 전달
+
+How to Pass a Component as a Prop in React
+
+https://www.totaltypescript.com/pass-component-as-prop-react
+
+```tsx
+interface LayoutProps {
+  nav: React.ReactNode;
+  children: React.ReactNode;
+}
+
+const Layout = (props: LayoutProps) => {
+  return (
+    <>
+      <nav>{props.nav}</nav>
+      <main>{props.children}</main>
+    </>
+  );
+};
+
+<Layout nav={<h1>My Site</h1>}>
+  <div>Hello!</div>
+</Layout>;
+```
+
+```tsx
+const Row = (props: {
+  icon: React.ComponentType<{
+    className?: string;
+  }>;
+}) => {
+  return (
+    <div>
+      <props.icon className='h-8 w-8' />
+    </div>
+  );
+};
+
+<Row icon={UserIcon} />;
+```
+
+```tsx
+const Row = (props: {
+  element: React.ElementType<{
+    className?: string;
+  }>;
+}) => {
+  return (
+    <div>
+      <props.element className='h-8 w-8' />
+    </div>
+  );
+};
+
+<Row element={'div'} />;
+<Row element={UserIcon} />;
+```
+
+https://www.dhiwise.com/post/react-pass-component-as-prop-guide-to-component-composition
+
+```tsx
+function Avatar({ icon }) {
+  return <img src={icon} alt='User avatar' />;
+}
+
+function UserProfile({ user, AvatarComponent }) {
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <AvatarComponent icon={user.avatarUrl} />
+    </div>
+  );
+}
+
+const App = () => {
+  const UserAvatar = Avatar;
+  return (
+    <UserProfile
+      user={{ name: 'Alice', avatarUrl: 'path/to/alice.jpg' }}
+      AvatarComponent={UserAvatar}
+    />
+  );
+};
+
+export default App;
+```
+
+```tsx
+function Page({ header, content }) {
+  return (
+    <div>
+      {header}
+      <main>{content}</main>
+    </div>
+  );
+}
+
+const App = () => {
+  const headerElement = <h1>Welcome to My Page</h1>;
+  const contentElement = <p>This is the page content.</p>;
+
+  return <Page header={headerElement} content={contentElement} />;
+};
+
+export default App;
+```
+
+```tsx
+// 조건부 렌더링
+function ConditionalRenderer({ condition, render }) {
+  return condition ? render() : null;
+}
+
+function App() {
+  const isLoggedIn = true;
+  return (
+    <ConditionalRenderer
+      condition={isLoggedIn}
+      render={() => <div>Welcome back, user!</div>}
+    />
+  );
+}
+
+export default App;
+```
