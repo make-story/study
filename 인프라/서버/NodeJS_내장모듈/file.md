@@ -141,3 +141,7 @@ export const getDirectoryFile = (
   return { directory, file };
 };
 ```
+
+## 임시 디렉토리 생성
+
+https://nodejs.org/api/fs.html#fsmkdtempprefix-options-callback
