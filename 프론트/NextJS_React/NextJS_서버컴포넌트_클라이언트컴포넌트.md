@@ -8,7 +8,7 @@ https://nextjs.org/docs/app/building-your-application/rendering/composition-patt
 Server component 안에서 Client component 를 import 해서 사용가능
 
 `study.git/프론트/NextJS_React/React_서버컴포넌트_RSC.md` 참고!
-`study.git/프론트/NextJS_React/NextJS_13.md` 참고!
+`study.git/프론트/NextJS_React/NextJS_13.md` 참고! (렌더링 방식!)
 
 - 기존(Next.js 12 이하)에는 최상위 pages 단위 서버렌더링에서 컴포넌트 단위로 변경
 - Next.js 13 버전부터는 모든 컴포넌트가 서버 컴포넌트(기본)

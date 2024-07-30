@@ -22,6 +22,14 @@ Next.js 13 버전부터는 기본적으로 app directory 는 서버 컴포넌트
 `"use client";` 는 클라이언트에서만 렌더링 된다는 뜻이 아니라, 클라이언트에서도 렌더링 된다는 뜻 (즉 클라이언트단 하이드레이션 된다는 것)  
 즉, 서버와 클라이언트 모두 렌더링 된다는 것 (https://www.youtube.com/watch?v=t0UocUiR5-8)
 
+## 렌더링 방식 - 클라이언트 컴포넌트
+
+https://nextjs.org/docs/app/building-your-application/rendering/client-components
+
+https://github.com/reactwg/server-components/discussions/4
+
+서버 컴포넌트는 정적, 클라이언트 컴포넌트는 미리 렌더링 + 하이드레이션(JavaScript 코드 포함)
+
 ## Next.js 13.x 메모리 이슈
 
 https://github.com/vercel/next.js/issues/49929
