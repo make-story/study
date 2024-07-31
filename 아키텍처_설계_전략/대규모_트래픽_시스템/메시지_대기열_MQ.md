@@ -1,7 +1,5 @@
 # 메시지 대기열 Message Queuing (Message Queue, MQ)
 
-`study.git/아키텍처_설계_전략/대규모_트래픽_시스템/메시지_대기열_MQ.md` 참고!
-
 https://dev.to/chegerose/top-5-cloud-native-message-queues-mqs-with-nodejs-support-ak5
 
 https://goyunji.tistory.com/125

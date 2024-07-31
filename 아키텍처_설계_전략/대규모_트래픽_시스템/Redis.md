@@ -17,3 +17,7 @@ https://devocean.sk.com/blog/techBoardDetail.do?ID=165603
 레디스는 구성에 따라 단일모드, Master-Slave 복제모드, Cluster 모드로 구분할 수 있습니다.
 
 간단한 설치 및 개발에는 단일모드로 사용하고 읽기 성능 확장이 필요할 때는 Master-Slave 복제모드, 대규모 데이터를 운용하기 위한 Cluster 모드입니다.
+
+## 채널톡 실시간 채팅 서버 개선 여정 - 레디스의 'Pub/Sub'
+
+https://channel.io/ko/blog/real-time-chat-server-1-redis-pub-sub
