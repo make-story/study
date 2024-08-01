@@ -114,7 +114,9 @@ func(6, 7);
 - 
 펼침 연산자와 나머지 파라미터
 이터러블 객체를 개별 값으로 나누는 펼침 연산자(spread operator)는 "..."로 표기한다.
-* 이터러블(iterable)은 ES6 이터러블 규약(iterable protocol)에 따라 값을 여럿 가지며 개별 값을 순회 가능한 객체다. 배열이 대표적인 이터러블 객체다.
+이터러블(iterable)은 ES6 이터러블 규약(iterable protocol)에 따라 값을 여럿 가지며 개별 값을 순회 가능한 객체다. 배열이 대표적인 이터러블 객체다.
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
 */
 function func(a, b) {
 	return a + b;

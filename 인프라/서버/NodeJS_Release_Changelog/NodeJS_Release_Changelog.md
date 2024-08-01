@@ -3,6 +3,8 @@
 NodeJS 는 짝수버전으로 LTS 가 나오고  
 일반적이로 짝수버전을 따라 버전 업데이트를 한다.
 
+`study.git/프론트/ECMAScript/ESNext_Changelog.md` 참고!
+
 ## Release Schedule
 
 https://nodejs.org/en/about/previous-releases
@@ -80,6 +82,24 @@ for await (let metaPath of list) {
   await setConvertImage(metaPath);
 }
 ```
+
+## Node.js v14 이상
+
+Optional Chaining / Nullish / Intl.DIsplayNames / Intl.DateTimeFormat
+
+https://grepper.tistory.com/23
+
+### Intl.DisplayNames
+
+Intl.DisplayNames 객체는 언어, 지역 및 스크립트 표시 이름을 일관되게 번역 가능하게 하는 객체의 생성자
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames
+
+### Intl.DateTimeFormat
+
+Intl.DateTimeFormat 객체는 언어에 따라 날짜 및 시간 형식을 사용 가능하게 하는 객체의 생성자
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
 
 ## Corepack
 
