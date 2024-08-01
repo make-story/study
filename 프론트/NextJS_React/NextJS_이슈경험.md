@@ -333,3 +333,16 @@ TypeError: Cannot read properties of undefined (reading 'length')
 ```bash
 $ next dev --turbo
 ```
+
+# preloaded
+
+일부 리소스를 브라우저가 사전로드하도록 preload 옵션을 자동으로 설정하는데,  
+preload 옵션으로 로드해오는 리소스가 즉각적으로 사용이 안되니까 이런 에러가 발생한 듯
+
+(preload 옵션으로 로드해오는 리소스는 3초내에 실제로 '활용'이 되어야한다고 함)
+
+https://github.com/vercel/next.js/discussions/49607
+
+```
+The resource <URL> was preloaded using link preload but not used within a few seconds from the window’s load event. Please make sure it has an appropriate as value and it is preloaded intentionally
+```
