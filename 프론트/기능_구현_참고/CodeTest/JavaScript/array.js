@@ -202,6 +202,17 @@ array122.forEach(element => console.log(element));
   return v === 2; // true 조건의 경우 반복문 중단! break; 효과
 });
 
+/**
+ * break
+ */
+loop1: for (var i in set1) {
+  loop2: for (var j in set2) {
+    loop3: for (var k in set3) {
+      break loop2; // breaks out of loop3 and loop2
+    }
+  }
+}
+
 // ----------
 
 /**
