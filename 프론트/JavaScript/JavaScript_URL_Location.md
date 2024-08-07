@@ -82,3 +82,22 @@ window.location.assign(url);
 window.location = url;
 window.location.href = url;
 ```
+
+# trailing slash
+
+https://djkeh.github.io/articles/Why-do-we-put-slash-at-the-end-of-URL-kor/
+
+URL의 끝에 붙이는 슬래시(/)를 트레일링 슬래시(trailing slash)라고 부릅니다.
+
+트레일링 슬래시를 URL 끝에 붙이는 것은 해당 URL 리소스가 디렉토리(directory)임을 의미합니다.  
+이를 붙이지 않은 것은 해당 URL 리소스가 파일(file)임을 의미하죠.
+
+`HTTP 스펙상 Request에 경로를 생략할 수는 없습니다.`  
+별다른 경로가 없는 웹사이트 메인에 접속하는 경우에도 HTTP Request는 GET / HTTP/1.1과 같이 루트를 의미하는 / 경로가 반드시 포함되지요.  
+이 점을 고려해볼 때, https://www.naver.com 은 온전한 URL이 아닙니다.  
+온전한 URL 요청이 아니므로, https://www.naver.com 요청을 보내면 서버에서 https://www.naver.com/ 과 같이 Redirection 하는 게 아니라, 애당초 요청을 보낼 수 없었어야 합니다.  
+그러면? '/'' 가 언제 붙는지를 자연스럽게 추론할 수 있겠네요!
+
+그것은 웹 브라우저에서 일어납니다.  
+https://www.naver.com 를 입력하면, 웹 브라우저가 여기에 / 를 붙여서 https://www.naver.com/ 으로 요청을 발송합니다.  
+실제로 헤더를 분석해 보면 무슨 일이 있었는지 알 수 있지요.
