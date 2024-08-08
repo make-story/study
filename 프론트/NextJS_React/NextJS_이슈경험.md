@@ -346,3 +346,9 @@ https://github.com/vercel/next.js/discussions/49607
 ```
 The resource <URL> was preloaded using link preload but not used within a few seconds from the window’s load event. Please make sure it has an appropriate as value and it is preloaded intentionally
 ```
+
+# warning: extra attributes from the server
+
+서버에서 렌더링해온 결과와 화면에 출력된 결과가 서로 일치하지 않음!  
+클라이언트 사이드 렌더링을 명시하거나,  
+useEffect 로 상태값 변경처리 필요!
