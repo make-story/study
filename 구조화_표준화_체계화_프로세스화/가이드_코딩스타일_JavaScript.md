@@ -438,6 +438,12 @@ function sum(x, y) {
 - JavaScript DOM 측면 에서는 'Append', DB 측면에서는 'Insert' 이나, Insert 로 통일
 - 'Remove' 도 'Delete' 로 통일
 
+## 유틸(utils), 헬퍼(helper), 서비스(services)
+
+- 유틸: 독립적으로 작동하는 기능(함수), 외부 의존하는 도구나 변수 등이 없음
+- 헬퍼: 특정 도구, 기능을 사용하기 쉽게 해주는 것(외부 도구나 기능/함수 의존 존재)
+- 서비스: 데이터의 가공이나 변조 등 데이터 처리와 관련된 것
+
 ## 엘리먼트(DOM, Element, querySelector, querySelectorAll)의 경우
 
 - $네이밍, '$'로 시작 추천?
